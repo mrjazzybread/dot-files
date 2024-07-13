@@ -1,0 +1,44 @@
+IMAPAccount		gmail
+Host			imap.gmail.com
+User			tl.soares@campus.fct.unl.pt
+PassCmd			"gpg -d -q .cred.gpg | sed '1q;d'"
+TLSType			IMAPS
+CertificateFile		/etc/ssl/certs/ca-certificates.crt
+
+IMAPStore		gmail-remote
+Account			gmail
+
+MaildirStore		gmail-local
+Subfolders		Verbatim
+Path			~/mail/gmail/
+Inbox			~/mail/gmail/inbox
+
+Channel			gmail
+Far			:gmail-remote:
+Near			:gmail-local:
+Patterns		* ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail" "[Gmail]/Trash"
+create			Both
+SyncState		*
+
+
+IMAPAccount		inria
+Host			zimbra.inria.fr
+User			tiago.lopes-soares@inria.fr
+PassCmd			"gpg -d -q .cred.gpg | sed '2q;d'"
+TLSType			IMAPS
+CertificateFile		/etc/ssl/certs/ca-certificates.crt
+
+IMAPStore		inria-remote
+Account			inria
+
+MaildirStore		inria-local
+Subfolders		Verbatim
+Path			~/mail/inria/
+Inbox			~/mail/inria/inbox
+
+Channel			inria
+Far			:inria-remote:
+Near			:inria-local:
+Patterns		*
+Create			Both
+SyncState		*

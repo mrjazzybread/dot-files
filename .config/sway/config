@@ -1,0 +1,179 @@
+set $super Mod4
+set $alt Mod1
+set $terminal alacritty
+
+exec --no-startup-id nm-applet
+exec --no-startup-id volumeicon
+#empty old files in trash bin
+exec --no-startup-id trash-empty 30
+# set font
+font pango: Noto Sans 8
+
+set $background1 ~/.config/bg/lain-light.jpeg
+set $background2 ~/.config/bg/lain-hands.jpeg
+
+set $opacity 0.9
+
+# Use Mouse+$super to drag floating windows to their wanted position
+floating_modifier $super
+#autostart
+exec --no-startup-id discord --start-minimized
+output eDP-1 background $background1 fill
+output HDMI-A-1 background $background2 fill
+
+bindsym $super+Return exec $terminal
+
+bindsym $super+d exec rofi -show-icons -show drun -display-drun ""
+# common apps keybinds
+bindsym $super+Escape exec swaylock -i .config/bg/lain-eye.jpeg
+bindsym $super+Shift+Return exec vivaldi
+bindsym $super+Shift+f exec thunar;workspace 3;focus
+bindsym $super+Shift+g exec geany
+bindsym $super+e exec emacsclient -c
+bindsym $super+w exec $terminal -e nmtui
+bindsym $super+m exec rhythmbox
+bindsym $super+n exec pavucontrol
+
+bindsym $super+$super exec $terminal
+
+exec --no-startup-id emacs --daemon
+exec --no-startup-id layman
+#change volume
+bindsym XF86AudioRaiseVolume exec amixer -q set PCM 5%+
+bindsym XF86AudioLowerVolume exec amixer -q set PCM 5%-
+bindsym XF86AudioMute exec amixer set Master toggle
+
+shadows enable
+# kill focused window
+bindsym $super+c kill
+bindsym $alt+F4 kill
+
+# change focus
+bindsym $super+j focus left
+bindsym $super+k focus down
+bindsym $super+i focus up
+bindsym $super+l focus right
+
+# move focused window
+# bindsym $super+Shift+j move left
+# bindsym $super+Shift+k move down
+# bindsym $super+Shift+i move up
+# bindsym $super+Shift+l move right
+# Override move binds
+bindsym $super+Shift+j nop layman move left
+bindsym $super+Shift+k nop layman move down
+bindsym $super+Shift+i nop layman move up
+bindsym $super+Shift+l nop layman move right
+# split in horizontal orientation
+bindsym $super+h split h
+
+# split in vertical orientation
+bindsym $super+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $super+f fullscreen toggle
+
+# change container layout split
+bindsym $super+s layout toggle split
+
+# toggle tiling / floating
+bindsym $super+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $super+Shift+space focus mode_toggle
+
+# switch to workspace
+bindsym $alt+Control+Right workspace next
+bindsym $alt+Control+Left workspace prev
+bindsym $super+1 workspace 1
+bindsym $super+2 workspace 2
+bindsym $super+3 workspace 3
+bindsym $super+4 workspace 4
+bindsym $super+5 workspace 5
+bindsym $super+6 workspace 6
+
+# move focused container to workspace
+bindsym $super+Shift+1 move container to workspace 1
+bindsym $super+Shift+2 move container to workspace 2
+bindsym $super+Shift+3 move container to workspace 3
+bindsym $super+Shift+4 move container to workspace 4
+bindsym $super+Shift+5 move container to workspace 5
+bindsym $super+Shift+6 move container to workspace 6
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $super+Shift+r reload
+
+input "type:keyboard" {
+    xkb_layout pt
+}
+
+smart_gaps on
+
+# exit i3
+bindsym $super+q exec "i3-nagbar -t warning -m 'Really, exit?' -b 'Yes' 'i3-msg exit'"
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        bindsym j resize shrink width 5 px or 5 ppt
+        bindsym k resize grow height 5 px or 5 ppt
+        bindsym i resize shrink height 5 px or 5 ppt
+        bindsym l resize grow width 5 px or 5 ppt
+        bindsym space mode "default"
+}
+bindsym $super+r mode "resize"
+bindsym Print exec grimshot save area
+
+gaps inner 15
+gaps outer -10
+
+# panel
+bar {
+    output eDP-1    
+    status_command i3status
+    colors {
+       statusline #DA70D6
+       background #323232
+              
+       inactive_workspace #32323200 #32323200 #5c5c5c
+    }
+    font {
+       size 15
+    }
+}
+
+#turn off screen saver
+exec --no-startup-id xset s off -dpms
+
+#battery notifiction 
+exec --no-startup-id cbatticon
+exec --no-startup-id swaync
+default_border normal 5
+default_border pixel 30
+# window rules, you can find the window class using xprop
+for_window [class=".*"] border pixel 4
+assign [class=URxvt] 1
+assign [class=Firefox|Transmission-gtk] 2
+assign [class=Thunar|File-roller] 3
+assign [class=Geany|Evince|Gucharmap|Soffice|libreoffice*] 4
+assign [class=Audacity|Vlc|mpv|Ghb|Xfburn|Gimp*|Inkscape] 5
+assign [class=Lxappearance|System-config-printer.py|Lxtask|GParted|Pavucontrol|Exo-helper*|Lxrandr|Arandr] 6
+for_window [class=Viewnior|feh|Audacious|File-roller|Lxappearance|Lxtask|Pavucontrol] floating enable
+for_window [class=URxvt|Firefox|Geany|Evince|Soffice|libreoffice*|mpv|Ghb|Xfburn|Gimp*|Inkscape|Vlc|Lxappearance|Audacity] focus
+for_window [class=Xfburn|GParted|System-config-printer.py|Lxtask|Pavucontrol|Exo-helper*|Lxrandr|Arandr] focus
+
+# colour of border, background, text, indicator, and child_border
+client.focused              #bf616b #2f343f #d8dee8 #bf616a #d8dee8
+client.focused_inactive     #2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.unfocused            #2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.urgent               #2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.placeholder          #2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.background           #2f343f
+
+include /etc/sway/config.d/*
+corner_radius 10
+shadows enable
+shadow_blur_radius 50
+shadow_offset 10 10
+shadow_color #0000007F
+
+blur enable

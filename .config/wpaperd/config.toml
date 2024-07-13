@@ -1,0 +1,7 @@
+[HDMI-A-1]
+path = "/home/tiago/.config/bg/lain-hands.jpeg"
+
+[eDP-1]
+path = "/home/tiago/.config/bg/flick"
+sorting = "ascending"
+duration = "5min"

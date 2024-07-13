@@ -1,0 +1,24 @@
+alias nil  $*
+alias ocaml-sanity git rebase --interactive --exec "dune fmt --preview && dune test" $1
+alias echo echo $*
+alias rlwrap env -u INSIDE_EMACS rlwrap $1
+alias zathura call-process "zathura" $1 0 nil $1
+alias tmp cd /tmp
+alias b eshell-jump $1
+alias g magit-fullscreen
+alias ls *exa --long --header --no-user --no-permissions $1
+alias rm trash $*
+alias ocaml rlwrap ocaml $1
+alias config /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME $*
+alias pac sudo pacman -S $*
+alias c xclip -sel c
+alias update sudo pacman -Syu
+alias agenda emacsclient -c -n -e '(org-agenda-list)'
+alias vpn /opt/cisco/anyconnect/bin/vpnui
+alias clear clear t
+alias em find-file $1
+alias v multi-eshell
+alias d dired .
+alias ei package-install $1
+alias bulgaria echo bazinga
+alias htop helm-top

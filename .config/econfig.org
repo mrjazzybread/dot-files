@@ -1,0 +1,940 @@
+* Package Configuration
+Add MELPA to the list of recognized archives
+#+begin_src emacs-lisp :results none
+  (add-to-list 'package-archives
+               '("melpa" . "https://melpa.org/packages/") t)
+#+end_src
+Installs use-package if I don't have it already and enables verbose
+messages
+#+begin_src emacs-lisp :results none
+  (unless (package-installed-p 'use-package)
+  (package-install 'use-package))
+
+  (require 'use-package)
+  (setq use-package-verbose t)
+#+end_src
+Updates the local cache if it is missing
+#+begin_src emacs-lisp :results none
+  (unless package-archive-contents
+    (package-refresh-contents))
+#+end_src
+Use-package always installs packages
+#+begin_src emacs-lisp :results none
+  (setq use-package-always-ensure t)
+#+end_src
+Install ~quelpa~
+#+begin_src emacs-lisp :results none
+  (use-package quelpa)
+#+end_src
+GNU keys to enable downloading packages
+#+begin_src emacs-lisp :results none
+  (use-package gnu-elpa-keyring-update)
+#+end_src
+* Some Miscellaneous Configurations
+
+Enable creation of pairs of brackets or quotes when one is inserted.
+#+begin_src emacs-lisp :results none
+  (setq skeleton-pair t)
+  (bind-key "(" 'skeleton-pair-insert-maybe)
+  (bind-key "{" 'skeleton-pair-insert-maybe)
+  (bind-key "[" 'skeleton-pair-insert-maybe)
+  (bind-key (char-to-string 34) 'skeleton-pair-insert-maybe)
+  ;char 34 is the single quote, putting the character itself
+  ;ruins the prettify symbols mode
+#+end_src
+Enable Emacs to track changes made to files by different programs.
+#+begin_src emacs-lisp :results none
+  (global-auto-revert-mode 1)
+#+end_src
+Key bindings for navigating paragraphs
+#+begin_src emacs-lisp :results none
+  (bind-key "M-n" 'forward-paragraph)
+  (bind-key "M-p" 'backward-paragraph)
+#+end_src
+Allows me to see the column number as well as the line number.
+#+begin_src emacs-lisp :results none
+  (column-number-mode)
+#+end_src
+Bookmarks are preserved throughout different sessions
+#+begin_src emacs-lisp :results none
+  (setq bookmark-save-flag 0)
+#+end_src
+Smooth Scrolling
+#+begin_src emacs-lisp :results none
+  (pixel-scroll-precision-mode 1)
+#+end_src
+Opens files at the last visited location
+#+begin_src emacs-lisp :results none
+  (save-place-mode 1)
+#+end_src
+Don't use UI dialogs
+#+begin_src emacs-lisp :results none
+  (setq use-dialog-box nil)
+#+end_src
+Makes it so that the compilation window opens in a new frame
+#+begin_src emacs-lisp :results none
+  (setq special-display-buffer-names
+        '("*compilation*"))
+
+  (setq special-display-function
+        (lambda (buffer &optional args)
+          (if (get-buffer-window buffer t)
+              (message "Compiling")
+            (progn
+              (select-frame (make-frame))
+              (switch-to-buffer buffer)
+              (get-buffer-window buffer 0)))))
+#+end_src
+Keybinding for quickly evaluating ~elisp~ code
+#+begin_src emacs-lisp :results none
+  (add-hook 'lisp-interaction-mode-hook 
+            (lambda () (local-set-key
+                        (kbd "C-c C-c") #'eval-region)))
+#+end_src
+Suppress annoying message any time you start a new frame
+#+begin_src emacs-lisp :results none
+  (setq server-client-instructions nil)
+#+end_src
+Enable ~recentf~ mode to remember recently opened files
+#+begin_src emacs-lisp :results none
+  (recentf-mode 1)
+  (setq recentf-max-saved-items 10000)
+#+end_src
+Key binding for ~recentf~
+#+begin_src emacs-lisp :results none
+  (bind-key "C-x r b" #'recentf)
+#+end_src
+Keybindings for splitting a window instead clones the frame
+#+begin_src emacs-lisp :results none
+  (bind-key "C-x 3" #'clone-frame)
+  (bind-key "C-x 2" #'clone-frame)
+#+end_src
+** ~utf-8~
+#+begin_src emacs-lisp :results none
+  (prefer-coding-system       'utf-8)
+  (set-default-coding-systems 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (set-keyboard-coding-system 'utf-8)
+  (setq default-buffer-file-coding-system 'utf-8)
+  (set-language-environment 'utf-8)
+  (set-selection-coding-system 'utf-8)
+  (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))  
+#+end_src
+** Backup files
+
+Ensures that backups and auto-saves go to a separate directory instead
+of stinking up the working directory.
+#+begin_src emacs-lisp :results none
+  (defvar backup-dir (expand-file-name "~/.emacs.d/backup/"))
+  (defvar autosave-dir (expand-file-name "~/.emacs.d/autosave/"))
+  (setq backup-directory-alist (list (cons ".*" backup-dir)))
+  (setq auto-save-list-file-prefix autosave-dir)
+  (setq auto-save-file-name-transforms `((".*" ,autosave-dir t)))
+#+end_src
+Adds themes folder to custom themes
+#+begin_src emacs-lisp :results none
+  (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/") 
+#+end_src
+** Miscellaneous Packages
+#+begin_src emacs-lisp :results none
+  (use-package pacmacs)
+  (use-package fireplace)
+  (use-package mingus
+    :hook (mingus-playlist-mode . eshell-change-appearance))
+  (use-package bluetooth)
+#+end_src
+* Coding Packages
+** ~Flycheck~
+#+begin_src emacs-lisp :results none
+  (defun check-error ()
+    (interactive)
+    (flycheck-next-error 1 t))
+
+  (use-package flycheck
+    :bind (:map flycheck-mode-map
+           ("\C-c \C-x" . check-error))
+    :hook (lsp-mode . flycheck-mode)
+    )
+#+end_src
+** OCaml packages
+#+begin_src emacs-lisp :results none
+  (defun ocaml-compile ()
+    (setq compile-command "~/.config/ocompile.sh")
+    )
+
+  (use-package tuareg
+    ;; changes the default compile command
+    :hook (tuareg-mode . ocaml-compile)
+    :hook (tuareg-mode . flycheck-mode))
+
+  (load "/home/tiago/.opam/4.14.1/share/emacs/site-lisp/tuareg.el")
+  (use-package dune)
+#+end_src
+** LSP-mode
+#+begin_src emacs-lisp :results none
+  (use-package lsp-mode
+      :custom
+      (lsp-headerline-breadcrumb-enable nil)
+      :bind (:map lsp-mode-map
+                  ("C-c C-l" . lsp-find-definition))
+      :hook (tuareg-mode . lsp)
+      )
+#+end_src
+** Git packages
+
+I will always use ~magit~ though. ~magit~ :)
+#+begin_src emacs-lisp :results none
+  (use-package magit
+    :bind (:map magit-mode-map
+                  ("C-c C-p" . magit-section-up)))
+
+  (defun magit-fullscreen ()
+    (interactive)
+    (magit-status)
+    (delete-other-windows))
+
+  (bind-key "C-x g" #'magit-fullscreen)
+#+end_src
+** Miscellaneous Coding Packages
+
+#+begin_src emacs-lisp :results none
+(use-package yaml-mode)
+#+end_src
+* ~Dired~
+Deleted files are moved to the trash folder
+#+begin_src emacs-lisp :results none
+  (setq delete-by-moving-to-trash t)
+#+end_src
+Start ~Dired~ in omit mode
+
+#+begin_src emacs-lisp :results none
+  (add-hook 'dired-mode-hook #'dired-omit-mode)
+#+end_src
+Bind the "o" key to show hidden files
+#+begin_src emacs-lisp :results none
+  (add-hook 'dired-mode-hook
+            (lambda () (local-set-key
+                        (kbd "o") #'dired-omit-mode)))
+#+end_src
+Bind the "b" key to move up in the directory
+#+begin_src emacs-lisp :results none
+  (add-hook 'dired-mode-hook
+            (lambda () (local-set-key
+                        (kbd "b") #'dired-up-directory)))
+#+end_src
+Set files to omit
+#+begin_src emacs-lisp :results none
+  (setq dired-omit-files
+        (rx (or (seq bol (? ".") "#")     ;; emacs autosave files
+                (seq bol ".") ;; dot-files
+                (seq "~" eol)                 ;; backup-files
+                (seq bol "CVS" eol)           ;; CVS dirs
+                ))
+        )
+#+end_src
+Make it so ~Dired~ buffers are just a list of file names.
+#+begin_src emacs-lisp :results none
+  (add-hook 'dired-mode-hook
+            (lambda () (dired-hide-details-mode 1)))
+#+end_src
+Icons for ~Dired~ mode.
+#+begin_src emacs-lisp :results none
+   ;This package requires additional fonts
+  (use-package all-the-icons-dired
+    :hook (dired-mode . all-the-icons-dired-mode))
+#+end_src
+Kill ~Dired~ buffer when opening a new ~Dired~ buffer.
+#+begin_src emacs-lisp :results none
+  (setq dired-kill-when-opening-new-dired-buffer t)
+#+end_src
+Dired buffers update when there is a change in one of the files in the
+directory 
+#+begin_src emacs-lisp :results none
+  (setq global-auto-revert-non-file-buffers t)
+#+end_src
+Keeps track of visited ~Dired~ buffers
+#+begin_src emacs-lisp :results none
+  (use-package dired-hist)
+  (define-key dired-mode-map "l" #'dired-hist-go-back)
+  (define-key dired-mode-map "r" #'dired-hist-go-forward)
+  (dired-hist-mode 1)
+#+end_src
+More convenient way to search through sub-directories.
+#+begin_src emacs-lisp :results none
+  (use-package dired-subtree
+    :bind (:map dired-mode-map
+          ("i" . dired-subtree-insert)
+          ("DEL" . dired-subtree-remove)))
+#+end_src
+* Org
+** Some Basic Bookkeeping
+
+Some helpful variables
+#+begin_src emacs-lisp :results none
+  (defun org-directory (file)
+    (concat "~/Dropbox/org/" file))
+
+  (defvar todo-file
+    (org-directory "todo.org"))
+
+  (defvar agenda-file
+    (org-directory "appoint.org"))
+
+  (defvar notes-file
+    (org-directory "notes.org"))
+#+end_src
+My agenda files:
+
+#+begin_src emacs-lisp :results none
+  (setq org-agenda-files (list (org-directory "")))
+#+end_src
+Settings for exporting Org files with citations to TeX. 
+#+begin_src emacs-lisp :results none
+  (setq org-cite-export-processors '((t biblatex "numeric" "numeric")))
+  (setq org-cite-global-bibliography '("~/org/org.bib"))
+  (setq org-export-with-sub-superscripts nil)
+#+end_src
+Enable notifications for Org agenda items
+
+#+begin_src emacs-lisp :results none
+  (use-package org-alert
+    :custom (alert-default-style 'libnotify)
+    :custom (org-alert-interval 300)
+    :custom (org-alert-notify-cutoff 10)
+    :custom (org-alert-notify-after-event-cutoff 0)
+    )
+  (org-alert-enable)
+#+end_src
+Add menu item to list only items with a ~TODO~ keyword.
+#+begin_src emacs-lisp :results none
+  (setq org-agenda-custom-commands 
+        '(("b" "List all blocked items" ((todo "BLOCKED")))))
+#+end_src
+This is very important
+#+begin_src emacs-lisp :results none
+  (defun what ()
+    (interactive)
+    (insert "👁️👄👁️")
+    )
+#+end_src
+** Appearance
+Hide emphasis markers and macro braces
+
+#+begin_src emacs-lisp :results none
+  (setq org-hide-emphasis-markers t)
+  (setq org-hide-macro-markers t)
+#+end_src
+Make it there is only one star visible in each heading.
+
+#+begin_src emacs-lisp :results none
+  (setq org-hide-leading-stars t)
+#+end_src
+Use LaTeX like syntax to insert special symbols
+
+#+begin_src emacs-lisp :results none
+  (setq org-pretty-entities t)
+#+end_src
+Start Org files with each heading folded.
+
+#+begin_src emacs-lisp :results none
+  (setq org-startup-folded t)
+#+end_src
+Enable Org indentation
+
+#+begin_src emacs-lisp :results none
+  (setq org-startup-indented t)
+#+end_src
+*** Org Pretty Symbols
+
+Function for adding pretty symbols for Org mode. Most of these are
+just so that Org mode environments aren't awful to look at.
+#+begin_src emacs-lisp :results none
+    ;; Pretty Symbols for Org
+  (defun add-symbols ()
+    (push '("#+end_example" . ? ) prettify-symbols-alist)
+    (push '("#+end_src" . ? ) prettify-symbols-alist)
+    (push '("#+begin_example coq" . ?🐓) prettify-symbols-alist)
+    (push '("#+begin_example ocaml" . ?🐫) prettify-symbols-alist)
+    (push '("#+begin_src ocaml" . ?🐫) prettify-symbols-alist)
+    (push '("#+begin_example ocaml :why3" . ?❔) prettify-symbols-alist)
+    ;;errrrrrm, what the ...
+    (push '("#+begin_src emacs-lisp :results none" . ?🗿) prettify-symbols-alist)
+    (push '("#+ATTR_LATEX: :environment cfml" . ? ) prettify-symbols-alist)
+    (push '("#+ATTR_LATEX: :environment ocamlenv" . ? ) prettify-symbols-alist)
+    (push '("#+ATTR_LATEX: :environment gospel" . ? ) prettify-symbols-alist)
+    (push '("#+ATTR_LATEX: :environment whylang" . ? ) prettify-symbols-alist)
+    (push '("->" . ?→) prettify-symbols-alist)
+    (push '("<->" . ?↔) prettify-symbols-alist)
+    (push '("|-" . ?⊢) prettify-symbols-alist)
+    (push '("/\\" . ?∧) prettify-symbols-alist)
+    (push '("\\/" . ?∨) prettify-symbols-alist)
+    (push '("<-" . ?←) prettify-symbols-alist)
+    (prettify-symbols-mode 1))
+#+end_src
+** Org capture templates
+#+begin_src emacs-lisp :results none
+  (setq org-capture-templates
+        '(    
+          ("w" "Writing TODO"
+           entry (file+headline todo-file "Writing")
+           "* TODO %?\n "
+           :empty-lines 0)
+
+          ("p" "Phd TODO"
+           entry (file+headline todo-file "PhD Tasks")
+           "* TODO [[%L][%?]]\n "
+           :empty-lines 0)
+
+          ("a" "Appointment"
+           entry (file+headline agenda-file "Appointments")
+           "* APPOINTMENT %?\n "
+           :empty-lines 0)
+
+          ("?" "Question"
+           entry (file+headline todo-file "Questions")
+           "* 👁️👄👁️ %?\n "
+           :empty-lines 0)
+
+          ("r" "Reading"
+           checkitem (file+headline todo-file "Reading List")
+           "[ ] %?\n")
+        ))
+#+end_src
+** Org Keywords
+#+begin_src emacs-lisp :results none
+(setq org-todo-keywords
+      '((sequence "APPOINTMENT(p)" "TODO(t)" "IN-PROGRESS(i@/!)" "VERIFYING(v!)" "BLOCKED(b@)" "👁️👄👁️(q)" "|" "DONE(d!)" "OBE(o@!)" "WONT-DO(w@/!)" )
+        ))
+;; TODO colors
+(setq org-todo-keyword-faces
+      '(
+        ("TODO" . (:foreground "GoldenRod" :weight bold))
+        ("APPOINTMENT" . (:foreground "DeepPink" :weight bold))
+        ("IN-PROGRESS" . (:foreground "Cyan" :weight bold))
+        ("VERIFYING" . (:foreground "DarkOrange" :weight bold))
+        ("BLOCKED" . (:foreground "Red" :weight bold))
+        ("DONE" . (:foreground "LimeGreen" :weight bold))
+        ("WONT-DO" . (:foreground "LimeGreen" :weight bold))
+        ))
+#+end_src
+** Inserting Org Example Blocks
+
+Function for wrapping text around a block
+#+begin_src emacs-lisp :results none
+  (defun tag-word-or-region (text-begin text-end)
+  "Surround current word or region with given text."
+  (interactive "sStart tag: \nsEnd tag: ")
+  (let (pos1 pos2 bds)
+    (if (and transient-mark-mode mark-active)
+        (progn
+          (goto-char (region-end))
+          (insert text-end)
+          (goto-char (region-beginning))
+          (insert text-begin))
+      (progn
+        (setq bds (point))
+        (goto-char bds)
+        (insert text-end)
+        (goto-char bds)
+        (insert text-begin)))))
+#+end_src
+Associative list that maps environment names to programming languages
+#+begin_src emacs-lisp :results none
+  (setq env-map '( ("cfml" . "coq")
+    ("ocamlenv" . "ocaml")
+    ("gospel" . "ocaml")
+    ("whylang" . "ocaml :why3")
+  ))
+#+end_src
+Function to wrap text around an example block
+
+#+begin_src emacs-lisp :results none
+  (defun org-insert-code-env (env-name)
+    (interactive "sEnvironment name: ")
+    (if (equal env-name "elisp")
+        (tag-word-or-region
+         "#+begin_src emacs-lisp :results none\n"
+         "\n#+end_src"
+         )
+      (tag-word-or-region
+       (concat "#+ATTR_LATEX: :environment " env-name
+                                "\n#+begin_example " (alist-get env-name env-map nil nil #'equal) "\n")
+                        "\n#+end_example"
+                        )))
+#+end_src
+Function to insert a macro
+#+begin_src emacs-lisp :results none
+  (defun org-insert-macro ()
+    (interactive)
+    (tag-word-or-region "{{{" "}}}") )
+#+end_src
+** Remove Spell Checking in Code Blocks
+#+begin_src emacs-lisp :results none
+  (add-to-list 'ispell-skip-region-alist '("^#\\+BEGIN_SRC" . "#\\+END_SRC"))
+  (add-to-list 'ispell-skip-region-alist '("^#\\+BEGIN_EXAMPLE" . "#\\+END_EXAMPLE"))
+  (add-to-list 'ispell-skip-region-alist '("^#\\+begin_src" . "#\\+end_src"))
+  (add-to-list 'ispell-skip-region-alist '("^#\\+begin_example" . "#\\+end_example"))
+  (add-to-list 'ispell-skip-region-alist '("^#\\+" . "\n"))
+  (add-to-list 'ispell-skip-region-alist '("~" . "~"))
+  (add-to-list 'ispell-skip-region-alist '("{{{" . "}}}"))
+  (add-to-list 'ispell-skip-region-alist '("<<" . ">>"))
+#+end_src
+** Org Key Bindings and Hooks
+
+Global key bindings to access and update the agenda.
+#+begin_src emacs-lisp :results none
+  (global-set-key "\C-ca" 'org-agenda)
+  (global-set-key "\C-cc" 'org-capture)
+#+end_src
+Concise way of using the previous definitions to configure Org.
+#+begin_src emacs-lisp :results none  
+  (use-package org
+    :hook (org-mode . add-symbols)
+    :bind
+    (:map org-mode-map
+          ("C-c C-x C-x" . org-insert-code-env))
+    :bind
+    (:map org-mode-map
+          ("C-c C-x C-m" . org-insert-macro))
+    )
+#+end_src
+** French Notes
+
+Function for inserting a conjugation table for french verbs
+#+begin_src emacs-lisp :results none
+  (setq conjugation-table 
+  "|-----------+---|
+  | Je        |   |
+  |-----------+---|
+  | Tu        |   |
+  |-----------+---|
+  | Il/Elle   |   |
+  |-----------+---|
+  | Nous      |   |
+  |-----------+---|
+  | Vous      |   |
+  |-----------+---|
+  | Ils/Elles |   |
+  |-----------+---|")
+
+  (defun start-conjugation ()
+    (interactive)
+    (insert conjugation-table)
+    (org-backward-paragraph)
+    (org-cycle)
+    (org-cycle))
+#+end_src
+* PDFs
+Package used to read PDF files
+#+begin_src emacs-lisp :results none
+  (use-package pdf-tools)
+  
+  (pdf-tools-install)
+#+end_src
+Opens PDFs at last visited page
+#+begin_src emacs-lisp :results none
+  (use-package pdf-view-restore
+    :hook (pdf-view-mode . pdf-view-restore-mode))
+#+end_src
+I'm not sure what this setting does, but without it PDFs are really
+slow
+
+#+begin_src emacs-lisp :results none
+  (setq pdf-view-use-scaling nil)
+#+end_src
+* Proof General
+These bindings are unset so that I can use them to navigate through
+paragraphs in Coq mode.
+#+begin_src emacs-lisp :results none
+  (defun unset ()
+    (local-unset-key (kbd "M-p"))
+    (local-unset-key (kbd "M-n")))
+#+end_src
+Function for a more convenient Coq buffer split.
+#+begin_src emacs-lisp :results none
+  (defun split-proof-general ()
+    (interactive)
+    (let ((f1 (selected-frame)) (f2 (clone-frame)))
+      (select-frame f1)
+      (delete-other-windows)
+      (select-frame f2)
+      (delete-window)
+      (select-frame-set-input-focus f1) ; doesn't work! argh!
+      )
+    )
+#+end_src
+Package for working with Coq
+#+begin_src emacs-lisp :results none
+  (use-package proof-general
+    :hook (coq-mode . unset)
+    :bind (:map coq-mode-map
+                ("C-c C-k" . split-proof-general))
+    :custom
+    ;; when starting a proof, splits windows so that the goals  
+    ;; window is larger than the response window
+    (proof-three-window-mode-policy 'hybrid)
+    ;; Removes the EXTREMELY annoying proof general splash screen
+    (proof-splash-enable nil))
+#+end_src
+Enable auto completion in Coq.
+#+begin_src emacs-lisp :results none
+  (use-package company-coq
+    :hook (coq-mode . company-coq-mode))
+#+end_src
+Weird arrow :/
+#+begin_src emacs-lisp :results none
+  (setq overlay-arrow-string "")
+#+end_src
+* Settings for Text Mode
+
+Enable auto-fill.
+#+begin_src emacs-lisp :results none
+  (add-hook 'text-mode-hook #'auto-fill-mode)
+#+end_src
+Enable ~Writeroom~ mode for a more comfortable writing experience.
+#+begin_src emacs-lisp :results none
+  (use-package writeroom-mode
+    :hook (text-mode . writeroom-mode)
+    :custom (writeroom-mode-line t)
+    )
+#+end_src
+Use ~aspell~ as default spell checking program (should be default, but
+something is changing it)
+#+begin_src emacs-lisp :results none
+  (setq ispell-program-name "/usr/bin/aspell")
+#+end_src
+Enable ~Flyspell~ for spell checking 
+#+begin_src emacs-lisp :results none
+  (use-package flyspell
+    :hook (text-mode . flyspell-mode)
+    :bind
+    (:map flyspell-mode-map
+          ("C-C C-x $" . flyspell-check-previous-highlighted-word)
+          )
+
+    )
+#+end_src
+* ~Eshell~
+
+Fish like suggestions for ~eshell~
+
+#+begin_src emacs-lisp :results none
+  (use-package esh-autosuggest
+    :hook (eshell-mode . esh-autosuggest-mode)
+    :custom (eshell-history-size 50000)
+    :custom (company-minimum-prefix-length 1)
+    :bind (:map esh-autosuggest-active-map
+                ("C-f" . esh-autosuggest-complete-word)
+                ("C-e" . company-complete)
+                )
+    ; since esh autosuggest uses the eshell history, we increase it so
+    ; that we have more possible suggesions
+    )
+#+end_src
+Pretty ~eshell~ prompt
+
+#+begin_src emacs-lisp :results none
+  (load-file "/home/tiago/.config/prompt.el")
+  (setq eshell-prompt-function #'epe-theme-dakrone)
+#+end_src
+Change font of ~Eshell~.
+#+begin_src emacs-lisp :results none
+  (defun eshell-change-appearance ()
+    (interactive)
+    (setq buffer-face-mode-face
+          '(:family "Ubuntu Mono" :height 250))
+    (buffer-face-mode))
+#+end_src
+Function for clearing the shell
+
+#+begin_src emacs-lisp :results none
+  (defun eshell-clear ()
+    (interactive)
+    "Clear the eshell buffer."
+    (let ((inhibit-read-only t))
+      (erase-buffer)
+      (eshell-send-input)
+      (beginning-of-line 1)
+      (delete-backward-char 1)
+      (move-end-of-line 1)
+      ))
+#+end_src
+Function for getting to the base of any project. Useful for spawning
+shells since having it at the root of the project is generally more
+convenient.
+
+#+begin_src emacs-lisp :results none
+  (defvar project-files
+    '("dune-project" "package.json"
+      "CoqProject" "Makefile"
+      )
+    )
+  
+  (defun is-base ()
+    (or (equal default-directory "/")
+        (not (eq (seq-intersection
+           (directory-files ".")
+           project-files
+           'equal
+           ) nil)
+        ))
+    )
+
+  (defun get-to-base ()
+    (let ((c default-directory))
+    (progn
+      (while (not (is-base))
+        (find-file ".."))
+      (when (equal default-directory "/")
+          (find-file c)
+          )
+    )))
+#+end_src
+Always spawns eshell on a new terminal
+#+begin_src emacs-lisp :results none
+  (defun multi-eshell ()
+    (interactive)
+    (let ((b (current-buffer)))
+    (when (seq-find
+           (lambda (val)
+             (equal "*eshell*" (buffer-name val)))
+           (buffer-list))
+      (switch-to-buffer "*eshell*")
+      (rename-uniquely))
+    (switch-to-buffer b)
+    (eshell)))
+#+end_src
+Key binding for spawning a new instance of ~eshell~ at the root of a
+project.
+
+#+begin_src emacs-lisp :results none
+  (defun eshell-spawn ()
+    (interactive)
+    (select-frame (make-frame))
+    (get-to-base)
+    (multi-eshell))
+  (bind-key "C-c C-SPC" 'eshell-spawn)
+#+end_src
+Delete duplicates in the ~eshell~ history
+#+begin_src emacs-lisp :results none
+  (setq eshell-hist-ignoredups t)
+#+end_src
+Function to run ~eshell~ command.
+#+begin_src emacs-lisp :results none
+  (defun eshell-send-command (s)
+    (interactive)
+    (eshell-return-to-prompt)
+    (insert s)
+    (eshell-send-input))
+#+end_src
+** ~Eshell~ configuration
+Stupid bug in ~Eshell~ makes it so that sometimes when I press tab the
+mode line reappears, so I made this dumb function.
+
+#+begin_src emacs-lisp :results none
+  (defun stupid ()
+    (interactive)
+    (completion-at-point)
+    (hide-mode-line-mode)
+    (hide-mode-line-mode)
+    )
+
+  (add-hook 'eshell-mode-hook
+          (lambda ()
+            (define-key eshell-mode-map (kbd "<tab>") #'stupid)))
+#+end_src
+#+begin_src emacs-lisp :results none
+  (add-hook 'eshell-mode-hook
+          (lambda ()
+            (define-key eshell-mode-map (kbd "C-l") #'eshell-clear)))
+
+  (defun startup ()
+    (interactive) 
+    (eshell-change-appearance)
+    (eshell-send-command "fastfetch")
+    (let ((inhibit-read-only t))
+      (eshell-previous-prompt 1)
+      (beginning-of-line)
+      (kill-line)
+      (kill-line)
+      (eshell-next-prompt 1)))
+
+  (require 'eshell)
+  (use-package eshell
+    :hook (eshell-mode . startup)
+    :custom (eshell-banner-message "")
+    )
+#+end_src
+** Configuration for Visual Commands
+
+We use eat to run any commands that require visuals
+#+begin_src emacs-lisp :results none
+  (use-package eat
+    :custom (eat-kill-buffer-on-exit t)
+    :hook (eshell-mode . eat-eshell-mode)
+    :hook (eat-mode . buffer-face-mode)
+    )
+#+end_src
+* Ivy
+Default ivy configuration
+
+#+begin_src emacs-lisp :results none
+    (use-package ivy)
+    (ivy-mode)
+    (setq ivy-use-virtual-buffers t)
+    (setq enable-recursive-minibuffers t)
+    ;; enable this if you want `swiper' to use it
+    ;; (setq search-default-mode #'char-fold-to-regexp)
+    (global-set-key "\C-s" 'swiper)
+    (global-set-key (kbd "C-c C-r") 'ivy-resume)
+    (global-set-key (kbd "<f6>") 'ivy-resume)
+    (global-set-key (kbd "M-x") 'counsel-M-x)
+    (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+    (global-set-key (kbd "<f1> l") 'counsel-find-library)
+    (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+    (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+    (global-set-key (kbd "C-c g") 'counsel-git)
+    (global-set-key (kbd "C-c j") 'counsel-git-grep)
+    (global-set-key (kbd "C-c k") 'counsel-ag)
+    (global-set-key (kbd "C-x l") 'counsel-locate)
+    (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
+    (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
+#+end_src
+Display ivy buffers in their own frame in the center of the screen
+#+begin_src emacs-lisp :results none
+  (use-package ivy-posframe
+    :custom-face
+    (ivy-posframe-border ((t (:background "#1b0073")))))
+
+  (ivy-posframe-mode 1)
+#+end_src
+Don't show number of candidates
+#+begin_src emacs-lisp :results none
+  (setq ivy-count-format "")
+#+end_src
+Ivy ignores order in which words are written
+#+begin_src emacs-lisp :results none
+  (setq ivy-re-builders-alist
+        '((t . ivy--regex-plus)))
+#+end_src
+Sort commands and buffers by most recently used
+#+begin_src emacs-lisp :results none
+  (use-package smex)
+#+end_src
+Remove stupid ^
+#+begin_src emacs-lisp :results none
+  (setq ivy-initial-inputs-alist nil)
+#+end_src
+Ivy ignores the order in which words are typed.
+#+begin_src emacs-lisp :results none
+  (setq ivy-re-builders-alist
+        '((t . ivy--regex-ignore-order)))
+#+end_src
+Disables automatic resizing for the Ivy frame
+#+begin_src emacs-lisp :results none
+  (defun my-ivy-posframe-get-size ()
+    "Set the ivy-posframe size according to the current frame."
+    (let ((height (or ivy-posframe-height (or ivy-height 10)))
+          (width (frame-width)))
+      (list :height height :width width :min-height height :min-width width)))
+
+  (setq ivy-posframe-size-function 'my-ivy-posframe-get-size)
+#+end_src
+~Swiper~ runs in the minibuffer
+#+begin_src emacs-lisp :results none
+(setq ivy-posframe-display-functions-alist
+      '((swiper          . ivy-display-function-fallback)
+        (t               . ivy-posframe-display)))
+#+end_src
+Ivy buffer with icons and more information
+#+begin_src emacs-lisp :results none
+  (use-package all-the-icons
+    :if (display-graphic-p)
+    :config
+    (setq all-the-icons-scale-factor 0.8))
+
+  (use-package all-the-icons-ivy-rich
+    :after counsel-projectile
+    :config
+    (setq all-the-icons-ivy-rich-icon-size 0.8))
+
+  (use-package ivy-rich
+    :after all-the-icons-ivy-rich)
+
+  (ivy-rich-mode 1)
+  (all-the-icons-ivy-rich-mode 1)
+#+end_src
+Allows to select the prompt instead of a listed candidate. Mostly
+useful when creating and renaming files
+#+begin_src emacs-lisp :results none
+  (setq ivy-use-selectable-prompt t)
+#+end_src
+Absolutely no idea what this does, but it makes ivy rich mode not slow
+as a brick
+#+begin_src emacs-lisp :results none
+(eval-after-load 'ivy-rich
+  (progn
+    (defvar ek/ivy-rich-cache
+      (make-hash-table :test 'equal))
+
+    (defun ek/ivy-rich-cache-lookup (delegate candidate)
+      (let ((result (gethash candidate ek/ivy-rich-cache)))
+        (unless result
+          (setq result (funcall delegate candidate))
+          (puthash candidate result ek/ivy-rich-cache))
+        result))
+
+    (defun ek/ivy-rich-cache-reset ()
+      (clrhash ek/ivy-rich-cache))
+
+    (defun ek/ivy-rich-cache-rebuild ()
+      (mapc (lambda (buffer)
+              (ivy-rich--ivy-switch-buffer-transformer (buffer-name buffer)))
+            (buffer-list)))
+
+    (defun ek/ivy-rich-cache-rebuild-trigger ()
+      (ek/ivy-rich-cache-reset)
+      (run-with-idle-timer 1 nil 'ek/ivy-rich-cache-rebuild))
+
+    (advice-add 'ivy-rich--ivy-switch-buffer-transformer :around 'ek/ivy-rich-cache-lookup)
+    (advice-add 'ivy-switch-buffer :after 'ek/ivy-rich-cache-rebuild-trigger)))
+#+end_src
+* Appearance
+
+Disable Splash Screen
+#+begin_src emacs-lisp :results none
+  (setq inhibit-splash-screen t)
+#+end_src
+Define font style and height
+#+begin_src emacs-lisp :results none
+  (setq default-frame-alist '((font . "DejaVu Sans Mono 22")))
+#+end_src
+Set theme (currently Shades of Purple)
+#+begin_src emacs-lisp :results none
+  (setq custom-safe-themes t)
+  (setq custom-enabled-themes '(shades-of-purple))
+  (load-theme 'shades-of-purple)
+#+end_src
+Disables a bunch of needless UI noise.
+#+begin_src emacs-lisp :results none
+(cond ((> emacs-major-version 20)
+       (tool-bar-mode -1) ; introduced in emacs 21
+       (menu-bar-mode -1)
+       (scroll-bar-mode -1)
+       (menu-bar-showhide-fringe-menu-customize-disable)
+       (blink-cursor-mode -1)
+       (windmove-default-keybindings 'meta)))
+#+end_src
+Pretty mode line (switched from doom line mode since it was too slow)
+#+begin_src emacs-lisp :results none
+  (use-package mood-line
+    :config (mood-line-mode))
+#+end_src
+Disable the mode line in certain modes.
+#+begin_src emacs-lisp :results none
+  (use-package hide-mode-line
+    :hook (eshell-mode . hide-mode-line-mode)
+    :hook (mingus-playlist-mode . hide-mode-line-mode)
+    :hook (mingus-browse-mode . hide-mode-line-mode)
+    )
+#+end_src
