@@ -112,7 +112,7 @@ alias econfig="em ~/.emacs"
 alias sconfig="em ~/.config/sway/config"
 alias rm="trash"
 export PATH="/var/lib/snapd/snap/bin:$PATH"
-export EDITOR=emacs
+export EDITOR="emacsclient -t"
 export XDG_SCREENSHOTS_DIR="~/Pictures/Screenshots"
 alias ls="exa --long --header --no-user --no-permissions"
 # Created by `pipx` on 2024-06-11 00:05:52
