@@ -65,7 +65,7 @@
  '(org-hide-leading-stars t)
  '(org-startup-indented t)
  '(package-selected-packages
-   '(helm proof-general zoom-window auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package tuareg merlin-eldoc flycheck-ocaml dune))
+   '(helm proof-general zoom-window auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package merlin-eldoc flycheck-ocaml dune))
  '(pdf-view-midnight-colors '("#282828" . "#f2e5bc")))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
