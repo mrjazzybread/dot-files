@@ -12,6 +12,8 @@
 (unless package-archive-contents
   (package-refresh-contents))
 
+(load "/home/tiago/.opam/4.14.1/share/emacs/site-lisp/tuareg.el")
+
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
 
