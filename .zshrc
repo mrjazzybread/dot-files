@@ -125,6 +125,11 @@ alias cp="cp -r"
 alias hconfig="em ~/.config/hypr/hyprland.conf"
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 alias phd="cd ~/phd"
+alias pac="sudo pacman -S"
+function add-fonts(){
+    mv *.ttf ~/.local/share/fonts
+    fc-cache -f -v
+}
 
 clear
 fastfetch
