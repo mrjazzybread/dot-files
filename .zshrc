@@ -102,7 +102,6 @@ eval $(opam config env)
 alias reload="source ~/.zshrc"
 alias em="emacsclient -c -n"
 
-
 function pdf(){
     zathura "$@" & disown
 }
