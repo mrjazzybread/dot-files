@@ -6,6 +6,7 @@
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/") t)
 ;; keep the installed packages in .emacs.d
+
 (setq package-user-dir (expand-file-name "elpa" user-emacs-directory))
 (package-initialize)
 ;; update the package metadata is the local cache is missing
@@ -67,7 +68,7 @@
  '(org-hide-leading-stars t)
  '(org-startup-indented t)
  '(package-selected-packages
-   '(helm proof-general auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package merlin-eldoc flycheck-ocaml dune))
+   '(lsp-mode helm proof-general auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package merlin-eldoc flycheck-ocaml dune))
  '(pdf-view-midnight-colors '("#282828" . "#f2e5bc")))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -111,6 +112,8 @@
 
 (setq jedi:complete-on-dot t) 
 (add-hook 'python-mode-hook #'company-mode)
+(setq shell-file-name "/bin/zsh")
+
 
 (tool-bar-mode -1)
 (menu-bar-mode -1)
@@ -119,3 +122,12 @@
 (set-face-attribute 'default nil :height 150)
 (bind-key "M-n" 'forward-paragraph)
 (bind-key "M-p" 'backward-paragraph)
+(require 'url)    
+
+(defun web-test ()
+  (let ((chars))
+    (with-current-buffer
+        (url-retrieve-synchronously "https://www.google.com")
+      (setq chars (point-max))
+      (kill-buffer))
+    (message "Retrieved %s chars" chars)))
