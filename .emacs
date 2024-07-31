@@ -131,3 +131,4 @@
       (setq chars (point-max))
       (kill-buffer))
     (message "Retrieved %s chars" chars)))
+
