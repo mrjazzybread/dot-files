@@ -24,7 +24,8 @@
 ;; Major mode for OCaml programming
 (use-package tuareg
   :ensure t
-  :mode (("\\.ocamlinit\\'" . tuareg-mode)))
+  :mode (("\\.ocamlinit\\'" . tuareg-mode))
+  )
 
 ;; Major mode for editing Dune project files
 (use-package dune
@@ -34,8 +35,9 @@
 (use-package merlin
  :ensure t
  :config
-  (add-hook 'tuareg-mode-hook #'merlin-mode)
-  (add-hook 'merlin-mode-hook #'company-mode)
+ (add-hook 'tuareg-mode-hook #'merlin-mode)
+ (add-hook 'tuareg-mode-hook #'lsp)
+ (add-hook 'merlin-mode-hook #'company-mode)
 ;;  we're using flycheck instead
   (setq merlin-error-after-save nil))
 
