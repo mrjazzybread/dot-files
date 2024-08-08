@@ -127,6 +127,14 @@ alias phd="cd ~/phd"
 alias pac="sudo pacman -S"
 alias c="xclip -sel c"
 alias usb="cd /run/media/tiago/"
+alias mpc="mpc --port=6601"
+function work(){
+    mpc clear
+    mpc load 'Work Music'
+    mpc shuffle
+    mpc play
+}
+alias work="work >/dev/null"
 function add-fonts(){
     mv *.ttf ~/.local/share/fonts
     fc-cache -f -v
