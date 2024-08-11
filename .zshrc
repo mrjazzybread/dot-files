@@ -145,6 +145,4 @@ function add-fonts(){
 clear
 fastfetch
 
-[ -f "/home/tiago/.ghcup/env" ] && . "/home/tiago/.ghcup/env" # ghcup-env
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
