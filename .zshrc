@@ -105,29 +105,47 @@ alias em="emacsclient -c -n"
 function pdf(){
     zathura "$@" & disown
 }
-
+#Quick edit config files
 alias uconfig="em ~/.zshrc"
 alias econfig="em ~/.emacs"
 alias sconfig="em ~/.config/sway/config"
-alias rm="trash"
+alias hconfig="em ~/.config/hypr/hyprland.conf"
+
+#Quick jump into frequent folders
+alias phd="cd ~/phd"
+alias tmp="/tmp"
+alias usb="cd /run/media/tiago/"
+alias down="cd ~/downloads"
+
+#Add snap to bin
 export PATH="/var/lib/snapd/snap/bin:$PATH"
+#Emacs as default editor
 export EDITOR="emacsclient -t"
+#The rm command now moves files to the trash folder
+alias rm="trash"
+#Define screenshot directory 
 export XDG_SCREENSHOTS_DIR="~/Pictures/Screenshots"
+#Replace ls with exa
 alias ls="exa --long --header --no-user --no-permissions"
 # Created by `pipx` on 2024-06-11 00:05:52
 export PATH="$PATH:/home/tiago/.local/bin"
+#More convinient OCaml shell
 alias ocaml="rlwrap ocaml"
-alias tmp="/tmp"
-alias down="cd ~/downloads"
+
+#mv now prompts on overwrite
 alias mv="mv -i"
+#cp always copies folders 
 alias cp="cp -r"
-alias hconfig="em ~/.config/hypr/hyprland.conf"
+#add a file to track to my git for dot files
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
-alias phd="cd ~/phd"
+#Convinient command for installing packages
 alias pac="sudo pacman -S"
+#command to copy from terminal
 alias c="xclip -sel c"
-alias usb="cd /run/media/tiago/"
+
+#mpc always checks port 6601
 alias mpc="mpc --port=6601"
+#Plays work music playlist
 function work(){
     mpc clear
     mpc load 'Work Music'
@@ -135,6 +153,8 @@ function work(){
     mpc play
 }
 alias work="work >/dev/null"
+
+#Command to add a font to the system.
 function add-fonts(){
     mv *.ttf ~/.local/share/fonts
     fc-cache -f -v
