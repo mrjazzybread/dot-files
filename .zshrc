@@ -127,15 +127,6 @@ alias c="xclip -sel c"
 #mpc always checks port 6601
 alias mpc="mpc --port=6601"
 
-#Plays work music playlist
-function work(){
-    mpc clear
-    mpc load 'Work Music'
-    mpc shuffle
-    mpc play
-}
-alias work="work >/dev/null"
-
 #Command to add a font all the fonts in the current directory.
 function add-fonts(){
     mv *.ttf ~/.local/share/fonts
