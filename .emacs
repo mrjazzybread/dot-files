@@ -1,6 +1,6 @@
 (require 'package)
 
-(setq default-frame-alist '((font . "DejaVu Sans Mono 14")))
+(setq default-frame-alist '((font . "Mom´sTypewriter")))
 
 
 (add-to-list 'package-archives
