@@ -22,7 +22,7 @@
     },
     {
       "type": "gpu",
-      "key": "  󰲙",
+      "key": "  󰲙 ",
       "keyColor" : "magenta"
     },
     {
@@ -32,7 +32,7 @@
     },
     {
       "type": "disk",
-      "key": "  󰋊",
+      "key": "  󰋊 ",
       "keyColor" : "magenta"
     },
     {
@@ -51,7 +51,7 @@
     },
     {
       "type": "shell",
-      "key": "  ",
+      "key": "   ",
       "keyColor" : "magenta",
     },
     {
