@@ -4,29 +4,36 @@
     "separator": " :: "
   },
   "logo": {
-    "type": "builtin",
-    "source": "archlinux"
+    "type": "file",
+    "source": "~/.config/lain.txt",
+    "color": { "1": "magenta" }
   },  
   "modules": [
+    { "type" : "break" },
+    { "type" : "break" },
     {
       "type": "custom",
-      "format": "┌───────── \u001B[1mHardware Information\u001B[0m ─────────┐"
+      "format":"┌───────── \u001B[1mHardware Information\u001B[0m ─────────┐"
     },
     {
       "type": "cpu",
-      "key": "  cpu"
+      "key": "   ",
+      "keyColor" : "magenta"
     },
     {
       "type": "gpu",
-      "key": "  gpu"
+      "key": "  󰲙",
+      "keyColor" : "magenta"
     },
     {
       "type": "memory",
-      "key": "  RAM"
+      "key": "   ",
+      "keyColor" : "magenta"
     },
     {
       "type": "disk",
-      "key": "  Disk"
+      "key": "  󰋊",
+      "keyColor" : "magenta"
     },
     {
       "type": "custom",
@@ -34,23 +41,23 @@
     },
     {
       "type": "os",
-      "key": "  OS"
-    },
-    {
-      "type": "kernel",
-      "key": "  Kernel"
+      "key": "   ",
+      "keyColor" : "magenta"
     },
     {
       "type": "wm",
-      "key": "  window-manager"
+      "key": "   ",
+      "keyColor" : "magenta",
     },
     {
       "type": "shell",
-      "key": "  shell"
+      "key": "  ",
+      "keyColor" : "magenta",
     },
     {
       "type": "packages",
-      "key": "  packages"
+      "key": "   ",
+      "keyColor" : "magenta",
     },
     {
       "type": "custom",
