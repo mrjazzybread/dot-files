@@ -126,6 +126,8 @@ alias pac="sudo pacman -S"
 alias c="xclip -sel c"
 #mpc always checks port 6601
 alias mpc="mpc --port=6601"
+#update packages
+alias update="sudo pacman -Syu"
 
 #Command to add a font all the fonts in the current directory.
 function add-fonts(){
