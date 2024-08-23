@@ -93,10 +93,12 @@ alias econfig="em ~/.emacs"
 alias sconfig="em ~/.config/sway/config"
 alias hconfig="em ~/.config/hypr/hyprland.conf"
 
+export USB="/run/media/tiago/"
+
 #Quick jump into frequent folders
 alias phd="cd ~/phd"
 alias tmp="/tmp"
-alias usb="cd /run/media/tiago/"
+alias usb="cd $USB"
 alias down="cd ~/downloads"
 
 #Add snap to bin
@@ -114,11 +116,12 @@ export PATH="$PATH:/home/tiago/.local/bin"
 #More convinient OCaml shell
 alias ocaml="rlwrap ocaml"
 
-#mv now prompts on overwrite
+# #mv now prompts on overwrite
 alias mv="mv -i"
 #cp always copies folders 
 alias cp="cp -r"
 #add a file to track to my git for dot files
+
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 #Convinient command for installing packages
 alias pac="sudo pacman -S"
