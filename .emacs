@@ -96,11 +96,6 @@
 (when (daemonp)
   (global-set-key (kbd "C-x C-c") 'ask-before-closing))
 
-(defadvice text-scale-increase (around all-buffers (arg) activate)
-  (dolist (buffer (buffer-list))
-    (with-current-buffer buffer
-      ad-do-it)))
-
 
 (setq proof-splash-enable nil)
 (setq inhibit-x-resources nil)
