@@ -84,9 +84,6 @@ eval $(opam config env)
 alias reload="source ~/.zshrc"
 alias em="emacsclient -c -n"
 
-function pdf(){
-    zathura "$@" & disown
-}
 #Quick edit config files
 alias uconfig="em ~/.zshrc"
 alias econfig="em ~/.emacs"
