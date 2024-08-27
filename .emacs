@@ -68,11 +68,12 @@
  '(ispell-dictionary nil)
  '(org-adapt-indentation t)
  '(org-agenda-files '("~/org/todo.org"))
+ '(org-cite-export-processors '((t biblatex "numeric" "numeric")))
  '(org-cite-global-bibliography '("~/org/org.bib"))
  '(org-hide-leading-stars t)
  '(org-startup-indented t)
  '(package-selected-packages
-   '(frames-only-mode pdf-tools comment-tags lsp-mode helm proof-general auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package merlin-eldoc flycheck-ocaml dune))
+   '(fireplace frames-only-mode pdf-tools comment-tags lsp-mode helm proof-general auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package merlin-eldoc flycheck-ocaml dune))
  '(pdf-view-midnight-colors '("#282828" . "#f2e5bc")))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -114,9 +115,13 @@
 (setq shell-file-name "/bin/zsh")
 
 
-(tool-bar-mode -1)
-(menu-bar-mode -1)
-(scroll-bar-mode -1)
+(cond ((> emacs-major-version 20)
+       (tool-bar-mode -1) ; introduced in emacs 21
+       (menu-bar-mode -1)
+       (scroll-bar-mode -1)
+       (menu-bar-showhide-fringe-menu-customize-disable)
+       (blink-cursor-mode -1)
+       (windmove-default-keybindings 'meta)))
 
 (set-face-attribute 'default nil :height 150)
 (bind-key "M-n" 'forward-paragraph)
@@ -135,7 +140,7 @@
       '(    
         ("g" "General To-Do"
          entry (file+headline "~/org/todo.org" "General Tasks")
-         "* TODO %?\n:Created: %T\n "
+         "* TODO %?\n "
          :empty-lines 0)
       ))
 
