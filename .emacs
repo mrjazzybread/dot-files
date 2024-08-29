@@ -139,7 +139,7 @@
 (setq org-capture-templates
       '(    
         ("g" "General To-Do"
-         entry (file+headline "~/org/todo.org" "General Tasks")
+         entry (file+headline "~/org/todo.org" "%?")
          "* TODO %?\n "
          :empty-lines 0)
       ))
@@ -169,5 +169,5 @@
  (global-set-key "\C-cc" 'org-capture)
  (global-set-key "\C-cb" 'org-iswitchb)
 (pdf-tools-install) ; Standard activation command
-
 (frames-only-mode)
+(setq overlay-arrow-string "")
