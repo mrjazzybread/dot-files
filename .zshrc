@@ -128,7 +128,6 @@ alias c="xclip -sel c"
 alias mpc="mpc --port=6601"
 #update packages
 alias update="sudo pacman -Syu"
-
 #Command to add a font all the fonts in the current directory.
 function add-fonts(){
     mv *.ttf ~/.local/share/fonts
@@ -137,5 +136,7 @@ function add-fonts(){
 
 clear
 fastfetch
+
+
 
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

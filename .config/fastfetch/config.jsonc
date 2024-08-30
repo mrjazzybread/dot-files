@@ -4,9 +4,9 @@
     "separator": " :: "
   },
   "logo": {
-    "type": "file",
-    "source": "~/.config/lain.txt",
-    "color": { "1": "magenta" }
+    "type": "builtin",
+
+    "color": { "1": "magenta", "2" : "magenta"  }
   },
   "font": "JHL Typewriter",
   "modules": [
@@ -22,18 +22,13 @@
       "keyColor" : "magenta"
     },
     {
-      "type": "gpu",
-      "key": "  󰲙 ",
-      "keyColor" : "magenta"
-    },
-    {
       "type": "memory",
       "key": "   ",
       "keyColor" : "magenta"
     },
     {
       "type": "disk",
-      "key": "  󰋊 ",
+      "key": "   ",
       "keyColor" : "magenta"
     },
     {
@@ -42,22 +37,22 @@
     },
     {
       "type": "os",
-      "key": "   ",
+      "key": "    ",
       "keyColor" : "magenta"
     },
     {
       "type": "wm",
-      "key": "   ",
+      "key": "    ",
       "keyColor" : "magenta",
     },
     {
       "type": "shell",
-      "key": "   ",
+      "key": "    ",
       "keyColor" : "magenta",
     },
     {
       "type": "packages",
-      "key": "   ",
+      "key": "     ",
       "keyColor" : "magenta",
     },
     {

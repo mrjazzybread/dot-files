@@ -1,2 +1,0 @@
-[keyboard]
-bindings = [ {key="T", mods="Control", mode="AppCursor", action="CreateNewWindow"} ]

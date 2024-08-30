@@ -1,7 +1,14 @@
+(prefer-coding-system       'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(setq default-buffer-file-coding-system 'utf-8)
+(set-language-environment 'utf-8)
+(set-selection-coding-system 'utf-8)
+(setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
+
 (require 'package)
-
 (setq default-frame-alist '((font . "DejaVu Sans Mono 14")))
-
 
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/") t)
@@ -59,6 +66,7 @@
    [default default default italic underline success warning error])
  '(ansi-color-names-vector
    ["black" "#d55e00" "#009e73" "#f8ec59" "#0072b2" "#cc79a7" "#56b4e9" "white"])
+ '(confirm-kill-processes nil)
  '(custom-enabled-themes '(shades-of-purple))
  '(custom-safe-themes
    '("50e1e7c99029947a0681e99ad0e6d9fe5d8a7d5c6c2468784523b211359c8a86" "9398969cf7214748a41a02e35c660b5325cfa0832ea2a04bd1eb2b600665dd74" "6752a763be62c7da5c70d04cd5f559c2f96479caa18809c54612cb918ba08708" "046a2b81d13afddae309930ef85d458c4f5d278a69448e5a5261a5c78598e012" "a5270d86fac30303c5910be7403467662d7601b821af2ff0c4eb181153ebfc0a" "871b064b53235facde040f6bdfa28d03d9f4b966d8ce28fb1725313731a2bcc8" "98ef36d4487bf5e816f89b1b1240d45755ec382c7029302f36ca6626faf44bbd" "d445c7b530713eac282ecdeea07a8fa59692c83045bf84dd112dd738c7bcad1d" "ba323a013c25b355eb9a0550541573d535831c557674c8d59b9ac6aa720c21d3" "3039a2b04f05e9e730f23b56a44b9f6c5b40a4eb0bbc0a4b79ddfe7195ee98fd" default))
@@ -73,8 +81,9 @@
  '(org-hide-leading-stars t)
  '(org-startup-indented t)
  '(package-selected-packages
-   '(fireplace frames-only-mode pdf-tools comment-tags lsp-mode helm proof-general auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package merlin-eldoc flycheck-ocaml dune))
- '(pdf-view-midnight-colors '("#282828" . "#f2e5bc")))
+   '(eat pbcopy unicode-fonts fireplace frames-only-mode pdf-tools comment-tags lsp-mode helm proof-general auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package merlin-eldoc flycheck-ocaml dune))
+ '(pdf-view-midnight-colors '("#282828" . "#f2e5bc"))
+ '(vterm-use-vterm-prompt-detection-method nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -148,7 +157,6 @@
 (setq org-todo-keywords
       '((sequence "TODO(t)" "PLANNING(p)" "IN-PROGRESS(i@/!)" "VERIFYING(v!)" "BLOCKED(b@)"  "|" "DONE(d!)" "OBE(o@!)" "WONT-DO(w@/!)" )
         ))
-
 ;; TODO colors
 (setq org-todo-keyword-faces
       '(
