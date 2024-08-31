@@ -4,8 +4,8 @@
     "separator": " :: "
   },
   "logo": {
-    "type": "builtin",
-
+    "type": "file",
+    "source": "~/.config/lain.txt",
     "color": { "1": "magenta", "2" : "magenta"  }
   },
   "font": "JHL Typewriter",
