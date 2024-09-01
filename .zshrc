@@ -137,6 +137,4 @@ function add-fonts(){
 clear
 fastfetch
 
-
-
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

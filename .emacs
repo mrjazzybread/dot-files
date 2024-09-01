@@ -87,6 +87,7 @@
  '(package-selected-packages
    '(pacmacs vterm eat pbcopy unicode-fonts fireplace frames-only-mode pdf-tools comment-tags lsp-mode helm proof-general auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package merlin-eldoc flycheck-ocaml dune))
  '(pdf-view-midnight-colors '("#282828" . "#f2e5bc"))
+ '(vterm-copy-exclude-prompt nil)
  '(vterm-use-vterm-prompt-detection-method nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -150,6 +151,14 @@
       (kill-buffer))
     (message "Retrieved %s chars" chars)))
 
+(defun vt ()
+  (interactive)
+  (select-frame (make-frame))
+  (funcall #'multi-vterm)
+)
+(global-set-key "\C-t" 'vt) 
+
+
 (setq org-capture-templates
       '(    
         ("w" "Writing TODO"
@@ -195,6 +204,7 @@
 (pdf-tools-install) ; Standard activation command
 (frames-only-mode)
 (setq overlay-arrow-string "")
+
 
 (add-hook 'dired-mode-hook
 	  (lambda () (local-set-key (kbd "o") #'dired-omit-mode)))
