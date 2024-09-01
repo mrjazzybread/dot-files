@@ -84,7 +84,7 @@
  '(org-hide-leading-stars t)
  '(org-startup-indented t)
  '(package-selected-packages
-   '(eat pbcopy unicode-fonts fireplace frames-only-mode pdf-tools comment-tags lsp-mode helm proof-general auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package merlin-eldoc flycheck-ocaml dune))
+   '(vterm eat pbcopy unicode-fonts fireplace frames-only-mode pdf-tools comment-tags lsp-mode helm proof-general auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package merlin-eldoc flycheck-ocaml dune))
  '(pdf-view-midnight-colors '("#282828" . "#f2e5bc"))
  '(vterm-use-vterm-prompt-detection-method nil))
 (custom-set-faces
@@ -202,17 +202,11 @@
 (add-hook 'tuareg-mode-hook
 	  (lambda () (setq compile-command "~/.config/ocompile.sh")))
 
-
 (setq dired-omit-files
     (rx (or (seq bol (? ".") "#")     ;; emacs autosave files
         (seq bol "." (not (any "."))) ;; dot-files
         (seq "~" eol)                 ;; backup-files
         (seq bol "CVS" eol)           ;; CVS dirs
         )))
-
-(defun shell-other-window ()
-  "Open a `shell' in a new window."
-  (interactive)
-  (let ((buf (shell)))
-    (switch-to-buffer (other-buffer buf))
-    (switch-to-buffer-other-frame buf)))
+(savehist-mode)
+(add-hook 'dired-mode-hook 'auto-revert-mode)
