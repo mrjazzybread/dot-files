@@ -68,6 +68,7 @@
    [default default default italic underline success warning error])
  '(ansi-color-names-vector
    ["black" "#d55e00" "#009e73" "#f8ec59" "#0072b2" "#cc79a7" "#56b4e9" "white"])
+ '(bookmark-save-flag 0)
  '(confirm-kill-processes nil)
  '(custom-enabled-themes '(shades-of-purple))
  '(custom-safe-themes
