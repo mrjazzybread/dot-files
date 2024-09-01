@@ -84,7 +84,7 @@
  '(org-hide-leading-stars t)
  '(org-startup-indented t)
  '(package-selected-packages
-   '(vterm eat pbcopy unicode-fonts fireplace frames-only-mode pdf-tools comment-tags lsp-mode helm proof-general auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package merlin-eldoc flycheck-ocaml dune))
+   '(pacmacs vterm eat pbcopy unicode-fonts fireplace frames-only-mode pdf-tools comment-tags lsp-mode helm proof-general auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package merlin-eldoc flycheck-ocaml dune))
  '(pdf-view-midnight-colors '("#282828" . "#f2e5bc"))
  '(vterm-use-vterm-prompt-detection-method nil))
 (custom-set-faces
