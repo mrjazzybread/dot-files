@@ -151,11 +151,22 @@
 
 (setq org-capture-templates
       '(    
-        ("g" "General To-Do"
-         entry (file+headline "~/org/todo.org" "%?")
+        ("w" "Writing TODO"
+         entry (file+headline "~/org/todo.org" "Writing")
          "* TODO %?\n "
          :empty-lines 0)
+	("p" "Programming TODO"
+         entry (file+headline "~/org/todo.org" "Programming Tasks")
+         "* TODO %?\n "
+         :empty-lines 0)
+	("a" "Appointments"
+         entry (file+headline "~/org/todo.org" "Appointments")
+         "* PLANNING %?\n "
+         :empty-lines 0)
+
       ))
+
+
 
 ;; TODO states
 (setq org-todo-keywords
@@ -188,6 +199,8 @@
 	  (lambda () (local-set-key (kbd "o") #'dired-omit-mode)))
 (add-hook 'dired-mode-hook
 	  (lambda () (local-set-key (kbd "b") #'dired-omit-mode)))
+(add-hook 'tuareg-mode-hook
+	  (lambda () (setq compile-command "~/.config/ocompile.sh")))
 
 
 (setq dired-omit-files
