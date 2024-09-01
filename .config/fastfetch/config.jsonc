@@ -37,22 +37,22 @@
     },
     {
       "type": "os",
-      "key": "    ",
+      "key": "   ",
       "keyColor" : "magenta"
     },
     {
       "type": "wm",
-      "key": "    ",
+      "key": "   ",
       "keyColor" : "magenta",
     },
     {
       "type": "shell",
-      "key": "    ",
+      "key": "   ",
       "keyColor" : "magenta",
     },
     {
       "type": "packages",
-      "key": "     ",
+      "key": "   ",
       "keyColor" : "magenta",
     },
     {
