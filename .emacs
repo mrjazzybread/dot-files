@@ -65,6 +65,7 @@
  '(org-agenda-files '("~/org/todo.org"))
  '(org-cite-export-processors '((t biblatex "numeric" "numeric")))
  '(org-cite-global-bibliography '("~/org/org.bib"))
+ '(org-export-with-sub-superscripts nil)
  '(org-hide-leading-stars t)
  '(org-startup-indented t)
  '(package-selected-packages
@@ -203,4 +204,5 @@
         (seq bol "CVS" eol)           ;; CVS dirs
         )))
 (savehist-mode)
-(add-hook 'dired-mode-hook 'auto-revert-mode)
+
+
