@@ -40,25 +40,8 @@
 (use-package dune
   :ensure t)
 
-;; Merlin provides advanced IDE features
-(use-package merlin
- :ensure t
- :config
- (add-hook 'tuareg-mode-hook #'merlin-mode)
- (add-hook 'tuareg-mode-hook #'lsp)
- (add-hook 'merlin-mode-hook #'company-mode)
-;;  we're using flycheck instead
-  (setq merlin-error-after-save nil))
 
-(use-package merlin-eldoc
-  :ensure t
-  :hook ((tuareg-mode) . merlin-eldoc-setup))
-
-;; This uses Merlin internally
-(use-package flycheck-ocaml
-  :ensure t
-  :config
-  (flycheck-ocaml-setup))
+(add-hook 'tuareg-mode-hook #'lsp)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -78,8 +61,6 @@
  '(eglot-confirm-server-edits nil nil nil "Customized with use-package eglot")
  '(inhibit-startup-screen t)
  '(ispell-dictionary nil)
- '(lsp-diagnostics-provider :none)
- '(lsp-headerline-breadcrumb-enable-diagnostics nil)
  '(org-adapt-indentation t)
  '(org-agenda-files '("~/org/todo.org"))
  '(org-cite-export-processors '((t biblatex "numeric" "numeric")))
@@ -87,7 +68,7 @@
  '(org-hide-leading-stars t)
  '(org-startup-indented t)
  '(package-selected-packages
-   '(ocamlformat pacmacs vterm eat pbcopy unicode-fonts fireplace frames-only-mode pdf-tools comment-tags lsp-mode helm proof-general auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package merlin-eldoc flycheck-ocaml dune))
+   '(lsp-mode ocamlformat pacmacs vterm eat pbcopy unicode-fonts fireplace frames-only-mode pdf-tools comment-tags helm proof-general auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package dune))
  '(pdf-view-midnight-colors '("#282828" . "#f2e5bc"))
  '(vterm-copy-exclude-prompt nil)
  '(vterm-use-vterm-prompt-detection-method nil))
