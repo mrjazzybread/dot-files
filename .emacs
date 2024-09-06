@@ -205,4 +205,19 @@
         )))
 (savehist-mode)
 
+(add-hook 'tuareg-mode-hook
+          (lambda()
+            (local-unset-key (kbd "C-c C-l"))))
+(add-hook 'coq-mode-hook
+          (lambda()
+            (local-unset-key (kbd "M-p"))))
+(add-hook 'coq-mode-hook
+          (lambda()
+            (local-unset-key (kbd "M-n"))))
 
+(require 'flycheck)
+(require 'lsp)
+(progn
+  (define-key flycheck-mode-map (kbd "\C-c \C-x") (lambda () (interactive) (flycheck-next-error)))
+  (define-key lsp-mode-map      (kbd "C-c C-l") (lambda () (interactive) (lsp-find-definition)))
+ )
