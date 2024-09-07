@@ -129,6 +129,9 @@ alias mpc="mpc --port=6601"
 #update packages
 alias update="sudo pacman -Syu"
 #Command to add a font all the fonts in the current directory.
+function man(){
+    emacsclient -e "(man \"$*\")"
+}
 function add-fonts(){
     mv *.ttf ~/.local/share/fonts
     fc-cache -f -v

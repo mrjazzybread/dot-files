@@ -61,6 +61,7 @@
  '(eglot-confirm-server-edits nil nil nil "Customized with use-package eglot")
  '(inhibit-startup-screen t)
  '(ispell-dictionary nil)
+ '(lsp-headerline-breadcrumb-enable nil)
  '(org-adapt-indentation t)
  '(org-agenda-files '("~/org/todo.org"))
  '(org-cite-export-processors '((t biblatex "numeric" "numeric")))
