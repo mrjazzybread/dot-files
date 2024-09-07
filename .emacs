@@ -66,7 +66,9 @@
  '(org-cite-export-processors '((t biblatex "numeric" "numeric")))
  '(org-cite-global-bibliography '("~/org/org.bib"))
  '(org-export-with-sub-superscripts nil)
+ '(org-hide-emphasis-markers t)
  '(org-hide-leading-stars t)
+ '(org-latex-src-block-backend 'listings)
  '(org-startup-indented t)
  '(package-selected-packages
    '(lsp-mode ocamlformat pacmacs vterm eat pbcopy unicode-fonts fireplace frames-only-mode pdf-tools comment-tags helm proof-general auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package dune))
