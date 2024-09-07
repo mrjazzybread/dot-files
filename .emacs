@@ -219,7 +219,42 @@
 
 (require 'flycheck)
 (require 'lsp)
+
+(defun tag-word-or-region (text-begin text-end)
+  "Surround current word or region with given text."
+  (interactive "sStart tag: \nsEnd tag: ")
+  (let (pos1 pos2 bds)
+    (if (and transient-mark-mode mark-active)
+        (progn
+          (goto-char (region-end))
+          (insert text-end)
+          (goto-char (region-beginning))
+          (insert text-begin))
+      (progn
+        (setq bds (point))
+        (goto-char bds)
+        (insert text-end)
+        (goto-char bds)
+        (insert text-begin)))))
+(setq env-map '( ("cfml" . "coq")
+  ("ocamlenv" . "ocaml")
+  ("gospelenv" . "gospel")
+  ("whylang" . "ocaml")
+))
+	
+
+(defun org-insert-code-env (env-name)
+  (interactive "sEnvironment name: ")
+  (tag-word-or-region (concat "#+ATTR_LATEX: :environment " env-name
+			      "\n#+begin_example " (alist-get env-name env-map nil nil #'equal) "\n")
+		      "\n#+end_example"
+  ))
+
+(require 'org)
 (progn
   (define-key flycheck-mode-map (kbd "\C-c \C-x") (lambda () (interactive) (flycheck-next-error)))
   (define-key lsp-mode-map      (kbd "C-c C-l") (lambda () (interactive) (lsp-find-definition)))
+  (define-key org-mode-map      (kbd "C-c C-x")
+	      (lambda (env-name)
+		(interactive "sEnvironment name: ") (org-insert-code-env env-name)))
  )
