@@ -73,7 +73,7 @@
  '(org-latex-src-block-backend 'listings)
  '(org-startup-indented t)
  '(package-selected-packages
-   '(lsp-mode ocamlformat pacmacs vterm eat pbcopy unicode-fonts fireplace frames-only-mode pdf-tools comment-tags helm proof-general auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package dune))
+   '(tree-sitter-langs tree-sitter lsp-mode ocamlformat pacmacs vterm eat pbcopy unicode-fonts fireplace frames-only-mode pdf-tools comment-tags helm proof-general auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package dune))
  '(pdf-view-midnight-colors '("#282828" . "#f2e5bc"))
  '(vterm-copy-exclude-prompt nil)
  '(vterm-use-vterm-prompt-detection-method nil))

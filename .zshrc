@@ -100,6 +100,8 @@ alias down="cd ~/downloads"
 
 #Add snap to bin
 export PATH="/var/lib/snapd/snap/bin:$PATH"
+export PATH=$PATH:./node_modules/.bin
+
 #Emacs as default editor
 export EDITOR="emacsclient -t"
 #The rm command now moves files to the trash folder
