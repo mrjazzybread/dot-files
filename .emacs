@@ -69,6 +69,7 @@
  '(org-export-with-sub-superscripts nil)
  '(org-hide-emphasis-markers t)
  '(org-hide-leading-stars t)
+ '(org-hide-macro-markers t)
  '(org-latex-src-block-backend 'listings)
  '(org-startup-indented t)
  '(package-selected-packages
@@ -239,7 +240,7 @@
         (insert text-begin)))))
 (setq env-map '( ("cfml" . "coq")
   ("ocamlenv" . "ocaml")
-  ("gospelenv" . "gospel")
+  ("gospel" . "ocaml")
   ("whylang" . "ocaml")
 ))
 	
@@ -251,11 +252,17 @@
 		      "\n#+end_example"
   ))
 
+(defun org-insert-macro ()
+  (interactive)
+  (tag-word-or-region "{{{" "}}}")
+ )
+
 (require 'org)
 (progn
   (define-key flycheck-mode-map (kbd "\C-c \C-x") (lambda () (interactive) (flycheck-next-error)))
   (define-key lsp-mode-map      (kbd "C-c C-l") (lambda () (interactive) (lsp-find-definition)))
-  (define-key org-mode-map      (kbd "C-c C-x")
+  (define-key org-mode-map      (kbd "C-c C-x C-x")
 	      (lambda (env-name)
 		(interactive "sEnvironment name: ") (org-insert-code-env env-name)))
+  (define-key org-mode-map      (kbd "C-c C-x C-m") (lambda () (interactive) (org-insert-macro)))
  )
