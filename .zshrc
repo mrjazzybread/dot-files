@@ -139,6 +139,11 @@ function add-fonts(){
     fc-cache -f -v
 }
 
+#export OCAMLRUNPARAM=b
+function ocaml-trace-disable(){
+    unset OCAMLRUNPARAM
+}
+
 clear
 fastfetch
 

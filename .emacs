@@ -154,14 +154,13 @@
          "* TODO %?\n "
          :empty-lines 0)
 	("p" "Programming TODO"
-         entry (file+headline "~/org/todo.org" "Programming Tasks")
+         entry (file+headline "~/org/todo.org" "PhD Tasks")
          "* TODO %?\n "
          :empty-lines 0)
 	("a" "Appointments"
          entry (file+headline "~/org/todo.org" "Appointments")
          "* PLANNING %?\n "
          :empty-lines 0)
-
       ))
 
 
@@ -179,7 +178,7 @@
         ("VERIFYING" . (:foreground "DarkOrange" :weight bold))
         ("BLOCKED" . (:foreground "Red" :weight bold))
         ("DONE" . (:foreground "LimeGreen" :weight bold))
-        ("OBE" . (:foreground "LimeGreen" :weight bold))
+        ("COURSE" . (:foreground "LimeGreen" :weight bold))
         ("WONT-DO" . (:foreground "LimeGreen" :weight bold))
         ))
 ;; This is for org-mode agenda view activation
