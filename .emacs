@@ -73,7 +73,7 @@
  '(org-latex-src-block-backend 'listings)
  '(org-startup-indented t)
  '(package-selected-packages
-   '(tree-sitter-langs tree-sitter lsp-mode ocamlformat pacmacs vterm eat pbcopy unicode-fonts fireplace frames-only-mode pdf-tools comment-tags helm proof-general auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package dune))
+   '(quelpa tree-sitter-langs tree-sitter lsp-mode ocamlformat pacmacs vterm eat pbcopy unicode-fonts fireplace frames-only-mode pdf-tools comment-tags helm proof-general auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package dune))
  '(pdf-view-midnight-colors '("#282828" . "#f2e5bc"))
  '(proof-multiple-frames-enable t)
  '(vterm-copy-exclude-prompt nil)
@@ -200,6 +200,9 @@
 	  (lambda () (local-set-key (kbd "b") #'dired-omit-mode)))
 (add-hook 'tuareg-mode-hook
 	  (lambda () (setq compile-command "~/.config/ocompile.sh")))
+(add-hook 'menhir-mode-hook
+	  (lambda () (setq compile-command "~/.config/ocompile.sh")))
+
 
 (setq dired-omit-files
     (rx (or (seq bol (? ".") "#")     ;; emacs autosave files
