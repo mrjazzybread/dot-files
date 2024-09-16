@@ -73,7 +73,7 @@
  '(org-latex-src-block-backend 'listings)
  '(org-startup-indented t)
  '(package-selected-packages
-   '(pdf-tools image-roll quelpa tree-sitter-langs tree-sitter lsp-mode ocamlformat pacmacs vterm eat pbcopy unicode-fonts fireplace frames-only-mode comment-tags helm proof-general auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package dune))
+   '(org-modern pdf-tools image-roll quelpa tree-sitter-langs tree-sitter lsp-mode ocamlformat pacmacs vterm eat pbcopy unicode-fonts fireplace frames-only-mode comment-tags helm proof-general auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package dune))
  '(pdf-view-midnight-colors '("#282828" . "#f2e5bc"))
  '(proof-multiple-frames-enable t)
  '(vterm-copy-exclude-prompt nil)
@@ -276,3 +276,4 @@
  )
 
 (add-hook 'pdf-view-mode-hook #'pdf-view-roll-minor-mode)
+(set-face-attribute 'org-meta-line nil :foreground (face-attribute 'default :background))
