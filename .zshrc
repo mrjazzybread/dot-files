@@ -114,13 +114,11 @@ alias ls="exa --long --header --no-user --no-permissions"
 export PATH="$PATH:/home/tiago/.local/bin"
 #More convinient OCaml shell
 alias ocaml="rlwrap ocaml"
-
 # #mv now prompts on overwrite
 alias mv="mv -i"
 #cp always copies folders 
 alias cp="cp -r"
 #add a file to track to my git for dot files
-
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 #Convinient command for installing packages
 alias pac="sudo pacman -S"

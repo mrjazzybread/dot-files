@@ -275,5 +275,4 @@
   (define-key org-mode-map      (kbd "C-c C-x C-m") (lambda () (interactive) (org-insert-macro)))
  )
 
-;(load "~/.emacs.d/image-roll.el")
 (add-hook 'pdf-view-mode-hook #'pdf-view-roll-minor-mode)
