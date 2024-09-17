@@ -71,6 +71,7 @@
  '(org-hide-leading-stars t)
  '(org-hide-macro-markers t)
  '(org-latex-src-block-backend 'listings)
+ '(org-pretty-entities t)
  '(org-startup-indented t)
  '(package-selected-packages
    '(org-modern pdf-tools image-roll quelpa tree-sitter-langs tree-sitter lsp-mode ocamlformat pacmacs vterm eat pbcopy unicode-fonts fireplace frames-only-mode comment-tags helm proof-general auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package dune))
