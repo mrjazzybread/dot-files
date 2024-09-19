@@ -74,7 +74,7 @@
  '(org-pretty-entities t)
  '(org-startup-indented t)
  '(package-selected-packages
-   '(org-modern pdf-tools image-roll quelpa tree-sitter-langs tree-sitter lsp-mode ocamlformat pacmacs vterm eat pbcopy unicode-fonts fireplace frames-only-mode comment-tags helm proof-general auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package dune))
+   '(loccur pdf-tools org-modern quelpa tree-sitter-langs tree-sitter lsp-mode ocamlformat pacmacs vterm eat pbcopy unicode-fonts fireplace frames-only-mode comment-tags helm proof-general auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package dune))
  '(pdf-view-midnight-colors '("#282828" . "#f2e5bc"))
  '(proof-multiple-frames-enable t)
  '(vterm-copy-exclude-prompt nil)
@@ -252,7 +252,7 @@
   ("gospel" . "ocaml")
   ("whylang" . "ocaml")
 ))
-	
+
 
 (defun org-insert-code-env (env-name)
   (interactive "sEnvironment name: ")
@@ -276,5 +276,15 @@
   (define-key org-mode-map      (kbd "C-c C-x C-m") (lambda () (interactive) (org-insert-macro)))
  )
 
-(add-hook 'pdf-view-mode-hook #'pdf-view-roll-minor-mode)
-(set-face-attribute 'org-meta-line nil :foreground (face-attribute 'default :background))
+;(set-face-attribute 'org-meta-line nil :foreground (face-attribute 'default :background))
+
+(add-hook 'org-mode-hook
+  (lambda ()
+    (push '("#+end_example" . ?​) prettify-symbols-alist)
+    (push '("#+begin_example coq" . ?🐓) prettify-symbols-alist)
+    (push '("#+begin_example ocaml" . ?🐫) prettify-symbols-alist)
+    (push '("#+ATTR_LATEX: :environment cfml" . ?​) prettify-symbols-alist)
+    (push '("#+ATTR_LATEX: :environment ocamlenv" . ?​) prettify-symbols-alist)
+    (push '("#+ATTR_LATEX: :environment gospel" . ?​) prettify-symbols-alist)
+    (push '("#+ATTR_LATEX: :environment whylang" . ?​) prettify-symbols-alist)
+   (prettify-symbols-mode 1)))
