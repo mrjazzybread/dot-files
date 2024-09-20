@@ -71,6 +71,19 @@
  '(lsp-headerline-breadcrumb-enable nil)
  '(org-adapt-indentation t)
  '(org-agenda-files '("~/org/todo.org"))
+ '(org-capture-templates
+   '(("w" "Writing TODO" entry
+      (file+headline "~/org/todo.org" "Writing")
+      "* TODO %?\12 " :empty-lines 0)
+     ("p" "Programming TODO" entry
+      (file+headline "~/org/todo.org" "PhD Tasks")
+      "* TODO %?\12 " :empty-lines 0)
+     ("a" "Appointments" entry
+      (file+headline "~/org/todo.org" "Appointments")
+      "* APPOINTMENT %?\12 " :empty-lines 0)
+     ("r" "Reading List" entry
+      (file+headline "~/org/todo.org" "Reading List")
+      "* TODO %?\12 " :empty-lines 0)) t)
  '(org-cite-export-processors '((t biblatex "numeric" "numeric")))
  '(org-cite-global-bibliography '("~/org/org.bib"))
  '(org-export-with-sub-superscripts nil)
@@ -81,7 +94,7 @@
  '(org-pretty-entities t)
  '(org-startup-indented t)
  '(package-selected-packages
-   '(loccur org-modern quelpa tree-sitter-langs tree-sitter lsp-mode ocamlformat pacmacs vterm eat pbcopy unicode-fonts fireplace frames-only-mode comment-tags helm proof-general auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package dune))
+   '(epresent loccur org-modern quelpa tree-sitter-langs tree-sitter lsp-mode ocamlformat pacmacs vterm eat pbcopy unicode-fonts fireplace frames-only-mode comment-tags helm proof-general auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package dune))
  '(pdf-view-midnight-colors '("#282828" . "#f2e5bc"))
  '(proof-multiple-frames-enable t)
  '(vterm-copy-exclude-prompt nil)
@@ -162,27 +175,29 @@
          entry (file+headline "~/org/todo.org" "Writing")
          "* TODO %?\n "
          :empty-lines 0)
+	
 	("p" "Programming TODO"
          entry (file+headline "~/org/todo.org" "PhD Tasks")
          "* TODO %?\n "
          :empty-lines 0)
+	
 	("a" "Appointments"
          entry (file+headline "~/org/todo.org" "Appointments")
-         "* PLANNING %?\n "
-         :empty-lines 0)
+         "* APPOINTMENT %?\n "
+         :empty-lines 0)	
       ))
 
 
 
 ;; TODO states
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "PLANNING(p)" "IN-PROGRESS(i@/!)" "VERIFYING(v!)" "BLOCKED(b@)"  "|" "DONE(d!)" "OBE(o@!)" "WONT-DO(w@/!)" )
+      '((sequence "TODO(t)" "APPOINTMENT(p)" "IN-PROGRESS(i@/!)" "VERIFYING(v!)" "BLOCKED(b@)"  "|" "DONE(d!)" "OBE(o@!)" "WONT-DO(w@/!)" )
         ))
 ;; TODO colors
 (setq org-todo-keyword-faces
       '(
         ("TODO" . (:foreground "GoldenRod" :weight bold))
-        ("PLANNING" . (:foreground "DeepPink" :weight bold))
+        ("APPOINTMENT" . (:foreground "DeepPink" :weight bold))
         ("IN-PROGRESS" . (:foreground "Cyan" :weight bold))
         ("VERIFYING" . (:foreground "DarkOrange" :weight bold))
         ("BLOCKED" . (:foreground "Red" :weight bold))
