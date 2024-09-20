@@ -40,6 +40,13 @@
 (use-package dune
   :ensure t)
 
+(use-package quelpa :ensure t)
+
+(use-package pdf-tools
+  :ensure t
+  :config
+  (pdf-tools-install t))
+
 
 (add-hook 'tuareg-mode-hook #'lsp)
 (custom-set-variables
@@ -85,7 +92,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-(pdf-tools-install)
+
 (defvar backup-dir (expand-file-name "~/.emacs.d/backup/"))
 (defvar autosave-dir (expand-file-name "~/.emacs.d/autosave/"))
 (setq backup-directory-alist (list (cons ".*" backup-dir)))
