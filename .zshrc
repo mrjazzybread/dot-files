@@ -101,9 +101,9 @@ alias down="cd ~/downloads"
 #Add snap to bin
 export PATH="/var/lib/snapd/snap/bin:$PATH"
 export PATH=$PATH:./node_modules/.bin
-
 #Emacs as default editor
 export EDITOR="emacsclient -t"
+
 #The rm command now moves files to the trash folder
 alias rm="trash"
 #Define screenshot directory 
@@ -128,6 +128,8 @@ alias c="xclip -sel c"
 alias mpc="mpc --port=6601"
 #update packages
 alias update="sudo pacman -Syu"
+# org mode agenda
+alias agenda="emacsclient -c -n -e '(org-agenda-list)'"
 #Command to add a font all the fonts in the current directory.
 function man(){
     emacsclient -e "(man \"$*\")"
