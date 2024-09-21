@@ -66,6 +66,7 @@
  '(dired-listing-switches "-la")
  '(doc-view-resolution 1000)
  '(eglot-confirm-server-edits nil nil nil "Customized with use-package eglot")
+ '(gnus-secondary-select-methods '((nnmaildir "news.tilde.club")))
  '(inhibit-startup-screen t)
  '(ispell-dictionary nil)
  '(lsp-headerline-breadcrumb-enable nil)
@@ -79,11 +80,11 @@
       (file+headline "~/org/todo.org" "PhD Tasks")
       "* TODO %?\12 " :empty-lines 0)
      ("a" "Appointments" entry
-      (file+headline "~/org/todo.org" "Appointments")
+      (file+headline "~/org/appoint.org" "Appointments")
       "* APPOINTMENT %?\12 " :empty-lines 0)
      ("r" "Reading List" entry
       (file+headline "~/org/todo.org" "Reading List")
-      "* TODO %?\12 " :empty-lines 0)) t)
+      "* TODO %?\12 " :empty-lines 0)))
  '(org-cite-export-processors '((t biblatex "numeric" "numeric")))
  '(org-cite-global-bibliography '("~/org/org.bib"))
  '(org-export-with-sub-superscripts nil)
@@ -94,7 +95,7 @@
  '(org-pretty-entities t)
  '(org-startup-indented t)
  '(package-selected-packages
-   '(epresent loccur org-modern quelpa tree-sitter-langs tree-sitter lsp-mode ocamlformat pacmacs vterm eat pbcopy unicode-fonts fireplace frames-only-mode comment-tags helm proof-general auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package dune))
+   '(bbdb epresent loccur org-modern quelpa tree-sitter-langs tree-sitter lsp-mode ocamlformat pacmacs vterm eat pbcopy unicode-fonts fireplace frames-only-mode comment-tags helm proof-general auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package dune))
  '(pdf-view-midnight-colors '("#282828" . "#f2e5bc"))
  '(proof-multiple-frames-enable t)
  '(vterm-copy-exclude-prompt nil)
@@ -182,7 +183,7 @@
          :empty-lines 0)
 	
 	("a" "Appointments"
-         entry (file+headline "~/org/todo.org" "Appointments")
+         entry (file+headline "~/org/appoint.org" "Appointments")
          "* APPOINTMENT %?\n "
          :empty-lines 0)
 
@@ -314,3 +315,13 @@
     (push '("#+ATTR_LATEX: :environment gospel" . ?​) prettify-symbols-alist)
     (push '("#+ATTR_LATEX: :environment whylang" . ?​) prettify-symbols-alist)
    (prettify-symbols-mode 1)))
+
+(setq
+ gnus-select-method '(nntp "news.gmane.io")
+ gnus-thread-hide-subtree t
+ gnus-newsgroup-maximum-articles 50
+
+ gnus-secondary-select-methods '((nntp "news.tilde.club")))
+
+
+(column-number-mode)
