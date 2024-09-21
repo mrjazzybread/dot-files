@@ -70,7 +70,7 @@
  '(ispell-dictionary nil)
  '(lsp-headerline-breadcrumb-enable nil)
  '(org-adapt-indentation t)
- '(org-agenda-files '("~/org/todo.org"))
+ '(org-agenda-files '("~/org/appoint.org" "~/org/todo.org"))
  '(org-capture-templates
    '(("w" "Writing TODO" entry
       (file+headline "~/org/todo.org" "Writing")
@@ -184,7 +184,11 @@
 	("a" "Appointments"
          entry (file+headline "~/org/todo.org" "Appointments")
          "* APPOINTMENT %?\n "
-         :empty-lines 0)	
+         :empty-lines 0)
+
+	("r" "Reading"
+	 checkitem (file+headline "~/org/todo.org" "Reading List")
+	 "[ ] %?\n")
       ))
 
 
