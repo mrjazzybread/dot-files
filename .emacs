@@ -66,7 +66,7 @@
  '(dired-listing-switches "-la")
  '(doc-view-resolution 1000)
  '(eglot-confirm-server-edits nil nil nil "Customized with use-package eglot")
- '(gnus-secondary-select-methods '((nnmaildir "news.tilde.club")) t)
+ '(gnus-secondary-select-methods '((nnmaildir "news.tilde.club")))
  '(inhibit-startup-screen t)
  '(ispell-dictionary nil)
  '(lsp-headerline-breadcrumb-enable nil)
@@ -95,7 +95,7 @@
  '(org-pretty-entities t)
  '(org-startup-indented t)
  '(package-selected-packages
-   '(moody bbdb epresent loccur org-modern quelpa tree-sitter-langs tree-sitter lsp-mode ocamlformat pacmacs vterm eat pbcopy unicode-fonts fireplace frames-only-mode comment-tags helm proof-general auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package dune))
+   '(doom-modeline bbdb epresent loccur org-modern quelpa tree-sitter-langs tree-sitter lsp-mode ocamlformat pacmacs vterm eat pbcopy unicode-fonts fireplace frames-only-mode comment-tags helm proof-general auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package dune))
  '(pdf-view-midnight-colors '("#282828" . "#f2e5bc"))
  '(proof-multiple-frames-enable t)
  '(vterm-copy-exclude-prompt nil)
@@ -324,3 +324,4 @@
  gnus-secondary-select-methods '((nntp "news.tilde.club")))
 
 (column-number-mode)
+(doom-modeline-mode)
