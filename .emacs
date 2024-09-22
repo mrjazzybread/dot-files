@@ -95,7 +95,7 @@
  '(org-pretty-entities t)
  '(org-startup-indented t)
  '(package-selected-packages
-   '(doom-modeline bbdb epresent loccur org-modern quelpa tree-sitter-langs tree-sitter lsp-mode ocamlformat pacmacs vterm eat pbcopy unicode-fonts fireplace frames-only-mode comment-tags helm proof-general auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package dune))
+   '(mu4e-alert org-alert doom-modeline bbdb epresent loccur org-modern quelpa tree-sitter-langs tree-sitter lsp-mode ocamlformat pacmacs vterm eat pbcopy unicode-fonts fireplace frames-only-mode comment-tags helm proof-general auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package dune))
  '(pdf-view-midnight-colors '("#282828" . "#f2e5bc"))
  '(proof-multiple-frames-enable t)
  '(vterm-copy-exclude-prompt nil)
@@ -169,7 +169,6 @@
 )
 (global-set-key "\C-t" 'vt) 
 
-
 (setq org-capture-templates
       '(    
         ("w" "Writing TODO"
@@ -191,8 +190,6 @@
 	 checkitem (file+headline "~/org/todo.org" "Reading List")
 	 "[ ] %?\n")
       ))
-
-
 
 ;; TODO states
 (setq org-todo-keywords
@@ -325,3 +322,14 @@
 
 (column-number-mode)
 (doom-modeline-mode)
+
+(use-package org-alert
+  :ensure t)
+
+(setq alert-default-style 'libnotify)
+(org-alert-enable)
+
+(setq org-alert-interval 300
+      org-alert-notify-cutoff 10
+      org-alert-notify-after-event-cutoff 10)
+
