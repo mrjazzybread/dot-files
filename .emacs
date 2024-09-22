@@ -218,7 +218,7 @@
  (global-set-key "\C-cc" 'org-capture)
  (global-set-key "\C-cb" 'org-iswitchb)
 
-(frames-only-mode)
+(add-hook 'tuareg-mode-hook #'frames-only-mode)
 (setq overlay-arrow-string "")
 
 
