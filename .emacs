@@ -70,6 +70,7 @@
  '(inhibit-startup-screen t)
  '(ispell-dictionary nil)
  '(lsp-headerline-breadcrumb-enable nil)
+ '(mu4e-context-policy 'pick-first)
  '(org-adapt-indentation t)
  '(org-agenda-files '("~/org/appoint.org" "~/org/todo.org"))
  '(org-capture-templates
