@@ -314,13 +314,6 @@
     (push '("#+ATTR_LATEX: :environment whylang" . ?​) prettify-symbols-alist)
    (prettify-symbols-mode 1)))
 
-(setq
- gnus-select-method '(nntp "news.gmane.io")
- gnus-thread-hide-subtree t
- gnus-newsgroup-maximum-articles 50
-
- gnus-secondary-select-methods '((nntp "news.tilde.club")))
-
 (column-number-mode)
 (doom-modeline-mode)
 
