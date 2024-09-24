@@ -42,12 +42,6 @@
 
 (use-package quelpa :ensure t)
 
-(use-package pdf-tools
-  :ensure t
-  :config
-  (pdf-tools-install t))
-
-
 (add-hook 'tuareg-mode-hook #'lsp)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -96,7 +90,11 @@
  '(org-pretty-entities t)
  '(org-startup-indented t)
  '(package-selected-packages
-   '(company-coq mu4e-alert org-alert doom-modeline bbdb epresent loccur org-modern quelpa tree-sitter-langs tree-sitter lsp-mode ocamlformat pacmacs vterm eat pbcopy unicode-fonts fireplace frames-only-mode comment-tags helm proof-general auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package dune))
+   '(image-roll vc-use-package company-coq mu4e-alert org-alert doom-modeline bbdb epresent loccur org-modern quelpa tree-sitter-langs tree-sitter lsp-mode ocamlformat pacmacs vterm eat pbcopy unicode-fonts fireplace frames-only-mode comment-tags helm proof-general auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package dune))
+ '(package-vc-selected-packages
+   '((image-roll :url "https://github.com/aikrahguzar/image-roll.el")
+;     (pdf-tools :url "https://github.com/aikrahguzar/pdf-tools/" :branch "upstream-pdf-roll")
+     (vc-use-package :vc-backend Git :url "https://github.com/slotThe/vc-use-package")))
  '(pdf-view-midnight-colors '("#282828" . "#f2e5bc"))
  '(proof-multiple-frames-enable t)
  '(vterm-copy-exclude-prompt nil)
@@ -327,3 +325,26 @@
       org-alert-notify-cutoff 10
       org-alert-notify-after-event-cutoff 10)
 
+(load "~/pdf-tools/lisp/pdf-macs.el")
+(load "~/pdf-tools/lisp/pdf-util.el")
+(load "~/pdf-tools/lisp/pdf-info.el")
+(load "~/pdf-tools/lisp/pdf-cache.el")
+(load "~/pdf-tools/lisp/pdf-view.el")
+(load "~/pdf-tools/lisp/pdf-misc.el")
+(load "~/pdf-tools/lisp/pdf-dev.el")
+(load "~/pdf-tools/lisp/pdf-history.el")
+(load "~/pdf-tools/lisp/pdf-isearch.el")
+(load "~/pdf-tools/lisp/pdf-links.el")
+(load "~/pdf-tools/lisp/pdf-tools.el")
+(load "~/pdf-tools/lisp/pdf-loader.el")
+(load "~/pdf-tools/lisp/pdf-occur.el")
+(load "~/pdf-tools/lisp/pdf-outline.el")
+(load "~/pdf-tools/lisp/pdf-roll.el")
+(load "~/pdf-tools/lisp/pdf-sync.el") 
+(load "~/pdf-tools/lisp/pdf-virtual.el")
+(load "~/pdf-tools/lisp/pdf-annot.el")
+(pdf-tools-install)
+
+(add-hook 'pdf-view-mode-hook
+          (lambda()
+            (pdf-view-roll-minor-mode)))

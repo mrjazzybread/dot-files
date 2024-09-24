@@ -140,10 +140,6 @@ function add-fonts(){
     fc-cache -f -v
 }
 
-function pdf(){
-    zathura "$@" & disown
-}
-
 #export OCAMLRUNPARAM=b
 function ocaml-trace-disable(){
     unset OCAMLRUNPARAM
