@@ -79,7 +79,7 @@
       "* APPOINTMENT %?\12 " :empty-lines 0)
      ("r" "Reading List" entry
       (file+headline "~/org/todo.org" "Reading List")
-      "* TODO %?\12 " :empty-lines 0)))
+      "* TODO %?\12 " :empty-lines 0)) t)
  '(org-cite-export-processors '((t biblatex "numeric" "numeric")))
  '(org-cite-global-bibliography '("~/org/org.bib"))
  '(org-export-with-sub-superscripts nil)
@@ -90,7 +90,7 @@
  '(org-pretty-entities t)
  '(org-startup-indented t)
  '(package-selected-packages
-   '(visual-fill-column org-present eldoc-box shr-tag-pre-highlight shrface eww-lnum image-roll vc-use-package company-coq mu4e-alert org-alert doom-modeline bbdb epresent loccur org-modern quelpa tree-sitter-langs tree-sitter lsp-mode ocamlformat pacmacs vterm eat pbcopy unicode-fonts fireplace frames-only-mode comment-tags helm proof-general auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package dune))
+   '(org-present writeroom-mode visual-fill-column eldoc-box shr-tag-pre-highlight shrface eww-lnum image-roll vc-use-package company-coq mu4e-alert org-alert doom-modeline bbdb epresent loccur org-modern quelpa tree-sitter-langs tree-sitter lsp-mode ocamlformat pacmacs vterm eat pbcopy unicode-fonts fireplace frames-only-mode comment-tags helm proof-general auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package dune))
  '(package-vc-selected-packages
    '((image-roll :url "https://github.com/aikrahguzar/image-roll.el")
      (vc-use-package :vc-backend Git :url "https://github.com/slotThe/vc-use-package")))
@@ -352,20 +352,45 @@
 
 (load "~/.shr.el")
 
-;; Configure fill width
+(unless (package-installed-p 'visual-fill-column)
+  (package-install 'visual-fill-column))
+
 (setq visual-fill-column-width 110
       visual-fill-column-center-text t)
 
 (defun my/org-present-start ()
   ;; Center the presentation and wrap lines
+  (visual-line-mode 1)
   (visual-fill-column-mode 1)
-  (visual-line-mode 1))
+  (setq-local face-remapping-alist '((default (:height 1.5) variable-pitch)
+                                   (header-line (:height 4.0) variable-pitch)
+                                   (org-document-title (:height 1.75) org-document-title)
+                                   (org-code (:height 1.55) org-code)
+                                   (org-verbatim (:height 1.55) org-verbatim)
+                                   (org-block (:height 1.25) org-block)
+                                   (org-block-begin-line (:height 0.7) org-block)))
+  )
 
 (defun my/org-present-end ()
   ;; Stop centering the document
+  (visual-line-mode 0)
   (visual-fill-column-mode 0)
-  (visual-line-mode 0))
+  (setq-local face-remapping-alist '((default default default)))
+  )
+
+(defun my/org-present-prepare-slide (buffer-name heading)
+  ;; Show only top-level headlines
+  (org-overview)
+
+  ;; Unfold the current entry
+  (org-show-entry)
+  (variable-pitch-mode 0)
+  ;; Show only direct subheadings of the slide but don't expand them
+  (org-show-children))
 
 ;; Register hooks with org-present
 (add-hook 'org-present-mode-hook 'my/org-present-start)
 (add-hook 'org-present-mode-quit-hook 'my/org-present-end)
+
+(add-hook 'org-present-after-navigate-functions 'my/org-present-prepare-slide)
+
