@@ -347,4 +347,9 @@
 (add-hook 'pdf-view-mode-hook
           (lambda()
             (pdf-view-roll-minor-mode)))
+(add-hook 'pdf-view-mode-hook
+          (lambda()
+            ()))
+
 (load "~/.shr.el")
+
