@@ -91,6 +91,7 @@ alias sconfig="em ~/.config/sway/config"
 alias hconfig="em ~/.config/hypr/hyprland.conf"
 
 export USB="/run/media/tiago/"
+export EZA_COLORS="di=1;36:da=35"
 
 #Quick jump into frequent folders
 alias phd="cd ~/phd"
@@ -143,6 +144,10 @@ function ocaml-trace-disable(){
 }
 
 clear
-fastfetch
+if [[  "$TERM" == "dumb" ]]; then
+    
+else
+    fastfetch
+fi
 
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

@@ -53,6 +53,7 @@
  '(ansi-color-names-vector
    ["black" "#d55e00" "#009e73" "#f8ec59" "#0072b2" "#cc79a7" "#56b4e9" "white"])
  '(bookmark-save-flag 0)
+ '(buffer-face-mode-face '(:height 200 :family "Ubuntu Mono"))
  '(capf-autosuggest-dwim-next-line nil)
  '(confirm-kill-processes nil)
  '(custom-enabled-themes '(shades-of-purple))
@@ -397,6 +398,25 @@
 
 (add-hook 'org-present-after-navigate-functions 'my/org-present-prepare-slide)
 
-(add-hook 'eshell-mode-hook #'company-mode)
-(add-hook 'eshell-mode-hook #'eshell-syntax-highlighting-mode)
-(add-hook 'eshell-mode-hook #'capf-autosuggest-mode)
+(add-hook 'shell-mode-hook #'company-mode)
+(add-hook 'shell-mode-hook #'capf-autosuggest-mode)
+(add-hook 'shell-mode-hook #'buffer-face-mode)
+
+(defun my-clear ()
+  (interactive)
+  (erase-buffer)
+  (comint-send-input))
+
+(defun kill-shell ()
+  (interactive)
+  (progn
+    (delete-process)
+    (kill-this-buffer)
+    (save-buffers-kill-terminal)
+    ))
+
+(defun my-shell-hook ()
+  (local-set-key "\C-l" 'my-clear)
+  (local-set-key "\C-d" 'kill-shell))
+
+(add-hook 'shell-mode-hook 'my-shell-hook)
