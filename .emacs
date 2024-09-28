@@ -66,6 +66,8 @@
  '(ispell-dictionary nil)
  '(lsp-headerline-breadcrumb-enable nil)
  '(mu4e-context-policy 'pick-first)
+ '(multi-eshell-shell-function '(eshell))
+ '(multi-term-program "/bin/zsh")
  '(org-adapt-indentation t)
  '(org-agenda-files '("~/org/appoint.org" "~/org/todo.org"))
  '(org-capture-templates
@@ -398,4 +400,3 @@
 (add-hook 'eshell-mode-hook #'company-mode)
 (add-hook 'eshell-mode-hook #'eshell-syntax-highlighting-mode)
 (add-hook 'eshell-mode-hook #'capf-autosuggest-mode)
-

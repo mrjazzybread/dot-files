@@ -143,6 +143,6 @@ function ocaml-trace-disable(){
 }
 
 clear
-#fastfetch
+fastfetch
 
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
