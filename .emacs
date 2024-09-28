@@ -55,6 +55,7 @@
  '(bookmark-save-flag 0)
  '(buffer-face-mode-face '(:height 200 :family "Ubuntu Mono"))
  '(capf-autosuggest-dwim-next-line nil)
+ '(comint-process-echoes t)
  '(confirm-kill-processes nil)
  '(custom-enabled-themes '(shades-of-purple))
  '(custom-safe-themes
@@ -83,7 +84,7 @@
       "* APPOINTMENT %?\12 " :empty-lines 0)
      ("r" "Reading List" entry
       (file+headline "~/org/todo.org" "Reading List")
-      "* TODO %?\12 " :empty-lines 0)) t)
+      "* TODO %?\12 " :empty-lines 0)))
  '(org-cite-export-processors '((t biblatex "numeric" "numeric")))
  '(org-cite-global-bibliography '("~/org/org.bib"))
  '(org-export-with-sub-superscripts nil)
@@ -411,7 +412,6 @@
   (interactive)
   (progn
     (delete-process)
-    (kill-this-buffer)
     (save-buffers-kill-terminal)
     ))
 
