@@ -53,6 +53,7 @@
  '(ansi-color-names-vector
    ["black" "#d55e00" "#009e73" "#f8ec59" "#0072b2" "#cc79a7" "#56b4e9" "white"])
  '(bookmark-save-flag 0)
+ '(capf-autosuggest-dwim-next-line nil)
  '(confirm-kill-processes nil)
  '(custom-enabled-themes '(shades-of-purple))
  '(custom-safe-themes
@@ -90,7 +91,7 @@
  '(org-pretty-entities t)
  '(org-startup-indented t)
  '(package-selected-packages
-   '(org-present writeroom-mode visual-fill-column eldoc-box shr-tag-pre-highlight shrface eww-lnum image-roll vc-use-package company-coq mu4e-alert org-alert doom-modeline bbdb epresent loccur org-modern quelpa tree-sitter-langs tree-sitter lsp-mode ocamlformat pacmacs vterm eat pbcopy unicode-fonts fireplace frames-only-mode comment-tags helm proof-general auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package dune))
+   '(capf-autosuggest eshell-syntax-highlighting eshell-prompt-extras org-present writeroom-mode visual-fill-column eldoc-box shr-tag-pre-highlight shrface eww-lnum image-roll vc-use-package company-coq mu4e-alert org-alert doom-modeline bbdb epresent loccur org-modern quelpa tree-sitter-langs tree-sitter lsp-mode ocamlformat pacmacs vterm eat pbcopy unicode-fonts fireplace frames-only-mode comment-tags helm proof-general auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package dune))
  '(package-vc-selected-packages
    '((image-roll :url "https://github.com/aikrahguzar/image-roll.el")
      (vc-use-package :vc-backend Git :url "https://github.com/slotThe/vc-use-package")))
@@ -393,4 +394,8 @@
 (add-hook 'org-present-mode-quit-hook 'my/org-present-end)
 
 (add-hook 'org-present-after-navigate-functions 'my/org-present-prepare-slide)
+
+(add-hook 'eshell-mode-hook #'company-mode)
+(add-hook 'eshell-mode-hook #'eshell-syntax-highlighting-mode)
+(add-hook 'eshell-mode-hook #'capf-autosuggest-mode)
 
