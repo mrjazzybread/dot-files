@@ -168,7 +168,7 @@
 (defun vt ()
   (interactive)
   (select-frame (make-frame))
-  (funcall #'multi-vterm)
+  (funcall #'shell)
 )
 (global-set-key "\C-t" 'vt) 
 
@@ -216,6 +216,7 @@
  (global-set-key "\C-ca" 'org-agenda)
  (global-set-key "\C-cc" 'org-capture)
  (global-set-key "\C-cb" 'org-iswitchb)
+
 
 (add-hook 'tuareg-mode-hook #'frames-only-mode)
 (setq overlay-arrow-string "")
