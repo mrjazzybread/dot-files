@@ -411,7 +411,6 @@
 (defun kill-shell ()
   (interactive)
   (progn
-    (delete-process)
     (save-buffers-kill-terminal)
     ))
 
