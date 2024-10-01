@@ -118,16 +118,6 @@
 
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/") 
 
-(defun ask-before-closing ()
-  "Prompt for confirmation for emacsclient(not daemon) like confirm-kill-emacs for running Emacs without daemon."
-  (interactive)
-  (if (y-or-n-p (format "Really exit Emacs? "))
-          (save-buffers-kill-terminal)
-        (message "Canceled frame close!")))
-(when (daemonp)
-  (global-set-key (kbd "C-x C-c") 'ask-before-closing))
-
-
 (setq proof-splash-enable nil)
 (setq inhibit-x-resources nil)
 
