@@ -399,14 +399,8 @@
   (erase-buffer)
   (comint-send-input))
 
-(defun kill-shell ()
-  (interactive)
-  (progn
-    (save-buffers-kill-terminal)
-    ))
-
 (defun my-shell-hook ()
   (local-set-key "\C-l" 'my-clear)
-  (local-set-key "\C-d" 'kill-shell))
+)
 
 (add-hook 'shell-mode-hook 'my-shell-hook)
