@@ -304,7 +304,7 @@
     (push '("#+ATTR_LATEX: :environment ocamlenv" . ?​) prettify-symbols-alist)
     (push '("#+ATTR_LATEX: :environment gospel" . ?​) prettify-symbols-alist)
     (push '("#+ATTR_LATEX: :environment whylang" . ?​) prettify-symbols-alist)
-   (prettify-symbols-mode 1)))
+    (prettify-symbols-mode 1)))
 
 (column-number-mode)
 (doom-modeline-mode)
