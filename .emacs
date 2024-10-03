@@ -108,7 +108,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(term-color-bright-green ((t (:inherit ansi-color-green)))))
 
 (defvar backup-dir (expand-file-name "~/.emacs.d/backup/"))
 (defvar autosave-dir (expand-file-name "~/.emacs.d/autosave/"))
@@ -158,7 +158,7 @@
 (defun vt ()
   (interactive)
   (select-frame (make-frame))
-  (funcall #'shell)
+  (funcall #'multi-vterm)
 )
 (global-set-key "\C-t" 'vt) 
 
@@ -304,6 +304,7 @@
     (push '("#+ATTR_LATEX: :environment ocamlenv" . ?​) prettify-symbols-alist)
     (push '("#+ATTR_LATEX: :environment gospel" . ?​) prettify-symbols-alist)
     (push '("#+ATTR_LATEX: :environment whylang" . ?​) prettify-symbols-alist)
+    (push '("\\\entails" . ?​) prettify-symbols-alist)
     (prettify-symbols-mode 1)))
 
 (column-number-mode)
