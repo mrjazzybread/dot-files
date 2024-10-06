@@ -85,7 +85,7 @@ alias reload="source ~/.zshrc"
 alias em="emacsclient -c -n"
 
 #Quick edit config files
-alias uconfig="em ~/.zshrc"
+alias zconfig="em ~/.zshrc"
 alias econfig="em ~/.emacs"
 alias sconfig="em ~/.config/sway/config"
 alias hconfig="em ~/.config/hypr/hyprland.conf"
@@ -136,6 +136,10 @@ alias vpn="/opt/cisco/anyconnect/bin/vpnui"
 function add-fonts(){
     mv *.ttf ~/.local/share/fonts
     fc-cache -f -v
+}
+
+function pdf (){
+    zathura "$@" & disown
 }
 
 #export OCAMLRUNPARAM=b

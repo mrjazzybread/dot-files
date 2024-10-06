@@ -72,6 +72,11 @@
  '(multi-term-program "/bin/zsh")
  '(org-adapt-indentation t)
  '(org-agenda-files '("~/org/appoint.org" "~/org/todo.org"))
+ '(org-agenda-sorting-strategy
+   '((agenda habit-down time-up priority-down category-keep)
+     (todo todo-state-down)
+     (tags priority-down category-keep)
+     (search category-keep)))
  '(org-capture-templates
    '(("w" "Writing TODO" entry
       (file+headline "~/org/todo.org" "Writing")
@@ -95,7 +100,7 @@
  '(org-pretty-entities t)
  '(org-startup-indented t)
  '(package-selected-packages
-   '(proof-general capf-autosuggest eshell-syntax-highlighting eshell-prompt-extras org-present writeroom-mode visual-fill-column eldoc-box shr-tag-pre-highlight shrface eww-lnum image-roll vc-use-package company-coq mu4e-alert org-alert doom-modeline bbdb epresent loccur org-modern quelpa tree-sitter-langs tree-sitter lsp-mode ocamlformat pacmacs vterm eat pbcopy unicode-fonts fireplace frames-only-mode comment-tags helm auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package dune))
+   '(pdf-tools proof-general capf-autosuggest eshell-syntax-highlighting eshell-prompt-extras org-present writeroom-mode visual-fill-column eldoc-box shr-tag-pre-highlight shrface eww-lnum image-roll vc-use-package company-coq mu4e-alert org-alert doom-modeline bbdb epresent loccur org-modern quelpa tree-sitter-langs tree-sitter lsp-mode ocamlformat pacmacs vterm eat pbcopy unicode-fonts fireplace frames-only-mode comment-tags helm auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package dune))
  '(package-vc-selected-packages
    '((image-roll :url "https://github.com/aikrahguzar/image-roll.el")
      (vc-use-package :vc-backend Git :url "https://github.com/slotThe/vc-use-package")))
@@ -185,7 +190,7 @@
 
 ;; TODO states
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "APPOINTMENT(p)" "IN-PROGRESS(i@/!)" "VERIFYING(v!)" "BLOCKED(b@)"  "|" "DONE(d!)" "OBE(o@!)" "WONT-DO(w@/!)" )
+      '((sequence "TODO(t)" "APPOINTMENT(p)" "IN-PROGRESS(i@/!)" "VERIFYING(v!)" "BLOCKED(b@)" "|" "DONE(d!)" "OBE(o@!)" "WONT-DO(w@/!)" )
         ))
 ;; TODO colors
 (setq org-todo-keyword-faces
@@ -196,7 +201,6 @@
         ("VERIFYING" . (:foreground "DarkOrange" :weight bold))
         ("BLOCKED" . (:foreground "Red" :weight bold))
         ("DONE" . (:foreground "LimeGreen" :weight bold))
-        ("COURSE" . (:foreground "LimeGreen" :weight bold))
         ("WONT-DO" . (:foreground "LimeGreen" :weight bold))
         ))
 ;; This is for org-mode agenda view activation
@@ -320,32 +324,29 @@
       org-alert-notify-cutoff 10
       org-alert-notify-after-event-cutoff 10)
 
-(load "~/.pdf-tools/lisp/pdf-macs.el")
-(load "~/.pdf-tools/lisp/pdf-util.el")
-(load "~/.pdf-tools/lisp/pdf-info.el")
-(load "~/.pdf-tools/lisp/pdf-cache.el")
-(load "~/.pdf-tools/lisp/pdf-view.el")
-(load "~/.pdf-tools/lisp/pdf-misc.el")
-(load "~/.pdf-tools/lisp/pdf-dev.el")
-(load "~/.pdf-tools/lisp/pdf-history.el")
-(load "~/.pdf-tools/lisp/pdf-isearch.el")
-(load "~/.pdf-tools/lisp/pdf-links.el")
-(load "~/.pdf-tools/lisp/pdf-tools.el")
-(load "~/.pdf-tools/lisp/pdf-loader.el")
-(load "~/.pdf-tools/lisp/pdf-occur.el")
-(load "~/.pdf-tools/lisp/pdf-outline.el")
-(load "~/.pdf-tools/lisp/pdf-roll.el")
-(load "~/.pdf-tools/lisp/pdf-sync.el") 
-(load "~/.pdf-tools/lisp/pdf-virtual.el")
-(load "~/.pdf-tools/lisp/pdf-annot.el")
-(pdf-tools-install)
+;; (load "~/.pdf-tools/lisp/pdf-macs.el")
+;; (load "~/.pdf-tools/lisp/pdf-util.el")
+;; (load "~/.pdf-tools/lisp/pdf-info.el")
+;; (load "~/.pdf-tools/lisp/pdf-cache.el")
+;; (load "~/.pdf-tools/lisp/pdf-view.el")
+;; (load "~/.pdf-tools/lisp/pdf-misc.el")
+;; (load "~/.pdf-tools/lisp/pdf-dev.el")
+;; (load "~/.pdf-tools/lisp/pdf-history.el")
+;; (load "~/.pdf-tools/lisp/pdf-isearch.el")
+;; (load "~/.pdf-tools/lisp/pdf-links.el")
+;; (load "~/.pdf-tools/lisp/pdf-tools.el")
+;; (load "~/.pdf-tools/lisp/pdf-loader.el")
+;; (load "~/.pdf-tools/lisp/pdf-occur.el")
+;; (load "~/.pdf-tools/lisp/pdf-outline.el")
+;; (load "~/.pdf-tools/lisp/pdf-roll.el")
+;; (load "~/.pdf-tools/lisp/pdf-sync.el") 
+;; (load "~/.pdf-tools/lisp/pdf-virtual.el")
+;; (load "~/.pdf-tools/lisp/pdf-annot.el")
+;; (pdf-tools-install)
 
 (add-hook 'pdf-view-mode-hook
           (lambda()
             (pdf-view-roll-minor-mode)))
-(add-hook 'pdf-view-mode-hook
-          (lambda()
-            ()))
 
 (load "~/.shr.el")
 
