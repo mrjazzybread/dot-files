@@ -84,7 +84,7 @@
       "* APPOINTMENT %?\12 " :empty-lines 0)
      ("r" "Reading List" entry
       (file+headline "~/org/todo.org" "Reading List")
-      "* TODO %?\12 " :empty-lines 0)) t)
+      "- [ ] %?\12 " :empty-lines 0)) t)
  '(org-cite-export-processors '((t biblatex "numeric" "numeric")))
  '(org-cite-global-bibliography '("~/org/org.bib"))
  '(org-export-with-sub-superscripts nil)
