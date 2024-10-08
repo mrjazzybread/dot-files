@@ -411,3 +411,4 @@
 (add-to-list 'ispell-skip-region-alist '("#\\+begin_src" . "#\\+end_src"))
 (add-to-list 'ispell-skip-region-alist '("#\\+begin_example" . "#\\+end_example"))
 (add-to-list 'ispell-skip-region-alist '("#\\+" . "\n"))
+(add-to-list 'ispell-skip-region-alist '("~" . "~"))
