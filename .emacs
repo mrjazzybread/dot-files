@@ -211,11 +211,7 @@
  (global-set-key "\C-cc" 'org-capture)
  (global-set-key "\C-cb" 'org-iswitchb)
 
-
-(add-hook 'tuareg-mode-hook #'frames-only-mode)
 (setq overlay-arrow-string "")
-
-
 (add-hook 'dired-mode-hook
 	  (lambda () (local-set-key (kbd "o") #'dired-omit-mode)))
 (add-hook 'dired-mode-hook
@@ -415,3 +411,10 @@
 (add-to-list 'ispell-skip-region-alist '("^#\\+" . "\n"))
 (add-to-list 'ispell-skip-region-alist '("~" . "~"))
 (add-to-list 'ispell-skip-region-alist '("{{{" . "}}}"))
+
+(defun frames-only-tuareg ()
+  (if tuareg-mode
+      (frames-only-mode 1)
+    (frames-only-mode 0)))
+
+(add-hook 'tuareg-mode-hook #'frames-only-tuareg)

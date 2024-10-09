@@ -84,3 +84,5 @@
 ;; This configuration means:
 ;; Initialize the default translator, let it translate between en and fr via Google Translate,
 ;; and the result will be displayed in the Echo Area.
+
+(add-hook 'mu4e-view-mode-hook #'writeroom-mode)
