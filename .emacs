@@ -411,6 +411,7 @@
 (add-to-list 'ispell-skip-region-alist '("^#\\+" . "\n"))
 (add-to-list 'ispell-skip-region-alist '("~" . "~"))
 (add-to-list 'ispell-skip-region-alist '("{{{" . "}}}"))
+(add-to-list 'ispell-skip-region-alist '("<<" . ">>"))
 
 (defun frames-only-tuareg ()
   (if tuareg-mode
