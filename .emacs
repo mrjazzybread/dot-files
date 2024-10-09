@@ -10,7 +10,7 @@
 (setq delete-by-moving-to-trash t)
 
 (require 'package)
-(setq default-frame-alist '((font . "DejaVu Sans Mono 14")))
+(setq default-frame-alist '((font . "DejaVu Sans Mono 22")))
 
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/") t)
@@ -295,7 +295,8 @@
 	      (lambda (env-name)
 		(interactive "sEnvironment name: ") (org-insert-code-env env-name)))
   (define-key org-mode-map      (kbd "C-c C-x C-m") (lambda () (interactive) (org-insert-macro)))
- )
+  (define-key org-mode-map      (kbd "C-C C-x $") #'flyspell-check-previous-highlighted-word)
+  )
 
 ;(set-face-attribute 'org-meta-line nil :foreground (face-attribute 'default :background))
 
@@ -310,6 +311,7 @@
     (push '("#+ATTR_LATEX: :environment whylang" . ?​) prettify-symbols-alist)
     (push '("->" . ?→) prettify-symbols-alist)
     (prettify-symbols-mode 1)))
+(add-hook 'text-mode-hook #'writeroom-mode)
 
 (column-number-mode)
 (doom-modeline-mode)
@@ -406,9 +408,10 @@
 )
 (add-hook 'shell-mode-hook 'my-shell-hook)
 
-(add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_SRC" . "#\\+END_SRC"))
-(add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_EXAMPLE" . "#\\+END_EXAMPLE"))
-(add-to-list 'ispell-skip-region-alist '("#\\+begin_src" . "#\\+end_src"))
-(add-to-list 'ispell-skip-region-alist '("#\\+begin_example" . "#\\+end_example"))
-(add-to-list 'ispell-skip-region-alist '("#\\+" . "\n"))
+(add-to-list 'ispell-skip-region-alist '("^#\\+BEGIN_SRC" . "#\\+END_SRC"))
+(add-to-list 'ispell-skip-region-alist '("^#\\+BEGIN_EXAMPLE" . "#\\+END_EXAMPLE"))
+(add-to-list 'ispell-skip-region-alist '("^#\\+begin_src" . "#\\+end_src"))
+(add-to-list 'ispell-skip-region-alist '("^#\\+begin_example" . "#\\+end_example"))
+(add-to-list 'ispell-skip-region-alist '("^#\\+" . "\n"))
 (add-to-list 'ispell-skip-region-alist '("~" . "~"))
+(add-to-list 'ispell-skip-region-alist '("{{{" . "}}}"))
