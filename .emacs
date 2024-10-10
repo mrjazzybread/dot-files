@@ -306,6 +306,10 @@
     (push '("#+ATTR_LATEX: :environment gospel" . ?​) prettify-symbols-alist)
     (push '("#+ATTR_LATEX: :environment whylang" . ?​) prettify-symbols-alist)
     (push '("->" . ?→) prettify-symbols-alist)
+    (push '("|-" . ?⊢) prettify-symbols-alist)
+    (push '("/\\" . ?∧) prettify-symbols-alist)
+    (push '("\\/" . ?∨) prettify-symbols-alist)
+    (push '("<-" . ?←) prettify-symbols-alist)
     (prettify-symbols-mode 1)))
 (add-hook 'text-mode-hook #'writeroom-mode)
 
