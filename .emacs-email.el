@@ -1,4 +1,6 @@
 (setq message-send-mail-function 'smtpmail-send-it)
+(setq default-frame-alist (assq-delete-all 'font default-frame-alist))
+(push '((font . "Robot Mono 22")) default-frame-alist)
 
 (use-package mu4e
   :ensure nil
@@ -86,3 +88,4 @@
 ;; and the result will be displayed in the Echo Area.
 
 (add-hook 'mu4e-view-mode-hook #'writeroom-mode)
+(load-file "~/.mu4e-dashboard/mu4e-dashboard.el")

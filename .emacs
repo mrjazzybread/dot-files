@@ -93,10 +93,11 @@
  '(org-cite-export-processors '((t biblatex "numeric" "numeric")))
  '(org-cite-global-bibliography '("~/org/org.bib"))
  '(org-export-with-sub-superscripts nil)
- '(org-hide-emphasis-markers t)
+ '(org-hide-emphasis-markers nil)
  '(org-hide-leading-stars t)
- '(org-hide-macro-markers t)
+ '(org-hide-macro-markers nil)
  '(org-latex-src-block-backend 'listings)
+ '(org-link-descriptive nil)
  '(org-pretty-entities t)
  '(org-startup-indented t)
  '(package-selected-packages
