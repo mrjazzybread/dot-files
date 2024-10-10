@@ -79,6 +79,8 @@
        :engines (list (gt-bing-engine) (gt-google-engine)) ; specify the Engines
        :render  (gt-buffer-render)))                       ; config the Render
 
+
+
 ;; This configuration means:
 ;; Initialize the default translator, let it send all paragraphs in the buffer to Bing and Google,
 ;; and output the results with a new Buffer.
@@ -89,3 +91,9 @@
 
 (add-hook 'mu4e-view-mode-hook #'writeroom-mode)
 (load-file "~/.mu4e-dashboard/mu4e-dashboard.el")
+(mu4e)
+
+(require 'mu4e)
+(progn
+  (define-key mu4e-headers-mode-map (kbd "q") (lambda () (interactive) (mu4e-dashboard)))
+  )
