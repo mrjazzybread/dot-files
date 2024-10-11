@@ -100,6 +100,7 @@
  '(org-latex-src-block-backend 'listings)
  '(org-link-descriptive t)
  '(org-pretty-entities t)
+ '(org-startup-folded t)
  '(org-startup-indented t)
  '(package-selected-packages
    '(pdf-view-restore pdf-tools proof-general capf-autosuggest eshell-syntax-highlighting eshell-prompt-extras org-present writeroom-mode visual-fill-column eldoc-box shr-tag-pre-highlight shrface eww-lnum image-roll vc-use-package company-coq mu4e-alert org-alert doom-modeline bbdb epresent loccur org-modern quelpa tree-sitter-langs tree-sitter lsp-mode ocamlformat pacmacs vterm eat pbcopy unicode-fonts fireplace frames-only-mode comment-tags helm auctex-latexmk gnu-elpa-keyring-update auctex list-packages-ext lavenderless-theme lavender-theme shades-of-purple-theme company-jedi virtualenv magit git-modes git haskell-mode eglot gruvbox-theme auto-complete company cmake-mode use-package dune))
@@ -218,6 +219,7 @@
 	  (lambda () (local-set-key (kbd "o") #'dired-omit-mode)))
 (add-hook 'dired-mode-hook
 	  (lambda () (local-set-key (kbd "b") #'dired-omit-mode)))
+(add-hook 'dired-mode-hook #'dired-hide-details-mode)
 (add-hook 'tuareg-mode-hook
 	  (lambda () (setq compile-command "~/.config/ocompile.sh")))
 (add-hook 'menhir-mode-hook
@@ -425,3 +427,16 @@
     (frames-only-mode 0)))
 
 (add-hook 'tuareg-mode-hook #'frames-only-tuareg)
+
+(defun dired-open()
+  (interactive)
+  (setq file (dired-get-file-for-visit))
+  (setq ext (file-name-extension file))
+  (cond ((string= ext "pdf")
+         ;; shell-quote-argument escapes white spaces on the file name
+         (async-shell-command (concat "zathura " (shell-quote-argument file))))
+	
+	(t (dired-find-file))
+))
+(add-hook 'dired-mode-hook
+	  (lambda () (local-set-key (kbd "<return>") #'dired-open)))
