@@ -108,6 +108,7 @@
    '((image-roll :url "https://github.com/aikrahguzar/image-roll.el")
      (vc-use-package :vc-backend Git :url "https://github.com/slotThe/vc-use-package")))
  '(pdf-view-midnight-colors '("#282828" . "#f2e5bc"))
+ '(pdf-view-use-scaling nil)
  '(proof-multiple-frames-enable t)
  '(vterm-copy-exclude-prompt nil)
  '(vterm-use-vterm-prompt-detection-method nil))
@@ -428,15 +429,15 @@
 
 (add-hook 'tuareg-mode-hook #'frames-only-tuareg)
 
-(defun dired-open()
-  (interactive)
-  (setq file (dired-get-file-for-visit))
-  (setq ext (file-name-extension file))
-  (cond ((string= ext "pdf")
-         ;; shell-quote-argument escapes white spaces on the file name
-         (async-shell-command (concat "zathura " (shell-quote-argument file))))
+;; (defun dired-open()
+;;   (interactive)
+;;   (setq file (dired-get-file-for-visit))
+;;   (setq ext (file-name-extension file))
+;;   (cond ((string= ext "pdf")
+;;          ;; shell-quote-argument escapes white spaces on the file name
+;;          (async-shell-command (concat "zathura " (shell-quote-argument file))))
 	
-	(t (dired-find-file))
-))
-(add-hook 'dired-mode-hook
-	  (lambda () (local-set-key (kbd "<return>") #'dired-open)))
+;; 	(t (dired-find-file))
+;; ))
+;; (add-hook 'dired-mode-hook
+;; 	  (lambda () (local-set-key (kbd "<return>") #'dired-open)))

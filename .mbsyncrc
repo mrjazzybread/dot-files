@@ -17,7 +17,7 @@ Channel			gmail
 Far			:gmail-remote:
 Near			:gmail-local:
 Patterns		* ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail" "[Gmail]/Trash"
-Create			Both
+create			Both
 SyncState		*
 
 
@@ -36,7 +36,7 @@ Subfolders		Verbatim
 Path			~/mail/inria/
 Inbox			~/mail/inria/inbox
 
-Channel			gmail
+Channel			inria
 Far			:inria-remote:
 Near			:inria-local:
 Patterns		*
