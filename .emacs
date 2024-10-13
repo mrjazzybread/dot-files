@@ -244,11 +244,9 @@
 (add-hook 'coq-mode-hook
           (lambda()
             (local-unset-key (kbd "M-n"))))
-
 (add-hook 'coq-mode-hook
           (lambda()
             (prettify-symbols-mode)))
-
 
 (require 'flycheck)
 (require 'lsp)
