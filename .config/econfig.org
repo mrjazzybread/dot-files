@@ -1,0 +1,418 @@
+* Package Configuration
+
+Add MELPA to the list of recognized archives
+#+begin_src emacs-lisp
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/") t)
+#+end_src
+
+Updates the local cache if it is missing
+#+begin_src emacs-lisp
+  (unless package-archive-contents
+    (package-refresh-contents))
+#+end_src
+
+Installs use-package if I don't have it already and enables verbose
+messages 
+#+begin_src emacs-lisp
+  (unless (package-installed-p 'use-package)
+  (package-install 'use-package))
+
+  (require 'use-package)
+  (setq use-package-verbose t)
+#+end_src
+
+Use-package always installs packages
+
+#+begin_src emacs-lisp
+(setq use-package-always-ensure t)
+#+end_src
+Install ~quelpa~
+#+begin_src emacs-lisp
+(use-package quelpa)
+#+end_src
+* Some Miscellaneous Configurations
+Enable Emacs to track changes made to files by different programs.
+
+#+begin_src emacs-lisp
+(global-auto-revert-mode 1)
+#+end_src
+Key bindings for navigating paragraphs
+#+begin_src emacs-lisp
+(bind-key "M-n" 'forward-paragraph)
+(bind-key "M-p" 'backward-paragraph)
+#+end_src
+Save mini-buffer history
+#+begin_src emacs-lisp
+  (savehist-mode)
+#+end_src
+Allows me to see the column number as well as the line number.
+#+begin_src emacs-lisp
+  (column-number-mode)
+#+end_src
+Bookmarks are preserved throughout different sessions
+#+begin_src emacs-lisp
+  (setq bookmark-save-flag 0)
+#+end_src
+** ~utf-8~
+#+begin_src emacs-lisp
+  (prefer-coding-system       'utf-8)
+  (set-default-coding-systems 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (set-keyboard-coding-system 'utf-8)
+  (setq default-buffer-file-coding-system 'utf-8)
+  (set-language-environment 'utf-8)
+  (set-selection-coding-system 'utf-8)
+  (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))  
+#+end_src
+** Backup files
+#+begin_src emacs-lisp
+  (defvar backup-dir (expand-file-name "~/.emacs.d/backup/"))
+  (defvar autosave-dir (expand-file-name "~/.emacs.d/autosave/"))
+  (setq backup-directory-alist (list (cons ".*" backup-dir)))
+  (setq auto-save-list-file-prefix autosave-dir)
+  (setq auto-save-file-name-transforms `((".*" ,autosave-dir t)))
+#+end_src
+Adds themes folder to custom themes
+#+begin_src emacs-lisp
+  (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/") 
+#+end_src
+** Miscellaneous Packages
+#+begin_src emacs-lisp
+  (use-package pacmacs)
+  (use-package fireplace)
+#+end_src
+* Coding Packages
+** LSP-mode
+#+begin_src emacs-lisp
+  (use-package lsp-mode
+      :custom
+      (lsp-headerline-breadcrumb-enable nil)
+      :bind (:map lsp-mode-map
+                  ("C-c C-l" . lsp-find-definition))
+      )
+#+end_src
+** ~Flycheck~
+#+begin_src emacs-lisp
+  (use-package flycheck
+    :hook (text-mode . flycheck-mode)
+    :bind (:map flycheck-mode-map
+           ("\C-c \C-x" . flycheck-next-error))
+    )
+#+end_src
+** OCaml packages
+#+begin_src emacs-lisp
+  (defun ocaml-compile ()
+      (setq compile-command "~/.config/ocompile.sh")
+    ) 
+
+  (use-package tuareg
+      :hook (tuareg-mode . lsp) ;; turn on lsp
+      ;; changes the default compile command
+      :hook (tuareg-mode . ocaml-compile)
+      ;; :config ;; special tuareg config with gospel highlighting
+        ;;
+      )
+  (load "/home/tiago/.opam/4.14.1/share/emacs/site-lisp/tuareg.el")
+  (use-package dune)
+#+end_src
+** Git packages
+#+begin_src emacs-lisp
+  (use-package magit)
+#+end_src
+* Appearance
+Disable splash screen
+#+begin_src emacs-lisp
+  (setq inhibit-startup-screen t)
+#+end_src
+Define font style and height
+#+begin_src emacs-lisp
+  (setq default-frame-alist '((font . "DejaVu Sans Mono 22")))
+#+end_src
+
+Set theme (currently Shades of Purple)
+#+begin_src emacs-lisp
+  (setq custom-safe-themes t)
+  (setq custom-enabled-themes '(shades-of-purple))
+  (load-theme 'shades-of-purple)
+#+end_src
+Pretty mode line
+#+begin_src emacs-lisp
+    (use-package doom-modeline
+      :config (doom-modeline-mode 1))    
+#+end_src
+Disables a bunch of needless UI noise.
+#+begin_src emacs-lisp
+(cond ((> emacs-major-version 20)
+       (tool-bar-mode -1) ; introduced in emacs 21
+       (menu-bar-mode -1)
+       (scroll-bar-mode -1)
+       (menu-bar-showhide-fringe-menu-customize-disable)
+       (blink-cursor-mode -1)
+       (windmove-default-keybindings 'meta)))
+#+end_src
+* ~Dired~
+Deleted files are moved to the trash folder
+#+begin_src emacs-lisp
+    (setq delete-by-moving-to-trash t)
+#+end_src
+Start ~Dired~ in omit mode
+
+#+begin_src emacs-lisp
+  (add-hook 'dired-mode-hook #'dired-omit-mode)
+#+end_src
+Bind the "o" key to toggle omit mode
+#+begin_src emacs-lisp
+    (add-hook 'dired-mode-hook
+              (lambda () (local-set-key
+                          (kbd "o") #'dired-omit-mode)))
+#+end_src
+Set files to omit
+#+begin_src emacs-lisp
+  (setq dired-omit-files
+        (rx (or (seq bol (? ".") "#")     ;; emacs autosave files
+                (seq bol "." (not (any "."))) ;; dot-files
+                (seq "~" eol)                 ;; backup-files
+                (seq bol "CVS" eol)           ;; CVS dirs
+                ))
+        )
+#+end_src
+* Org
+** Some Basic Bookkeeping
+My agenda files:
+
+#+begin_src emacs-lisp
+   (setq org-agenda-files
+         '("~/org/appoint.org" "~/org/todo.org"))
+#+end_src
+Settings for exporting Org files with citations to TeX.
+
+#+begin_src emacs-lisp
+  (setq org-cite-export-processors '((t biblatex "numeric" "numeric")))
+  (setq org-cite-global-bibliography '("~/org/org.bib"))
+  (setq org-export-with-sub-superscripts nil)
+#+end_src
+Enable notifications for Org agenda items
+#+begin_src emacs-lisp
+  (use-package org-alert
+    :custom (alert-default-style 'libnotify))
+  (org-alert-enable)
+#+end_src
+** Appearance
+Hide emphasis markers and macro braces
+
+#+begin_src emacs-lisp
+  (setq org-hide-emphasis-markers t)
+  (setq org-hide-macro-markers t)
+#+end_src
+Make it there is only one star visible in each heading.
+
+#+begin_src emacs-lisp
+  (setq org-hide-leading-stars t)
+#+end_src
+Use latex like syntax to insert special symbols
+
+#+begin_src emacs-lisp
+  (setq org-pretty-entities t)
+#+end_src
+Start Org files with each heading folded.
+
+#+begin_src emacs-lisp
+  (setq org-startup-folded t)
+#+end_src
+Enable Org indentation
+
+#+begin_src emacs-lisp
+  (setq org-startup-indented t)
+  
+** Org capture templates
+#+begin_src emacs-lisp  
+(setq org-capture-templates
+      '(    
+        ("w" "Writing TODO"
+         entry (file+headline "~/org/todo.org" "Writing")
+         "* TODO %?\n "
+         :empty-lines 0)
+	
+	("p" "Programming TODO"
+         entry (file+headline "~/org/todo.org" "PhD Tasks")
+         "* TODO %?\n "
+         :empty-lines 0)
+	
+	("a" "Appointments"
+         entry (file+headline "~/org/appoint.org" "Appointments")
+         "* APPOINTMENT %?\n "
+         :empty-lines 0) 
+	("r" "Reading"
+	 checkitem (file+headline "~/org/todo.org" "Reading List")
+	 "[ ] %?\n")
+      ))
+#+end_src  #+end_src
+** Org Keywords
+#+begin_src emacs-lisp
+(setq org-todo-keywords
+      '((sequence "TODO(t)" "APPOINTMENT(p)" "IN-PROGRESS(i@/!)" "VERIFYING(v!)" "BLOCKED(b@)" "|" "DONE(d!)" "OBE(o@!)" "WONT-DO(w@/!)" )
+        ))
+;; TODO colors
+(setq org-todo-keyword-faces
+      '(
+        ("TODO" . (:foreground "GoldenRod" :weight bold))
+        ("APPOINTMENT" . (:foreground "DeepPink" :weight bold))
+        ("IN-PROGRESS" . (:foreground "Cyan" :weight bold))
+        ("VERIFYING" . (:foreground "DarkOrange" :weight bold))
+        ("BLOCKED" . (:foreground "Red" :weight bold))
+        ("DONE" . (:foreground "LimeGreen" :weight bold))
+        ("WONT-DO" . (:foreground "LimeGreen" :weight bold))
+        ))
+#+end_src
+** Inserting Org Example Blocks
+
+Function for wrapping text around a block
+#+begin_src emacs-lisp
+  (defun tag-word-or-region (text-begin text-end)
+  "Surround current word or region with given text."
+  (interactive "sStart tag: \nsEnd tag: ")
+  (let (pos1 pos2 bds)
+    (if (and transient-mark-mode mark-active)
+        (progn
+          (goto-char (region-end))
+          (insert text-end)
+          (goto-char (region-beginning))
+          (insert text-begin))
+      (progn
+        (setq bds (point))
+        (goto-char bds)
+        (insert text-end)
+        (goto-char bds)
+        (insert text-begin)))))
+#+end_src
+Associative list that maps environment names to programming languages
+#+begin_src emacs-lisp
+  (setq env-map '( ("cfml" . "coq")
+    ("ocamlenv" . "ocaml")
+    ("gospel" . "ocaml")
+    ("whylang" . "ocaml")
+  ))
+#+end_src
+Function to wrap text around an example block
+
+#+begin_src emacs-lisp
+  (defun org-insert-code-env (env-name)
+  (interactive "sEnvironment name: ")
+  (tag-word-or-region (concat "#+ATTR_LATEX: :environment " env-name
+			      "\n#+begin_example " (alist-get env-name env-map nil nil #'equal) "\n")
+		      "\n#+end_example"
+  ))
+#+end_src
+Function to insert an Org macro
+#+begin_src emacs-lisp
+(defun org-insert-macro ()
+  (interactive)
+  (tag-word-or-region "{{{" "}}}")
+ )
+#+end_src
+** Remove Spell Checking in Code Blocks
+#+begin_src emacs-lisp
+  (add-to-list 'ispell-skip-region-alist '("^#\\+BEGIN_SRC" . "#\\+END_SRC"))
+  (add-to-list 'ispell-skip-region-alist '("^#\\+BEGIN_EXAMPLE" . "#\\+END_EXAMPLE"))
+  (add-to-list 'ispell-skip-region-alist '("^#\\+begin_src" . "#\\+end_src"))
+  (add-to-list 'ispell-skip-region-alist '("^#\\+begin_example" . "#\\+end_example"))
+  (add-to-list 'ispell-skip-region-alist '("^#\\+" . "\n"))
+  (add-to-list 'ispell-skip-region-alist '("~" . "~"))
+  (add-to-list 'ispell-skip-region-alist '("{{{" . "}}}"))
+  (add-to-list 'ispell-skip-region-alist '("<<" . ">>"))
+#+end_src
+** Org Key Bindings and Hooks
+#+begin_src emacs-lisp
+  ;; Pretty Symbols for Org
+  (defun org-prettify ()
+    (lambda ()
+      (push '("#+end_example" . ?​) prettify-symbols-alist)
+      (push '("#+begin_src emacs-lisp" . ?Σ) prettify-symbols-alist)
+      (push '("#+end_src" . ?​) prettify-symbols-alist)
+      (push '("#+begin_example coq" . ?🐓) prettify-symbols-alist)
+      (push '("#+begin_example ocaml" . ?🐫) prettify-symbols-alist)
+      (push '("#+ATTR_LATEX: :environment cfml" . ?​) prettify-symbols-alist)
+      (push '("#+ATTR_LATEX: :environment ocamlenv" . ?​) prettify-symbols-alist)
+      (push '("#+ATTR_LATEX: :environment gospel" . ?​) prettify-symbols-alist)
+      (push '("#+ATTR_LATEX: :environment whylang" . ?​) prettify-symbols-alist)
+      (push '("->" . ?→) prettify-symbols-alist)
+      (push '("|-" . ?⊢) prettify-symbols-alist)
+      (push '("/\\" . ?∧) prettify-symbols-alist)
+      (push '("\\/" . ?∨) prettify-symbols-alist)
+      (push '("<-" . ?←) prettify-symbols-alist)
+      ))    
+
+  (use-package org
+    :bind (:map org-mode-map
+                ("C-c C-x C-x" . org-insert-code-env))
+    :bind (:map org-mode-map
+                ("C-c C-x C-m" . org-insert-macro))
+    :hook (org-mode . org-prettify)
+    )
+#+end_src
+* PDFs
+Package used to read PDF files
+#+begin_src emacs-lisp
+  (use-package pdf-tools
+    :hook (pdf-view-mode . pdf-view-restore-mode))
+  (pdf-tools-install)
+#+end_src
+Opens PDFs at last visited page
+#+begin_src emacs-lisp
+  (use-package pdf-view-restore)
+#+end_src
+I'm not sure what this setting does, but without it PDF's are really
+slow
+
+#+begin_src emacs-lisp
+  (setq pdf-view-use-scaling nil)
+#+end_src
+#+end_src
+* Proof General
+
+#+begin_src emacs-lisp
+  (use-package proof-general
+    :custom
+    ;; when startin a proof, creates new frames instead of splitting 
+    ;; window
+    (proof-multiple-frames-enable t)
+    ;; Removes the EXTREMELY annoying proof general splash screen
+    (proof-splash-enable nil))
+#+end_src
+These bindings are unset so that I can use them to navigate through
+paragraphs
+#+begin_src emacs-lisp
+  (add-hook 'coq-mode-hook
+            (lambda()
+              (local-unset-key (kbd "M-p"))))
+  (add-hook 'coq-mode-hook
+          (lambda()
+            (local-unset-key (kbd "M-n"))))
+#+end_src
+Weird arrow :/
+#+begin_src emacs-lisp
+  (setq overlay-arrow-string "")
+#+end_src
+* Settings for Text Mode
+
+Enable auto-fill.
+#+begin_src emacs-lisp
+(add-hook 'text-mode-hook #'auto-fill-mode)
+#+end_src
+Enable ~Writeroom~ mode for a more comfortable writing experience.
+#+begin_src emacs-lisp
+    (use-package writeroom-mode
+      :hook (org-mode . writeroom-mode))
+#+end_src
+Enable ~Flyspell~ for spell checking 
+#+begin_src emacs-lisp
+  (use-package flyspell
+    :bind
+    (:map flyspell-mode-map
+          ("C-C C-x $" . flyspell-check-previous-highlighted-word)
+          )
+    :hook (text-mode . flyspell-mode)
+    )
+#+end_src
+
