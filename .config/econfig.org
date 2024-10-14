@@ -470,7 +470,7 @@ Shamelessly stolen ~Eww~ configuration.
           ("rust" . rustic)
           ("rust" . rustic)
           ("awk" . bash)
-          ("coq" . coq)
+          ("coq" . proof-general)
           ("json" . "js")
           ;; Used by language-detection.el
           ("emacslisp" . emacs-lisp)
@@ -509,7 +509,7 @@ Shamelessly stolen ~Eww~ configuration.
         ('dark
          (add-face-text-property start end '(:background "#292b2e" :extend t))))
       (shr-ensure-newline)
-      (insert "\n"))))
+      (insert "\n")))
 
   (use-package calibredb
     :defer t
