@@ -1,17 +1,14 @@
 * Package Configuration
-
 Add MELPA to the list of recognized archives
 #+begin_src emacs-lisp
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/") t)
 #+end_src
-
 Updates the local cache if it is missing
 #+begin_src emacs-lisp
   (unless package-archive-contents
     (package-refresh-contents))
 #+end_src
-
 Installs use-package if I don't have it already and enables verbose
 messages 
 #+begin_src emacs-lisp
@@ -21,9 +18,7 @@ messages
   (require 'use-package)
   (setq use-package-verbose t)
 #+end_src
-
 Use-package always installs packages
-
 #+begin_src emacs-lisp
 (setq use-package-always-ensure t)
 #+end_src
@@ -95,7 +90,6 @@ Adds themes folder to custom themes
 ** ~Flycheck~
 #+begin_src emacs-lisp
   (use-package flycheck
-    :hook (text-mode . flycheck-mode)
     :bind (:map flycheck-mode-map
            ("\C-c \C-x" . flycheck-next-error))
     )
@@ -110,6 +104,7 @@ Adds themes folder to custom themes
       :hook (tuareg-mode . lsp) ;; turn on lsp
       ;; changes the default compile command
       :hook (tuareg-mode . ocaml-compile)
+      :hook (tuareg-mode . flycheck-mode)
       ;; :config ;; special tuareg config with gospel highlighting
         ;;
       )
@@ -210,7 +205,7 @@ Make it there is only one star visible in each heading.
 #+begin_src emacs-lisp
   (setq org-hide-leading-stars t)
 #+end_src
-Use latex like syntax to insert special symbols
+Use LaTeX like syntax to insert special symbols
 
 #+begin_src emacs-lisp
   (setq org-pretty-entities t)
@@ -224,7 +219,7 @@ Enable Org indentation
 
 #+begin_src emacs-lisp
   (setq org-startup-indented t)
-  
+#+end_src
 ** Org capture templates
 #+begin_src emacs-lisp  
 (setq org-capture-templates
@@ -325,13 +320,13 @@ Function to insert an Org macro
 ** Org Key Bindings and Hooks
 #+begin_src emacs-lisp
   ;; Pretty Symbols for Org
-  (defun org-prettify ()
+  (add-hook 'org-mode-hook
     (lambda ()
       (push '("#+end_example" . ?​) prettify-symbols-alist)
-      (push '("#+begin_src emacs-lisp" . ?Σ) prettify-symbols-alist)
       (push '("#+end_src" . ?​) prettify-symbols-alist)
       (push '("#+begin_example coq" . ?🐓) prettify-symbols-alist)
       (push '("#+begin_example ocaml" . ?🐫) prettify-symbols-alist)
+      (push '("#+begin_src emacs-lisp" . ?🗿) prettify-symbols-alist)
       (push '("#+ATTR_LATEX: :environment cfml" . ?​) prettify-symbols-alist)
       (push '("#+ATTR_LATEX: :environment ocamlenv" . ?​) prettify-symbols-alist)
       (push '("#+ATTR_LATEX: :environment gospel" . ?​) prettify-symbols-alist)
@@ -341,14 +336,15 @@ Function to insert an Org macro
       (push '("/\\" . ?∧) prettify-symbols-alist)
       (push '("\\/" . ?∨) prettify-symbols-alist)
       (push '("<-" . ?←) prettify-symbols-alist)
-      ))    
+      (prettify-symbols-mode 1)))
 
-  (use-package org
-    :bind (:map org-mode-map
-                ("C-c C-x C-x" . org-insert-code-env))
-    :bind (:map org-mode-map
-                ("C-c C-x C-m" . org-insert-macro))
-    :hook (org-mode . org-prettify)
+  (require 'org)
+  (progn
+    (define-key org-mode-map      (kbd "C-c C-x C-x")
+                (lambda (env-name)
+                  (interactive "sEnvironment name: ") (org-insert-code-env env-name)))
+    (define-key org-mode-map      (kbd "C-c C-x C-m") (lambda () (interactive) (org-insert-macro)))
+    (define-key org-mode-map      (kbd "C-C C-x $") #'flyspell-check-previous-highlighted-word)
     )
 #+end_src
 * PDFs
@@ -362,12 +358,11 @@ Opens PDFs at last visited page
 #+begin_src emacs-lisp
   (use-package pdf-view-restore)
 #+end_src
-I'm not sure what this setting does, but without it PDF's are really
+I'm not sure what this setting does, but without it PDFs are really
 slow
 
 #+begin_src emacs-lisp
   (setq pdf-view-use-scaling nil)
-#+end_src
 #+end_src
 * Proof General
 
@@ -412,7 +407,7 @@ Enable ~Flyspell~ for spell checking
     (:map flyspell-mode-map
           ("C-C C-x $" . flyspell-check-previous-highlighted-word)
           )
-    :hook (text-mode . flyspell-mode)
+
     )
 #+end_src
 

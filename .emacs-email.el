@@ -1,6 +1,6 @@
 (setq message-send-mail-function 'smtpmail-send-it)
 (setq default-frame-alist (assq-delete-all 'font default-frame-alist))
-(push '((font . "Robot Mono 22")) default-frame-alist)
+(push '(font . "Roboto Mono 22") default-frame-alist)
 
 (use-package mu4e
   :ensure nil
@@ -10,7 +10,7 @@
 
   ;; This is set to 't' to avoid mail syncing issues when using mbsync
   (setq mu4e-change-filenames-when-moving t)
-
+  (setq mu4e-context-policy "pick-first")
   ;; Refresh mail using isync every 10 minutes
   (setq mu4e-update-interval 60)
   (setq mu4e-get-mail-command "mbsync -a")
@@ -61,11 +61,13 @@
         ("/gmail/[Gmail]/All Mail"  . ?a)))  
   )
 
+(use-package mu4e-alert)
 (mu4e-alert-enable-notifications)
 
+(use-package gruvbox-theme)
 (load-theme 'gruvbox-light-hard t)
 
-(require 'go-translate)
+(use-package go-translate)
 (setq gt-langs '(fr en))
 (setq gt-default-translator (gt-translator :engines (gt-google-engine)))
 
@@ -90,10 +92,3 @@
 ;; and the result will be displayed in the Echo Area.
 
 (add-hook 'mu4e-view-mode-hook #'writeroom-mode)
-(load-file "~/.mu4e-dashboard/mu4e-dashboard.el")
-(mu4e)
-
-(require 'mu4e)
-(progn
-  (define-key mu4e-headers-mode-map (kbd "q") (lambda () (interactive) (mu4e-dashboard)))
-  )
