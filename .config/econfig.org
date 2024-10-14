@@ -318,6 +318,7 @@ Function to insert an Org macro
   (add-to-list 'ispell-skip-region-alist '("<<" . ">>"))
 #+end_src
 ** Org Key Bindings and Hooks
+
 #+begin_src emacs-lisp
   ;; Pretty Symbols for Org
   (add-hook 'org-mode-hook
