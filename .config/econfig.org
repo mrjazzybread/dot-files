@@ -78,6 +78,28 @@ Adds themes folder to custom themes
   (use-package fireplace)
 #+end_src
 * Coding Packages
+** ~Flycheck~
+#+begin_src emacs-lisp
+  (use-package flycheck
+    :bind (:map flycheck-mode-map
+           ("\C-c \C-x" . flycheck-next-error))
+    :hook (lsp-mode . flycheck-mode)
+    )
+#+end_src
+** OCaml packages
+#+begin_src emacs-lisp
+  (defun ocaml-compile ()
+      (setq compile-command "~/.config/ocompile.sh")
+    )
+
+  (use-package tuareg
+      ;; changes the default compile command
+      :hook (tuareg-mode . ocaml-compile)
+      :hook (tuareg-mode . flycheck-mode)
+      )
+  (load "/home/tiago/.opam/4.14.1/share/emacs/site-lisp/tuareg.el")
+  (use-package dune)
+#+end_src
 ** LSP-mode
 #+begin_src emacs-lisp
   (use-package lsp-mode
@@ -85,33 +107,11 @@ Adds themes folder to custom themes
       (lsp-headerline-breadcrumb-enable nil)
       :bind (:map lsp-mode-map
                   ("C-c C-l" . lsp-find-definition))
+      :hook (tuareg-mode . lsp)
       )
-#+end_src
-** ~Flycheck~
-#+begin_src emacs-lisp
-  (use-package flycheck
-    :bind (:map flycheck-mode-map
-           ("\C-c \C-x" . flycheck-next-error))
-    )
-#+end_src
-** OCaml packages
-#+begin_src emacs-lisp
-  (defun ocaml-compile ()
-      (setq compile-command "~/.config/ocompile.sh")
-    ) 
-
-  (use-package tuareg
-      :hook (tuareg-mode . lsp) ;; turn on lsp
-      ;; changes the default compile command
-      :hook (tuareg-mode . ocaml-compile)
-      :hook (tuareg-mode . flycheck-mode)
-      ;; :config ;; special tuareg config with gospel highlighting
-        ;;
-      )
-  (load "/home/tiago/.opam/4.14.1/share/emacs/site-lisp/tuareg.el")
-  (use-package dune)
 #+end_src
 ** Git packages
+I will always use ~magit~ though. ~magit~ :)
 #+begin_src emacs-lisp
   (use-package magit)
 #+end_src
@@ -149,7 +149,7 @@ Disables a bunch of needless UI noise.
 * ~Dired~
 Deleted files are moved to the trash folder
 #+begin_src emacs-lisp
-    (setq delete-by-moving-to-trash t)
+  (setq delete-by-moving-to-trash t)
 #+end_src
 Start ~Dired~ in omit mode
 
@@ -177,8 +177,9 @@ Set files to omit
 My agenda files:
 
 #+begin_src emacs-lisp
-   (setq org-agenda-files
-         '("~/org/appoint.org" "~/org/todo.org"))
+  (setq org-agenda-files
+        '("~/org/appoint.org"
+          "~/org/todo.org"))
 #+end_src
 Settings for exporting Org files with citations to TeX.
 
@@ -188,9 +189,14 @@ Settings for exporting Org files with citations to TeX.
   (setq org-export-with-sub-superscripts nil)
 #+end_src
 Enable notifications for Org agenda items
+
 #+begin_src emacs-lisp
   (use-package org-alert
-    :custom (alert-default-style 'libnotify))
+    :custom (alert-default-style 'libnotify)
+    :custom (org-alert-interval 300)
+    :custom (org-alert-notify-cutoff 10)
+    :custom (org-alert-notify-after-event-cutoff 0)
+    )
   (org-alert-enable)
 #+end_src
 ** Appearance
@@ -220,8 +226,32 @@ Enable Org indentation
 #+begin_src emacs-lisp
   (setq org-startup-indented t)
 #+end_src
+*** Org Pretty Symbols
+
+Function for adding pretty symbols for Org mode. Most of these are
+just so that Org mode environments aren't awful to look at.
+#+begin_src emacs-lisp
+    ;; Pretty Symbols for Org
+  (defun add-symbols ()
+    (push '("#+end_example" . ?​) prettify-symbols-alist)
+    (push '("#+end_src" . ?​) prettify-symbols-alist)
+    (push '("#+begin_example coq" . ?🐓) prettify-symbols-alist)
+    (push '("#+begin_example ocaml" . ?🐫) prettify-symbols-alist)
+    ;;errrrrrm, what the ...
+    (push '("#+begin_src emacs-lisp" . ?🗿) prettify-symbols-alist)
+    (push '("#+ATTR_LATEX: :environment cfml" . ?​) prettify-symbols-alist)
+    (push '("#+ATTR_LATEX: :environment ocamlenv" . ?​) prettify-symbols-alist)
+    (push '("#+ATTR_LATEX: :environment gospel" . ?​) prettify-symbols-alist)
+    (push '("#+ATTR_LATEX: :environment whylang" . ?​) prettify-symbols-alist)
+    (push '("->" . ?→) prettify-symbols-alist)
+    (push '("|-" . ?⊢) prettify-symbols-alist)
+    (push '("/\\" . ?∧) prettify-symbols-alist)
+    (push '("\\/" . ?∨) prettify-symbols-alist)
+    (push '("<-" . ?←) prettify-symbols-alist)
+    (prettify-symbols-mode 1))
+#+end_src
 ** Org capture templates
-#+begin_src emacs-lisp  
+#+begin_src emacs-lisp
 (setq org-capture-templates
       '(    
         ("w" "Writing TODO"
@@ -242,7 +272,7 @@ Enable Org indentation
 	 checkitem (file+headline "~/org/todo.org" "Reading List")
 	 "[ ] %?\n")
       ))
-#+end_src  #+end_src
+#+end_src
 ** Org Keywords
 #+begin_src emacs-lisp
 (setq org-todo-keywords
@@ -319,45 +349,33 @@ Function to insert an Org macro
 #+end_src
 ** Org Key Bindings and Hooks
 
+Global key bindings to access and update the agenda.
 #+begin_src emacs-lisp
-  ;; Pretty Symbols for Org
-  (add-hook 'org-mode-hook
-    (lambda ()
-      (push '("#+end_example" . ?​) prettify-symbols-alist)
-      (push '("#+end_src" . ?​) prettify-symbols-alist)
-      (push '("#+begin_example coq" . ?🐓) prettify-symbols-alist)
-      (push '("#+begin_example ocaml" . ?🐫) prettify-symbols-alist)
-      (push '("#+begin_src emacs-lisp" . ?🗿) prettify-symbols-alist)
-      (push '("#+ATTR_LATEX: :environment cfml" . ?​) prettify-symbols-alist)
-      (push '("#+ATTR_LATEX: :environment ocamlenv" . ?​) prettify-symbols-alist)
-      (push '("#+ATTR_LATEX: :environment gospel" . ?​) prettify-symbols-alist)
-      (push '("#+ATTR_LATEX: :environment whylang" . ?​) prettify-symbols-alist)
-      (push '("->" . ?→) prettify-symbols-alist)
-      (push '("|-" . ?⊢) prettify-symbols-alist)
-      (push '("/\\" . ?∧) prettify-symbols-alist)
-      (push '("\\/" . ?∨) prettify-symbols-alist)
-      (push '("<-" . ?←) prettify-symbols-alist)
-      (prettify-symbols-mode 1)))
-
-  (require 'org)
-  (progn
-    (define-key org-mode-map      (kbd "C-c C-x C-x")
-                (lambda (env-name)
-                  (interactive "sEnvironment name: ") (org-insert-code-env env-name)))
-    (define-key org-mode-map      (kbd "C-c C-x C-m") (lambda () (interactive) (org-insert-macro)))
-    (define-key org-mode-map      (kbd "C-C C-x $") #'flyspell-check-previous-highlighted-word)
+  (global-set-key "\C-ca" 'org-agenda)
+  (global-set-key "\C-cc" 'org-capture)
+#+end_src
+Concise way of using the previous definitions to configure Org.
+#+begin_src emacs-lisp  
+  (use-package org
+    :hook (org-mode . add-symbols)
+    :bind
+    (:map org-mode-map
+          ("C-c C-x C-x" . org-insert-code-env))
+    :bind
+    (:map org-mode-map
+          ("C-c C-x C-m" . org-insert-macro))
     )
 #+end_src
 * PDFs
 Package used to read PDF files
 #+begin_src emacs-lisp
-  (use-package pdf-tools
-    :hook (pdf-view-mode . pdf-view-restore-mode))
+  (use-package pdf-tools)
   (pdf-tools-install)
 #+end_src
 Opens PDFs at last visited page
 #+begin_src emacs-lisp
-  (use-package pdf-view-restore)
+  (use-package pdf-view-restore
+    :hook (pdf-view-mode . pdf-view-restore-mode))
 #+end_src
 I'm not sure what this setting does, but without it PDFs are really
 slow
@@ -366,9 +384,17 @@ slow
   (setq pdf-view-use-scaling nil)
 #+end_src
 * Proof General
-
+These bindings are unset so that I can use them to navigate through
+paragraphs in Coq mode.
+#+begin_src emacs-lisp
+  (defun unset ()
+    (local-unset-key (kbd "M-p"))
+    (local-unset-key (kbd "M-n")))
+#+end_src
+Package for working with Coq
 #+begin_src emacs-lisp
   (use-package proof-general
+    :hook (coq-mode . unset)
     :custom
     ;; when startin a proof, creates new frames instead of splitting 
     ;; window
@@ -376,15 +402,10 @@ slow
     ;; Removes the EXTREMELY annoying proof general splash screen
     (proof-splash-enable nil))
 #+end_src
-These bindings are unset so that I can use them to navigate through
-paragraphs
+Enable auto completion in Coq.
 #+begin_src emacs-lisp
-  (add-hook 'coq-mode-hook
-            (lambda()
-              (local-unset-key (kbd "M-p"))))
-  (add-hook 'coq-mode-hook
-          (lambda()
-            (local-unset-key (kbd "M-n"))))
+  (use-package company-coq
+    :hook (coq-mode . company-coq-mode))
 #+end_src
 Weird arrow :/
 #+begin_src emacs-lisp
@@ -394,16 +415,17 @@ Weird arrow :/
 
 Enable auto-fill.
 #+begin_src emacs-lisp
-(add-hook 'text-mode-hook #'auto-fill-mode)
+  (add-hook 'text-mode-hook #'auto-fill-mode)
 #+end_src
 Enable ~Writeroom~ mode for a more comfortable writing experience.
 #+begin_src emacs-lisp
-    (use-package writeroom-mode
-      :hook (org-mode . writeroom-mode))
+  (use-package writeroom-mode
+    :hook (text-mode . writeroom-mode))
 #+end_src
 Enable ~Flyspell~ for spell checking 
 #+begin_src emacs-lisp
   (use-package flyspell
+    :hook (text-mode . flyspell-mode)
     :bind
     (:map flyspell-mode-map
           ("C-C C-x $" . flyspell-check-previous-highlighted-word)
@@ -411,4 +433,3 @@ Enable ~Flyspell~ for spell checking
 
     )
 #+end_src
-
