@@ -86,7 +86,7 @@ alias em="emacsclient -c -n"
 
 #Quick edit config files
 alias zconfig="em ~/.zshrc"
-alias econfig="em ~/.emacs"
+alias econfig="em ~/.config/econfig.org"
 alias sconfig="em ~/.config/sway/config"
 alias hconfig="em ~/.config/hypr/hyprland.conf"
 
