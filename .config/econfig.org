@@ -1,8 +1,8 @@
 * Package Configuration
 Add MELPA to the list of recognized archives
 #+begin_src emacs-lisp
-(add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/") t)
+  (add-to-list 'package-archives
+               '("melpa" . "https://melpa.org/packages/") t)
 #+end_src
 Updates the local cache if it is missing
 #+begin_src emacs-lisp
@@ -20,11 +20,11 @@ messages
 #+end_src
 Use-package always installs packages
 #+begin_src emacs-lisp
-(setq use-package-always-ensure t)
+  (setq use-package-always-ensure t)
 #+end_src
 Install ~quelpa~
 #+begin_src emacs-lisp
-(use-package quelpa)
+  (use-package quelpa)
 #+end_src
 * Some Miscellaneous Configurations
 Enable Emacs to track changes made to files by different programs.
@@ -134,7 +134,7 @@ Set theme (currently Shades of Purple)
 Pretty mode line
 #+begin_src emacs-lisp
     (use-package doom-modeline
-      :config (doom-modeline-mode 1))    
+      :config (doom-modeline-mode 1))
 #+end_src
 Disables a bunch of needless UI noise.
 #+begin_src emacs-lisp
