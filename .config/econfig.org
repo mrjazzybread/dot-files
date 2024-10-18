@@ -89,14 +89,17 @@ Adds themes folder to custom themes
 ** OCaml packages
 #+begin_src emacs-lisp
   (defun ocaml-compile ()
-      (setq compile-command "~/.config/ocompile.sh")
+    (setq compile-command "~/.config/ocompile.sh")
     )
 
   (use-package tuareg
-      ;; changes the default compile command
-      :hook (tuareg-mode . ocaml-compile)
-      :hook (tuareg-mode . flycheck-mode)
-      )
+    ;; changes the default compile command
+    :hook (tuareg-mode . ocaml-compile)
+    :hook (tuareg-mode . flycheck-mode))
+
+  (use-package frames-only-mode
+    :hook (tuareg-mode . frames-only-mode))
+
   (load "/home/tiago/.opam/4.14.1/share/emacs/site-lisp/tuareg.el")
   (use-package dune)
 #+end_src

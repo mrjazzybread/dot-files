@@ -6,6 +6,8 @@
   :ensure nil
   ;; :load-path "/usr/share/emacs/site-lisp/mu4e/"
   ;; :defer 20 ; Wait until 20 seconds after startup
+  :bind (:map mu4e-headers-mode-map
+	      ("q" . mu4e-dashboard))
   :config
 
   ;; This is set to 't' to avoid mail syncing issues when using mbsync
@@ -81,7 +83,7 @@
        :engines (list (gt-bing-engine) (gt-google-engine)) ; specify the Engines
        :render  (gt-buffer-render)))                       ; config the Render
 
-
+(setq mu4e-headers-fields '((:human-date . 12) (:from . 22) (:subject)))
 
 ;; This configuration means:
 ;; Initialize the default translator, let it send all paragraphs in the buffer to Bing and Google,
@@ -92,3 +94,7 @@
 ;; and the result will be displayed in the Echo Area.
 
 (add-hook 'mu4e-view-mode-hook #'writeroom-mode)
+(use-package async)
+(load "~/.mu4e-dashboard/mu4e-dashboard.el")
+
+(mu4e)
