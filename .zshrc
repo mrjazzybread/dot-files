@@ -83,6 +83,7 @@ eval $(opam config env)
 
 alias reload="source ~/.zshrc"
 alias em="emacsclient -c -n"
+alias vi="emacsclient -t"
 
 #Quick edit config files
 alias zconfig="em ~/.zshrc"
@@ -138,10 +139,7 @@ function add-fonts(){
     fc-cache -f -v
 }
 
-function pdf (){
-    zathura "$@" & disown
-}
-
+alias pdf=em
 #export OCAMLRUNPARAM=b
 function ocaml-trace-disable(){
     unset OCAMLRUNPARAM

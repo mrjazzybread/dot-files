@@ -119,15 +119,15 @@ I will always use ~magit~ though. ~magit~ :)
   (use-package magit)
 #+end_src
 * Appearance
-Disable splash screen
+
+Disable Splash Screen
 #+begin_src emacs-lisp
-  (setq inhibit-startup-screen t)
+  (setq inhbit-splash-screen t)
 #+end_src
 Define font style and height
 #+begin_src emacs-lisp
   (setq default-frame-alist '((font . "DejaVu Sans Mono 22")))
 #+end_src
-
 Set theme (currently Shades of Purple)
 #+begin_src emacs-lisp
   (setq custom-safe-themes t)
