@@ -476,6 +476,9 @@ Key binding for clearing the shell
     "Clear the eshell buffer."
     (erase-buffer)
     (eshell-send-input)
+    (beginning-of-line 1)
+    (delete-backward-char 1)
+    (move-end-of-line 1)
     )
 
   (add-hook 'eshell-mode-hook
