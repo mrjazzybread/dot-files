@@ -34,13 +34,13 @@ GNU keys to enable downloading packages
 
 Enable creation of pairs of brackets or quotes when one is inserted.
 #+begin_src emacs-lisp
-   (setq skeleton-pair t)
-   (bind-key "(" 'skeleton-pair-insert-maybe)
-   (bind-key "{" 'skeleton-pair-insert-maybe)
-   (bind-key "[" 'skeleton-pair-insert-maybe)
-   (bind-key (char-to-string 34) 'skeleton-pair-insert-maybe)
-   ;char 34 is the single quote, putting the character itself
-   ;ruins the prettify symbols mode
+  (setq skeleton-pair t)
+  (bind-key "(" 'skeleton-pair-insert-maybe)
+  (bind-key "{" 'skeleton-pair-insert-maybe)
+  (bind-key "[" 'skeleton-pair-insert-maybe)
+  (bind-key (char-to-string 34) 'skeleton-pair-insert-maybe)
+  ;char 34 is the single quote, putting the character itself
+  ;ruins the prettify symbols mode
 #+end_src
 Enable Emacs to track changes made to files by different programs.
 #+begin_src emacs-lisp
@@ -48,8 +48,8 @@ Enable Emacs to track changes made to files by different programs.
 #+end_src
 Key bindings for navigating paragraphs
 #+begin_src emacs-lisp
-(bind-key "M-n" 'forward-paragraph)
-(bind-key "M-p" 'backward-paragraph)
+  (bind-key "M-n" 'forward-paragraph)
+  (bind-key "M-p" 'backward-paragraph)
 #+end_src
 Save mini-buffer history
 #+begin_src emacs-lisp
