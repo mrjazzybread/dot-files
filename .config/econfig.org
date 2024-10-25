@@ -63,6 +63,10 @@ Bookmarks are preserved throughout different sessions
 #+begin_src emacs-lisp
   (setq bookmark-save-flag 0)
 #+end_src
+Smooth Scrolling
+#+begin_src emacs-lisp
+  (pixel-scroll-precision-mode 1)
+#+end_src
 Makes it so that the compilation window opens in a new frame
 #+begin_src emacs-lisp
   (setq special-display-buffer-names
@@ -154,7 +158,7 @@ I will always use ~magit~ though. ~magit~ :)
 
 Disable Splash Screen
 #+begin_src emacs-lisp
-  (setq inhbit-splash-screen t)
+  (setq inhibit-splash-screen t)
 #+end_src
 Define font style and height
 #+begin_src emacs-lisp
