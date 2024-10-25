@@ -1,17 +1,17 @@
 * Package Configuration
 Add MELPA to the list of recognized archives
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (add-to-list 'package-archives
                '("melpa" . "https://melpa.org/packages/") t)
 #+end_src
 Updates the local cache if it is missing
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (unless package-archive-contents
     (package-refresh-contents))
 #+end_src
 Installs use-package if I don't have it already and enables verbose
 messages 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (unless (package-installed-p 'use-package)
   (package-install 'use-package))
 
@@ -19,21 +19,21 @@ messages
   (setq use-package-verbose t)
 #+end_src
 Use-package always installs packages
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (setq use-package-always-ensure t)
 #+end_src
 Install ~quelpa~
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (use-package quelpa)
 #+end_src
 GNU keys to enable downloading packages
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (use-package gnu-elpa-keyring-update)
 #+end_src
 * Some Miscellaneous Configurations
 
 Enable creation of pairs of brackets or quotes when one is inserted.
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (setq skeleton-pair t)
   (bind-key "(" 'skeleton-pair-insert-maybe)
   (bind-key "{" 'skeleton-pair-insert-maybe)
@@ -43,32 +43,32 @@ Enable creation of pairs of brackets or quotes when one is inserted.
   ;ruins the prettify symbols mode
 #+end_src
 Enable Emacs to track changes made to files by different programs.
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
 (global-auto-revert-mode 1)
 #+end_src
 Key bindings for navigating paragraphs
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (bind-key "M-n" 'forward-paragraph)
   (bind-key "M-p" 'backward-paragraph)
 #+end_src
 Save mini-buffer history
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (savehist-mode)
 #+end_src
 Allows me to see the column number as well as the line number.
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (column-number-mode)
 #+end_src
 Bookmarks are preserved throughout different sessions
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (setq bookmark-save-flag 0)
 #+end_src
 Smooth Scrolling
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (pixel-scroll-precision-mode 1)
 #+end_src
 Makes it so that the compilation window opens in a new frame
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (setq special-display-buffer-names
         '("*compilation*"))
 
@@ -86,7 +86,7 @@ Makes it so that the compilation window opens in a new frame
         )
 #+end_src
 ** ~utf-8~
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (prefer-coding-system       'utf-8)
   (set-default-coding-systems 'utf-8)
   (set-terminal-coding-system 'utf-8)
@@ -100,7 +100,7 @@ Makes it so that the compilation window opens in a new frame
 
 This code ensures that backups and auto-saves go to a separate
 directory instead of stinking up the working directory.
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (defvar backup-dir (expand-file-name "~/.emacs.d/backup/"))
   (defvar autosave-dir (expand-file-name "~/.emacs.d/autosave/"))
   (setq backup-directory-alist (list (cons ".*" backup-dir)))
@@ -108,17 +108,17 @@ directory instead of stinking up the working directory.
   (setq auto-save-file-name-transforms `((".*" ,autosave-dir t)))
 #+end_src
 Adds themes folder to custom themes
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/") 
 #+end_src
 ** Miscellaneous Packages
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (use-package pacmacs)
   (use-package fireplace)
 #+end_src
 * Coding Packages
 ** ~Flycheck~
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (use-package flycheck
     :bind (:map flycheck-mode-map
            ("\C-c \C-x" . flycheck-next-error))
@@ -126,7 +126,7 @@ Adds themes folder to custom themes
     )
 #+end_src
 ** OCaml packages
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (defun ocaml-compile ()
     (setq compile-command "~/.config/ocompile.sh")
     )
@@ -140,7 +140,7 @@ Adds themes folder to custom themes
   (use-package dune)
 #+end_src
 ** LSP-mode
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (use-package lsp-mode
       :custom
       (lsp-headerline-breadcrumb-enable nil)
@@ -151,32 +151,32 @@ Adds themes folder to custom themes
 #+end_src
 ** Git packages
 I will always use ~magit~ though. ~magit~ :)
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (use-package magit)
 #+end_src
 * Appearance
 
 Disable Splash Screen
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (setq inhibit-splash-screen t)
 #+end_src
 Define font style and height
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (setq default-frame-alist '((font . "DejaVu Sans Mono 22")))
 #+end_src
 Set theme (currently Shades of Purple)
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (setq custom-safe-themes t)
   (setq custom-enabled-themes '(shades-of-purple))
   (load-theme 'shades-of-purple)
 #+end_src
 Pretty mode line
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
     (use-package doom-modeline
       :config (doom-modeline-mode 1))
 #+end_src
 Disables a bunch of needless UI noise.
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
 (cond ((> emacs-major-version 20)
        (tool-bar-mode -1) ; introduced in emacs 21
        (menu-bar-mode -1)
@@ -187,22 +187,22 @@ Disables a bunch of needless UI noise.
 #+end_src
 * ~Dired~
 Deleted files are moved to the trash folder
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (setq delete-by-moving-to-trash t)
 #+end_src
 Start ~Dired~ in omit mode
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (add-hook 'dired-mode-hook #'dired-omit-mode)
 #+end_src
 Bind the "o" key to toggle omit mode
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
     (add-hook 'dired-mode-hook
               (lambda () (local-set-key
                           (kbd "o") #'dired-omit-mode)))
 #+end_src
 Set files to omit
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (setq dired-omit-files
         (rx (or (seq bol (? ".") "#")     ;; emacs autosave files
                 (seq bol "." (not (any "."))) ;; dot-files
@@ -215,21 +215,21 @@ Set files to omit
 ** Some Basic Bookkeeping
 My agenda files:
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (setq org-agenda-files
         '("~/org/appoint.org"
           "~/org/todo.org"))
 #+end_src
 Settings for exporting Org files with citations to TeX.
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (setq org-cite-export-processors '((t biblatex "numeric" "numeric")))
   (setq org-cite-global-bibliography '("~/org/org.bib"))
   (setq org-export-with-sub-superscripts nil)
 #+end_src
 Enable notifications for Org agenda items
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (use-package org-alert
     :custom (alert-default-style 'libnotify)
     :custom (org-alert-interval 300)
@@ -241,35 +241,35 @@ Enable notifications for Org agenda items
 ** Appearance
 Hide emphasis markers and macro braces
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (setq org-hide-emphasis-markers t)
   (setq org-hide-macro-markers t)
 #+end_src
 Make it there is only one star visible in each heading.
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (setq org-hide-leading-stars t)
 #+end_src
 Use LaTeX like syntax to insert special symbols
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (setq org-pretty-entities t)
 #+end_src
 Start Org files with each heading folded.
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (setq org-startup-folded t)
 #+end_src
 Enable Org indentation
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (setq org-startup-indented t)
 #+end_src
 *** Org Pretty Symbols
 
 Function for adding pretty symbols for Org mode. Most of these are
 just so that Org mode environments aren't awful to look at.
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
     ;; Pretty Symbols for Org
   (defun add-symbols ()
     (push '("#+end_example" . ?​) prettify-symbols-alist)
@@ -277,7 +277,7 @@ just so that Org mode environments aren't awful to look at.
     (push '("#+begin_example coq" . ?🐓) prettify-symbols-alist)
     (push '("#+begin_example ocaml" . ?🐫) prettify-symbols-alist)
     ;;errrrrrm, what the ...
-    (push '("#+begin_src emacs-lisp" . ?🗿) prettify-symbols-alist)
+    (push '("#+begin_src emacs-lisp :results none" . ?🗿) prettify-symbols-alist)
     (push '("#+ATTR_LATEX: :environment cfml" . ?​) prettify-symbols-alist)
     (push '("#+ATTR_LATEX: :environment ocamlenv" . ?​) prettify-symbols-alist)
     (push '("#+ATTR_LATEX: :environment gospel" . ?​) prettify-symbols-alist)
@@ -290,7 +290,7 @@ just so that Org mode environments aren't awful to look at.
     (prettify-symbols-mode 1))
 #+end_src
 ** Org capture templates
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
 (setq org-capture-templates
       '(    
         ("w" "Writing TODO"
@@ -313,7 +313,7 @@ just so that Org mode environments aren't awful to look at.
       ))
 #+end_src
 ** Org Keywords
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
 (setq org-todo-keywords
       '((sequence "TODO(t)" "APPOINTMENT(p)" "IN-PROGRESS(i@/!)" "VERIFYING(v!)" "BLOCKED(b@)" "|" "DONE(d!)" "OBE(o@!)" "WONT-DO(w@/!)" )
         ))
@@ -332,7 +332,7 @@ just so that Org mode environments aren't awful to look at.
 ** Inserting Org Example Blocks
 
 Function for wrapping text around a block
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (defun tag-word-or-region (text-begin text-end)
   "Surround current word or region with given text."
   (interactive "sStart tag: \nsEnd tag: ")
@@ -351,7 +351,7 @@ Function for wrapping text around a block
         (insert text-begin)))))
 #+end_src
 Associative list that maps environment names to programming languages
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (setq env-map '( ("cfml" . "coq")
     ("ocamlenv" . "ocaml")
     ("gospel" . "ocaml")
@@ -360,23 +360,29 @@ Associative list that maps environment names to programming languages
 #+end_src
 Function to wrap text around an example block
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (defun org-insert-code-env (env-name)
-  (interactive "sEnvironment name: ")
-  (tag-word-or-region (concat "#+ATTR_LATEX: :environment " env-name
-			      "\n#+begin_example " (alist-get env-name env-map nil nil #'equal) "\n")
-		      "\n#+end_example"
-  ))
+    (interactive "sEnvironment name: ")
+    (if (equal env-name "elisp")
+        (tag-word-or-region
+         "#+begin_src emacs-lisp :results none :results none\n"
+         "\n#+end_src"
+         )
+      (tag-word-or-region
+       (concat "#+ATTR_LATEX: :environment " env-name
+                                "\n#+begin_example " (alist-get env-name env-map nil nil #'equal) "\n")
+                        "\n#+end_example"
+                        )))
 #+end_src
 Function to insert an Org macro
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
 (defun org-insert-macro ()
   (interactive)
   (tag-word-or-region "{{{" "}}}")
  )
 #+end_src
 ** Remove Spell Checking in Code Blocks
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (add-to-list 'ispell-skip-region-alist '("^#\\+BEGIN_SRC" . "#\\+END_SRC"))
   (add-to-list 'ispell-skip-region-alist '("^#\\+BEGIN_EXAMPLE" . "#\\+END_EXAMPLE"))
   (add-to-list 'ispell-skip-region-alist '("^#\\+begin_src" . "#\\+end_src"))
@@ -389,12 +395,12 @@ Function to insert an Org macro
 ** Org Key Bindings and Hooks
 
 Global key bindings to access and update the agenda.
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (global-set-key "\C-ca" 'org-agenda)
   (global-set-key "\C-cc" 'org-capture)
 #+end_src
 Concise way of using the previous definitions to configure Org.
-#+begin_src emacs-lisp  
+#+begin_src emacs-lisp :results none  
   (use-package org
     :hook (org-mode . add-symbols)
     :bind
@@ -407,62 +413,62 @@ Concise way of using the previous definitions to configure Org.
 #+end_src
 * PDFs
 Package used to read PDF files
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (use-package pdf-tools)
   (pdf-tools-install)
 #+end_src
 Opens PDFs at last visited page
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (use-package pdf-view-restore
     :hook (pdf-view-mode . pdf-view-restore-mode))
 #+end_src
 I'm not sure what this setting does, but without it PDFs are really
 slow
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (setq pdf-view-use-scaling nil)
 #+end_src
 * Proof General
 These bindings are unset so that I can use them to navigate through
 paragraphs in Coq mode.
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (defun unset ()
     (local-unset-key (kbd "M-p"))
     (local-unset-key (kbd "M-n")))
 #+end_src
 Package for working with Coq
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (use-package proof-general
     :hook (coq-mode . unset)
     :custom
     ;; when startin a proof, creates new frames instead of splitting 
     ;; window
-    (proof-multiple-frames-enable t)
+    (proof-multiple-frames-enable nil)
     ;; Removes the EXTREMELY annoying proof general splash screen
     (proof-splash-enable nil))
 #+end_src
 Enable auto completion in Coq.
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (use-package company-coq
     :hook (coq-mode . company-coq-mode))
 #+end_src
 Weird arrow :/
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (setq overlay-arrow-string "")
 #+end_src
 * Settings for Text Mode
 
 Enable auto-fill.
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (add-hook 'text-mode-hook #'auto-fill-mode)
 #+end_src
 Enable ~Writeroom~ mode for a more comfortable writing experience.
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (use-package writeroom-mode
     :hook (text-mode . writeroom-mode))
 #+end_src
 Enable ~Flyspell~ for spell checking 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (use-package flyspell
     :hook (text-mode . flyspell-mode)
     :bind
@@ -476,7 +482,7 @@ Enable ~Flyspell~ for spell checking
 
 Fish like suggestions for ~eshell~
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (use-package esh-autosuggest
     :hook (eshell-mode . company-mode)
     :hook (eshell-mode . esh-autosuggest-mode)
@@ -484,7 +490,7 @@ Fish like suggestions for ~eshell~
 #+end_src
 Pretty ~eshell~ prompt
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (use-package eshell-prompt-extras
       :after esh-opt
       :defines eshell-highlight-prompt
@@ -498,12 +504,12 @@ Pretty ~eshell~ prompt
 #+end_src
 Remove welcome message at startup
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (setq eshell-banner-message "")
 #+end_src
 
 Change font of ~Eshell~.
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
    (defun eshell-change-font ()
      (interactive)
      (setq buffer-face-mode-face
@@ -514,7 +520,7 @@ Change font of ~Eshell~.
 #+end_src
 Function for clearing the shell
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
   (defun eshell-clear ()
     (interactive)
     "Clear the eshell buffer."
@@ -533,7 +539,7 @@ Function for clearing the shell
 #+end_src
 Key binding for spawning a new instance of ~eshell~
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :results none
    (defun eshell-spawn ()
      (interactive)
      (select-frame (make-frame))
