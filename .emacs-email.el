@@ -8,6 +8,10 @@
   ;; :defer 20 ; Wait until 20 seconds after startup
   :bind (:map mu4e-headers-mode-map
 	      ("q" . mu4e-dashboard))
+  :bind (:map mu4e-view-mode-map
+	      ("<return>" . pixel-scroll-up))
+  :bind (:map mu4e-view-mode-map
+	      ("<backspace>" . pixel-scroll-down))
   :config
 
   ;; This is set to 't' to avoid mail syncing issues when using mbsync

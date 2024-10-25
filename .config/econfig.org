@@ -518,13 +518,13 @@ Function for clearing the shell
   (defun eshell-clear ()
     (interactive)
     "Clear the eshell buffer."
-    (let ((inhibit-read-only t)) 
-    (erase-buffer)
-    (eshell-send-input)
-    (beginning-of-line 1)
-    (delete-backward-char 1)
-    (move-end-of-line 1)
-    ))
+    (let ((inhibit-read-only t))
+      (erase-buffer)
+      (eshell-send-input)
+      (beginning-of-line 1)
+      (delete-backward-char 1)
+      (move-end-of-line 1)
+      ))
 
   (add-hook 'eshell-mode-hook
             (lambda () (interactive)
@@ -540,5 +540,5 @@ Key binding for spawning a new instance of ~eshell~
      (ignore-errors
        (kill-buffer "*eshell*"))
      (eshell))
-   (bind-key "C-c C-<return>" 'eshell-spawn)
+   (bind-key "C-c C-SPC" 'eshell-spawn)
 #+end_src
