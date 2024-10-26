@@ -541,7 +541,7 @@ Function for getting to the base of any project
 
 #+begin_src emacs-lisp :results none
   (defvar project-files
-    '("dune-project"
+    '("dune-project" "package.json"
       "CoqProject" "Makefile"
       )
     )
