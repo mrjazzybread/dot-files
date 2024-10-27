@@ -276,6 +276,7 @@ just so that Org mode environments aren't awful to look at.
     (push '("#+end_src" . ?​) prettify-symbols-alist)
     (push '("#+begin_example coq" . ?🐓) prettify-symbols-alist)
     (push '("#+begin_example ocaml" . ?🐫) prettify-symbols-alist)
+    (push '("#+begin_src ocaml" . ?🐫) prettify-symbols-alist)
     ;;errrrrrm, what the ...
     (push '("#+begin_src emacs-lisp :results none" . ?🗿) prettify-symbols-alist)
     (push '("#+ATTR_LATEX: :environment cfml" . ?​) prettify-symbols-alist)
