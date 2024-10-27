@@ -153,6 +153,15 @@ Adds themes folder to custom themes
 I will always use ~magit~ though. ~magit~ :)
 #+begin_src emacs-lisp :results none
   (use-package magit)
+
+  (defun magit-new-window ()
+    (interactive)
+    (select-frame (make-frame))
+    (magit-status)
+    (delete-other-windows)
+    )
+
+  (bind-key "C-x g" 'magit-new-window)
 #+end_src
 * Appearance
 
