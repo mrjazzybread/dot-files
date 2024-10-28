@@ -1,7 +1,7 @@
 alias ls exa --long --header --no-user --no-permissions
 alias rm trash $*
 alias ocaml rlwrap ocaml $*
-alias mv mv -i $*
+alias mv -i $*
 alias cp cp -r $*
 alias config /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME $*
 alias pac sudo pacman -S $*
