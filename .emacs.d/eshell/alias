@@ -12,7 +12,7 @@ alias agenda emacsclient -c -n -e '(org-agenda-list)'
 alias vpn /opt/cisco/anyconnect/bin/vpnui
 alias clear clear t
 alias em emacsclient -c -n $*
-alias v vterm
+alias v multi-vterm
 alias shut shutdown -h now
 alias d dired .
 alias ff find-file $1

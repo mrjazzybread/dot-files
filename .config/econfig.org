@@ -115,6 +115,7 @@ Adds themes folder to custom themes
 #+begin_src emacs-lisp :results none
   (use-package pacmacs)
   (use-package fireplace)
+  (use-package multi-vterm)
 #+end_src
 * Coding Packages
 ** ~Flycheck~
