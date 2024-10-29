@@ -583,11 +583,13 @@ Key binding for spawning a new instance of ~eshell~
 ** ~Eshell~ configuration
 
 #+begin_src emacs-lisp :results none
+  (add-hook 'eshell-mode-hook
+          (lambda ()
+            (define-key eshell-mode-map (kbd "C-l") #'eshell-clear)))
+
   (require 'eshell)
   (use-package eshell
     :hook (eshell-mode . eshell-change-appearance)
-    :bind (:map eshell-mode-map
-           ("\C-l" . eshell-clear))
     :custom (eshell-banner-message "")
     )
 #+end_src
