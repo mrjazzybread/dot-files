@@ -513,21 +513,14 @@ Pretty ~eshell~ prompt
                   )
       )
 #+end_src
-Remove welcome message at startup
-
-#+begin_src emacs-lisp :results none
-  (setq eshell-banner-message "")
-#+end_src
-
 Change font of ~Eshell~.
 #+begin_src emacs-lisp :results none
-   (defun eshell-change-font ()
-     (interactive)
-     (setq buffer-face-mode-face
-           '(:family "Ubuntu Mono" :height 250))
-     (buffer-face-mode))
-
-   (add-hook 'eshell-mode-hook #'eshell-change-font)
+  (defun eshell-change-appearance ()
+    (interactive)
+    (setq buffer-face-mode-face
+          '(:family "Ubuntu Mono" :height 250))
+    (setq mode-line-format nil)
+    (buffer-face-mode))
 #+end_src
 Function for clearing the shell
 
@@ -542,13 +535,10 @@ Function for clearing the shell
       (delete-backward-char 1)
       (move-end-of-line 1)
       ))
-
-  (add-hook 'eshell-mode-hook
-            (lambda () (interactive)
-              (local-set-key
-               (kbd "C-l") #'eshell-clear)))
 #+end_src
-Function for getting to the base of any project
+Function for getting to the base of any project. Useful for spawning
+shells since having it at the root of the project is generally more
+convenient.
 
 #+begin_src emacs-lisp :results none
   (defvar project-files
@@ -589,4 +579,15 @@ Key binding for spawning a new instance of ~eshell~
     (get-to-base)
     (eshell))
   (bind-key "C-c C-SPC" 'eshell-spawn)
+#+end_src#+end_src
+** ~Eshell~ configuration
+
+#+begin_src emacs-lisp :results none
+  (require 'eshell)
+  (use-package eshell
+    :hook (eshell-mode . eshell-change-appearance)
+    :bind (:map eshell-mode-map
+           ("\C-l" . eshell-clear))
+    :custom (eshell-banner-message "")
+    )
 #+end_src
