@@ -115,7 +115,6 @@ Adds themes folder to custom themes
 #+begin_src emacs-lisp :results none
   (use-package pacmacs)
   (use-package fireplace)
-  (use-package multi-vterm)
 #+end_src
 * Coding Packages
 ** ~Flycheck~
@@ -476,7 +475,9 @@ Enable auto-fill.
 Enable ~Writeroom~ mode for a more comfortable writing experience.
 #+begin_src emacs-lisp :results none
   (use-package writeroom-mode
-    :hook (text-mode . writeroom-mode))
+    :hook (text-mode . writeroom-mode)
+    :custom (writeroom-mode-line t)
+    )
 #+end_src
 Enable ~Flyspell~ for spell checking 
 #+begin_src emacs-lisp :results none
@@ -546,7 +547,7 @@ convenient.
       "CoqProject" "Makefile"
       )
     )
-
+  
   (defun is-base ()
     (or (equal default-directory "/")
         (not (eq (seq-intersection
@@ -568,7 +569,8 @@ convenient.
     )
     ))
 #+end_src
-Key binding for spawning a new instance of ~eshell~
+Key binding for spawning a new instance of ~eshell~ at the root of a
+project.
 
 #+begin_src emacs-lisp :results none
   (defun eshell-spawn ()
@@ -579,7 +581,7 @@ Key binding for spawning a new instance of ~eshell~
     (get-to-base)
     (eshell))
   (bind-key "C-c C-SPC" 'eshell-spawn)
-#+end_src#+end_src
+#+end_src
 ** ~Eshell~ configuration
 
 #+begin_src emacs-lisp :results none
@@ -591,5 +593,25 @@ Key binding for spawning a new instance of ~eshell~
   (use-package eshell
     :hook (eshell-mode . eshell-change-appearance)
     :custom (eshell-banner-message "")
+    )
+#+end_src
+** Configuration for Visual Commands
+
+We use eat to run any commands that require visuals
+#+begin_src emacs-lisp :results none
+  (use-package eat
+    :custom (eat-kill-buffer-on-exit t))
+#+end_src
+Always spawns eat on a new terminal
+#+begin_src emacs-lisp :results none
+  (defun multi-eat ()
+    (interactive)
+    (when (seq-find
+           (lambda (val)
+             (equal "*eat*" (buffer-name val)))
+           (buffer-list))
+      (switch-to-buffer "*eat*")
+      (rename-uniquely))
+    (eat)
     )
 #+end_src

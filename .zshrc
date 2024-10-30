@@ -148,6 +148,7 @@ function ocaml-trace-disable(){
 clear
 if [[  "$TERM" == "dumb" ]]; then
     
+elif [[ "$TERM" == "eat-truecolor"  ]]; then
 else
     fastfetch
 fi
