@@ -1,4 +1,5 @@
 (package-initialize)
+
 (org-babel-load-file "~/.config/econfig.org")
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
