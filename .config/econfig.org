@@ -293,6 +293,7 @@ just so that Org mode environments aren't awful to look at.
     (push '("#+ATTR_LATEX: :environment gospel" . ?​) prettify-symbols-alist)
     (push '("#+ATTR_LATEX: :environment whylang" . ?​) prettify-symbols-alist)
     (push '("->" . ?→) prettify-symbols-alist)
+    (push '("<->" . ?↔) prettify-symbols-alist)
     (push '("|-" . ?⊢) prettify-symbols-alist)
     (push '("/\\" . ?∧) prettify-symbols-alist)
     (push '("\\/" . ?∨) prettify-symbols-alist)
@@ -384,12 +385,11 @@ Function to wrap text around an example block
                         "\n#+end_example"
                         )))
 #+end_src
-Function to insert an Org macro
+Function to insert a macro
 #+begin_src emacs-lisp :results none
-(defun org-insert-macro ()
-  (interactive)
-  (tag-word-or-region "{{{" "}}}")
- )
+  (defun org-insert-macro ()
+    (interactive)
+    (tag-word-or-region "{{{" "}}}") )
 #+end_src
 ** Remove Spell Checking in Code Blocks
 #+begin_src emacs-lisp :results none
