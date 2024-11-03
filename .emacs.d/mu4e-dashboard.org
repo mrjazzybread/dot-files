@@ -1,0 +1,57 @@
+
+* Mu for Emacs (mu4e)                                        *[[mu:flag:unread|%3d Unread][ 17 Unread]]*
+
+[[mu:flag:unread][Unread]] /[[mu:flag:unread|(%3d)][( 17)]]/ .... [u]  [[mu:date:today..now][Today]] /[[mu:date:today..now|(%3d)][(113)]]/ .......... [t]  *Compose* ...... [C]
+[[mu:m:/inria/inbox or m:/gmail/inbox or m:/univ/inbox][Inbox]]  /[[mu:m:/inria/inbox or m:/gmail/inbox or m:/univ/inbox|(%3d)][( 33)]]/ .... [i]  [[mu:date:2d..today and not date:today..now][Yesterday]] /[[mu:date:2d..today and not date:today..now|(%3d)][(242)]]/ ...... [y]  *Update* ....... [U]
+[[mu:m:/inria/drafts or m:/gmail/drafts or m:/univ/drafts][Drafts]] /[[mu:m:/inria/drafts or m:/gmail/drafts or m:/univ/drafts|(%3d)][(  2)]]/ .... [d]  [[mu:date:7d..now][Last week]] /[[mu:date:7d..now|(%4d)][( 989)]]/ ..... [w]  *Switch context* [;]
+[[mu:m:/inria/sent or m:/gmail/sent or m:/univ/sent][Sent]] /[[mu:m:/inria/sent or m:/gmail/sent or m:/univ/sent|(%5d)][( 7082)]]/ .... [s]  [[mu:date:4w..now][Last month]] /[[mu:date:4w..|(%4d)][(3606)]]/ .... [m]  *Quit* ......... [q]
+
+* Saved searches
+
+[[mu:flag:attach][Attachments]] /[[mu:flag:attach|(%5d)][( 9954)]]/ ... [[Mu:flag:attach||99999][all]] - [[mu:size:10M..][big]]
+
+** My Inboxes
+[[mu:maildir:/gmail/inbox][FCT]] /[[mu:maildir:/gmail/inbox|(%3d)][(508)]]/
+[[mu:maildir:/inria/inbox][Inria]] /[[mu:maildir:/inria/inbox|(%3d)][(508)]]/
+
+** People
+
+[[mu:from:mjp.pereira@fct.unl.pt][Mário Pereira]] /[[mu:from:mjp.pereira@fct.unl.pt|(%3d)][(508)]]/
+[[mu:from:francois.pottier@inria.fr][François Pottier]] /[[mu:from:francois.pottier@inria.fr|(%3d)][(50)]]/
+
+** Mailing lists
+
+[[mu:to:anr-gospel@inria.fr][Gospel Mailing List]] /[[mu:to:anr-gospel@inria.fr|(%4d)][(3208)]]/ 
+[[mu:from:ettingermentum@substack.com][Ettingermentum Substack]] /[[mu:from:ettingermentum@substack.com|(%4d)][(3208)]]/ 
+[[mu:from:fx+world-roundups@substack.com][World Roundups]] /[[mu:from:fx+world-roundups@substack.com|(%4d)][( 267)]]/
+[[mu:from:fx+fx-columns@substack.com][Foreign Exchanges Collumns]] /[[mu:from:fx+fx-columns@substack.com|(%4d)][( 267)]]/
+[[mu:from:fx@substack.com][Ask Derek Anything]] /[[mu:from:fx@substack.com|(%4d)][( 267)]]/
+
+* Configuration
+:PROPERTIES:
+:VISIBILITY: hideall
+:END:
+
+#+STARTUP: showall showstars indent
+
+#+NAME: query
+#+BEGIN_SRC sh :results list raw :var query="flag:unread" count=5 
+export LANG="en_US.UTF-8"; export LC_ALL="en_US.UTF-8";
+mu find -n $count --sortfield=date --reverse --fields "f s" $query
+#+END_SRC
+
+#+KEYMAP: u | mu4e-headers-search "flag:unread"
+#+KEYMAP: i | mu4e-headers-search "m:/inria/inbox or m:/gmail/inbox or m:/univ/inbox"
+#+KEYMAP: d | mu4e-headers-search "m:/inria/drafts or m:/gmail/drafts or m:/univ/drafts"
+#+KEYMAP: s | mu4e-headers-search "m:/inria/sent or m:/gmail/sent or m:/univ/sent"
+
+#+KEYMAP: t | mu4e-headers-search "date:today..now"
+#+KEYMAP: y | mu4e-headers-search "date:2d..today and not date:today..now"
+#+KEYMAP: w | mu4e-headers-search "date:7d..now"
+#+KEYMAP: m | mu4e-headers-search "date:4w..now"
+
+#+KEYMAP: C | mu4e-compose-new
+#+KEYMAP: U | mu4e-dashboard-update
+#+KEYMAP: ; | mu4e-context-switch
+#+KEYMAP: q | kill-current-buffer
+ 
