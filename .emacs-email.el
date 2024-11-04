@@ -98,6 +98,7 @@
 ;; and the result will be displayed in the Echo Area.
 
 (add-hook 'mu4e-view-mode-hook #'writeroom-mode)
+(add-hook 'mu4e-headers-mode-hook #'writeroom-mode)
 (use-package async)
 (load "~/.mu4e-dashboard/mu4e-dashboard.el")
 
