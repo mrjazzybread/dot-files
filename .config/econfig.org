@@ -425,6 +425,7 @@ Concise way of using the previous definitions to configure Org.
 Package used to read PDF files
 #+begin_src emacs-lisp :results none
   (use-package pdf-tools)
+  
   (pdf-tools-install)
 #+end_src
 Opens PDFs at last visited page
