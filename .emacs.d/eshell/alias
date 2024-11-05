@@ -1,8 +1,7 @@
-alias ff find-file $1
 alias d dired .
 alias shut shutdown -h now
 alias v multi-eat
-alias em emacsclient -c -n $*
+alias em find-file $1
 alias clear clear t
 alias vpn /opt/cisco/anyconnect/bin/vpnui
 alias agenda emacsclient -c -n -e '(org-agenda-list)'
@@ -15,3 +14,4 @@ alias cp cp -r $*
 alias ocaml rlwrap ocaml $*
 alias rm trash $*
 alias ls exa --long --header --no-user --no-permissions
+alias g magit-shell
