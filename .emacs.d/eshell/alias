@@ -14,4 +14,4 @@ alias cp cp -r $*
 alias ocaml rlwrap ocaml $*
 alias rm trash $*
 alias ls exa --long --header --no-user --no-permissions
-alias g magit-shell
+alias g magit-fullscreen

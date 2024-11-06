@@ -161,7 +161,7 @@ I will always use ~magit~ though. ~magit~ :)
     (delete-other-windows)
     )
 
-  (defun magit-shell ()
+  (defun magit-fullscreen ()
     (interactive)
     (magit-status)
     (delete-other-windows)
