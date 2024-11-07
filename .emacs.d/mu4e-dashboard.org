@@ -1,31 +1,31 @@
 
-* Mu for Emacs (mu4e)                                        *[[mu:flag:unread|%3d Unread][ 17 Unread]]*
+* Mu for Emacs (mu4e)                                        *[[mu:flag:unread|%3d Unread][  0 Unread]]*
 
-[[mu:flag:unread][Unread]] /[[mu:flag:unread|(%3d)][( 17)]]/ .... [u]  [[mu:date:today..now][Today]] /[[mu:date:today..now|(%3d)][(113)]]/ .......... [t]  *Compose* ...... [C]
-[[mu:m:/inria/inbox or m:/gmail/inbox or m:/univ/inbox][Inbox]]  /[[mu:m:/inria/inbox or m:/gmail/inbox or m:/univ/inbox|(%3d)][( 33)]]/ .... [i]  [[mu:date:2d..today and not date:today..now][Yesterday]] /[[mu:date:2d..today and not date:today..now|(%3d)][(242)]]/ ...... [y]  *Update* ....... [U]
-[[mu:m:/inria/drafts or m:/gmail/drafts or m:/univ/drafts][Drafts]] /[[mu:m:/inria/drafts or m:/gmail/drafts or m:/univ/drafts|(%3d)][(  2)]]/ .... [d]  [[mu:date:7d..now][Last week]] /[[mu:date:7d..now|(%4d)][( 989)]]/ ..... [w]  *Switch context* [;]
-[[mu:m:/inria/sent or m:/gmail/sent or m:/univ/sent][Sent]] /[[mu:m:/inria/sent or m:/gmail/sent or m:/univ/sent|(%5d)][( 7082)]]/ .... [s]  [[mu:date:4w..now][Last month]] /[[mu:date:4w..|(%4d)][(3606)]]/ .... [m]  *Quit* ......... [q]
+[[mu:flag:unread][Unread]] ... [u]  [[mu:date:today..now][Today]] .......... [t]  *Compose* ...... [C]
+[[mu:m:/inria/inbox or m:/gmail/inbox or m:/univ/inbox][Inbox]] .... [i]  [[mu:date:2d..today and not date:today..now][Yesterday]] ...... [y]  *Update* ....... [U]
+[[mu:m:/inria/drafts or m:/gmail/drafts or m:/univ/drafts][Drafts]] ... [d]  [[mu:date:7d..now][Last week]] ...... [w]  *Switch context* [;]
+[[mu:m:/inria/sent or m:/gmail/sent or m:/univ/sent][Sent]] ..... [s]  [[mu:date:4w..now][Last month]] ..... [m]  *Quit* ......... [q]
 
 * Saved searches
 
-[[mu:flag:attach][Attachments]] /[[mu:flag:attach|(%5d)][( 9954)]]/ ... [[Mu:flag:attach||99999][all]] - [[mu:size:10M..][big]]
+[[mu:flag:attach][Attachments]] ... [[Mu:flag:attach||99999][all]] - [[mu:size:10M..][big]]
 
 ** My Inboxes
-[[mu:maildir:/gmail/inbox][FCT]] /[[mu:maildir:/gmail/inbox|(%3d)][(508)]]/
-[[mu:maildir:/inria/inbox][Inria]] /[[mu:maildir:/inria/inbox|(%3d)][(508)]]/
+[[mu:maildir:/gmail/inbox][FCT]] 
+[[mu:maildir:/inria/inbox][Inria]]
 
 ** People
 
-[[mu:from:mjp.pereira@fct.unl.pt][Mário Pereira]] /[[mu:from:mjp.pereira@fct.unl.pt|(%3d)][(508)]]/
-[[mu:from:francois.pottier@inria.fr][François Pottier]] /[[mu:from:francois.pottier@inria.fr|(%3d)][(50)]]/
+[[mu:from:mjp.pereira@fct.unl.pt][Mário Pereira]]
+[[mu:from:francois.pottier@inria.fr][François Pottier]]
 
 ** Mailing lists
 
-[[mu:to:anr-gospel@inria.fr][Gospel Mailing List]] /[[mu:to:anr-gospel@inria.fr|(%4d)][(3208)]]/ 
-[[mu:from:ettingermentum@substack.com][Ettingermentum Substack]] /[[mu:from:ettingermentum@substack.com|(%4d)][(3208)]]/ 
-[[mu:from:fx+world-roundups@substack.com][World Roundups]] /[[mu:from:fx+world-roundups@substack.com|(%4d)][( 267)]]/
-[[mu:from:fx+fx-columns@substack.com][Foreign Exchanges Collumns]] /[[mu:from:fx+fx-columns@substack.com|(%4d)][( 267)]]/
-[[mu:from:fx@substack.com][Ask Derek Anything]] /[[mu:from:fx@substack.com|(%4d)][( 267)]]/
+[[mu:to:anr-gospel@inria.fr][Gospel Mailing List]]
+[[mu:from:ettingermentum@substack.com][Ettingermentum Substack]]
+[[mu:from:fx+world-roundups@substack.com][World Roundups]]
+[[mu:from:fx+fx-columns@substack.com][Foreign Exchanges Collumns]]
+[[mu:from:fx@substack.com][Ask Derek Anything]]
 
 * Configuration
 :PROPERTIES:
