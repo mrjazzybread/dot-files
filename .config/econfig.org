@@ -51,10 +51,6 @@ Key bindings for navigating paragraphs
   (bind-key "M-n" 'forward-paragraph)
   (bind-key "M-p" 'backward-paragraph)
 #+end_src
-Save mini-buffer history
-#+begin_src emacs-lisp :results none
-  (savehist-mode)
-#+end_src
 Allows me to see the column number as well as the line number.
 #+begin_src emacs-lisp :results none
   (column-number-mode)
@@ -98,8 +94,8 @@ Makes it so that the compilation window opens in a new frame
 #+end_src
 ** Backup files
 
-This code ensures that backups and auto-saves go to a separate
-directory instead of stinking up the working directory.
+Ensures that backups and auto-saves go to a separate directory instead
+of stinking up the working directory.
 #+begin_src emacs-lisp :results none
   (defvar backup-dir (expand-file-name "~/.emacs.d/backup/"))
   (defvar autosave-dir (expand-file-name "~/.emacs.d/autosave/"))
@@ -504,23 +500,14 @@ Fish like suggestions for ~eshell~
 
 #+begin_src emacs-lisp :results none
   (use-package esh-autosuggest
-    :hook (eshell-mode . company-mode)
-;    :hook (eshell-mode . esh-autosuggest-mode)
+    :hook (eshell-mode . esh-autosuggest-mode)
     )
 #+end_src
 Pretty ~eshell~ prompt
 
 #+begin_src emacs-lisp :results none
-  (use-package eshell-prompt-extras
-      :after esh-opt
-      :defines eshell-highlight-prompt
-      :commands (epe-theme-lambda
-                 epe-theme-dakrone
-                 epe-theme-pipeline)
-      :init (setq 
-                  eshell-prompt-function #'epe-theme-dakrone
-                  )
-      )
+  (load-file "/home/tiago/.config/prompt.el")
+  (setq eshell-prompt-function #'epe-theme-dakrone)
 #+end_src
 Change font of ~Eshell~.
 #+begin_src emacs-lisp :results none
@@ -622,4 +609,23 @@ Always spawns eat on a new terminal
       (rename-uniquely))
     (eat)
     )
+#+end_src
+* Helm
+
+#+begin_src emacs-lisp :results none
+  (use-package helm
+    :bind ("C-x C-f" . helm-find-files)
+    :bind ("M-x" . helm-M-x)
+    )
+  #+end_src
+This is a key binding that I use frequently in Org so I disable it in
+Helm.
+#+begin_src emacs-lisp :results none
+  (require 'helm)
+  (assq-delete-all (kbd "C-u") helm-map)
+#+end_src
+
+Use Helm
+#+begin_src emacs-lisp :results none
+  (helm-mode 1)
 #+end_src
