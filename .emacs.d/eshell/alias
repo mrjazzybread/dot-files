@@ -1,17 +1,17 @@
-alias g magit-fullscreen
-alias ls exa --long --header --no-user --no-permissions
-alias rm trash $*
-alias ocaml rlwrap ocaml $*
-alias cp cp -r $*
-alias config /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME $*
-alias pac sudo pacman -S $*
-alias c xclip -sel c
-alias mpc mpc --port=6601
-alias update sudo pacman -Syu
-alias agenda emacsclient -c -n -e '(org-agenda-list)'
-alias vpn /opt/cisco/anyconnect/bin/vpnui
-alias clear clear t
-alias em find-file $1
-alias v multi-eat
 alias shut shutdown -h now
 alias d dired .
+alias v multi-eat
+alias em find-file $1
+alias clear clear t
+alias vpn /opt/cisco/anyconnect/bin/vpnui
+alias agenda emacsclient -c -n -e '(org-agenda-list)'
+alias update sudo pacman -Syu
+alias mpc mpc --port=6601
+alias c xclip -sel c
+alias pac sudo pacman -S $*
+alias config /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME $*
+alias cp cp -r $*
+alias ocaml rlwrap ocaml $*
+alias rm trash $*
+alias ls exa --long --header --no-user --no-permissions
+alias g magit-fullscreen
