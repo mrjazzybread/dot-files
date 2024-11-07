@@ -150,6 +150,7 @@ Adds themes folder to custom themes
       )
 #+end_src
 ** Git packages
+
 I will always use ~magit~ though. ~magit~ :)
 #+begin_src emacs-lisp :results none
   (use-package magit)
@@ -504,7 +505,7 @@ Fish like suggestions for ~eshell~
 #+begin_src emacs-lisp :results none
   (use-package esh-autosuggest
     :hook (eshell-mode . company-mode)
-    :hook (eshell-mode . esh-autosuggest-mode)
+;    :hook (eshell-mode . esh-autosuggest-mode)
     )
 #+end_src
 Pretty ~eshell~ prompt
