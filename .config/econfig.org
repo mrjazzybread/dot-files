@@ -149,7 +149,11 @@ Adds themes folder to custom themes
 
 I will always use ~magit~ though. ~magit~ :)
 #+begin_src emacs-lisp :results none
-  (use-package magit)
+  (use-package magit
+    :bind
+    (:map magit-mode-map
+          ("q" . save-buffers-kill-terminal))
+    )
 
   (defun magit-new-window ()
     (interactive)
@@ -450,13 +454,28 @@ paragraphs in Coq mode.
     (local-unset-key (kbd "M-p"))
     (local-unset-key (kbd "M-n")))
 #+end_src
+Function for a more convenient Coq buffer split.
+#+begin_src emacs-lisp :results none
+  (defun split-proof-general ()
+    (interactive)
+    (let ((f1 (selected-frame)) (f2 (clone-frame)))
+      (select-frame f1)
+      (delete-other-windows)
+      (select-frame f2)
+      (delete-window)
+      (select-frame-set-input-focus f1) ; doesn't work! argh!
+      )
+    )
+#+end_src
 Package for working with Coq
 #+begin_src emacs-lisp :results none
   (use-package proof-general
     :hook (coq-mode . unset)
+    :bind (:map coq-mode-map
+                ("C-u" . split-proof-general))
     :custom
-    ;; when startin a proof, creates new frames instead of splitting 
-    ;; window
+    ;; when startin a proof, splits windows so that the goals  
+    ;; window is larger than the response window
     (proof-three-window-mode-policy 'hybrid)
     ;; Removes the EXTREMELY annoying proof general splash screen
     (proof-splash-enable nil))
