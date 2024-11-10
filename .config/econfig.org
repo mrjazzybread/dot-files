@@ -596,13 +596,6 @@ project.
     (eshell))
   (bind-key "C-c C-SPC" 'eshell-spawn)
 #+end_src
-Load bookmarks
-#+begin_src emacs-lisp :results none
-  (add-hook 'eshell-mode-hook
-            (lambda () (interactive)
-              (bookmark-load
-               "/home/tiago/.emacs.d/bookmarks")))
-#+end_src
 ** ~Eshell~ configuration
 
 #+begin_src emacs-lisp :results none
