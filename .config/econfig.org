@@ -63,6 +63,10 @@ Smooth Scrolling
 #+begin_src emacs-lisp :results none
   (pixel-scroll-precision-mode 1)
 #+end_src
+Save mini buffer history
+#+begin_src emacs-lisp :results none
+  (savehist-mode 1)
+#+end_src
 Makes it so that the compilation window opens in a new frame
 #+begin_src emacs-lisp :results none
   (setq special-display-buffer-names
@@ -472,7 +476,7 @@ Package for working with Coq
   (use-package proof-general
     :hook (coq-mode . unset)
     :bind (:map coq-mode-map
-                ("C-u" . split-proof-general))
+                ("C-c C-k" . split-proof-general))
     :custom
     ;; when startin a proof, splits windows so that the goals  
     ;; window is larger than the response window
