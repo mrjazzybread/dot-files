@@ -520,6 +520,8 @@ Fish like suggestions for ~eshell~
 #+begin_src emacs-lisp :results none
   (use-package esh-autosuggest
     :hook (eshell-mode . esh-autosuggest-mode)
+    :hook (eshell-mode . (lambda ()
+                           (bookmark-load .emacs.d/bookmarks))
     )
 #+end_src
 Pretty ~eshell~ prompt
