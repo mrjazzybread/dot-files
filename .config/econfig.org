@@ -520,8 +520,6 @@ Fish like suggestions for ~eshell~
 #+begin_src emacs-lisp :results none
   (use-package esh-autosuggest
     :hook (eshell-mode . esh-autosuggest-mode)
-    :hook (eshell-mode . (lambda ()
-                           (bookmark-load .emacs.d/bookmarks))
     )
 #+end_src
 Pretty ~eshell~ prompt
@@ -597,6 +595,13 @@ project.
     (get-to-base)
     (eshell))
   (bind-key "C-c C-SPC" 'eshell-spawn)
+#+end_src
+Load bookmarks
+#+begin_src emacs-lisp :results none
+  (add-hook 'eshell-mode-hook
+            (lambda () (interactive)
+              (bookmark-load
+               "/home/tiago/.emacs.d/bookmarks")))
 #+end_src
 ** ~Eshell~ configuration
 
