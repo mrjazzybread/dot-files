@@ -113,7 +113,7 @@
     },
     "mpd": {
         "server": "127.0.0.1",
-        "port": 6601,
+        "port": 6600,
 	"format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S})  ",
 	"interval": 2,
 	"consume-icons": {

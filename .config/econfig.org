@@ -580,8 +580,7 @@ convenient.
       (when (equal default-directory "/")
           (find-file c)
           )
-    )
-    ))
+    )))
 #+end_src
 Key binding for spawning a new instance of ~eshell~ at the root of a
 project.
@@ -595,6 +594,14 @@ project.
     (get-to-base)
     (eshell))
   (bind-key "C-c C-SPC" 'eshell-spawn)
+#+end_src
+Bookmark jump function that loads bookmark file
+#+begin_src emacs-lisp :results none
+  (defun eshell-jump (b)
+    (interactive)
+    (require 'bookmark)
+    (bookmark-maybe-load-default-file)
+    (bookmark-jump b))
 #+end_src
 ** ~Eshell~ configuration
 
