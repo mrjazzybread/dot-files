@@ -227,6 +227,17 @@ Set files to omit
                 ))
         )
 #+end_src
+Make it so ~Dired~ buffers are just a list of file names.
+#+begin_src emacs-lisp :results none
+  (add-hook 'dired-mode-hook
+            (lambda () (dired-hide-details-mode 1)))
+#+end_src
+Icons for ~Dired~ mode.
+#+begin_src emacs-lisp :results none
+   ;This package requires additional fonts
+  (use-package all-the-icons-dired
+    :hook (dired-mode . all-the-icons-dired-mode))
+#+end_src
 * Org
 ** Some Basic Bookkeeping
 My agenda files:
@@ -521,6 +532,10 @@ Fish like suggestions for ~eshell~
   (use-package esh-autosuggest
     :hook (eshell-mode . esh-autosuggest-mode)
     :custom (eshell-history-size 50000)
+    :bind (:map esh-autosuggest-active-map
+                ("C-f" . esh-autosuggest-complete-word)
+                ("C-e" . esh-autosuggest)
+                )
     ; since esh autosuggest uses the eshell history, we increase it so
     ; that we have more possible suggesions
     )
