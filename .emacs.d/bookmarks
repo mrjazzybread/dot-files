@@ -122,7 +122,7 @@
 ("org-capture-last-stored"
  (filename . "~/org/appoint.org")
  (front-context-string . "** APPOINTMENT F")
- (rear-context-string . "11-19 Tue 9:00>\n")
- (position . 9441)
- (last-modified 26417 2852 402054 896000))
+ (rear-context-string . "1-13 Wed 18:00>\n")
+ (position . 9486)
+ (last-modified 26418 27548 338402 760000))
 )
