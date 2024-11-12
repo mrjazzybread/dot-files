@@ -520,6 +520,9 @@ Fish like suggestions for ~eshell~
 #+begin_src emacs-lisp :results none
   (use-package esh-autosuggest
     :hook (eshell-mode . esh-autosuggest-mode)
+    :custom (eshell-history-size 50000)
+    ; since esh autosuggest uses the eshell history, we increase it so
+    ; that we have more possible suggesions
     )
 #+end_src
 Pretty ~eshell~ prompt
