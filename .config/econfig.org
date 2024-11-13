@@ -85,6 +85,11 @@ Makes it so that the compilation window opens in a new frame
           )
         )
 #+end_src
+#+begin_src emacs-lisp :results none
+     (add-hook 'lisp-interaction-mode-hook 
+               (lambda () (local-set-key
+                           (kbd "C-c C-c") #'eval-region)))
+#+end_src
 ** ~utf-8~
 #+begin_src emacs-lisp :results none
   (prefer-coding-system       'utf-8)
@@ -534,7 +539,7 @@ Fish like suggestions for ~eshell~
     :custom (eshell-history-size 50000)
     :bind (:map esh-autosuggest-active-map
                 ("C-f" . esh-autosuggest-complete-word)
-                ("C-e" . esh-autosuggest)
+                ("C-e" . company-complete)
                 )
     ; since esh autosuggest uses the eshell history, we increase it so
     ; that we have more possible suggesions
@@ -639,7 +644,9 @@ Bookmark jump function that loads bookmark file
 We use eat to run any commands that require visuals
 #+begin_src emacs-lisp :results none
   (use-package eat
-    :custom (eat-kill-buffer-on-exit t))
+    :custom (eat-kill-buffer-on-exit t)
+    :hook (eshell-mode . eat-eshell-mode)
+    )
 #+end_src
 Always spawns eat on a new terminal
 #+begin_src emacs-lisp :results none
@@ -651,8 +658,7 @@ Always spawns eat on a new terminal
            (buffer-list))
       (switch-to-buffer "*eat*")
       (rename-uniquely))
-    (eat)
-    )
+    (eat))
 #+end_src
 * Helm
 
