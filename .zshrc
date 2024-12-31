@@ -104,7 +104,7 @@ alias down="cd ~/downloads"
 export PATH="/var/lib/snapd/snap/bin:$PATH"
 export PATH=$PATH:./node_modules/.bin
 #Emacs as default editor
-export EDITOR="emacsclient -t"
+export EDITOR="emacs"
 
 #The rm command now moves files to the trash folder
 alias rm="trash"
@@ -146,11 +146,6 @@ function ocaml-trace-disable(){
 }
 
 clear
-if [[  "$TERM" == "dumb" ]]; then
-    
-elif [[ "$TERM" == "eat-truecolor"  ]]; then
-else
-    fastfetch
-fi
+fastfetch
 
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

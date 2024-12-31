@@ -1,18 +1,18 @@
 
 * Mu for Emacs (mu4e)                                        *[[mu:flag:unread|%3d Unread][  0 Unread]]*
 
-[[mu:flag:unread][Unread]] ... [u]  [[mu:date:today..now][Today]] .......... [t]  *Compose* ...... [C]
-[[mu:m:/inria/inbox or m:/gmail/inbox or m:/univ/inbox][Inbox]] .... [i]  [[mu:date:2d..today and not date:today..now][Yesterday]] ...... [y]  *Update* ....... [U]
-[[mu:m:/inria/drafts or m:/gmail/drafts or m:/univ/drafts][Drafts]] ... [d]  [[mu:date:7d..now][Last week]] ...... [w]  *Switch context* [;]
-[[mu:m:/inria/sent or m:/gmail/sent or m:/univ/sent][Sent]] ..... [s]  [[mu:date:4w..now][Last month]] ..... [m]  *Quit* ......... [q]
+[Unread] ... [u]  [Today] .......... [t]  *Compose* ...... [C]
+[Inbox] .... [i]  [Yesterday] ...... [y]  *Update* ....... [U]
+[Drafts] ... [d]  [Last week] ...... [w]  *Switch context* [;]
+[Sent] ..... [s]  [Last month] ..... [m]  *Quit* ......... [q]
 
 * Saved searches
 
 [[mu:flag:attach][Attachments]] ... [[Mu:flag:attach||99999][all]] - [[mu:size:10M..][big]]
 
 ** My Inboxes
-[[mu:maildir:/gmail/inbox][FCT]] 
-[[mu:maildir:/inria/inbox][Inria]]
+[[mu:maildir:/gmail/inbox][Personal]] 
+[[mu:maildir:/inria/inbox][Uni]]
 
 ** People
 
@@ -43,7 +43,7 @@ mu find -n $count --sortfield=date --reverse --fields "f s" $query
 #+KEYMAP: u | mu4e-headers-search "flag:unread"
 #+KEYMAP: i | mu4e-headers-search "m:/inria/inbox or m:/gmail/inbox or m:/univ/inbox"
 #+KEYMAP: d | mu4e-headers-search "m:/inria/drafts or m:/gmail/drafts or m:/univ/drafts"
-#+KEYMAP: s | mu4e-headers-search "m:/inria/sent or m:/gmail/sent or m:/univ/sent"
+#+KEYMAP: s | mu4e-headers-search "m:/inria/sent or \"m:/gmail/[Gmail]/Sent Mail\" or m:/univ/sent"
 
 #+KEYMAP: t | mu4e-headers-search "date:today..now"
 #+KEYMAP: y | mu4e-headers-search "date:2d..today and not date:today..now"
@@ -51,7 +51,7 @@ mu find -n $count --sortfield=date --reverse --fields "f s" $query
 #+KEYMAP: m | mu4e-headers-search "date:4w..now"
 
 #+KEYMAP: C | mu4e-compose-new
-#+KEYMAP: U | mu4e-dashboard-update
+#+KEYMAP: U | mu4e-update-mail-and-index nil
 #+KEYMAP: ; | mu4e-context-switch
 #+KEYMAP: q | save-buffers-kill-terminal
  

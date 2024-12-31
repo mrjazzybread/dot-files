@@ -2,7 +2,13 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("site"
+(("downloads"
+ (filename . "~/downloads/")
+ (front-context-string . "2023.02541.BD_CQ")
+ (rear-context-string . "50 Nov 13 13:50 ")
+ (position . 178)
+ (last-modified 26427 20541 322227 711000))
+("site"
  (filename . "~/phd/gospel/docs/docs/walkthroughs/union-find.md")
  (front-context-string . "\nsidebar_positio")
  (rear-context-string)
@@ -34,11 +40,11 @@
  (position . 1)
  (last-modified 26375 60085 17742 417000))
 ("proof"
- (filename . "~/phd/proof-assistants/tp6.v")
- (front-context-string . "(** MPRI PRFA (2")
- (rear-context-string)
- (position . 1)
- (last-modified 26399 32086 936763 917000))
+ (filename . "~/phd/proof-assistants/tp8.v")
+ (front-context-string . "\nFrom Coq Requir")
+ (rear-context-string . "programming **)\n")
+ (position . 76)
+ (last-modified 26427 4638 150474 322000))
 ("why3"
  (front-context-string . "Why3 Standard Li")
  (rear-context-string)
@@ -60,11 +66,11 @@
  (position . 133)
  (last-modified 26350 58726 506370 42000))
 ("todo"
- (filename . "~/org/todo.org")
+ (filename . "~/Dropbox/org/todo.org")
  (front-context-string . "\n* Writing\n** DO")
  (rear-context-string . "ue 12:45-15:30>\n")
  (position . 1021)
- (last-modified 26349 54850 202355 120000))
+ (last-modified 26438 57959 449080 752000))
 ("org"
  (filename . "~/org/")
  (front-context-string . "gospel.sty\n  -rw")
@@ -78,11 +84,11 @@
  (position . 190)
  (last-modified 26330 11104 33454 97000))
 ("notes"
- (filename . "~/org/notes.org")
+ (filename . "~/Dropbox/org/notes.org")
  (front-context-string . "#+STARTUP: overv")
  (rear-context-string)
  (position . 1)
- (last-modified 26375 60030 971007 726000))
+ (last-modified 26430 41778 319053 817000))
 ("config"
  (filename . "~/.config/econfig.org")
  (front-context-string . "* Package Config")
@@ -114,15 +120,15 @@
  (position . 1)
  (last-modified 26338 54328 823885 542000))
 ("gospel"
- (filename . "~/phd/gospel/src/tast2sep.ml")
- (front-context-string . "open Tast\nopen S")
+ (filename . "~/phd/gospel/src/typing.ml")
+ (front-context-string . "(***************")
  (rear-context-string)
  (position . 1)
- (last-modified 26338 62251 951725 941000))
+ (last-modified 26427 36304 305026 399000))
 ("org-capture-last-stored"
- (filename . "~/org/appoint.org")
- (front-context-string . "** APPOINTMENT O")
- (rear-context-string . "11-12 Tue 9:00>\n")
- (position . 9548)
- (last-modified 26419 32880 497808 972000))
+ (filename . "~/Dropbox/org/todo.org")
+ (front-context-string . "** TODO Cambium ")
+ (rear-context-string . "43.html][LINK]]\n")
+ (position . 4186)
+ (last-modified 26470 63511 275370 990000))
 )

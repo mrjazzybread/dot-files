@@ -70,9 +70,8 @@
 (use-package mu4e-alert)
 (mu4e-alert-enable-notifications)
 
-(use-package gruvbox-theme)
-(load-theme 'gruvbox-light-hard t)
-
+(use-package ef-themes
+  :config (ef-themes-select 'ef-summer))
 (use-package go-translate)
 (setq gt-langs '(fr en))
 (setq gt-default-translator (gt-translator :engines (gt-google-engine)))
@@ -99,7 +98,17 @@
 
 (add-hook 'mu4e-view-mode-hook #'writeroom-mode)
 (add-hook 'mu4e-headers-mode-hook #'writeroom-mode)
+(add-hook 'message-mode-hook #'auto-fill-mode)
 (use-package async)
 (load "~/.mu4e-dashboard/mu4e-dashboard.el")
 
 (mu4e)
+
+(define-globalized-minor-mode global-hide-mode hide-mode-line-mode
+  (lambda () (hide-mode-line-mode 1)))
+
+(global-hide-mode 1)
+
+(setq inhibit-message t)
+
+(setq message-cite-reply-position 'above)
