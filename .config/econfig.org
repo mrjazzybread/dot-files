@@ -106,8 +106,8 @@ Key binding for ~recentf~
 #+end_src
 Keybindings for splitting a window instead clones the frame
 #+begin_src emacs-lisp :results none
-  (bind-key "C-x 3" #'clone-frame)
-  (bind-key "C-x 2" #'clone-frame)
+  ;; (bind-key "C-x 3" #'clone-frame)
+  ;; (bind-key "C-x 2" #'clone-frame)
 #+end_src
 ** ~utf-8~
 #+begin_src emacs-lisp :results none
