@@ -962,5 +962,5 @@ Disable the mode line in certain modes.
                         (exwm-workspace-switch-create ,i))))
                   (number-sequence 0 9))))
 ;; Enable EXWM
-(exwm-enable)
+;;(exwm-enable)
 #+end_src
