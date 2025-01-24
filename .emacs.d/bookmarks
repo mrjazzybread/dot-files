@@ -127,8 +127,8 @@
  (last-modified 26427 36304 305026 399000))
 ("org-capture-last-stored"
  (filename . "~/Dropbox/org/todo.org")
- (front-context-string . "** TODO [[mu4e:m")
- (rear-context-string . "d Gospel Syntax\n")
- (position . 5192)
- (last-modified 26511 54366 409594 278000))
+ (front-context-string . "- [ ] [[https://")
+ (rear-context-string . "pturing Types]]\n")
+ (position . 6845)
+ (last-modified 26515 43919 206613 569000))
 )
