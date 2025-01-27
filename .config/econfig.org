@@ -266,6 +266,10 @@ More convenient way to search through sub-directories.
           ("i" . dired-subtree-insert)
           ("DEL" . dired-subtree-remove)))
 #+end_src
+Disable "Omit N files" message
+#+begin_src emacs-lisp :results none
+  (setq dired-omit-verbose nil)
+#+end_src
 * Org
 ** Some Basic Bookkeeping
 
