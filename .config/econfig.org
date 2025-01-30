@@ -144,16 +144,12 @@ Adds themes folder to custom themes
   (use-package bluetooth)
 #+end_src
 * Coding Packages
-** ~Flycheck~
+** ~Flymake~
+Package used by Eglot for highlighting errors
 #+begin_src emacs-lisp :results none
-  (defun check-error ()
-    (interactive)
-    (flycheck-next-error 1 t))
-
-  (use-package flycheck
-    :bind (:map flycheck-mode-map
-           ("\C-c \C-x" . check-error))
-    :hook (lsp-mode . flycheck-mode)
+  (use-package flymake
+    :bind (:map flymake-mode-map
+           ("\C-c \C-x" . flymake-goto-next-error))
     )
 #+end_src
 ** OCaml packages
@@ -170,15 +166,13 @@ Adds themes folder to custom themes
   (load "/home/tiago/.opam/4.14.1/share/emacs/site-lisp/tuareg.el")
   (use-package dune)
 #+end_src
-** LSP-mode
+** ~Eglot~
+Package for language servers
 #+begin_src emacs-lisp :results none
-  (use-package lsp-mode
-      :custom
-      (lsp-headerline-breadcrumb-enable nil)
-      :bind (:map lsp-mode-map
-                  ("C-c C-l" . lsp-find-definition))
-      :hook (tuareg-mode . lsp)
-      )
+  (use-package eglot
+    :bind (:map eglot-mode-map
+              ("C-c C-l" . eglot-find-declaration))
+    :hook (tuareg-mode . eglot-ensure))
 #+end_src
 ** Git packages
 
