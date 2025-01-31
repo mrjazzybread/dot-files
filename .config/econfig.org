@@ -152,6 +152,12 @@ Package used by Eglot for highlighting errors
            ("\C-c \C-x" . flymake-goto-next-error))
     )
 #+end_src
+** Company
+Package for completion suggestions
+#+begin_src emacs-lisp :results none
+  (use-package company
+    :hook (eglot-mode . company-mode))
+#+end_src
 ** OCaml packages
 #+begin_src emacs-lisp :results none
   (defun ocaml-compile ()
@@ -172,7 +178,9 @@ Package for language servers
   (use-package eglot
     :bind (:map eglot-mode-map
               ("C-c C-l" . eglot-find-declaration))
-    :hook (tuareg-mode . eglot-ensure))
+    :hook (tuareg-mode . eglot-ensure)
+    :hook (eglot-mode . company-mode)
+    )
 #+end_src
 ** Git packages
 
