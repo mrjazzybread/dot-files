@@ -128,7 +128,7 @@
 ("org-capture-last-stored"
  (filename . "~/Dropbox/org/appoint.org")
  (front-context-string . "** APPOINTMENT [")
- (rear-context-string . "ra Concerto 🎻]]\n")
- (position . 14962)
- (last-modified 26519 28255 238725 892000))
+ (rear-context-string . "2-14 Fri 10h30>\n")
+ (position . 15282)
+ (last-modified 26524 57711 926471 704000))
 )
