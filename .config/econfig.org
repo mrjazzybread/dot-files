@@ -156,7 +156,7 @@ Package used by Eglot for highlighting errors
 Package for completion suggestions
 #+begin_src emacs-lisp :results none
   (use-package company
-    :hook (eglot-mode . company-mode))
+    :hook (prog-mode . company-mode))
 #+end_src
 ** OCaml packages
 #+begin_src emacs-lisp :results none
