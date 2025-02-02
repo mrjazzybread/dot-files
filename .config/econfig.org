@@ -109,6 +109,11 @@ Keybindings for splitting a window instead clones the frame
   ;; (bind-key "C-x 3" #'clone-frame)
   ;; (bind-key "C-x 2" #'clone-frame)
 #+end_src
+Every time a file is visited, update the list of recently visited
+files.
+#+begin_src emacs-lisp :results none
+(add-hook 'find-file-hook 'recentf-save-list)
+#+end_src
 ** ~utf-8~
 #+begin_src emacs-lisp :results none
   (prefer-coding-system       'utf-8)
@@ -278,7 +283,7 @@ Disable "Omit N files" message
 Some helpful variables
 #+begin_src emacs-lisp :results none
   (defun org-directory (file)
-    (concat "~/Dropbox/org/" file))
+    (concat "~/org/" file))
 
   (defvar todo-file
     (org-directory "todo.org"))
