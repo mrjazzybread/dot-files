@@ -291,13 +291,12 @@ Some helpful variables
   (defvar agenda-file
     (org-directory "appoint.org"))
 
-  (defvar notes-file
-    (org-directory "notes.org"))
+  (defvar notes-file "~/website/content/notes.org")
 #+end_src
 My agenda files:
 
 #+begin_src emacs-lisp :results none
-  (setq org-agenda-files (list (org-directory "")))
+  (setq org-agenda-files (list (org-directory "") notes-file))
 #+end_src
 Settings for exporting Org files with citations to TeX. 
 #+begin_src emacs-lisp :results none
@@ -879,6 +878,10 @@ Allows to select the prompt instead of a listed candidate. Mostly
 useful when creating and renaming files
 #+begin_src emacs-lisp :results none
   (setq ivy-use-selectable-prompt t)
+#+end_src
+Neat border for ivy frames
+#+begin_src emacs-lisp :results none
+  (setq ivy-posframe-border-width 3)
 #+end_src
 Absolutely no idea what this does, but it makes ivy rich mode not slow
 as a brick
