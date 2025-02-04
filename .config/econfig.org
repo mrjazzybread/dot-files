@@ -40,7 +40,7 @@ Enable creation of pairs of brackets or quotes when one is inserted.
   (bind-key "[" 'skeleton-pair-insert-maybe)
   (bind-key (char-to-string 34) 'skeleton-pair-insert-maybe)
   ;char 34 is the single quote, putting the character itself
-  ;ruins the prettify symbols mode
+  ;ruins prettify symbols mode
 #+end_src
 Enable Emacs to track changes made to files by different programs.
 #+begin_src emacs-lisp :results none
@@ -114,6 +114,11 @@ files.
 #+begin_src emacs-lisp :results none
 (add-hook 'find-file-hook 'recentf-save-list)
 #+end_src
+Add binding to go to previous and next buffer.
+#+begin_src emacs-lisp :results none
+  (global-set-key "\C-cp" 'previous-buffer)
+  (global-set-key "\C-cn" 'next-buffer)
+#+end_src
 ** ~utf-8~
 #+begin_src emacs-lisp :results none
   (prefer-coding-system       'utf-8)
@@ -147,6 +152,7 @@ Adds themes folder to custom themes
   (use-package mingus
     :hook (mingus-playlist-mode . eshell-change-appearance))
   (use-package bluetooth)
+  (use-package trashed)
 #+end_src
 * Coding Packages
 ** ~Flymake~
@@ -186,8 +192,6 @@ Package for completion suggestions
 Package for language servers
 #+begin_src emacs-lisp :results none
   (use-package eglot
-    :bind (:map eglot-mode-map
-              ("C-c C-l" . eglot-find-declaration))
     :hook (tuareg-mode . eglot-ensure)
     :hook (eglot-mode . company-mode)
     )
