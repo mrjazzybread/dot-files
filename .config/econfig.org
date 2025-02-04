@@ -177,6 +177,11 @@ Package for completion suggestions
   (load "/home/tiago/.opam/4.14.1/share/emacs/site-lisp/tuareg.el")
   (use-package dune)
 #+end_src
+** Rust packages
+#+begin_src emacs-lisp :results none
+  (use-package rustic
+    :config (setq rustic-lsp-client #'eglot))
+#+end_src
 ** ~Eglot~
 Package for language servers
 #+begin_src emacs-lisp :results none
