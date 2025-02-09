@@ -626,15 +626,15 @@ something is changing it)
 #+begin_src emacs-lisp :results none
   (setq ispell-program-name "/usr/bin/aspell")
 #+end_src
-Enable ~Flyspell~ for spell checking 
+Enable ~Flyspell~ for spell checking   
 #+begin_src emacs-lisp :results none
   (use-package flyspell
     :hook (text-mode . flyspell-mode)
+    :hook (prog-mode . flyspell-prog-mode)
     :bind
     (:map flyspell-mode-map
-          ("C-C C-x $" . flyspell-check-previous-highlighted-word)
+          ("C-c  $" . flyspell-check-previous-highlighted-word)
           )
-
     )
 #+end_src
 * ~Eshell~
