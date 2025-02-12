@@ -106,7 +106,7 @@ Key binding for ~recentf~
 #+end_src
 Keybindings for splitting a window instead clones the frame
 #+begin_src emacs-lisp :results none
-  ;; (bind-key "C-x 3" #'clone-frame)
+  (bind-key "C-x 3" #'clone-frame)
   ;; (bind-key "C-x 2" #'clone-frame)
 #+end_src
 Every time a file is visited, update the list of recently visited
@@ -366,6 +366,18 @@ Enable Org indentation
 
 #+begin_src emacs-lisp :results none
   (setq org-startup-indented t)
+#+end_src
+Centre Org agenda
+#+begin_src emacs-lisp :results none
+  (add-hook 'org-agenda-mode-hook #'writeroom-mode)
+#+end_src
+Don't show items that are marked as done.
+#+begin_src emacs-lisp :results none
+  (setq org-agenda-skip-timestamp-if-done t
+        org-agenda-skip-deadline-if-done t
+        org-agenda-skip-scheduled-if-done t
+        org-agenda-skip-scheduled-if-deadline-is-shown t
+        org-agenda-skip-timestamp-if-deadline-is-shown t)
 #+end_src
 *** Org Pretty Symbols
 
