@@ -827,14 +827,6 @@ Default ivy configuration
     (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
     (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
 #+end_src
-Display ivy buffers in their own frame in the center of the screen
-#+begin_src emacs-lisp :results none
-  (use-package ivy-posframe
-    :custom-face
-    (ivy-posframe-border ((t (:background "#1b0073")))))
-
-  (ivy-posframe-mode 1)
-#+end_src
 Don't show number of candidates
 #+begin_src emacs-lisp :results none
   (setq ivy-count-format "")
@@ -856,22 +848,6 @@ Ivy ignores the order in which words are typed.
 #+begin_src emacs-lisp :results none
   (setq ivy-re-builders-alist
         '((t . ivy--regex-ignore-order)))
-#+end_src
-Disables automatic resizing for the Ivy frame
-#+begin_src emacs-lisp :results none
-  (defun my-ivy-posframe-get-size ()
-    "Set the ivy-posframe size according to the current frame."
-    (let ((height (or ivy-posframe-height (or ivy-height 10)))
-          (width (frame-width)))
-      (list :height height :width width :min-height height :min-width width)))
-
-  (setq ivy-posframe-size-function 'my-ivy-posframe-get-size)
-#+end_src
-~Swiper~ runs in the minibuffer
-#+begin_src emacs-lisp :results none
-(setq ivy-posframe-display-functions-alist
-      '((swiper          . ivy-display-function-fallback)
-        (t               . ivy-posframe-display)))
 #+end_src
 Ivy buffer with icons and more information
 #+begin_src emacs-lisp :results none
@@ -895,10 +871,6 @@ Allows to select the prompt instead of a listed candidate. Mostly
 useful when creating and renaming files
 #+begin_src emacs-lisp :results none
   (setq ivy-use-selectable-prompt t)
-#+end_src
-Neat border for ivy frames
-#+begin_src emacs-lisp :results none
-  (setq ivy-posframe-border-width 3)
 #+end_src
 Absolutely no idea what this does, but it makes ivy rich mode not slow
 as a brick
