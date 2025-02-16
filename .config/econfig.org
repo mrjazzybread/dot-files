@@ -314,7 +314,7 @@ My agenda files:
 Settings for exporting Org files with citations to TeX. 
 #+begin_src emacs-lisp :results none
   (setq org-cite-export-processors '((t biblatex "numeric" "numeric")))
-  (setq org-cite-global-bibliography '("~/org/org.bib"))
+;  (setq org-cite-global-bibliography '("~/org/org.bib"))
   (setq org-export-with-sub-superscripts nil)
 #+end_src
 Enable notifications for Org agenda items
@@ -558,6 +558,55 @@ Function for inserting a conjugation table for french verbs
     (org-backward-paragraph)
     (org-cycle)
     (org-cycle))
+#+end_src
+** LaTeX export
+Add common scientific paper classes.
+
+#+begin_src emacs-lisp :results none
+  (with-eval-after-load 'ox-latex
+    (add-to-list 'org-latex-classes
+                 '("llncs"
+                   "\\documentclass{llncs}"
+                   ("\\section{%s}" . "\\section*{%s}")
+                   ("\\subsection{%s}" . "\\subsection*{%s}"))))
+
+  (with-eval-after-load 'ox-latex
+    (add-to-list 'org-latex-classes
+                 '("IEEEtran"
+                   "\\documentclass{IEEEtran}"
+                   ("\\section{%s}" . "\\section*{%s}")
+                   ("\\subsection{%s}" . "\\subsection*{%s}"))))
+#+end_src
+Function to create a latex project.
+#+begin_src emacs-lisp :results none
+  (defun latex-project (title class)
+    (interactive "sTitle: \nsClass: ")
+    (mkdir title)
+    (cd title)
+    (let ((d default-directory))
+      (find-file "~/org/latex-templates/latex.org")
+      (beginning-of-buffer)
+      (let ((b (current-buffer)))
+        (replace-string "?title" title)
+        (replace-string "?class" class)
+        (org-latex-export-as-latex)
+        (let ((f (current-buffer)))
+          (copy-file "config.tex" d)
+          (copy-file "Makefile" d)	  
+          (copy-file "mymacros.tex" d)
+          (copy-file "gospel.sty" d)
+          (copy-file "why3lang.sty" d)
+          (copy-file "lstcoq.sty" d)
+          (copy-file ".gitignore" d)
+          (copy-file "bibliography.bib" d)
+          (when (or (string= class "llncs") (string= class "IEEEtran"))
+            (copy-file (concat class ".cls") d))
+          (write-file (concat d "/main.tex"))
+          (switch-to-buffer b)
+          (set-buffer-modified-p nil)
+          (kill-buffer b)
+          (switch-to-buffer f)
+          ))))
 #+end_src
 * PDFs
 Package used to read PDF files
