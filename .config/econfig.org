@@ -87,7 +87,7 @@ Makes it so that the compilation window opens in a new frame
 #+end_src
 Keybinding for quickly evaluating ~elisp~ code
 #+begin_src emacs-lisp :results none
-  (add-hook 'lisp-interaction-mode-hook 
+  (add-hook 'lisp-interaction-mode-hook
             (lambda () (local-set-key
                         (kbd "C-c C-c") #'eval-region)))
 #+end_src
@@ -122,6 +122,12 @@ Add binding to go to previous and next buffer.
 Set scratch buffer major mode to ~org-mode~
 #+begin_src emacs-lisp :results none
   (setq initial-major-mode 'org-mode)
+  (setq initial-scratch-message "")
+#+end_src
+Delete trailing white spaces after saving a file.
+#+begin_src emacs-lisp :results none
+  (add-hook 'before-save-hook
+            'delete-trailing-whitespace)
 #+end_src
 ** ~utf-8~
 #+begin_src emacs-lisp :results none
@@ -132,7 +138,7 @@ Set scratch buffer major mode to ~org-mode~
   (setq default-buffer-file-coding-system 'utf-8)
   (set-language-environment 'utf-8)
   (set-selection-coding-system 'utf-8)
-  (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))  
+  (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 #+end_src
 ** Backup files
 
@@ -147,7 +153,7 @@ of stinking up the working directory.
 #+end_src
 Adds themes folder to custom themes
 #+begin_src emacs-lisp :results none
-  (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/") 
+  (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 #+end_src
 ** Miscellaneous Packages
 #+begin_src emacs-lisp :results none
@@ -268,7 +274,7 @@ Kill ~Dired~ buffer when opening a new ~Dired~ buffer.
   (setq dired-kill-when-opening-new-dired-buffer t)
 #+end_src
 Dired buffers update when there is a change in one of the files in the
-directory 
+directory
 #+begin_src emacs-lisp :results none
   (setq global-auto-revert-non-file-buffers t)
 #+end_src
@@ -311,7 +317,7 @@ My agenda files:
 #+begin_src emacs-lisp :results none
   (setq org-agenda-files (list (org-directory "") notes-file))
 #+end_src
-Settings for exporting Org files with citations to TeX. 
+Settings for exporting Org files with citations to TeX.
 #+begin_src emacs-lisp :results none
   (setq org-cite-export-processors '((t biblatex "numeric" "numeric")))
 ;  (setq org-cite-global-bibliography '("~/org/org.bib"))
@@ -330,7 +336,7 @@ Enable notifications for Org agenda items
 #+end_src
 Add menu item to list only items with a ~TODO~ keyword.
 #+begin_src emacs-lisp :results none
-  (setq org-agenda-custom-commands 
+  (setq org-agenda-custom-commands
         '(("b" "List all blocked items" ((todo "BLOCKED")))))
 #+end_src
 This is very important
@@ -409,7 +415,7 @@ just so that Org mode environments aren't awful to look at.
 ** Org capture templates
 #+begin_src emacs-lisp :results none
   (setq org-capture-templates
-        '(    
+        '(
           ("w" "Writing TODO"
            entry (file+headline todo-file "Writing")
            "* TODO %?\n "
@@ -522,7 +528,7 @@ Global key bindings to access and update the agenda.
   (global-set-key "\C-cc" 'org-capture)
 #+end_src
 Concise way of using the previous definitions to configure Org.
-#+begin_src emacs-lisp :results none  
+#+begin_src emacs-lisp :results none
   (use-package org
     :hook (org-mode . add-symbols)
     :bind
@@ -537,7 +543,7 @@ Concise way of using the previous definitions to configure Org.
 
 Function for inserting a conjugation table for french verbs
 #+begin_src emacs-lisp :results none
-  (setq conjugation-table 
+  (setq conjugation-table
   "|-----------+---|
   | Je        |   |
   |-----------+---|
@@ -589,10 +595,13 @@ Function to create a latex project.
       (let ((b (current-buffer)))
         (replace-string "?title" title)
         (replace-string "?class" class)
-        (org-latex-export-as-latex)
+        (if (string= class "beamer")
+            (org-beamer-export-as-latex)
+          (org-latex-export-as-latex)
+          )
         (let ((f (current-buffer)))
           (copy-file "config.tex" d)
-          (copy-file "Makefile" d)	  
+          (copy-file "Makefile" d)
           (copy-file "mymacros.tex" d)
           (copy-file "gospel.sty" d)
           (copy-file "why3lang.sty" d)
@@ -612,7 +621,7 @@ Function to create a latex project.
 Package used to read PDF files
 #+begin_src emacs-lisp :results none
   (use-package pdf-tools)
-  
+
   (pdf-tools-install)
 #+end_src
 Opens PDFs at last visited page
@@ -654,7 +663,7 @@ Package for working with Coq
     :bind (:map coq-mode-map
                 ("C-c C-k" . split-proof-general))
     :custom
-    ;; when starting a proof, splits windows so that the goals  
+    ;; when starting a proof, splits windows so that the goals
     ;; window is larger than the response window
     (proof-three-window-mode-policy 'hybrid)
     ;; Removes the EXTREMELY annoying proof general splash screen
@@ -687,7 +696,7 @@ something is changing it)
 #+begin_src emacs-lisp :results none
   (setq ispell-program-name "/usr/bin/aspell")
 #+end_src
-Enable ~Flyspell~ for spell checking   
+Enable ~Flyspell~ for spell checking
 #+begin_src emacs-lisp :results none
   (use-package flyspell
     :hook (text-mode . flyspell-mode)
@@ -753,7 +762,7 @@ convenient.
       "CoqProject" "Makefile"
       )
     )
-  
+
   (defun is-base ()
     (or (equal default-directory "/")
         (not (eq (seq-intersection
@@ -837,7 +846,7 @@ mode line reappears, so I made this dumb function.
             (define-key eshell-mode-map (kbd "C-l") #'eshell-clear)))
 
   (defun startup ()
-    (interactive) 
+    (interactive)
     (eshell-change-appearance)
     (eshell-send-command "fastfetch")
     (let ((inhibit-read-only t))

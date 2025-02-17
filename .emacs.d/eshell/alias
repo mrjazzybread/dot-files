@@ -21,3 +21,4 @@ alias v multi-eshell
 alias d dired .
 alias ei package-install $1
 alias bulgaria echo bazinga
+alias pdf zathura $1
