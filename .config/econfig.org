@@ -116,8 +116,8 @@ files.
 #+end_src
 Add binding to go to previous and next buffer.
 #+begin_src emacs-lisp :results none
-  (global-set-key "\C-cp" 'previous-buffer)
-  (global-set-key "\C-cn" 'next-buffer)
+  (global-set-key "\C-xp" 'previous-buffer)
+  (global-set-key "\C-xn" 'next-buffer)
 #+end_src
 Set scratch buffer major mode to ~org-mode~
 #+begin_src emacs-lisp :results none
