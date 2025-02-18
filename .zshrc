@@ -104,11 +104,11 @@ alias down="cd ~/downloads"
 export PATH="/var/lib/snapd/snap/bin:$PATH"
 export PATH=$PATH:./node_modules/.bin
 #Emacs as default editor
-export EDITOR="emacs"
+export EDITOR="emacsclient -nw"
 
 #The rm command now moves files to the trash folder
 alias rm="trash"
-#Define screenshot directory 
+#Define screenshot directory
 export XDG_SCREENSHOTS_DIR="~/Pictures/Screenshots"
 #Replace ls with exa
 alias ls="exa --long --header --no-user --no-permissions"
@@ -118,7 +118,7 @@ export PATH="$PATH:/home/tiago/.local/bin"
 alias ocaml="rlwrap ocaml"
 # #mv now prompts on overwrite
 alias mv="mv -i"
-#cp always copies folders 
+#cp always copies folders
 alias cp="cp -r"
 #add a file to track to my git for dot files
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'

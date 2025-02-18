@@ -164,6 +164,18 @@ Adds themes folder to custom themes
   (use-package bluetooth)
   (use-package trashed)
 #+end_src
+** Repeat mode
+This allows me to easily switch to another buffer using "p" and "n"
+when I have already used a buffer navigation command
+
+#+begin_src emacs-lisp :results none
+  (repeat-mode 1)
+  (setq buffer-navigation-repeat-map
+        (let ((map (make-sparse-keymap)))
+          (define-key map (kbd "n") #'next-buffer)
+          (define-key map (kbd "p") #'previous-buffer)
+          map))
+#+end_src
 * Coding Packages
 ** ~Flymake~
 Package used by Eglot for highlighting errors
