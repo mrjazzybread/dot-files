@@ -197,10 +197,15 @@ Package for completion suggestions
     (setq compile-command "~/.config/ocompile.sh")
     )
 
+  (defun set-fill-column ()
+    (interactive)
+    (setq fill-column 80))
+
   (use-package tuareg
     ;; changes the default compile command
     :hook (tuareg-mode . ocaml-compile)
-    :hook (tuareg-mode . flycheck-mode))
+    :hook (tuareg-mode . flycheck-mode)
+    :hook (tuareg-mode . set-fill-column))
 
   (load "/home/tiago/.opam/4.14.1/share/emacs/site-lisp/tuareg.el")
   (use-package dune)
