@@ -163,6 +163,12 @@ Adds themes folder to custom themes
     :hook (mingus-playlist-mode . eshell-change-appearance))
   (use-package bluetooth)
   (use-package trashed)
+
+  (use-package elcord
+    :custom (elcord-editor-icon "doom_cute_icon")
+    :custom (elcord-idle-message "😴")
+    )
+  (elcord-mode 1)
 #+end_src
 ** Repeat mode
 This allows me to easily switch to another buffer using "p" and "n"
