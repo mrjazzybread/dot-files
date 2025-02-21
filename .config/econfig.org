@@ -129,6 +129,13 @@ Delete trailing white spaces after saving a file.
   (add-hook 'before-save-hook
             'delete-trailing-whitespace)
 #+end_src
+Multiple cursors
+#+begin_src emacs-lisp :results none
+  (use-package multiple-cursors)
+  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+  (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+#+end_src
 ** ~utf-8~
 #+begin_src emacs-lisp :results none
   (prefer-coding-system       'utf-8)
