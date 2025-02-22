@@ -737,6 +737,10 @@ Enable ~Flyspell~ for spell checking
           )
     )
 #+end_src
+Package for TeX files
+#+begin_src emacs-lisp :results none
+  (use-package auctex)
+#+end_src
 * ~Eshell~
 
 Fish like suggestions for ~eshell~
