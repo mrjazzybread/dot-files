@@ -858,6 +858,16 @@ Change ~ls~ switches to use human readable file sizes
 #+begin_src emacs-lisp :results none
   (setq dired-listing-switches "-alh")
 #+end_src
+Augments ~eshell~'s completion framework so that it behaves more like
+fish (e.g. "pacman -S ..." completes the name of the package)
+#+begin_src emacs-lisp :results none
+  (use-package fish-completion)
+  (global-fish-completion-mode 1)
+#+end_src
+I never know man
+#+begin_src emacs-lisp :results none
+  (setq eshell-cmpl-dir-ignore "\\`\\(CVS\\)/\\'")
+#+end_src
 ** ~Eshell~ configuration
 Stupid bug in ~Eshell~ makes it so that sometimes when I press tab the
 mode line reappears, so I made this dumb function.
@@ -1045,3 +1055,4 @@ Disable the mode line in certain modes.
     :hook (mingus-browse-mode . hide-mode-line-mode)
     )
 #+end_src
+* test
