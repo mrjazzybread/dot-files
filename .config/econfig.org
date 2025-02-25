@@ -1055,4 +1055,3 @@ Disable the mode line in certain modes.
     :hook (mingus-browse-mode . hide-mode-line-mode)
     )
 #+end_src
-* test
