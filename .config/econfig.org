@@ -781,8 +781,8 @@ Function for clearing the shell
     (let ((inhibit-read-only t))
       (erase-buffer)
       (eshell-send-input)
-      (beginning-of-line 1)
-      (delete-backward-char 1)
+      (previous-line)
+      (kill-line)
       (move-end-of-line 1)
       ))
 #+end_src
