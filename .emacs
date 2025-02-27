@@ -15,13 +15,12 @@
 			 gnu-elpa-keyring-update go-translate
 			 good-scroll hide-mode-line htmlize
 			 ivy-posframe language-detection lv magit
-			 memoize merlin mingus mmt mood-line mu4e
-			 mu4e-alert multiple-cursors navigel
-			 nerd-icons oauth opam-switch-mode org-alert
-			 pacmacs pdf-view-restore proof-general quelpa
-			 request rustic shrink-path smex spaceline
-			 trashed ts tuareg wfnames writeroom-mode
-			 yaml-mode)))
+			 memoize merlin mingus mmt mu4e mu4e-alert
+			 multiple-cursors navigel nerd-icons oauth
+			 opam-switch-mode org-alert pacmacs
+			 pdf-view-restore proof-general quelpa request
+			 rustic shrink-path smex spaceline trashed ts
+			 tuareg wfnames writeroom-mode yaml-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

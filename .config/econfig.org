@@ -1042,11 +1042,6 @@ Disables a bunch of needless UI noise.
        (blink-cursor-mode -1)
        (windmove-default-keybindings 'meta)))
 #+end_src
-Pretty mode line (switched from doom line mode since it was too slow)
-#+begin_src emacs-lisp :results none
-  (use-package mood-line
-    :config (mood-line-mode))
-#+end_src
 Disable the mode line in certain modes.
 #+begin_src emacs-lisp :results none
   (use-package hide-mode-line

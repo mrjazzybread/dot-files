@@ -1,5 +1,5 @@
 alias nil  $*
-alias ocaml-sanity git rebase --interactive --exec "dune fmt --preview && dune test" $1
+alias ocaml-sanity git rebase --interactive --exec "dune fmt --preview && dune build" $1
 alias echo echo $*
 alias rlwrap env -u INSIDE_EMACS rlwrap $1
 alias zathura call-process "zathura" $1 0 nil $1
