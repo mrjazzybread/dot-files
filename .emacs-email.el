@@ -2,6 +2,8 @@
 (setq default-frame-alist (assq-delete-all 'font default-frame-alist))
 (push '(font . "Roboto Mono 22") default-frame-alist)
 
+(require 'mu4e)
+
 (use-package mu4e
   :ensure nil
   ;; :load-path "/usr/share/emacs/site-lisp/mu4e/"
@@ -54,7 +56,7 @@
                     (mu4e-drafts-folder  . "/inria/Drafts")
                     (mu4e-sent-folder  . "/inria/Sent")
                     (mu4e-trash-folder  . "/inria/Trash")))
-	 	 
+
 	 )
 	)
 
@@ -64,7 +66,7 @@
         ("/inria/inbox"             . ?i)
         ("/gmail/[Gmail]/Trash"     . ?t)
         ("/gmail/[Gmail]/Drafts"    . ?d)
-        ("/gmail/[Gmail]/All Mail"  . ?a)))  
+        ("/gmail/[Gmail]/All Mail"  . ?a)))
   )
 
 (use-package mu4e-alert)
