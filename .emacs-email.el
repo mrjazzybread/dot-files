@@ -59,8 +59,6 @@
 
 	 )
 	)
-
-
   (setq mu4e-maildir-shortcuts
       '(("/gmail/inbox"             . ?f)
         ("/inria/inbox"             . ?i)
@@ -110,7 +108,5 @@
   (lambda () (hide-mode-line-mode 1)))
 
 (global-hide-mode 1)
-
-(setq inhibit-message t)
 
 (setq message-cite-reply-position 'above)
