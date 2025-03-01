@@ -136,6 +136,10 @@ Multiple cursors
   (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
   (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 #+end_src
+Yanking a string replaces the current selection
+#+begin_src emacs-lisp :results none
+  (delete-selection-mode 1)
+#+end_src
 ** ~utf-8~
 #+begin_src emacs-lisp :results none
   (prefer-coding-system       'utf-8)
