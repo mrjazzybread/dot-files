@@ -1056,3 +1056,8 @@ Disable the mode line in certain modes.
     :hook (mingus-browse-mode . hide-mode-line-mode)
     )
 #+end_src
+#+begin_src emacs-lisp :results none
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/emacs-application-framework/")
+  (require 'eaf)
+  (require 'eaf-pdf-viewer)
+#+end_src
