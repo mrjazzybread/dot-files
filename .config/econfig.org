@@ -164,7 +164,7 @@ of stinking up the working directory.
 #+end_src
 Adds themes folder to custom themes
 #+begin_src emacs-lisp :results none
-  (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+  (add-to-list 'custom-theme-load-path "~/.config/themes/")
 #+end_src
 ** Miscellaneous Packages
 #+begin_src emacs-lisp :results none
@@ -773,7 +773,7 @@ Change font of ~Eshell~.
   (defun eshell-change-appearance ()
     (interactive)
     (setq buffer-face-mode-face
-          '(:family "Ubuntu Mono" :height 250))
+          '(:family "Ubuntu Mono" :height 200))
     (buffer-face-mode))
 #+end_src
 Function for clearing the shell
@@ -926,12 +926,11 @@ Default ivy configuration
 #+begin_src emacs-lisp :results none
   (use-package ivy)
   (ivy-mode)
-  (setq ivy-use-virtual-buffers t)
   (setq enable-recursive-minibuffers t)
   (use-package swiper)
   (use-package counsel)
   ;; enable this if you want `swiper' to use it
-  ;; (setq search-default-mode #'char-fold-to-regexp)
+  (setq search-default-mode #'char-fold-to-regexp)
   (global-set-key "\C-s" 'swiper)
   (global-set-key (kbd "C-c C-r") 'ivy-resume)
   (global-set-key (kbd "<f6>") 'ivy-resume)
@@ -945,6 +944,7 @@ Default ivy configuration
   (global-set-key (kbd "C-c k") 'counsel-ag)
   (global-set-key (kbd "C-x l") 'counsel-locate)
   (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
+  (global-set-key (kbd "C-x C-b") 'counsel-recentf)
   (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
 #+end_src
 Don't show number of candidates
@@ -1055,9 +1055,4 @@ Disable the mode line in certain modes.
     :hook (mingus-playlist-mode . hide-mode-line-mode)
     :hook (mingus-browse-mode . hide-mode-line-mode)
     )
-#+end_src
-#+begin_src emacs-lisp :results none
-  (add-to-list 'load-path "~/.emacs.d/site-lisp/emacs-application-framework/")
-  (require 'eaf)
-  (require 'eaf-pdf-viewer)
 #+end_src

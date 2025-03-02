@@ -3,10 +3,8 @@
   "display": {
     "separator": " :: "
   },
-  "logo": {
-    "type": "file",
-    "source": "~/.config/lain.txt",
-    "color": { "1": "magenta", "2" : "magenta"  }
+  "logo" : {
+    "color": { "1" : "magenta", "2" : "magenta", "3" : "magenta" }
   },
   "font": "JHL Typewriter",
   "modules": [
