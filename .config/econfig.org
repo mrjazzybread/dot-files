@@ -222,7 +222,13 @@ Package for completion suggestions
     ;; changes the default compile command
     :hook (tuareg-mode . ocaml-compile)
     :hook (tuareg-mode . flycheck-mode)
-    :hook (tuareg-mode . set-fill-column))
+    :hook (tuareg-mode . set-fill-column)
+    :hook (before-save . )
+    )
+
+  (defun dune-fmt ()
+      (interactive)
+      (start-process "format" nil "dune" "fmt"))
 
   (load "/home/tiago/.opam/4.14.1/share/emacs/site-lisp/tuareg.el")
   (use-package dune)
