@@ -877,6 +877,10 @@ I never know man
 #+begin_src emacs-lisp :results none
   (setq eshell-cmpl-dir-ignore "\\`\\(CVS\\)/\\'")
 #+end_src
+Add rust packages to path
+#+begin_src emacs-lisp :results none
+  (add-to-list 'exec-path "~/.cargo/bin")
+#+end_src
 ** ~Eshell~ configuration
 Stupid bug in ~Eshell~ makes it so that sometimes when I press tab the
 mode line reappears, so I made this dumb function.
