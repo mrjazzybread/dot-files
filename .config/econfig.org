@@ -223,7 +223,6 @@ Package for completion suggestions
     :hook (tuareg-mode . ocaml-compile)
     :hook (tuareg-mode . flycheck-mode)
     :hook (tuareg-mode . set-fill-column)
-    :hook (before-save . )
     )
 
   (defun dune-fmt ()
