@@ -778,7 +778,7 @@ Change font of ~Eshell~.
   (defun eshell-change-appearance ()
     (interactive)
     (setq buffer-face-mode-face
-          '(:family "Ubuntu Mono" :height 200))
+          '(:family "Ubuntu Mono" :height 250))
     (buffer-face-mode))
 #+end_src
 Function for clearing the shell
@@ -790,9 +790,9 @@ Function for clearing the shell
     (let ((inhibit-read-only t))
       (erase-buffer)
       (eshell-send-input)
-      (previous-line)
+      (beginning-of-buffer)
       (kill-line)
-      (move-end-of-line 1)
+      (end-of-buffer)
       ))
 #+end_src
 Function for getting to the base of any project. Useful for spawning
