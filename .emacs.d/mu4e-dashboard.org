@@ -11,7 +11,7 @@
 [[mu:flag:attach][Attachments]] ... [[Mu:flag:attach||99999][all]] - [[mu:size:10M..][big]]
 
 ** My Inboxes
-[[mu:maildir:/gmail/inbox][Personal]] 
+[[mu:maildir:/gmail/inbox][Personal]]
 [[mu:maildir:/inria/inbox][Uni]]
 
 ** People
@@ -35,14 +35,14 @@
 #+STARTUP: showall showstars indent
 
 #+NAME: query
-#+BEGIN_SRC sh :results list raw :var query="flag:unread" count=5 
+#+BEGIN_SRC sh :results list raw :var query="flag:unread" count=5
 export LANG="en_US.UTF-8"; export LC_ALL="en_US.UTF-8";
 mu find -n $count --sortfield=date --reverse --fields "f s" $query
 #+END_SRC
 
 #+KEYMAP: u | mu4e-headers-search "flag:unread"
 #+KEYMAP: i | mu4e-headers-search "m:/inria/inbox or m:/gmail/inbox or m:/univ/inbox"
-#+KEYMAP: d | mu4e-headers-search "m:/inria/drafts or m:/gmail/drafts or m:/univ/drafts"
+#+KEYMAP: d | mu4e-headers-search "m:/inria/drafts or \"m:/gmail/[Gmail]/drafts\""
 #+KEYMAP: s | mu4e-headers-search "m:/inria/sent or \"m:/gmail/[Gmail]/Sent Mail\" or m:/univ/sent"
 
 #+KEYMAP: t | mu4e-headers-search "date:today..now"
@@ -54,4 +54,3 @@ mu find -n $count --sortfield=date --reverse --fields "f s" $query
 #+KEYMAP: U | mu4e-update-mail-and-index nil
 #+KEYMAP: ; | mu4e-context-switch
 #+KEYMAP: q | save-buffers-kill-terminal
- 
