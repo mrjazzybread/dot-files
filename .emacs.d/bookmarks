@@ -127,8 +127,8 @@
  (last-modified 26427 36304 305026 399000))
 ("org-capture-last-stored"
  (filename . "~/org/todo.org")
- (front-context-string . "** TODO Make the")
- (rear-context-string . "e original type\n")
- (position . 5307)
- (last-modified 26569 48160 22238 463000))
+ (front-context-string . "** TODO [[file:~")
+ (rear-context-string . "mpilation chain\n")
+ (position . 5378)
+ (last-modified 26570 46196 206364 298000))
 )
