@@ -59,9 +59,14 @@ Bookmarks are preserved throughout different sessions
 #+begin_src emacs-lisp :results none
   (setq bookmark-save-flag 0)
 #+end_src
-Smooth Scrolling
+Better scroll
 #+begin_src emacs-lisp :results none
-  (pixel-scroll-precision-mode 1)
+  (when (display-graphic-p)
+    (setq mouse-wheel-scroll-amount '(2 ((shift) . 1))
+          mouse-wheel-progressive-speed nil))
+  (setq scroll-step 1
+        scroll-margin 0
+        scroll-conservatively 100000)
 #+end_src
 Opens files at the last visited location
 #+begin_src emacs-lisp :results none
@@ -1059,7 +1064,13 @@ Disable the mode line in certain modes.
     :hook (eshell-mode . hide-mode-line-mode)
     :hook (mingus-playlist-mode . hide-mode-line-mode)
     :hook (mingus-browse-mode . hide-mode-line-mode)
+    :hook (mu4e-headers-mode . hide-mode-line-mode)
     )
+#+end_src
+Pretty mode line
+#+begin_src emacs-lisp :results none
+  (use-package doom-modeline)
+  (doom-modeline-mode 1)
 #+end_src
 * Email
 #+begin_src emacs-lisp :results none
@@ -1067,17 +1078,13 @@ Disable the mode line in certain modes.
 
   (require 'mu4e)
 
-  (setq user-mail-address nil)
+  (setq user-mail-address "tl.soares@campus.fct.unl.pt")
   (use-package mu4e
     :ensure nil
     ;; :load-path "/usr/share/emacs/site-lisp/mu4e/"
     ;; :defer 20 ; Wait until 20 seconds after startup
     :bind (:map mu4e-headers-mode-map
   	      ("q" . mu4e-dashboard))
-    :bind (:map mu4e-view-mode-map
-  	      ("<return>" . pixel-scroll-up))
-    :bind (:map mu4e-view-mode-map
-  	      ("<backspace>" . pixel-scroll-down))
     :config
 
     ;; This is set to 't' to avoid mail syncing issues when using mbsync

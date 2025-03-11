@@ -9,7 +9,8 @@
  '(package-selected-packages
    '(all-the-icons-dired all-the-icons-ivy-rich anki async auctex
 			 bluetooth calibredb company-coq counsel
-			 dired-hist dired-subtree dune eat ef-themes
+			 dired-hist dired-subtree doom-modeline
+			 doom-modeline-now-playing dune eat ef-themes
 			 elcord eldoc-box elfeed esh-autosuggest
 			 fireplace fish-completion
 			 gnu-elpa-keyring-update go-translate
