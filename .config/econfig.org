@@ -170,8 +170,7 @@ Adds themes folder to custom themes
 #+begin_src emacs-lisp :results none
   (use-package pacmacs)
   (use-package fireplace)
-  (use-package mingus
-    :hook (mingus-playlist-mode . eshell-change-appearance))
+  (use-package mingus)
   (use-package bluetooth)
   (use-package trashed)
 
@@ -241,9 +240,12 @@ Package for completion suggestions
 Package for language servers
 #+begin_src emacs-lisp :results none
   (use-package eglot
-    :hook (tuareg-mode . eglot-ensure)
-    :hook (eglot-mode . company-mode)
-    )
+    :hook (prog-mode . eglot-ensure))
+#+end_src
+Neat eldoc popup
+#+begin_src emacs-lisp :results none
+  (use-package eldoc-box
+    :hook (prog-mode . eldoc-box-hover-mode))
 #+end_src
 ** Git packages
 
@@ -773,14 +775,7 @@ Pretty ~eshell~ prompt
   (load-file "/home/tiago/.config/prompt.el")
   (setq eshell-prompt-function #'epe-theme-dakrone)
 #+end_src
-Change font of ~Eshell~.
-#+begin_src emacs-lisp :results none
-  (defun eshell-change-appearance ()
-    (interactive)
-    (setq buffer-face-mode-face
-          '(:family "Ubuntu Mono" :height 250))
-    (buffer-face-mode))
-#+end_src
+
 Function for clearing the shell
 
 #+begin_src emacs-lisp :results none
@@ -904,7 +899,6 @@ mode line reappears, so I made this dumb function.
 
   (defun startup ()
     (interactive)
-    (eshell-change-appearance)
     (eshell-send-command "fastfetch")
     (let ((inhibit-read-only t))
       (eshell-previous-prompt 1)
@@ -1073,6 +1067,7 @@ Disable the mode line in certain modes.
 
   (require 'mu4e)
 
+  (setq user-mail-address nil)
   (use-package mu4e
     :ensure nil
     ;; :load-path "/usr/share/emacs/site-lisp/mu4e/"

@@ -10,12 +10,13 @@
    '(all-the-icons-dired all-the-icons-ivy-rich anki async auctex
 			 bluetooth calibredb company-coq counsel
 			 dired-hist dired-subtree dune eat ef-themes
-			 elcord elfeed esh-autosuggest fireplace
-			 fish-completion gnu-elpa-keyring-update
-			 go-translate hide-mode-line magit mingus mu4e
-			 mu4e-alert multiple-cursors nov org-alert
-			 pacmacs pdf-view-restore proof-general quelpa
-			 rustic shrface smex trashed tuareg wallabag
+			 elcord eldoc-box elfeed esh-autosuggest
+			 fireplace fish-completion
+			 gnu-elpa-keyring-update go-translate
+			 hide-mode-line magit mingus mu4e mu4e-alert
+			 multiple-cursors nov org-alert pacmacs
+			 pdf-view-restore proof-general quelpa rustic
+			 shrface smex trashed tuareg wallabag
 			 writeroom-mode yaml-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
