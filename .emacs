@@ -7,7 +7,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(all-the-icons-dired all-the-icons-ivy-rich anki async auctex
+   '(all-the-icons-dired all-the-icons-ivy-rich anki async auctex avy
 			 bluetooth calibredb company-coq counsel
 			 dired-hist dired-subtree doom-modeline
 			 doom-modeline-now-playing dune eat ef-themes

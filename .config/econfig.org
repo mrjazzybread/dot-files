@@ -178,6 +178,9 @@ Adds themes folder to custom themes
   (use-package mingus)
   (use-package bluetooth)
   (use-package trashed)
+  (use-package avy)
+  (bind-key "M-j" 'avy-goto-char-timer)
+  (setq avy-timeout-seconds 0.3)
 
   (use-package elcord
     :custom (elcord-editor-icon "doom_cute_icon")
@@ -1065,6 +1068,7 @@ Disable the mode line in certain modes.
     :hook (mingus-playlist-mode . hide-mode-line-mode)
     :hook (mingus-browse-mode . hide-mode-line-mode)
     :hook (mu4e-headers-mode . hide-mode-line-mode)
+    :hook (mu4e-dashboard-mode . hide-mode-line-mode)
     )
 #+end_src
 Pretty mode line
