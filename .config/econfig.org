@@ -749,12 +749,16 @@ Enable ~Flyspell~ for spell checking
 #+begin_src emacs-lisp :results none
   (use-package flyspell
     :hook (text-mode . flyspell-mode)
-    :hook (prog-mode . flyspell-prog-mode)
+    :hook (prog-mode . flyspell-prog-mode))
+
+  (use-package flyspell-correct
     :bind
     (:map flyspell-mode-map
-          ("C-c  $" . flyspell-check-previous-highlighted-word)
-          )
-    )
+          ("C-c  $" . flyspell-correct-wrapper)
+          ))
+
+  (use-package flyspell-correct-ivy
+    :after flyspell-correct)
 #+end_src
 Package for TeX files
 #+begin_src emacs-lisp :results none
@@ -883,6 +887,11 @@ I never know man
 Add rust packages to path
 #+begin_src emacs-lisp :results none
   (add-to-list 'exec-path "~/.cargo/bin")
+#+end_src
+When copying a file, have it so if there is another dired buffer open in
+another window in the same frame, it selects that buffer by default
+#+begin_src emacs-lisp :results none
+  (setq dired-dwim-target t)
 #+end_src
 ** ~Eshell~ configuration
 Stupid bug in ~Eshell~ makes it so that sometimes when I press tab the

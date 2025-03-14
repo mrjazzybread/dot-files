@@ -8,11 +8,12 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    '(all-the-icons-dired all-the-icons-ivy-rich anki async auctex avy
-			 bluetooth calibredb company-coq counsel
-			 dired-hist dired-subtree doom-modeline
-			 doom-modeline-now-playing dune eat ef-themes
-			 elcord eldoc-box elfeed esh-autosuggest
-			 fireplace fish-completion
+			 bluetooth calibredb company-coq consult
+			 counsel dired-hist dired-subtree
+			 doom-modeline doom-modeline-now-playing dune
+			 eat ef-themes elcord eldoc-box elfeed
+			 esh-autosuggest fireplace fish-completion
+			 flyspell-correct flyspell-correct-ivy
 			 gnu-elpa-keyring-update go-translate
 			 hide-mode-line magit mingus mu4e mu4e-alert
 			 multiple-cursors nov org-alert pacmacs
@@ -24,4 +25,5 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(org-block ((t nil)))
+ '(org-block-begin-line ((t nil))))
