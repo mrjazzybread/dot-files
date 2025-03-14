@@ -105,10 +105,6 @@ Enable ~recentf~ mode to remember recently opened files
   (recentf-mode 1)
   (setq recentf-max-saved-items 10000)
 #+end_src
-Key binding for ~recentf~
-#+begin_src emacs-lisp :results none
-  (bind-key "C-x r b" #'recentf)
-#+end_src
 Keybindings for splitting a window instead clones the frame
 #+begin_src emacs-lisp :results none
   (bind-key "C-x 3" #'clone-frame)
@@ -757,8 +753,7 @@ Enable ~Flyspell~ for spell checking
           ("C-c  $" . flyspell-correct-wrapper)
           ))
 
-  (use-package flyspell-correct-ivy
-    :after flyspell-correct)
+  (use-package flyspell-correct-ivy)
 #+end_src
 Package for TeX files
 #+begin_src emacs-lisp :results none
@@ -1187,4 +1182,6 @@ Pretty mode line
   (mu4e)
 
   (setq message-cite-reply-position 'above)
+
+  (setq mu4e-search-threads nil)
 #+end_src
