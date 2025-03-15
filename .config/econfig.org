@@ -174,14 +174,20 @@ Adds themes folder to custom themes
   (use-package mingus)
   (use-package bluetooth)
   (use-package trashed)
-  (use-package avy)
+
+  (use-package avy
+    :custom (avy-timeout-seconds 0.3))
   (bind-key "M-j" 'avy-goto-char-timer)
-  (setq avy-timeout-seconds 0.3)
+
+  (use-package emojify
+    :hook (after-init . global-emojify-mode)
+    :custom (emojify-display-style "unicode"))
+
+  (use-package company-emojify)
 
   (use-package elcord
     :custom (elcord-editor-icon "doom_cute_icon")
-    :custom (elcord-idle-message "😴")
-    )
+    :custom (elcord-idle-message "😴"))
   (elcord-mode 1)
 #+end_src
 ** Repeat mode
@@ -209,7 +215,9 @@ Package used by Eglot for highlighting errors
 Package for completion suggestions
 #+begin_src emacs-lisp :results none
   (use-package company
-    :hook (prog-mode . company-mode))
+    :hook (prog-mode . company-mode)
+    :hook (org-mode . company-mode))
+  (add-to-list 'company-backends 'company-emojify)
 #+end_src
 ** OCaml packages
 #+begin_src emacs-lisp :results none
@@ -932,7 +940,6 @@ We use eat to run any commands that require visuals
   (use-package eat
     :custom (eat-kill-buffer-on-exit t)
     :hook (eshell-mode . eat-eshell-mode)
-    :hook (eat-mode . buffer-face-mode)
     )
 #+end_src
 * Ivy

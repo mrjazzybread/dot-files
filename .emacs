@@ -7,18 +7,17 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(all-the-icons-dired all-the-icons-ivy-rich anki async auctex avy
-			 bluetooth calibredb company-coq consult
-			 counsel dired-hist dired-subtree
-			 doom-modeline doom-modeline-now-playing dune
+   '(all-the-icons-dired all-the-icons-ivy-rich anki-mode auctex avy
+			 bluetooth calibredb company-coq
+			 company-emojify consult counsel dired-hist
+			 dired-subtree doom-modeline-now-playing dune
 			 eat ef-themes elcord eldoc-box elfeed
 			 esh-autosuggest fireplace fish-completion
-			 flyspell-correct flyspell-correct-ivy
-			 gnu-elpa-keyring-update go-translate
-			 hide-mode-line magit mingus mu4e mu4e-alert
-			 multiple-cursors nov org-alert pacmacs
-			 pdf-view-restore proof-general quelpa rustic
-			 shrface smex trashed tuareg wallabag
+			 flyspell-correct-ivy gnu-elpa-keyring-update
+			 go-translate hide-mode-line magit mingus
+			 mu4e-alert multiple-cursors nov org-alert
+			 pacmacs pdf-view-restore proof-general quelpa
+			 rustic shrface smex trashed tuareg
 			 writeroom-mode yaml-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
