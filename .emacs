@@ -15,10 +15,10 @@
 			 esh-autosuggest fireplace fish-completion
 			 flyspell-correct-ivy gnu-elpa-keyring-update
 			 go-translate hide-mode-line magit mingus
-			 mu4e-alert multiple-cursors nov org-alert
-			 pacmacs pdf-view-restore proof-general quelpa
-			 rustic shrface smex trashed tuareg
-			 writeroom-mode yaml-mode)))
+			 mu4e-alert multiple-cursors nerd-icons-corfu
+			 nov org-alert pacmacs pdf-view-restore
+			 proof-general quelpa rustic shrface smex
+			 trashed tuareg writeroom-mode yaml-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
