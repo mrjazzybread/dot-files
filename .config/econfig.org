@@ -1,3 +1,4 @@
+
 * Package Configuration
 Add MELPA to the list of recognized archives
 #+begin_src emacs-lisp :results none
@@ -140,6 +141,21 @@ Multiple cursors
 Yanking a string replaces the current selection
 #+begin_src emacs-lisp :results none
   (delete-selection-mode 1)
+#+end_src
+Gospel thing
+#+begin_src emacs-lisp :results none
+    (defun gospel-header ()
+      (interactive)
+      (insert "(**************************************************************************)
+  (*                                                                        *)
+  (*  GOSPEL -- A Specification Language for OCaml                          *)
+  (*                                                                        *)
+  (*  Copyright (c) 2018- The VOCaL Project                                 *)
+  (*                                                                        *)
+  (*  This software is free software, distributed under the MIT license     *)
+  (*  (as described in file LICENSE enclosed).                              *)
+  (**************************************************************************)
+  "))
 #+end_src
 ** ~utf-8~
 #+begin_src emacs-lisp :results none
