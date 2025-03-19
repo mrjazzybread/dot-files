@@ -202,6 +202,10 @@ when I have already used a buffer navigation command.
           (define-key map (kbd "p") #'previous-buffer)
           map))
 #+end_src
+Disable repeat mode in Dired
+#+begin_src emacs-lisp :results none
+  (setq dired-jump-map nil)
+#+end_src
 * Coding Packages
 ** ~Flymake~
 Package used by Eglot for highlighting errors
@@ -261,7 +265,9 @@ Package for language servers
 Neat eldoc popup
 #+begin_src emacs-lisp :results none
   (use-package eldoc-box
-    :hook (prog-mode . eldoc-box-hover-mode))
+    :custom (eldoc-box-only-multi-line t))
+
+  (bind-key "\C-hj" #'eldoc-box-help-at-point)
 #+end_src
 ** Git packages
 
