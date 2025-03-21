@@ -229,6 +229,7 @@ Package used by Eglot for highlighting errors
   (use-package flymake
     :bind (:map flymake-mode-map
            ("\C-c \C-x" . flymake-goto-next-error))
+    :hook (prog-mode . flymake-mode)
     )
 #+end_src
 ** Corfu
