@@ -389,6 +389,28 @@ If the file is a pdf, open with ~zathura~, otherwise open normally with
             (lambda () (local-set-key
                         (kbd "<return>") #'zathura-dired-find-file)))
 #+end_src
+Quickly browse files in read only mode
+#+begin_src emacs-lisp :results none
+  (defun view-next-file ()
+    (interactive)
+    (dired-jump)
+    (dired-next-line 1)
+    (dired-find-file)
+    (view-mode)
+    )
+
+  (defun view-previous-file ()
+    (interactive)
+    (dired-jump)
+    (dired-previous-line 1)
+    (dired-find-file)
+    (view-mode)
+    )
+
+  (define-key view-mode-map (kbd "n") 'view-next-file)
+
+  (define-key view-mode-map (kbd "p") 'view-previous-file)
+#+end_src
 * Org
 ** Some Basic Bookkeeping
 

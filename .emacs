@@ -10,11 +10,10 @@
  '(package-selected-packages
    '(all-the-icons-dired all-the-icons-ivy-rich anki-mode auctex avy
 			 bluetooth browse-kill-ring calibredb
-			 company-coq company-emojify consult counsel
-			 dired-hist dired-subtree
-			 doom-modeline-now-playing dune eat ef-themes
-			 elcord eldoc-box elfeed esh-autosuggest
-			 fireplace fish-completion
+			 company-coq consult counsel dired-hist
+			 dired-subtree doom-modeline-now-playing dune
+			 eat ef-themes elcord eldoc-box elfeed
+			 esh-autosuggest fireplace fish-completion
 			 flyspell-correct-ivy gnu-elpa-keyring-update
 			 go-translate hide-mode-line magit mingus
 			 mu4e-alert multiple-cursors nerd-icons-corfu
