@@ -196,10 +196,6 @@ Adds themes folder to custom themes
     :custom (avy-timeout-seconds 0.3))
   (bind-key "M-j" 'avy-goto-char-timer)
 
-  (use-package emojify
-    :hook (after-init . global-emojify-mode)
-    :custom (emojify-display-style "unicode"))
-
   (use-package elcord
     :custom (elcord-editor-icon "doom_cute_icon")
     :custom (elcord-idle-message "😴"))
@@ -311,7 +307,6 @@ Deleted files are moved to the trash folder
   (setq delete-by-moving-to-trash t)
 #+end_src
 Start ~Dired~ in omit mode
-
 #+begin_src emacs-lisp :results none
   (add-hook 'dired-mode-hook #'dired-omit-mode)
 #+end_src
@@ -411,7 +406,6 @@ Quickly browse files in read only mode
     )
 
   (define-key view-mode-map (kbd "n") 'view-next-file)
-
   (define-key view-mode-map (kbd "p") 'view-previous-file)
 #+end_src
 * Org
@@ -512,6 +506,11 @@ Scale up latex preview in Org mode
 #+begin_src emacs-lisp :results none
   (setq org-format-latex-options
         (plist-put org-format-latex-options :scale 2.0))
+#+end_src
+Automatically converts strings to emojis
+#+begin_src emacs-lisp :results none
+  (use-package emojify
+    :hook (org-mode . emojify-mode))
 #+end_src
 *** Org Pretty Symbols
 
