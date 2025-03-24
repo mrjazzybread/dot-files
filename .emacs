@@ -17,10 +17,10 @@
 			 flyspell-correct-ivy gnu-elpa-keyring-update
 			 go-translate hide-mode-line magit mingus
 			 mu4e-alert multiple-cursors nerd-icons-corfu
-			 nov opam-switch-mode org-alert pacmacs
-			 pdf-view-restore proof-general quelpa rustic
-			 shrface smex trashed tuareg writeroom-mode
-			 yaml-mode)))
+			 nov opam-switch-mode org-alert org-fragtog
+			 pacmacs pdf-view-restore proof-general quelpa
+			 rustic shrface smex trashed tuareg
+			 writeroom-mode yaml-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

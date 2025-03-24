@@ -1,4 +1,3 @@
-
 * Package Configuration
 Add MELPA to the list of recognized archives
 #+begin_src emacs-lisp :results none
@@ -393,18 +392,22 @@ Quickly browse files in read only mode
 #+begin_src emacs-lisp :results none
   (defun view-next-file ()
     (interactive)
-    (dired-jump)
-    (dired-next-line 1)
-    (dired-find-file)
-    (view-mode)
+    (let ((b (current-buffer)))
+      (dired-jump)
+      (kill-buffer b)
+      (dired-next-line 1)
+      (dired-find-file)
+      (view-mode))
     )
 
   (defun view-previous-file ()
     (interactive)
-    (dired-jump)
-    (dired-previous-line 1)
-    (dired-find-file)
-    (view-mode)
+    (let ((b (current-buffer)))
+      (dired-jump)
+      (kill-buffer b)
+      (dired-previous-line 1)
+      (dired-find-file)
+      (view-mode))
     )
 
   (define-key view-mode-map (kbd "n") 'view-next-file)
@@ -499,6 +502,16 @@ Don't show items that are marked as done.
         org-agenda-skip-scheduled-if-done t
         org-agenda-skip-scheduled-if-deadline-is-shown t
         org-agenda-skip-timestamp-if-deadline-is-shown t)
+#+end_src
+Automatic latex preview in Org mode
+#+begin_src emacs-lisp :results none
+  (use-package org-fragtog
+    :hook (org-mode . org-fragtog-mode))
+#+end_src
+Scale up latex preview in Org mode
+#+begin_src emacs-lisp :results none
+  (setq org-format-latex-options
+        (plist-put org-format-latex-options :scale 2.0))
 #+end_src
 *** Org Pretty Symbols
 
