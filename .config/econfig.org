@@ -31,7 +31,6 @@ GNU keys to enable downloading packages
   (use-package gnu-elpa-keyring-update)
 #+end_src
 * Some Miscellaneous Configurations
-
 Enable creation of pairs of brackets or quotes when one is inserted.
 #+begin_src emacs-lisp :results none
   (setq skeleton-pair t)
@@ -46,11 +45,6 @@ Enable Emacs to track changes made to files by different programs.
 #+begin_src emacs-lisp :results none
   (global-auto-revert-mode 1)
 #+end_src
-Key bindings for navigating paragraphs
-#+begin_src emacs-lisp :results none
-  (bind-key "M-n" 'forward-paragraph)
-  (bind-key "M-p" 'backward-paragraph)
-#+end_src
 Allows me to see the column number as well as the line number.
 #+begin_src emacs-lisp :results none
   (column-number-mode)
@@ -59,14 +53,16 @@ Bookmarks are preserved throughout different sessions
 #+begin_src emacs-lisp :results none
   (setq bookmark-save-flag 0)
 #+end_src
+Keybindings for navigating functions
+#+begin_src emacs-lisp :results none
+  (bind-key "C-M-p" #'beginning-of-defun)
+  (bind-key "C-M-n" #'end-of-defun)
+#+end_src
 Better scroll
 #+begin_src emacs-lisp :results none
   (when (display-graphic-p)
     (setq mouse-wheel-scroll-amount '(2 ((shift) . 1))
           mouse-wheel-progressive-speed nil))
-  (setq scroll-step 1
-        scroll-margin 0
-        scroll-conservatively 0)
 #+end_src
 Opens files at the last visited location
 #+begin_src emacs-lisp :results none
@@ -104,6 +100,9 @@ Enable ~recentf~ mode to remember recently opened files
 #+begin_src emacs-lisp :results none
   (recentf-mode 1)
   (setq recentf-max-saved-items 10000)
+  (add-to-list 'recentf-exclude
+  	     (lambda (s) ((and (cl-search "/test/" s)
+  			       (file-name-extension s)))))
 #+end_src
 Keybindings for splitting a window instead clones the frame
 #+begin_src emacs-lisp :results none
@@ -369,19 +368,6 @@ More convenient way to search through sub-directories.
 Disable "Omit N files" message
 #+begin_src emacs-lisp :results none
   (setq dired-omit-verbose nil)
-#+end_src
-If the file is a pdf, open with ~zathura~, otherwise open normally with
-~dired~.
-#+begin_src emacs-lisp :results none
-  (defun zathura-dired-find-file ()
-    (interactive)
-    (if (equal (file-name-extension (dired-get-filename)) "pdf")
-        (zathura (dired-get-filename))
-      (dired-find-file)))
-
-  (add-hook 'dired-mode-hook
-            (lambda () (local-set-key
-                        (kbd "<return>") #'zathura-dired-find-file)))
 #+end_src
 Quickly browse files in read only mode
 #+begin_src emacs-lisp :results none
@@ -745,37 +731,20 @@ Function to create a latex project.
           ))))
 #+end_src
 * PDFs
-Package used to read PDF files
+Opens the current file in ~zathura~ and kill the buffer.
 #+begin_src emacs-lisp :results none
-  (use-package pdf-tools)
-
-  (pdf-tools-install)
+  (defun zathura ()
+    (start-process "zathura" nil "zathura" (buffer-file-name))
+    (let ((b (current-buffer)))
+      (previous-buffer)
+      (kill-buffer b)
+    ))
 #+end_src
-Opens PDFs at last visited page
+When we open a PDF in Emacs, open it in ~zathura~ instead.
 #+begin_src emacs-lisp :results none
-  (use-package pdf-view-restore
-    :hook (pdf-view-mode . pdf-view-restore-mode))
-#+end_src
-I'm not sure what this setting does, but without it PDFs are really
-slow
-
-#+begin_src emacs-lisp :results none
-  (setq pdf-view-use-scaling nil)
-#+end_src
-
-Function to open zathura
-#+begin_src emacs-lisp :results none
-  (defun zathura (file)
-    (start-process "zathura" nil "zathura" file))
+  (add-hook 'doc-view-mode-hook #'zathura)
 #+end_src
 * Proof General
-These bindings are unset so that I can use them to navigate through
-paragraphs in Coq mode.
-#+begin_src emacs-lisp :results none
-  (defun unset ()
-    (local-unset-key (kbd "M-p"))
-    (local-unset-key (kbd "M-n")))
-#+end_src
 Function for a more convenient Coq buffer split.
 #+begin_src emacs-lisp :results none
   (defun split-proof-general ()
