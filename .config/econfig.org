@@ -736,6 +736,8 @@ Opens the current file in ~zathura~ and kill the buffer.
   (defun zathura ()
     (start-process "zathura" nil "zathura" (buffer-file-name))
     (let ((b (current-buffer)))
+      (add-to-list 'recentf-list (buffer-file-name))
+      (recentf-save-list)
       (previous-buffer)
       (kill-buffer b)
     ))
