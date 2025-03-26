@@ -155,6 +155,20 @@ Gospel thing
   (**************************************************************************)
   "))
 #+end_src
+Keybindings to increment the number at current point
+#+begin_src emacs-lisp :results none
+  (defun inc-at-pt (n)
+    (interactive "nAmount: ")
+    (evil-numbers/inc-at-pt n 0))
+
+  (defun dec-at-pt (n)
+    (interactive "nAmount: ")
+    (evil-numbers/dec-at-pt n 0))
+
+  (use-package evil-numbers
+    :bind ("C-c C-+" . 'inc-at-pt)
+    :bind ("C-c C--" . 'dec-at-pt))
+#+end_src
 ** ~utf-8~
 #+begin_src emacs-lisp :results none
   (prefer-coding-system       'utf-8)
@@ -371,24 +385,22 @@ Disable "Omit N files" message
 #+end_src
 Quickly browse files in read only mode
 #+begin_src emacs-lisp :results none
-  (defun view-next-file ()
-    (interactive)
+  (defun view-browse (f)
     (let ((b (current-buffer)))
       (dired-jump)
+      (funcall f)
       (kill-buffer b)
-      (dired-next-line 1)
       (dired-find-file)
       (view-mode))
     )
 
+  (defun view-next-file ()
+    (interactive)
+    (view-browse (lambda () (dired-next-line 1))))
+
   (defun view-previous-file ()
     (interactive)
-    (let ((b (current-buffer)))
-      (dired-jump)
-      (kill-buffer b)
-      (dired-previous-line 1)
-      (dired-find-file)
-      (view-mode))
+    (view-browse (lambda () (dired-previous-line 1)))
     )
 
   (define-key view-mode-map (kbd "n") 'view-next-file)
@@ -1138,6 +1150,7 @@ Pretty mode line
   (doom-modeline-mode 1)
 #+end_src
 * Email
+
 #+begin_src emacs-lisp :results none
   (setq message-send-mail-function 'smtpmail-send-it)
 

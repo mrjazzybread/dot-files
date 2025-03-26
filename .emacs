@@ -14,11 +14,12 @@
 			 company-coq consult counsel dired-hist
 			 dired-subtree doom-modeline-now-playing dune
 			 eat ef-themes elcord eldoc-box elfeed
-			 esh-autosuggest fireplace fish-completion
-			 flyspell-correct-ivy gnu-elpa-keyring-update
-			 go-translate hide-mode-line magit mingus
-			 mu4e-alert multiple-cursors nerd-icons-corfu
-			 nov opam-switch-mode org-alert org-fragtog
+			 esh-autosuggest evil-numbers fireplace
+			 fish-completion flyspell-correct-ivy
+			 gnu-elpa-keyring-update go-translate
+			 hide-mode-line magit mingus mu4e-alert
+			 multiple-cursors nerd-icons-corfu nov
+			 opam-switch-mode org-alert org-fragtog
 			 pacmacs pdf-view-restore proof-general quelpa
 			 rustic shrface smex trashed tuareg
 			 writeroom-mode yaml-mode)))
