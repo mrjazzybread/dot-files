@@ -742,6 +742,39 @@ Function to create a latex project.
           (switch-to-buffer f)
           ))))
 #+end_src
+** Org Roam
+#+begin_src emacs-lisp :results none
+   (use-package org-roam
+     :custom
+     (org-roam-directory (file-truename "~/roam"))
+     (org-roam-completion-everywhere t)
+     :bind (("C-c n l" . org-roam-buffer-toggle)
+            ("C-c n f" . org-roam-node-find)
+            ("C-c n g" . org-roam-graph)
+            ("C-c n i" . org-roam-node-insert)
+            ("C-c n c" . org-roam-capture)
+            ;; Dailies
+            ("C-c n j" . org-roam-dailies-capture-today)))
+
+   (org-roam-db-autosync-mode)
+#+end_src
+Capture templates for org roam.
+#+begin_src emacs-lisp :results none
+  (setq org-roam-capture-templates
+   '(("t" "travel" plain
+        "%?"
+        :if-new (file+head "travel/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+        :unnarrowed t)
+  ("r" "Reading note" plain
+      (file "~/roam/templates/reading_template.org")
+      :if-new (file+head "research/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+      :unnarrowed t)
+  ("p" "PhD Note" plain
+        "%?"
+        :if-new (file+head "research/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+        :unnarrowed t)
+  ))
+#+end_src
 * PDFs
 Opens the current file in ~zathura~ and kill the buffer.
 #+begin_src emacs-lisp :results none
@@ -819,6 +852,11 @@ Enable ~Flyspell~ for spell checking
           ))
 
   (use-package flyspell-correct-ivy)
+#+end_src
+Removes completion at point from ~flyspell~ so that I can use it for
+completing org roam nodes.
+#+begin_src emacs-lisp :results none
+  (keymap-unset flyspell-mode-map "C-M-i")
 #+end_src
 Package for TeX files
 #+begin_src emacs-lisp :results none
