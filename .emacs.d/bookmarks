@@ -126,9 +126,9 @@
  (position . 1)
  (last-modified 26427 36304 305026 399000))
 ("org-capture-last-stored"
- (filename . "~/roam/travel/20250329232250-oslo_baby.org")
+ (filename . "~/roam/research/20250330142221-gospel_separation_logic_semantics.org")
  (front-context-string)
- (rear-context-string . "itle: oslo baby\n")
- (position . 87)
- (last-modified 26600 29374 932089 533000))
+ (rear-context-string . "Logic Semantics\n")
+ (position . 111)
+ (last-modified 26601 14210 335443 6000))
 )
