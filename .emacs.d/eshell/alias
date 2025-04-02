@@ -1,26 +1,28 @@
-alias test dune test --auto-promote
-alias vi find-file $1
-alias pdf zathura $1
-alias bulgaria echo bazinga
-alias ei package-install $1
-alias d dired .
-alias v multi-eshell
-alias em find-file $1
-alias clear clear t
-alias vpn /opt/cisco/anyconnect/bin/vpnui
-alias agenda emacsclient -c -n -e '(org-agenda-list)'
-alias update sudo pacman -Syu
-alias c xclip -sel c
-alias pac sudo pacman -S $*
-alias config /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME $*
-alias ocaml rlwrap ocaml $1
-alias rm trash $*
-alias ls *exa --long --header --no-user --no-permissions $1
-alias g magit-fullscreen
-alias b eshell-jump $1
-alias tmp cd /tmp
-alias zathura call-process "zathura" $1 0 nil $1
-alias rlwrap env -u INSIDE_EMACS rlwrap $1
-alias echo echo $*
+alias opam-set set-envs ${opam-env} && export PATH=${getenv "PATH"}
+alias opam-env read ${format "%s" ${*opam env --sexp}}
 alias ocaml-sanity git rebase --interactive --exec "dune fmt --preview && dune test" $1
-alias nil $*
+alias ocaml rlwrap ocaml $1
+alias echo echo $*
+alias rlwrap env -u INSIDE_EMACS rlwrap $1
+alias zathura call-process "zathura" $1 0 nil $1
+alias tmp cd /tmp
+alias b eshell-jump $1
+alias g magit-fullscreen
+alias ls *exa --long --header --no-user --no-permissions $1
+alias rm trash $*
+alias config /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME $*
+alias pac sudo pacman -S $*
+alias c xclip -sel c
+alias update sudo pacman -Syu
+alias agenda emacsclient -c -n -e '(org-agenda-list)'
+alias vpn /opt/cisco/anyconnect/bin/vpnui
+alias clear clear t
+alias em find-file $1
+alias v multi-eshell
+alias d dired .
+alias ei package-install $1
+alias bulgaria echo bazinga
+alias pdf zathura $1
+alias vi find-file $1
+alias test dune test --auto-promote
+alias setenvs set-envs $1

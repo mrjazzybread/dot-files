@@ -213,6 +213,9 @@ Adds themes folder to custom themes
     :custom (elcord-editor-icon "doom_cute_icon")
     :custom (elcord-idle-message "😴"))
   (elcord-mode 1)
+  (use-package exec-path-from-shell)
+  (when (daemonp)
+    (exec-path-from-shell-initialize))
 #+end_src
 ** Repeat mode
 This allows me to easily switch to another buffer using "p" and "n"
@@ -996,6 +999,10 @@ another window in the same frame, it selects that buffer by default
 #+begin_src emacs-lisp :results none
   (setq dired-dwim-target t)
 #+end_src
+
+#+begin_src emacs-lisp :results none
+  (defun set-envs (l) (dolist (p (nth 0 l)) (setenv (nth 0 p) (nth 1 p))))
+#+end_src
 ** ~Eshell~ configuration
 Stupid bug in ~Eshell~ makes it so that sometimes when I press tab the
 mode line reappears, so I made this dumb function.
@@ -1019,7 +1026,7 @@ mode line reappears, so I made this dumb function.
 
   (defun startup ()
     (interactive)
-    (eshell-send-command "fastfetch")
+    (eshell-send-command "opam-set && fastfetch")
     (let ((inhibit-read-only t))
       (eshell-previous-prompt 1)
       (beginning-of-line)
