@@ -389,13 +389,17 @@ Disable "Omit N files" message
 Quickly browse files in read only mode
 #+begin_src emacs-lisp :results none
   (defun view-browse (f)
+
     (let ((b (current-buffer)))
       (dired-jump)
-      (funcall f)
-      (kill-buffer b)
-      (dired-find-file)
-      (view-mode))
-    )
+      (condition-case nil
+  	((lambda () (funcall f)
+  	   (dired-find-file)
+  	   (kill-buffer b)
+  	   (view-mode)))
+        (error
+         (progn (switch-to-buffer b)
+  	      (message "No more files in current directory"))))))
 
   (defun view-next-file ()
     (interactive)
@@ -1019,6 +1023,8 @@ mode line reappears, so I made this dumb function.
           (lambda ()
             (define-key eshell-mode-map (kbd "<tab>") #'stupid)))
 #+end_src
+Startup configuration. Sets the opam environment variables and runs
+~fastfetch~.
 #+begin_src emacs-lisp :results none
   (add-hook 'eshell-mode-hook
           (lambda ()
