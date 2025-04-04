@@ -504,13 +504,15 @@ Don't show items that are marked as done.
 #+end_src
 Automatic latex preview in Org mode
 #+begin_src emacs-lisp :results none
+  (setq org-startup-with-latex-preview t)
+
   (use-package org-fragtog
     :hook (org-mode . org-fragtog-mode))
 #+end_src
 Scale up latex preview in Org mode
 #+begin_src emacs-lisp :results none
   (setq org-format-latex-options
-        (plist-put org-format-latex-options :scale 2.0))
+        (plist-put org-format-latex-options :scale 2.5))
 #+end_src
 Automatically converts strings to emojis
 #+begin_src emacs-lisp :results none
