@@ -516,8 +516,7 @@ Scale up latex preview in Org mode
 #+end_src
 Automatically converts strings to emojis
 #+begin_src emacs-lisp :results none
-  (use-package emojify
-    :hook (org-mode . emojify-mode))
+  (use-package emojify)
 #+end_src
 *** Org Pretty Symbols
 
