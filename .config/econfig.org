@@ -169,6 +169,11 @@ Keybindings to increment the number at current point
     :bind ("C-c C-+" . 'inc-at-pt)
     :bind ("C-c C--" . 'dec-at-pt))
 #+end_src
+Key binding for returning to the beginning of the line ignores
+indentation
+#+begin_src emacs-lisp :results none
+  (global-set-key (kbd "C-a") #'back-to-indentation)
+#+end_src
 ** ~utf-8~
 #+begin_src emacs-lisp :results none
   (prefer-coding-system       'utf-8)

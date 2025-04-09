@@ -22,9 +22,9 @@
 			 hide-mode-line magit mingus mu4e mu4e-alert
 			 multiple-cursors nerd-icons-corfu nov
 			 opam-switch-mode org-alert org-fragtog
-			 org-roam pacmacs proof-general quelpa rustic
-			 shrface smex tablist trashed tuareg wallabag
-			 writeroom-mode yaml-mode)))
+			 org-roam org-roam-ui pacmacs proof-general
+			 quelpa rustic shrface smex tablist trashed
+			 tuareg wallabag writeroom-mode yaml-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
