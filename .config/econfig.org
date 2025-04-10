@@ -101,8 +101,9 @@ Enable ~recentf~ mode to remember recently opened files
   (recentf-mode 1)
   (setq recentf-max-saved-items 10000)
   (add-to-list 'recentf-exclude
-  	     (lambda (s) ((and (cl-search "/test/" s)
-  			       (file-name-extension s)))))
+    	     (lambda (s) (cl-search "/test/" s)))
+  (add-to-list 'recentf-exclude
+    	     (lambda (s) ((cl-search "/tmp/" s))))
 #+end_src
 Keybindings for splitting a window instead clones the frame
 #+begin_src emacs-lisp :results none
@@ -135,6 +136,7 @@ Multiple cursors
   (global-set-key (kbd "C->") 'mc/mark-next-like-this)
   (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
   (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+  (global-set-key (kbd "C-x x SPC") 'set-rectangular-region-anchor)
 #+end_src
 Yanking a string replaces the current selection
 #+begin_src emacs-lisp :results none
@@ -154,20 +156,6 @@ Gospel thing
   (*  (as described in file LICENSE enclosed).                              *)
   (**************************************************************************)
   "))
-#+end_src
-Keybindings to increment the number at current point
-#+begin_src emacs-lisp :results none
-  (defun inc-at-pt (n)
-    (interactive "nAmount: ")
-    (evil-numbers/inc-at-pt n 0))
-
-  (defun dec-at-pt (n)
-    (interactive "nAmount: ")
-    (evil-numbers/dec-at-pt n 0))
-
-  (use-package evil-numbers
-    :bind ("C-c C-+" . 'inc-at-pt)
-    :bind ("C-c C--" . 'dec-at-pt))
 #+end_src
 Key binding for returning to the beginning of the line ignores
 indentation
@@ -277,9 +265,9 @@ Package for completion suggestions
     :hook (tuareg-mode . set-fill-column)
     )
 
-  (defun dune-fmt ()
-      (interactive)
-      (start-process "format" nil "dune" "fmt"))
+  (use-package ocamlformat
+    :custom (ocamlformat-enable 'enable-outside-detected-project)
+    :hook (before-save . ocamlformat-before-save))
 
   (load "/home/tiago/.opam/4.14.1/share/emacs/site-lisp/tuareg.el")
   (use-package dune)
@@ -1203,8 +1191,16 @@ Disable the mode line in certain modes.
 #+end_src
 Pretty mode line
 #+begin_src emacs-lisp :results none
-  (use-package doom-modeline)
-  (doom-modeline-mode 1)
+    (use-package doom-modeline)
+    (doom-modeline-mode 1)
+
+    (use-package doom-modeline-now-playing)
+    (doom-modeline-now-playing-timer)
+
+  (doom-modeline-def-modeline 'main
+      '(bar matches buffer-info buffer-position now-playing)
+      '(matches major-mode))
+
 #+end_src
 * Email
 
