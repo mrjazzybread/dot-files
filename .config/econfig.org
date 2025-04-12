@@ -1297,6 +1297,8 @@ Pretty mode line
   (setq message-cite-reply-position 'above)
 
   (setq mu4e-search-threads nil)
+
+  (setq mu4e-hide-index-messages t)
 #+end_src
 * EXWM
 Minimal ~exwm~ configuration
@@ -1306,14 +1308,37 @@ Minimal ~exwm~ configuration
   (setq exwm-workspace-number 4)
   ;; Make class name the buffer name.
   (add-hook 'exwm-update-class-hook
-    (lambda () (exwm-workspace-rename-buffer exwm-class-name)))
+  	  (lambda () (exwm-workspace-rename-buffer exwm-class-name)))
+
+  (setq exwm-input-simulation-keys
+        '(([?\C-b] . [left])
+          ([?\C-f] . [right])
+          ([?\C-p] . [up])
+          ([?\C-n] . [down])
+          ([?\C-a] . [home])
+          ([?\C-e] . [end])
+          ([?\M-v] . [prior])
+  	([?\M-w] . [C-c])
+  	([?\C-y] . [C-v])
+          ([?\C-v] . [next])
+          ([?\C-d] . [delete])
+  	([?\C-s] . [C-f])
+          ([?\C-k] . [S-end delete])))
+
   ;; Global keybindings.
   (setq exwm-input-global-keys
         `(([?\s-r] . exwm-reset) ;; s-r: Reset (to line-mode).
           ([?\s-w] . exwm-workspace-switch) ;; s-w: Switch workspace.
-          ([?\s-&] . (lambda (cmd) ;; s-&: Launch application.
+          ([?\s-d] . (lambda (cmd) ;; s-&: Launch application.
                        (interactive (list (read-shell-command "$ ")))
                        (start-process-shell-command cmd nil cmd)))
+    	;; close window
+    	([?\s-c] . (lambda () (interactive) (kill-this-buffer)))
+    	;; window movement
+    	([?\s-l] . windmove-right)
+    	([?\s-j] . windmove-left)
+    	([?\s-i] . windmove-up)
+    	([?\s-k] . windmove-down)
           ;; s-N: Switch to certain workspace.
           ,@(mapcar (lambda (i)
                       `(,(kbd (format "s-%d" i)) .
@@ -1323,4 +1348,9 @@ Minimal ~exwm~ configuration
                     (number-sequence 0 9))))
   ;; Enable EXWM
   (exwm-enable)
+  ;; Enables a system tray for exwm
+  (exwm-systemtray-mode)
+
+  (add-hook 'exwm-manage-finish-hook #'exwm-layout-hide-mode-line)
+  (exwm-workspace-delete)
 #+end_src
