@@ -1388,7 +1388,7 @@ Music player
 
 Auto-pause media when headphones are disconnected
 #+begin_src emacs-lisp :results none
-  (start-process-shell-command "autopause" nil " ~/.config/autopause.sh")
+  (efs/run-in-background " ~/.config/autopause.sh")
 #+end_src
 
 Auto-mount usb drives
