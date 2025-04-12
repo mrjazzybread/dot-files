@@ -1301,12 +1301,11 @@ Pretty mode line
 
   (setq mu4e-hide-index-messages t)
 #+end_src
+
 * EXWM
 #+begin_src emacs-lisp :results none
   (use-package exwm)
-  (use-package desktop-environment)
-  (desktop-environment-mode 1)
-#+end_src
+    #+end_src
 
 Setting the initial workspace number
 #+begin_src emacs-lisp :results none
@@ -1388,7 +1387,7 @@ Music player
 
 Auto-pause media when headphones are disconnected
 #+begin_src emacs-lisp :results none
-  (efs/run-in-background " ~/.config/autopause.sh")
+  (start-process-shell-command "autopause" nil " ~/.config/autopause.sh")
 #+end_src
 
 Auto-mount usb drives
@@ -1417,6 +1416,7 @@ Background image
    "feh" nil
    "feh --bg-scale ~/.config/bg/lain.jpeg")
 #+end_src
+
 ** Keybindings
 Reset EXWM
 #+begin_src emacs-lisp :results none
@@ -1428,9 +1428,11 @@ Switch workspace
   (exwm-input-set-key (kbd "s-w") 'exwm-workspace-switch)
 #+end_src
 
-Kill the current buffer
+Kill the current buffer. For some reason I have to wrap the
+~kill-this-buffer~ function with an ~interactive~ lambda
 #+begin_src emacs-lisp :results none
-  (exwm-input-set-key (kbd "s-c") #'kill-this-buffer)
+  (exwm-input-set-key (kbd "s-c")
+  		    (lambda () (interactive) (kill-this-buffer)))
 #+end_src
 
 Window movement
@@ -1452,7 +1454,6 @@ Suspend the computer
 #+begin_src emacs-lisp :results none
   (exwm-input-set-key (kbd "s-ESC") 'desktop-environment-lock-screen)
 #+end_src
-Increase volume
 
 Keybindings to switch the current workspace
 #+begin_src emacs-lisp :results none
