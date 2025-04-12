@@ -643,6 +643,7 @@ Function to insert a macro
   (add-to-list 'ispell-skip-region-alist '("^#\\+begin_example" . "#\\+end_example"))
   (add-to-list 'ispell-skip-region-alist '("^#\\+" . "\n"))
   (add-to-list 'ispell-skip-region-alist '("~" . "~"))
+  (add-to-list 'ispell-skip-region-alist '("/" . "/"))
   (add-to-list 'ispell-skip-region-alist '("{{{" . "}}}"))
   (add-to-list 'ispell-skip-region-alist '("<<" . ">>"))
 #+end_src
@@ -1303,6 +1304,8 @@ Pretty mode line
 * EXWM
 #+begin_src emacs-lisp :results none
   (use-package exwm)
+  (use-package desktop-environment)
+  (desktop-environment-mode 1)
 #+end_src
 
 Setting the initial workspace number
@@ -1365,6 +1368,11 @@ Network manager applet
   (efs/run-in-background "nm-applet")
 #+end_src
 
+Sound display
+#+begin_src emacs-lisp :results none
+  (efs/run-in-background "volumeicon")
+#+end_src
+
 Messaging apps
 #+begin_src emacs-lisp :results none
   (efs/run-in-background "discord --start-minimized")
@@ -1409,19 +1417,6 @@ Background image
    "feh" nil
    "feh --bg-scale ~/.config/bg/lain.jpeg")
 #+end_src
-** Initialisation configuration
-Some configurations that have to be run once EXWM is fully
-initialised.
-
-#+begin_src emacs-lisp :results none
-  (defun efs/init ()
-    (progn
-      (exwm-workspace-switch-create 1)
-      (eshell)))
-
-  (add-hook 'exwm-init-hook #'efs/init)
-#+end_src
-
 ** Keybindings
 Reset EXWM
 #+begin_src emacs-lisp :results none
@@ -1435,7 +1430,7 @@ Switch workspace
 
 Kill the current buffer
 #+begin_src emacs-lisp :results none
-  (exwm-input-set-key (kbd "s-c") 'kill-this-buffer)
+  (exwm-input-set-key (kbd "s-c") #'kill-this-buffer)
 #+end_src
 
 Window movement
@@ -1446,20 +1441,26 @@ Window movement
   (exwm-input-set-key (kbd "s-k") 'windmove-down)
 #+end_src
 
+Start a desktop application using /counsel linux app/
 #+begin_src emacs-lisp :results none
-  ;; Global keybindings.
+  (setq counsel-linux-app-format-function
+        #'counsel-linux-app-format-function-name-only)
+  (exwm-input-set-key (kbd "s-d") 'counsel-linux-app)
+#+end_src
+
+Suspend the computer
+#+begin_src emacs-lisp :results none
+  (exwm-input-set-key (kbd "s-ESC") 'desktop-environment-lock-screen)
+#+end_src
+Increase volume
+
+Keybindings to switch the current workspace
+#+begin_src emacs-lisp :results none
   (setq exwm-input-global-keys
-        `( ;; s-w: Switch workspace.
-          ([?\s-d] . (lambda (cmd) ;; s-&: Launch application.
-                       (interactive (list (read-shell-command "$ ")))
-                       (start-process-shell-command cmd nil cmd)))
-    	;; close window
-    	;; window movement
-          ;; s-N: Switch to certain workspace.
-          ,@(mapcar (lambda (i)
-                      `(,(kbd (format "s-%d" i)) .
-                        (lambda ()
-                          (interactive)
-                          (exwm-workspace-switch-create ,i))))
-                    (number-sequence 1 9))))
+      `( ,@(mapcar (lambda (i)
+                    `(,(kbd (format "s-%d" i)) .
+                      (lambda ()
+                        (interactive)
+                        (exwm-workspace-switch-create ,(- i 1)))))
+                  (number-sequence 1 9))))
 #+end_src

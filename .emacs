@@ -12,7 +12,7 @@
  '(package-selected-packages
    '(aio all-the-icons-dired all-the-icons-ivy-rich anki-mode auctex avy
 	 bluetooth browse-kill-ring calibredb company-coq consult
-	 corfu counsel dired-hist dired-subtree
+	 corfu counsel desktop-environment dired-hist dired-subtree
 	 doom-modeline-now-playing dune eat ef-themes elcord eldoc-box
 	 elfeed emojify esh-autosuggest exec-path-from-shell exwm
 	 fireplace fish-completion flycheck flyspell-correct-ivy
