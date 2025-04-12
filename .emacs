@@ -10,21 +10,17 @@
  '(emojify-display-style 'unicode)
  '(ispell-alternate-dictionary "/usr/lib/aspell-0.60/")
  '(package-selected-packages
-   '(all-the-icons-dired all-the-icons-ivy-rich anki anki-mode bluetooth
-			 browse-kill-ring calibredb company-coq
-			 consult corfu counsel dired-hist
-			 dired-subtree doom-modeline-now-playing dune
-			 eat ef-themes elcord eldoc-box elfeed emojify
-			 esh-autosuggest exec-path-from-shell exwm
-			 fireplace fish-completion
-			 flyspell-correct-ivy gnu-elpa-keyring-update
-			 go-translate hide-mode-line magit mingus mu4e
-			 mu4e-alert multiple-cursors nerd-icons-corfu
-			 nov ocamlformat opam-switch-mode org-alert
-			 org-fragtog org-roam org-roam-ui pacmacs
-			 proof-general quelpa rustic shrface smex
-			 tablist trashed tuareg wallabag
-			 writeroom-mode yaml-mode)))
+   '(aio all-the-icons-dired all-the-icons-ivy-rich anki-mode auctex avy
+	 bluetooth browse-kill-ring calibredb company-coq consult
+	 corfu counsel dired-hist dired-subtree
+	 doom-modeline-now-playing dune eat ef-themes elcord eldoc-box
+	 elfeed emojify esh-autosuggest exec-path-from-shell exwm
+	 fireplace fish-completion flycheck flyspell-correct-ivy
+	 gnu-elpa-keyring-update go-translate goto-chg hide-mode-line
+	 magit mingus mu4e-alert multiple-cursors nerd-icons-corfu nov
+	 ocamlformat opam-switch-mode org-alert org-fragtog
+	 org-roam-ui pacmacs proof-general quelpa rustic shrface smex
+	 tablist trashed tuareg writeroom-mode yaml-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

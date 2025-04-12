@@ -27,11 +27,11 @@ Install ~quelpa~
   (use-package quelpa)
 #+end_src
 GNU keys to enable downloading packages
-#+Begin_Src Emacs-Lisp :Results None
-  (Use-Package Gnu-Elpa-Keyring-Update)
-#+End_Src
+#+begin_src emacs-lisp :results none
+  (use-package gnu-elpa-keyring-update)
+#+end_src
 * Some Miscellaneous Configurations
-Enable Creation Of Pairs Of Brackets Or quotes when one is inserted.
+enable creation of pairs of brackets or quotes when one is inserted.
 #+begin_src emacs-lisp :results none
   (setq skeleton-pair t)
   (bind-key "(" 'skeleton-pair-insert-maybe)
@@ -61,16 +61,16 @@ Keybindings for navigating functions
 Better scroll
 #+begin_src emacs-lisp :results none
   (when (display-graphic-p)
-    (Setq Mouse-Wheel-Scroll-Amount '(2 ((Shift) . 1))
-          Mouse-Wheel-Progressive-Speed Nil))
-#+End_Src
-Opens Files At The Last Visited Location
-#+Begin_Src Emacs-Lisp :Results None
-  (Save-Place-Mode 1)
-#+End_Src
-Don't Use Ui Dialogs
-#+Begin_Src Emacs-Lisp :Results None
-  (Setq use-dialog-box nil)
+    (setq mouse-wheel-scroll-amount '(2 ((shift) . 1))
+          mouse-wheel-progressive-speed nil))
+#+end_src
+opens files at the last visited location
+#+begin_src emacs-lisp :results none
+  (save-place-mode 1)
+#+end_src
+don't use ui dialogs
+#+begin_src emacs-lisp :results none
+  (setq use-dialog-box nil)
 #+end_src
 Makes it so that the compilation window opens in a new frame
 #+begin_src emacs-lisp :results none
@@ -1302,99 +1302,99 @@ Pretty mode line
 Minimal ~exwm~ configuration
 #+begin_src emacs-lisp :results none
 
-  (defun efs/run-in-background (command)
-    (let ((command-parts (split-string command "[ ]+")))
-      (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
+      (defun efs/run-in-background (command)
+        (let ((command-parts (split-string command "[ ]+")))
+          (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
 
-  (defun efs/set-wallpaper ()
-    (interactive)
-    ;; NOTE: You will need to update this to a valid background path!
-    (start-process-shell-command
-        "feh" nil  "feh --bg-scale ~/.config/bg/yorha.png"))
+      (defun efs/set-wallpaper ()
+        (interactive)
+        ;; NOTE: You will need to update this to a valid background path!
+        (start-process-shell-command
+            "feh" nil  "feh --bg-scale ~/.config/bg/yorha.png"))
 
-  (defun efs/exwm-init-hook ()
-    ;; Make workspace 1 be the one where we land at startup
-    (exwm-workspace-switch-create 1)
+      (defun efs/exwm-init-hook ()
+        ;; Make workspace 1 be the one where we land at startup
+        (exwm-workspace-switch-create 1)
 
-    ;; Open eshell by default
-    (eshell)
+        ;; Open eshell by default
+        (eshell)
 
-    ;; Show battery status in the mode line
-    (display-battery-mode 1)
+        ;; Show battery status in the mode line
+        (display-battery-mode 1)
 
-    ;; Launch apps that will run in the background
-    (efs/run-in-background "cbatticon")
-    (efs/run-in-background "~./update.sh")
-    (efs/run-in-background "nm-applet")
-    (efs/run-in-background "polybar"))
+        ;; Launch apps that will run in the background
+        (efs/run-in-background "cbatticon")
+        (efs/run-in-background "~./update.sh")
+        (efs/run-in-background "nm-applet")
+        (efs/run-in-background "polybar"))
 
-  (defun efs/exwm-update-class ()
-    (exwm-workspace-rename-buffer exwm-class-name))
+      (defun efs/exwm-update-class ()
+        (exwm-workspace-rename-buffer exwm-class-name))
 
-  (exwm-randr-mode 1)
+      (exwm-randr-mode 1)
 
-  (use-package exwm
-    :config
-    ;; Set the default number of workspaces
-    (setq exwm-workspace-number 5)
+      (use-package exwm
+        :config
+        ;; Set the default number of workspaces
+        (setq exwm-workspace-number 5)
 
-    ;; When window "class" updates, use it to set the buffer name
-    (add-hook 'exwm-update-class-hook #'efs/exwm-update-class)
+        ;; When window "class" updates, use it to set the buffer name
+        (add-hook 'exwm-update-class-hook #'efs/exwm-update-class)
 
-    ;; When EXWM starts up, do some extra confifuration
-    (add-hook 'exwm-init-hook #'efs/exwm-init-hook)
+        ;; When EXWM starts up, do some extra confifuration
+        (add-hook 'exwm-init-hook #'efs/exwm-init-hook)
 
-    ;; Set the wallpaper after changing the resolution
-    ;;(efs/set-wallpaper)
+        ;; Set the wallpaper after changing the resolution
+        ;;(efs/set-wallpaper)
 
-    ;; Load the system tray before exwm-init
-    (require 'exwm-systemtray)
-    (setq exwm-systemtray-height 32)
-    (exwm-systemtray-enable)
+        ;; Load the system tray before exwm-init
+        ;; (require 'exwm-systemtray)
+        ;; (setq exwm-systemtray-height 32)
+        ;; (exwm-systemtray-enable)
 
-    ;; These keys should always pass through to Emacs
-    (setq exwm-input-prefix-keys
-      '(?\C-x
-        ?\C-u
-        ?\C-h
-        ?\M-x
-        ?\M-`
-        ?\M-&
-        ?\M-:
-        ?\C-\M-j  ;; Buffer list
-        ?\C-\ ))  ;; Ctrl+Space
+        ;; These keys should always pass through to Emacs
+        (setq exwm-input-prefix-keys
+          '(?\C-x
+            ?\C-u
+            ?\C-h
+            ?\M-x
+            ?\M-`
+            ?\M-&
+            ?\M-:
+            ?\C-\M-j  ;; Buffer list
+            ?\C-\ ))  ;; Ctrl+Space
 
-    ;; Ctrl+Q will enable the next key to be sent directly
-    (define-key exwm-mode-map [?\C-q] 'exwm-input-send-next-key)
+        ;; Ctrl+Q will enable the next key to be sent directly
+        (define-key exwm-mode-map [?\C-q] 'exwm-input-send-next-key)
 
-    ;; Set up global key bindings.  These always work, no matter the input state!
-    ;; Keep in mind that changing this list after EXWM initializes has no effect.
-    (setq exwm-input-global-keys
-          `(
-            ;; Reset to line-mode (C-c C-k switches to char-mode via exwm-input-release-keyboard)
-            ([?\s-r] . exwm-reset)
+        ;; Set up global key bindings.  These always work, no matter the input state!
+        ;; Keep in mind that changing this list after EXWM initializes has no effect.
+        (setq exwm-input-global-keys
+              `(
+                ;; Reset to line-mode (C-c C-k switches to char-mode via exwm-input-release-keyboard)
+                ([?\s-r] . exwm-reset)
 
-            ;; Move between windows
-  ;          ([s-left] . windmove-left)
-   ;         ([s-right] . windmove-right)
-    ;        ([s-up] . windmove-up)
-     ;       ([s-down] . windmove-down)
+                ;; Move between windows
+               ([s-left] . windmove-left)
+               ([s-right] . windmove-right)
+               ([s-up] . windmove-up)
+               ([s-down] . windmove-down)
 
-            ;; Switch workspace
-            ([?\s-w] . exwm-workspace-switch)
-            ([?\s-`] . (lambda () (interactive) (exwm-workspace-switch-create 0)))
+  ;;            Switch workspace
+                ([?\s-w] . exwm-workspace-switch)
+                ([?\s-`] . (lambda () (interactive) (exwm-workspace-switch-create 0)))
 
-            ;; 's-N': Switch to certain workspace with Super (Win) plus a number key (0 - 9)
-            ,@(mapcar (lambda (i)
-                        `(,(kbd (format "s-%d" i)) .
-                          (lambda ()
-                            (interactive)
-                            (exwm-workspace-switch-create ,i))))
-                      (number-sequence 1 9))))
+                ;; 's-N': Switch to certain workspace with Super (Win) plus a number key (0 - 9)
+                ,@(mapcar (lambda (i)
+                            `(,(kbd (format "s-%d" i)) .
+                              (lambda ()
+                                (interactive)
+                                (exwm-workspace-switch-create ,i))))
+                          (number-sequence 1 9))))
 
-;    (exwm-input-set-key (kbd "s-d") 'counsel-linux-app)
- ;   (exwm-input-set-key (kbd "s-c") 'kill-this-buffer)
+       (exwm-input-set-key (kbd "s-d") 'counsel-linux-app)
+       (exwm-input-set-key (kbd "s-c") 'kill-this-buffer)
 
-    (exwm-enable))
+       (exwm-enable))
 
 #+end_src
