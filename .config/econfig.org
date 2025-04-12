@@ -1301,15 +1301,24 @@ Pretty mode line
   (setq mu4e-hide-index-messages t)
 #+end_src
 * EXWM
-Minimal ~exwm~ configuration
 #+begin_src emacs-lisp :results none
-  (require 'exwm)
-  ;; Set the initial workspace number.
+  (use-package exwm)
+#+end_src
+
+Setting the initial workspace number
+#+begin_src emacs-lisp :results none
   (setq exwm-workspace-number 4)
-  ;; Make class name the buffer name.
+#+end_src
+
+Make it so that EXWM buffers are named after the window they are managing
+#+begin_src emacs-lisp :results none
   (add-hook 'exwm-update-class-hook
   	  (lambda () (exwm-workspace-rename-buffer exwm-class-name)))
+#+end_src
 
+In an EXWM buffer, the bindings on the left are mapped to the bindings
+on the right. This way, we can use Emacs keybindings in X windows.
+#+begin_src emacs-lisp :results none
   (setq exwm-input-simulation-keys
         '(([?\C-b] . [left])
           ([?\C-f] . [right])
@@ -1324,33 +1333,133 @@ Minimal ~exwm~ configuration
           ([?\C-d] . [delete])
   	([?\C-s] . [C-f])
           ([?\C-k] . [S-end delete])))
+#+end_src
 
+Enable a system tray in the minibuffer. This is where icons for the
+network manager and other background applications will be.
+#+begin_src emacs-lisp :results none
+  (exwm-systemtray-mode)
+#+end_src
+
+Hide the mode line in X windows
+#+begin_src emacs-lisp :results none
+  (add-hook 'exwm-manage-finish-hook #'exwm-layout-hide-mode-line)
+#+end_src
+
+Transparent emacs frames
+#+begin_src emacs-lisp :results none
+  (set-frame-parameter (selected-frame) 'alpha '(90 . 90))
+  (add-to-list 'default-frame-alist '(alpha . (90 . 90)))
+#+end_src
+
+** Background processes
+Helper function to run a program in the background
+#+begin_src emacs-lisp :results none
+  (defun efs/run-in-background (command)
+    (let ((command-parts (split-string command "[ ]+")))
+      (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
+#+end_src
+
+Network manager applet
+#+begin_src emacs-lisp :results none
+  (efs/run-in-background "nm-applet")
+#+end_src
+
+Messaging apps
+#+begin_src emacs-lisp :results none
+  (efs/run-in-background "discord --start-minimized")
+  (efs/run-in-background "slack --startup")
+#+end_src
+
+Music player
+#+begin_src emacs-lisp :results none
+  (efs/run-in-background "mpd")
+  (efs/run-in-background "mpd-notification")
+  (start-process-shell-command "work" nil "~/.config/work.sh")
+#+end_src
+
+Auto-pause media when headphones are disconnected
+#+begin_src emacs-lisp :results none
+  (start-process-shell-command "autopause" nil " ~/.config/autopause.sh")
+#+end_src
+
+Auto-mount usb drives
+#+begin_src emacs-lisp :results none
+  (efs/run-in-background "udiskie")
+#+end_src
+
+Notification daemon
+#+begin_src emacs-lisp :results none
+  (efs/run-in-background "dunst")
+#+end_src
+
+Battery notifications
+#+begin_src emacs-lisp :results none
+  (efs/run-in-background "cbatticon")
+#+end_src
+
+Compositor
+#+begin_src emacs-lisp :results none
+  (efs/run-in-background "picom")
+#+end_src
+
+Background image
+#+begin_src emacs-lisp :results none
+  (start-process-shell-command
+   "feh" nil
+   "feh --bg-scale ~/.config/bg/lain.jpeg")
+#+end_src
+** Initialisation configuration
+Some configurations that have to be run once EXWM is fully
+initialised.
+
+#+begin_src emacs-lisp :results none
+  (defun efs/init ()
+    (progn
+      (exwm-workspace-switch-create 1)
+      (eshell)))
+
+  (add-hook 'exwm-init-hook #'efs/init)
+#+end_src
+
+** Keybindings
+Reset EXWM
+#+begin_src emacs-lisp :results none
+  (exwm-input-set-key (kbd "s-r") 'exwm-reset)
+#+end_src
+
+Switch workspace
+#+begin_src emacs-lisp :results none
+  (exwm-input-set-key (kbd "s-w") 'exwm-workspace-switch)
+#+end_src
+
+Kill the current buffer
+#+begin_src emacs-lisp :results none
+  (exwm-input-set-key (kbd "s-c") 'kill-this-buffer)
+#+end_src
+
+Window movement
+#+begin_src emacs-lisp :results none
+  (exwm-input-set-key (kbd "s-l") 'windmove-right)
+  (exwm-input-set-key (kbd "s-j") 'windmove-left)
+  (exwm-input-set-key (kbd "s-i") 'windmove-up)
+  (exwm-input-set-key (kbd "s-k") 'windmove-down)
+#+end_src
+
+#+begin_src emacs-lisp :results none
   ;; Global keybindings.
   (setq exwm-input-global-keys
-        `(([?\s-r] . exwm-reset) ;; s-r: Reset (to line-mode).
-          ([?\s-w] . exwm-workspace-switch) ;; s-w: Switch workspace.
+        `( ;; s-w: Switch workspace.
           ([?\s-d] . (lambda (cmd) ;; s-&: Launch application.
                        (interactive (list (read-shell-command "$ ")))
                        (start-process-shell-command cmd nil cmd)))
     	;; close window
-    	([?\s-c] . (lambda () (interactive) (kill-this-buffer)))
     	;; window movement
-    	([?\s-l] . windmove-right)
-    	([?\s-j] . windmove-left)
-    	([?\s-i] . windmove-up)
-    	([?\s-k] . windmove-down)
           ;; s-N: Switch to certain workspace.
           ,@(mapcar (lambda (i)
                       `(,(kbd (format "s-%d" i)) .
                         (lambda ()
                           (interactive)
                           (exwm-workspace-switch-create ,i))))
-                    (number-sequence 0 9))))
-  ;; Enable EXWM
-  (exwm-enable)
-  ;; Enables a system tray for exwm
-  (exwm-systemtray-mode)
-
-  (add-hook 'exwm-manage-finish-hook #'exwm-layout-hide-mode-line)
-  (exwm-workspace-delete)
+                    (number-sequence 1 9))))
 #+end_src
