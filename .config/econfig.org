@@ -1308,3 +1308,60 @@ Pretty mode line
 
   (setq mu4e-search-threads nil)
 #+end_src
+* EXWM
+Minimal ~exwm~ configuration
+#+begin_src emacs-lisp :results none
+(use-package exwm)
+
+; Set the initial workspace number.
+(setq exwm-workspace-number 4)
+;; Make class name the buffer name.
+(add-hook 'exwm-update-class-hook
+  (lambda () (exwm-workspace-rename-buffer exwm-class-name)))
+
+(require 'exwm-randr)
+(exwm-randr-enable)
+
+(setq exwm-input-prefix-keys
+    '(?\C-x
+      ?\C-u
+      ?\C-h
+      ?\M-x
+      ?\M-`
+      ?\M-&
+      ?\M-:
+      ?\C-\M-j  ;; Buffer list
+      ?\C-\ ))  ;; Ctrl+Space
+
+
+;; Global keybindings.
+(setq exwm-input-global-keys
+      `(([?\s-r] . exwm-reset) ;; s-r: Reset (to line-mode).
+        ([?\s-w] . exwm-workspace-switch) ;; s-w: Switch workspace.
+        ([?\s-&] . (lambda (cmd) ;; s-&: Launch application.
+                     (interactive (list (read-shell-command "$ ")))
+                     (start-process-shell-command cmd nil cmd)))
+        ;; s-N: Switch to certain workspace.
+        ,@(mapcar (lambda (i)
+                    `(,(kbd (format "s-%d" i)) .
+                      (lambda ()
+                        (interactive)
+                        (exwm-workspace-switch-create ,i))))
+                  (number-sequence 0 9))))
+
+;; Enable EXWM
+(exwm-enable)
+#+end_src
+
+Get emacs keybindings everywhere
+#+begin_src emacs-lisp :results none
+(setq exwm-input-simulation-keys
+      '(([?\C-b] . [left])
+        ([?\C-f] . [right])
+        ([?\C-p] . [up])
+        ([?\C-n] . [down])
+        ([?\C-a] . [home])
+        ([?\C-e] . [end])
+        ([?\C-d] . [delete])
+        ([?\C-k] . [S-end delete])))
+#+end_src

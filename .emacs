@@ -15,7 +15,7 @@
 			 consult corfu counsel dired-hist
 			 dired-subtree doom-modeline-now-playing dune
 			 eat ef-themes elcord eldoc-box elfeed emojify
-			 esh-autosuggest exec-path-from-shell
+			 esh-autosuggest exec-path-from-shell exwm
 			 fireplace fish-completion
 			 flyspell-correct-ivy gnu-elpa-keyring-update
 			 go-translate hide-mode-line magit mingus mu4e
