@@ -778,7 +778,7 @@ Capture templates for org roam.
   ))
 #+end_src
 * PDFs
-Opens the current file in ~zathura~ and kill the buffer.
+Opens the current file in ~zathura~ and kills the Doc View buffer.
 #+begin_src emacs-lisp :results none
   (defun zathura ()
     (start-process "zathura" nil "zathura" (buffer-file-name))
@@ -1167,15 +1167,18 @@ Disables a bunch of needless UI noise.
 #+end_src
 Pretty mode line
 #+begin_src emacs-lisp :results none
-    (use-package doom-modeline)
-    (doom-modeline-mode 1)
+      (use-package doom-modeline)
+      (doom-modeline-mode 1)
 
-    (use-package doom-modeline-now-playing)
-    (doom-modeline-now-playing-timer)
+      (use-package doom-modeline-now-playing)
+      (doom-modeline-now-playing-timer)
 
-  (doom-modeline-def-modeline 'main
-      '(bar matches buffer-info buffer-position now-playing)
-      '(matches major-mode))
+    (setq calendar-date-display-form
+  	((if dayname (concat dayname ", ")) day " " monthname " " year))
+
+    (doom-modeline-def-modeline 'main
+        '(bar matches buffer-info buffer-position now-playing)
+        '(time major-mode))
 
 #+end_src
 * Email
