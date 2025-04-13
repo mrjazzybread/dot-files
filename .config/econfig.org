@@ -1003,21 +1003,6 @@ another window in the same frame, it selects that buffer by default
   (defun set-envs (l) (dolist (p (nth 0 l)) (setenv (nth 0 p) (nth 1 p))))
 #+end_src
 ** ~Eshell~ configuration
-Stupid bug in ~Eshell~ makes it so that sometimes when I press tab the
-mode line reappears, so I made this dumb function.
-
-#+begin_src emacs-lisp :results none
-  (defun stupid ()
-    (interactive)
-    (completion-at-point)
-    (hide-mode-line-mode)
-    (hide-mode-line-mode)
-    )
-
-  (add-hook 'eshell-mode-hook
-          (lambda ()
-            (define-key eshell-mode-map (kbd "<tab>") #'stupid)))
-#+end_src
 Startup configuration. Sets the opam environment variables and runs
 ~fastfetch~.
 #+begin_src emacs-lisp :results none
@@ -1301,6 +1286,17 @@ Pretty mode line
 
   (setq mu4e-hide-index-messages t)
 #+end_src
+* Window Management
+Resizes the active window according to the gold ratio (extremely dope).
+#+begin_src emacs-lisp :results none
+  (use-package golden-ratio)
+  (golden-ratio-mode 1)
+#+end_src
+
+Full screen
+#+begin_src emacs-lisp :results none
+  (use-package zoom-window)
+#+end_src
 
 * EXWM
 #+begin_src emacs-lisp :results none
@@ -1354,6 +1350,49 @@ Transparent emacs frames
   (add-to-list 'default-frame-alist '(alpha . (90 . 90)))
 #+end_src
 
+** Keybindings for desktop utilities
+We use the ~desktop-environment~ package to help us change the volume,
+adjust brightness, etc...
+#+begin_src emacs-lisp :results none
+  (use-package desktop-environment)
+  (desktop-environment-mode 1)
+#+end_src
+
+Disable the keybinding for locking the screen as we use this binding
+for window navigation
+#+begin_src emacs-lisp :results none
+  (define-key desktop-environment-mode-map (kbd "s-l") nil t)
+#+end_src
+
+Command for muting the volume
+#+begin_src emacs-lisp :results none
+  (setq desktop-environment-volume-toggle-command
+        "amixer -D pulse set Master 1+ toggle")
+#+end_src
+
+Command for setting the volume
+#+begin_src emacs-lisp :results none
+  (setq desktop-environment-volume-set-command
+        "~/.config/vol_set.sh %s")
+#+end_src
+
+Command for getting the current value of the volume
+#+begin_src emacs-lisp :results none
+  (setq desktop-environment-volume-get-command
+        "amixer -D pulse get Master")
+#+end_src
+
+Command for screenshots
+#+begin_src emacs-lisp :results none
+  (setq desktop-environment-screenshot-directory
+        "~/pictures")
+#+end_src
+
+Locking the screen also pauses any media
+#+begin_src emacs-lisp :results none
+  (setq desktop-environment-screenlock-command "~/.config/lock.sh")
+#+end_src
+
 ** Background processes
 Helper function to run a program in the background
 #+begin_src emacs-lisp :results none
@@ -1383,6 +1422,11 @@ Music player
   (efs/run-in-background "mpd")
   (efs/run-in-background "mpd-notification")
   (start-process-shell-command "work" nil "~/.config/work.sh")
+#+end_src
+
+Update config files
+#+begin_src emacs-lisp :results none
+  (start-process-shell-command "config" nil "~/.update.sh")
 #+end_src
 
 Auto-pause media when headphones are disconnected
@@ -1428,11 +1472,17 @@ Switch workspace
   (exwm-input-set-key (kbd "s-w") 'exwm-workspace-switch)
 #+end_src
 
-Kill the current buffer. For some reason I have to wrap the
-~kill-this-buffer~ function with an ~interactive~ lambda
+#+begin_src emacs-lisp :results none
+  (add-hook 'window-size-change-functions #'rotate:main-vertical)
+#+end_src
+
+Kill the current buffer and delete the window
 #+begin_src emacs-lisp :results none
   (exwm-input-set-key (kbd "s-c")
-  		    (lambda () (interactive) (kill-this-buffer)))
+  		    (lambda () (interactive)
+  		      (progn
+  		      (kill-this-buffer)
+  		      (delete-window))))
 #+end_src
 
 Window movement
@@ -1443,16 +1493,35 @@ Window movement
   (exwm-input-set-key (kbd "s-k") 'windmove-down)
 #+end_src
 
-Start a desktop application using /counsel linux app/
+Window management
 #+begin_src emacs-lisp :results none
+  (exwm-input-set-key (kbd "s-L") 'windmove-swap-states-right)
+  (exwm-input-set-key (kbd "s-J") 'windmove-swap-states-left)
+  (exwm-input-set-key (kbd "s-I") 'windmove-swap-states-up)
+  (exwm-input-set-key (kbd "s-K") 'windmove-swap-states-down)
+#+end_src
+
+Start a desktop application using /counsel linux app/ in a new window
+#+begin_src emacs-lisp :results none
+  (defun open-app ()
+    (interactive)
+    (unwind-protect
+        (counsel-linux-app))
+    (split-window-right))
+
   (setq counsel-linux-app-format-function
         #'counsel-linux-app-format-function-name-only)
-  (exwm-input-set-key (kbd "s-d") 'counsel-linux-app)
+  (exwm-input-set-key (kbd "s-d") 'open-app)
 #+end_src
 
 Suspend the computer
 #+begin_src emacs-lisp :results none
-  (exwm-input-set-key (kbd "s-ESC") 'desktop-environment-lock-screen)
+  (exwm-input-set-key (kbd "s-<escape>") 'desktop-environment-lock-screen)
+#+end_src
+
+"Fullscreen mode"
+#+begin_src emacs-lisp :results none
+  (exwm-input-set-key (kbd "s-f") 'zoom-window-zoom)
 #+end_src
 
 Keybindings to switch the current workspace

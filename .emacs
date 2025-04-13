@@ -15,12 +15,13 @@
 	 corfu counsel desktop-environment dired-hist dired-subtree
 	 doom-modeline-now-playing dune eat ef-themes elcord eldoc-box
 	 elfeed emojify esh-autosuggest exec-path-from-shell exwm
-	 fireplace fish-completion flycheck flyspell-correct-ivy
-	 gnu-elpa-keyring-update go-translate goto-chg hide-mode-line
-	 magit mingus mu4e-alert multiple-cursors nerd-icons-corfu nov
-	 ocamlformat opam-switch-mode org-alert org-fragtog
-	 org-roam-ui pacmacs proof-general quelpa rustic shrface smex
-	 tablist trashed tuareg writeroom-mode yaml-mode)))
+	 eyebrowse fireplace fish-completion flycheck
+	 flyspell-correct-ivy gnu-elpa-keyring-update go-translate
+	 golden-ratio goto-chg magit mingus mu4e-alert
+	 multiple-cursors nerd-icons-corfu nov ocamlformat
+	 opam-switch-mode org-alert org-fragtog org-roam-ui pacmacs
+	 proof-general quelpa rotate rustic shrface smex tablist
+	 trashed tuareg writeroom-mode yaml-mode zoom-window)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
