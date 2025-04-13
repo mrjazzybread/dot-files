@@ -21,7 +21,8 @@
 	 multiple-cursors nerd-icons-corfu nov ocamlformat
 	 opam-switch-mode org-alert org-fragtog org-roam-ui pacmacs
 	 proof-general quelpa rotate rustic shrface smex tablist
-	 trashed tuareg writeroom-mode yaml-mode zoom-window)))
+	 trashed tuareg writeroom-mode yaml-mode zoom-window))
+ '(zoom-window-mode-line-color "pink"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
