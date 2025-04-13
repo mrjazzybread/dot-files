@@ -1298,6 +1298,11 @@ Full screen
   (use-package zoom-window)
 #+end_src
 
+Gaps
+#+begin_src emacs-lisp :results none
+  (window-divider-mode 1)
+#+end_src
+
 * EXWM
 #+begin_src emacs-lisp :results none
   (use-package exwm)
