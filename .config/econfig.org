@@ -1505,8 +1505,11 @@ Start a desktop application using /counsel linux app/ in a new window
   (defun open-app ()
     (interactive)
     (unwind-protect
-        (counsel-linux-app))
-    (split-window-right))
+        (if (not (equal (buffer-name) "*scratch*"))				;
+  	  (progn
+  	   (split-window-right)
+  	   (windmove-right)))
+        (counsel-linux-app)))
 
   (setq counsel-linux-app-format-function
         #'counsel-linux-app-format-function-name-only)
