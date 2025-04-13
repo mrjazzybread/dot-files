@@ -1167,18 +1167,15 @@ Disables a bunch of needless UI noise.
 #+end_src
 Pretty mode line
 #+begin_src emacs-lisp :results none
-      (use-package doom-modeline)
-      (doom-modeline-mode 1)
+  (use-package doom-modeline)
+  (doom-modeline-mode 1)
 
-      (use-package doom-modeline-now-playing)
-      (doom-modeline-now-playing-timer)
+  (use-package doom-modeline-now-playing)
+  (doom-modeline-now-playing-timer)
 
-    (setq calendar-date-display-form
-  	((if dayname (concat dayname ", ")) day " " monthname " " year))
-
-    (doom-modeline-def-modeline 'main
-        '(bar matches buffer-info buffer-position now-playing)
-        '(time major-mode))
+  (doom-modeline-def-modeline 'main
+    '(bar matches buffer-info buffer-position now-playing)
+    '(time major-mode))
 
 #+end_src
 * Email
