@@ -230,6 +230,7 @@ Update displays
              (string-trim (shell-command-to-string "autorandr --current"))))
 
   (add-hook 'exwm-randr-screen-change-hook #'efs/update-displays)
+  (exwm-randr-mode 1)
   (efs/update-displays)
 #+end_src
 
