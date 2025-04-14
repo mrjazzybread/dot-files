@@ -1482,11 +1482,11 @@ I never know man
 ** Multiple monitors
 I truly never know man
 #+begin_src emacs-lisp :results none
-  (setq exwm-randr-workspace-monitor-plist '(0 "VGA1"))
+  (setq exwm-randr-workspace-monitor-plist '(0 "HDMI-1-0"))
   (add-hook 'exwm-randr-screen-change-hook
             (lambda ()
               (start-process-shell-command
-               "xrandr" nil "xrandr --output VGA1 --left-of LVDS1 --auto")))
+               "xrandr" nil "xrandr --output HDMI-1-0 --left-of eDP-1 --auto")))
   (exwm-randr-mode 1)
 #+end_src
 ** Keybindings
