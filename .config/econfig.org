@@ -1198,7 +1198,7 @@ Pretty mode line
     (setq mu4e-change-filenames-when-moving t)
     (setq mu4e-context-policy "pick-first")
     ;; Refresh mail using isync every 10 minutes
-    (setq mu4e-update-interval 60)
+    (setq mu4e-update-interval 60000)
     (setq mu4e-get-mail-command "mbsync -a")
     (setq mu4e-maildir "~/mail")
 
@@ -1504,12 +1504,7 @@ Start a desktop application using /counsel linux app/ in a new window
 #+begin_src emacs-lisp :results none
   (defun open-app ()
     (interactive)
-    (unwind-protect
-        (if (not (equal (buffer-name) "*scratch*"))				;
-  	  (progn
-  	   (split-window-right)
-  	   (windmove-right)))
-        (counsel-linux-app)))
+    (counsel-linux-app))
 
   (setq counsel-linux-app-format-function
         #'counsel-linux-app-format-function-name-only)
