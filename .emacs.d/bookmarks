@@ -126,9 +126,9 @@
  (position . 1)
  (last-modified 26427 36304 305026 399000))
 ("org-capture-last-stored"
- (filename . "~/roam/daily/2025-04-13.org")
- (front-context-string)
- (rear-context-string . "tle: 2025-04-13\n")
+ (filename . "~/roam/daily/2025-04-14.org")
+ (front-context-string . "* Work\n\nRemy is ")
+ (rear-context-string . "tle: 2025-04-14\n")
  (position . 88)
- (last-modified 26620 13155 57729 479000))
+ (last-modified 26621 9913 670781 83000))
 )
