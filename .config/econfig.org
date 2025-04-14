@@ -30,6 +30,284 @@ GNU keys to enable downloading packages
 #+begin_src emacs-lisp :results none
   (use-package gnu-elpa-keyring-update)
 #+end_src
+* EXWM
+#+begin_src emacs-lisp :results none
+  (use-package exwm)
+    #+end_src
+
+Setting the initial workspace number
+#+begin_src emacs-lisp :results none
+  (setq exwm-workspace-number 4)
+#+end_src
+
+Make it so that EXWM buffers are named after the window they are managing
+#+begin_src emacs-lisp :results none
+  (add-hook 'exwm-update-class-hook
+  	  (lambda () (exwm-workspace-rename-buffer exwm-class-name)))
+#+end_src
+
+In an EXWM buffer, the bindings on the left are mapped to the bindings
+on the right. This way, we can use Emacs keybindings in X windows.
+#+begin_src emacs-lisp :results none
+  (setq exwm-input-simulation-keys
+        '(([?\C-b] . [left])
+          ([?\C-f] . [right])
+          ([?\C-p] . [up])
+          ([?\C-n] . [down])
+          ([?\C-a] . [home])
+          ([?\C-e] . [end])
+          ([?\M-v] . [prior])
+  	([?\M-w] . [C-c])
+  	([?\C-y] . [C-v])
+          ([?\C-v] . [next])
+          ([?\C-d] . [delete])
+  	([?\C-s] . [C-f])
+          ([?\C-k] . [S-end delete])))
+#+end_src
+
+Enable a system tray in the minibuffer. This is where icons for the
+network manager and other background applications will be.
+#+begin_src emacs-lisp :results none
+  (exwm-systemtray-mode)
+#+end_src
+
+Hide the mode line in X windows
+#+begin_src emacs-lisp :results none
+  (add-hook 'exwm-manage-finish-hook #'exwm-layout-hide-mode-line)
+#+end_src
+
+Transparent emacs frames
+#+begin_src emacs-lisp :results none
+  (set-frame-parameter (selected-frame) 'alpha '(90 . 90))
+  (add-to-list 'default-frame-alist '(alpha . (90 . 90)))
+#+end_src
+
+** Keybindings for desktop utilities
+We use the ~desktop-environment~ package to help us change the volume,
+adjust brightness, etc...
+#+begin_src emacs-lisp :results none
+  (use-package desktop-environment)
+  (desktop-environment-mode 1)
+#+end_src
+
+Disable the keybinding for locking the screen as we use this binding
+for window navigation
+#+begin_src emacs-lisp :results none
+  (define-key desktop-environment-mode-map (kbd "s-l") nil t)
+#+end_src
+
+Command for muting the volume
+#+begin_src emacs-lisp :results none
+  (setq desktop-environment-volume-toggle-command
+        "amixer -D pulse set Master 1+ toggle")
+#+end_src
+
+Command for setting the volume
+#+begin_src emacs-lisp :results none
+  (setq desktop-environment-volume-set-command
+        "~/.config/vol_set.sh %s")
+#+end_src
+
+Command for getting the current value of the volume
+#+begin_src emacs-lisp :results none
+  (setq desktop-environment-volume-get-command
+        "amixer -D pulse get Master")
+#+end_src
+
+Command for screenshots
+#+begin_src emacs-lisp :results none
+  (setq desktop-environment-screenshot-directory
+        "~/pictures")
+#+end_src
+
+Locking the screen also pauses any media
+#+begin_src emacs-lisp :results none
+  (setq desktop-environment-screenlock-command "~/.config/lock.sh")
+#+end_src
+
+** Background processes
+Helper function to run a program in the background
+#+begin_src emacs-lisp :results none
+  (defun efs/run-in-background (command)
+    (let ((command-parts (split-string command "[ ]+")))
+      (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
+#+end_src
+
+Network manager applet
+#+begin_src emacs-lisp :results none
+  (efs/run-in-background "nm-applet")
+#+end_src
+
+Sound display
+#+begin_src emacs-lisp :results none
+  (efs/run-in-background "volumeicon")
+#+end_src
+
+Messaging apps
+#+begin_src emacs-lisp :results none
+  (efs/run-in-background "discord --start-minimized")
+  (efs/run-in-background "slack --startup")
+#+end_src
+
+Music player
+#+begin_src emacs-lisp :results none
+  (efs/run-in-background "mpd")
+  (efs/run-in-background "mpd-notification")
+  (start-process-shell-command "work" nil "~/.config/work.sh")
+#+end_src
+
+Update config files
+#+begin_src emacs-lisp :results none
+  (start-process-shell-command "config" nil "~/.update.sh")
+#+end_src
+
+Auto-pause media when headphones are disconnected
+#+begin_src emacs-lisp :results none
+  (start-process-shell-command "autopause" nil " ~/.config/autopause.sh")
+#+end_src
+
+Auto-mount usb drives
+#+begin_src emacs-lisp :results none
+  (efs/run-in-background "udiskie")
+#+end_src
+
+Notification daemon
+#+begin_src emacs-lisp :results none
+  (efs/run-in-background "dunst")
+#+end_src
+
+Battery notifications
+#+begin_src emacs-lisp :results none
+  (efs/run-in-background "cbatticon")
+#+end_src
+
+Compositor
+#+begin_src emacs-lisp :results none
+  (efs/run-in-background "picom")
+#+end_src
+
+** GPG
+I never know man
+#+begin_src emacs-lisp :results none
+  ;; let's get encryption established
+  (use-package pinentry)
+  (setenv "GPG_AGENT_INFO" nil)  ;; use emacs pinentry
+  (setq auth-source-debug t)
+
+  (setq epg-gpg-program "gpg2")  ;; not necessary
+  (require 'epa-file)
+  (epa-file-enable)
+  (setq epa-pinentry-mode 'loopback)
+  (setq epg-pinentry-mode 'loopback)
+  (pinentry-start)
+
+  (require 'org-crypt)
+  (org-crypt-use-before-save-magic)
+#+end_src
+
+** Multiple monitors
+Set the initial workspace for each display
+#+begin_src emacs-lisp :results none
+  (setq exwm-randr-workspace-monitor-plist '(0 "HDMI-1-0"))
+#+end_src
+
+Mouse warping
+#+begin_src emacs-lisp :results none
+  (setq exwm-workspace-warp-cursor t)
+#+end_src
+
+Focus follows mouse
+#+begin_src emacs-lisp :results none
+  (setq mouse-autoselect-window t
+        focus-follows-mouse t)
+#+end_src
+
+Update displays
+#+begin_src emacs-lisp :results none
+  (defun efs/update-displays ()
+    (efs/run-in-background "autorandr --change --force")
+    (message "Display config: %s"
+             (string-trim (shell-command-to-string "autorandr --current"))))
+
+  (add-hook 'exwm-randr-screen-change-hook #'efs/update-displays)
+  (efs/update-displays)
+#+end_src
+
+#+begin_src emacs-lisp :results none
+  (efs/run-in-background "feh --bg-scale ~/.config/bg/lain.jpeg")
+#+end_src
+** Keybindings
+Reset EXWM
+#+begin_src emacs-lisp :results none
+  (exwm-input-set-key (kbd "s-r") 'exwm-reset)
+#+end_src
+
+Switch workspace
+#+begin_src emacs-lisp :results none
+  (exwm-input-set-key (kbd "s-w") 'exwm-workspace-switch)
+#+end_src
+
+#+begin_src emacs-lisp :results none
+  (add-hook 'window-size-change-functions #'rotate:main-vertical)
+#+end_src
+
+Kill the current buffer and delete the window
+#+begin_src emacs-lisp :results none
+  (exwm-input-set-key (kbd "s-c")
+  		    (lambda () (interactive)
+  		      (progn
+  		      (kill-this-buffer)
+  		      (delete-window))))
+#+end_src
+
+Window movement
+#+begin_src emacs-lisp :results none
+  (exwm-input-set-key (kbd "s-l") 'windmove-right)
+  (exwm-input-set-key (kbd "s-j") 'windmove-left)
+  (exwm-input-set-key (kbd "s-i") 'windmove-up)
+  (exwm-input-set-key (kbd "s-k") 'windmove-down)
+#+end_src
+
+Window management
+#+begin_src emacs-lisp :results none
+  (exwm-input-set-key (kbd "s-L") 'windmove-swap-states-right)
+  (exwm-input-set-key (kbd "s-J") 'windmove-swap-states-left)
+  (exwm-input-set-key (kbd "s-I") 'windmove-swap-states-up)
+  (exwm-input-set-key (kbd "s-K") 'windmove-swap-states-down)
+#+end_src
+
+Start a desktop application using /counsel linux app/ in a new window
+#+begin_src emacs-lisp :results none
+  (defun open-app ()
+    (interactive)
+    (counsel-linux-app))
+
+  (setq counsel-linux-app-format-function
+        #'counsel-linux-app-format-function-name-only)
+  (exwm-input-set-key (kbd "s-d") 'open-app)
+#+end_src
+
+Suspend the computer
+#+begin_src emacs-lisp :results none
+  (exwm-input-set-key (kbd "s-<escape>") 'desktop-environment-lock-screen)
+#+end_src
+
+"Fullscreen mode"
+#+begin_src emacs-lisp :results none
+  (exwm-input-set-key (kbd "s-f") 'zoom-window-zoom)
+#+end_src
+
+Keybindings to switch the current workspace
+#+begin_src emacs-lisp :results none
+  (setq exwm-input-global-keys
+      `( ,@(mapcar (lambda (i)
+                    `(,(kbd (format "s-%d" i)) .
+                      (lambda ()
+                        (interactive)
+                        (exwm-workspace-switch-create ,(- i 1)))))
+                  (number-sequence 1 9))))
+#+end_src
+
 * Some Miscellaneous Configurations
 enable creation of pairs of brackets or quotes when one is inserted.
 #+begin_src emacs-lisp :results none
@@ -1296,265 +1574,4 @@ Resizes the active window according to the gold ratio (extremely dope).
 Full screen
 #+begin_src emacs-lisp :results none
   (use-package zoom-window)
-#+end_src
-* EXWM
-#+begin_src emacs-lisp :results none
-  (use-package exwm)
-    #+end_src
-
-Setting the initial workspace number
-#+begin_src emacs-lisp :results none
-  (setq exwm-workspace-number 4)
-#+end_src
-
-Make it so that EXWM buffers are named after the window they are managing
-#+begin_src emacs-lisp :results none
-  (add-hook 'exwm-update-class-hook
-  	  (lambda () (exwm-workspace-rename-buffer exwm-class-name)))
-#+end_src
-
-In an EXWM buffer, the bindings on the left are mapped to the bindings
-on the right. This way, we can use Emacs keybindings in X windows.
-#+begin_src emacs-lisp :results none
-  (setq exwm-input-simulation-keys
-        '(([?\C-b] . [left])
-          ([?\C-f] . [right])
-          ([?\C-p] . [up])
-          ([?\C-n] . [down])
-          ([?\C-a] . [home])
-          ([?\C-e] . [end])
-          ([?\M-v] . [prior])
-  	([?\M-w] . [C-c])
-  	([?\C-y] . [C-v])
-          ([?\C-v] . [next])
-          ([?\C-d] . [delete])
-  	([?\C-s] . [C-f])
-          ([?\C-k] . [S-end delete])))
-#+end_src
-
-Enable a system tray in the minibuffer. This is where icons for the
-network manager and other background applications will be.
-#+begin_src emacs-lisp :results none
-  (exwm-systemtray-mode)
-#+end_src
-
-Hide the mode line in X windows
-#+begin_src emacs-lisp :results none
-  (add-hook 'exwm-manage-finish-hook #'exwm-layout-hide-mode-line)
-#+end_src
-
-Transparent emacs frames
-#+begin_src emacs-lisp :results none
-  (set-frame-parameter (selected-frame) 'alpha '(90 . 90))
-  (add-to-list 'default-frame-alist '(alpha . (90 . 90)))
-#+end_src
-
-** Keybindings for desktop utilities
-We use the ~desktop-environment~ package to help us change the volume,
-adjust brightness, etc...
-#+begin_src emacs-lisp :results none
-  (use-package desktop-environment)
-  (desktop-environment-mode 1)
-#+end_src
-
-Disable the keybinding for locking the screen as we use this binding
-for window navigation
-#+begin_src emacs-lisp :results none
-  (define-key desktop-environment-mode-map (kbd "s-l") nil t)
-#+end_src
-
-Command for muting the volume
-#+begin_src emacs-lisp :results none
-  (setq desktop-environment-volume-toggle-command
-        "amixer -D pulse set Master 1+ toggle")
-#+end_src
-
-Command for setting the volume
-#+begin_src emacs-lisp :results none
-  (setq desktop-environment-volume-set-command
-        "~/.config/vol_set.sh %s")
-#+end_src
-
-Command for getting the current value of the volume
-#+begin_src emacs-lisp :results none
-  (setq desktop-environment-volume-get-command
-        "amixer -D pulse get Master")
-#+end_src
-
-Command for screenshots
-#+begin_src emacs-lisp :results none
-  (setq desktop-environment-screenshot-directory
-        "~/pictures")
-#+end_src
-
-Locking the screen also pauses any media
-#+begin_src emacs-lisp :results none
-  (setq desktop-environment-screenlock-command "~/.config/lock.sh")
-#+end_src
-
-** Background processes
-Helper function to run a program in the background
-#+begin_src emacs-lisp :results none
-  (defun efs/run-in-background (command)
-    (let ((command-parts (split-string command "[ ]+")))
-      (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
-#+end_src
-
-Network manager applet
-#+begin_src emacs-lisp :results none
-  (efs/run-in-background "nm-applet")
-#+end_src
-
-Sound display
-#+begin_src emacs-lisp :results none
-  (efs/run-in-background "volumeicon")
-#+end_src
-
-Messaging apps
-#+begin_src emacs-lisp :results none
-  (efs/run-in-background "discord --start-minimized")
-  (efs/run-in-background "slack --startup")
-#+end_src
-
-Music player
-#+begin_src emacs-lisp :results none
-  (efs/run-in-background "mpd")
-  (efs/run-in-background "mpd-notification")
-  (start-process-shell-command "work" nil "~/.config/work.sh")
-#+end_src
-
-Update config files
-#+begin_src emacs-lisp :results none
-  (start-process-shell-command "config" nil "~/.update.sh")
-#+end_src
-
-Auto-pause media when headphones are disconnected
-#+begin_src emacs-lisp :results none
-  (start-process-shell-command "autopause" nil " ~/.config/autopause.sh")
-#+end_src
-
-Auto-mount usb drives
-#+begin_src emacs-lisp :results none
-  (efs/run-in-background "udiskie")
-#+end_src
-
-Notification daemon
-#+begin_src emacs-lisp :results none
-  (efs/run-in-background "dunst")
-#+end_src
-
-Battery notifications
-#+begin_src emacs-lisp :results none
-  (efs/run-in-background "cbatticon")
-#+end_src
-
-Compositor
-#+begin_src emacs-lisp :results none
-  (efs/run-in-background "picom")
-#+end_src
-
-Background image
-#+begin_src emacs-lisp :results none
-
-#+end_src
-
-** GPG
-I never know man
-#+begin_src emacs-lisp :results none
-  ;; let's get encryption established
-  (use-package pinentry)
-  (setenv "GPG_AGENT_INFO" nil)  ;; use emacs pinentry
-  (setq auth-source-debug t)
-
-  (setq epg-gpg-program "gpg2")  ;; not necessary
-  (require 'epa-file)
-  (epa-file-enable)
-  (setq epa-pinentry-mode 'loopback)
-  (setq epg-pinentry-mode 'loopback)
-  (pinentry-start)
-
-  (require 'org-crypt)
-  (org-crypt-use-before-save-magic)
-#+end_src
-
-** Multiple monitors
-I truly never know man
-#+begin_src emacs-lisp :results none
-  (setq exwm-randr-workspace-monitor-plist '(0 "HDMI-1-0"))
-  (add-hook 'exwm-randr-screen-change-hook
-            (lambda ()
-              (start-process-shell-command
-               "xrandr" nil "xrandr --output HDMI-1-0 --above eDP-1 --auto")))
-  (exwm-randr-mode 1)
-#+end_src
-** Keybindings
-Reset EXWM
-#+begin_src emacs-lisp :results none
-  (exwm-input-set-key (kbd "s-r") 'exwm-reset)
-#+end_src
-
-Switch workspace
-#+begin_src emacs-lisp :results none
-  (exwm-input-set-key (kbd "s-w") 'exwm-workspace-switch)
-#+end_src
-
-#+begin_src emacs-lisp :results none
-  (add-hook 'window-size-change-functions #'rotate:main-vertical)
-#+end_src
-
-Kill the current buffer and delete the window
-#+begin_src emacs-lisp :results none
-  (exwm-input-set-key (kbd "s-c")
-  		    (lambda () (interactive)
-  		      (progn
-  		      (kill-this-buffer)
-  		      (delete-window))))
-#+end_src
-
-Window movement
-#+begin_src emacs-lisp :results none
-  (exwm-input-set-key (kbd "s-l") 'windmove-right)
-  (exwm-input-set-key (kbd "s-j") 'windmove-left)
-  (exwm-input-set-key (kbd "s-i") 'windmove-up)
-  (exwm-input-set-key (kbd "s-k") 'windmove-down)
-#+end_src
-
-Window management
-#+begin_src emacs-lisp :results none
-  (exwm-input-set-key (kbd "s-L") 'windmove-swap-states-right)
-  (exwm-input-set-key (kbd "s-J") 'windmove-swap-states-left)
-  (exwm-input-set-key (kbd "s-I") 'windmove-swap-states-up)
-  (exwm-input-set-key (kbd "s-K") 'windmove-swap-states-down)
-#+end_src
-
-Start a desktop application using /counsel linux app/ in a new window
-#+begin_src emacs-lisp :results none
-  (defun open-app ()
-    (interactive)
-    (counsel-linux-app))
-
-  (setq counsel-linux-app-format-function
-        #'counsel-linux-app-format-function-name-only)
-  (exwm-input-set-key (kbd "s-d") 'open-app)
-#+end_src
-
-Suspend the computer
-#+begin_src emacs-lisp :results none
-  (exwm-input-set-key (kbd "s-<escape>") 'desktop-environment-lock-screen)
-#+end_src
-
-"Fullscreen mode"
-#+begin_src emacs-lisp :results none
-  (exwm-input-set-key (kbd "s-f") 'zoom-window-zoom)
-#+end_src
-
-Keybindings to switch the current workspace
-#+begin_src emacs-lisp :results none
-  (setq exwm-input-global-keys
-      `( ,@(mapcar (lambda (i)
-                    `(,(kbd (format "s-%d" i)) .
-                      (lambda ()
-                        (interactive)
-                        (exwm-workspace-switch-create ,(- i 1)))))
-                  (number-sequence 1 9))))
 #+end_src
