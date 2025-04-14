@@ -1485,7 +1485,7 @@ I truly never know man
   (add-hook 'exwm-randr-screen-change-hook
             (lambda ()
               (start-process-shell-command
-               "xrandr" nil "xrandr --output VGA1 --left-of LVDS1 --auto")))
+               "xrandr" nil "xrandr --output HDMI-A-1 --left-of eDP-1 --auto")))
   (exwm-randr-mode 1)
 #+end_src
 ** Keybindings
