@@ -229,7 +229,7 @@ Update displays
 
 Background image
 #+begin_src emacs-lisp :results none
-  (start-process-shell-command "feh --bg-scale ~/.config/bg/lain.jpeg")
+  (start-process-shell-command "feh" nil "feh --bg-scale ~/.config/bg/lain.jpeg")
 #+end_src
 ** Keybindings
 Reset EXWM
