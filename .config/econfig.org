@@ -1463,19 +1463,20 @@ Background image
 ** GPG
 I never know man
 #+begin_src emacs-lisp :results none
-    ;; let's get encryption established
-    (setenv "GPG_AGENT_INFO" nil)  ;; use emacs pinentry
-    (setq auth-source-debug t)
+  ;; let's get encryption established
+  (use-package pinentry)
+  (setenv "GPG_AGENT_INFO" nil)  ;; use emacs pinentry
+  (setq auth-source-debug t)
 
-    (setq epg-gpg-program "gpg2")  ;; not necessary
-    (require 'epa-file)
-    (epa-file-enable)
-    (setq epa-pinentry-mode 'loopback)
-    (setq epg-pinentry-mode 'loopback)
-    (pinentry-start)
+  (setq epg-gpg-program "gpg2")  ;; not necessary
+  (require 'epa-file)
+  (epa-file-enable)
+  (setq epa-pinentry-mode 'loopback)
+  (setq epg-pinentry-mode 'loopback)
+  (pinentry-start)
 
-    (require 'org-crypt)
-    (org-crypt-use-before-save-magic)
+  (require 'org-crypt)
+  (org-crypt-use-before-save-magic)
 #+end_src
 
 ** Multiple monitors
