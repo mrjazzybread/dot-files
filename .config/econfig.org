@@ -1457,7 +1457,7 @@ Background image
 #+begin_src emacs-lisp :results none
   (start-process-shell-command
    "feh" nil
-   "feh --bg-scale ~/.config/bg/lain.jpeg")
+   "feh --bg-fill ~/.config/bg/lain.jpeg --bg-fill ~/.config/bg/lain.jpeg")
 #+end_src
 
 ** GPG
@@ -1482,12 +1482,12 @@ I never know man
 ** Multiple monitors
 I truly never know man
 #+begin_src emacs-lisp :results none
-  ;; (setq exwm-randr-workspace-monitor-plist '(0 "VGA1"))
-  ;; (add-hook 'exwm-randr-screen-change-hook
-  ;;           (lambda ()
-  ;;             (start-process-shell-command
-  ;;              "xrandr" nil "xrandr --output HDMI-A-1 --left-of eDP-1 --auto")))
-  ;; (exwm-randr-mode 1)
+  (setq exwm-randr-workspace-monitor-plist '(0 "VGA1"))
+  (add-hook 'exwm-randr-screen-change-hook
+            (lambda ()
+              (start-process-shell-command
+               "xrandr" nil "xrandr --output VGA1 --left-of LVDS1 --auto")))
+  (exwm-randr-mode 1)
 #+end_src
 ** Keybindings
 Reset EXWM
