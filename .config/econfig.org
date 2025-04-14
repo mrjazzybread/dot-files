@@ -1460,6 +1460,34 @@ Background image
    "feh --bg-scale ~/.config/bg/lain.jpeg")
 #+end_src
 
+** GPG
+I never know man
+#+begin_src emacs-lisp :results none
+    ;; let's get encryption established
+    (setenv "GPG_AGENT_INFO" nil)  ;; use emacs pinentry
+    (setq auth-source-debug t)
+
+    (setq epg-gpg-program "gpg2")  ;; not necessary
+    (require 'epa-file)
+    (epa-file-enable)
+    (setq epa-pinentry-mode 'loopback)
+    (setq epg-pinentry-mode 'loopback)
+    (pinentry-start)
+
+    (require 'org-crypt)
+    (org-crypt-use-before-save-magic)
+#+end_src
+
+** Multiple monitors
+I truly never know man
+#+begin_src emacs-lisp :results none
+  (setq exwm-randr-workspace-monitor-plist '(0 "VGA1"))
+  (add-hook 'exwm-randr-screen-change-hook
+            (lambda ()
+              (start-process-shell-command
+               "xrandr" nil "xrandr --output VGA1 --left-of LVDS1 --auto")))
+  (exwm-randr-mode 1)
+#+end_src
 ** Keybindings
 Reset EXWM
 #+begin_src emacs-lisp :results none
