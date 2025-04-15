@@ -75,6 +75,18 @@ Hide the mode line in X windows
 #+begin_src emacs-lisp :results none
   ;(add-hook 'exwm-manage-finish-hook #'exwm-layout-hide-mode-line)
 #+end_src
+
+Package to zoom in on a window
+#+begin_src emacs-lisp :results none
+  (use-package zoom-window)
+#+end_src
+
+Resize focused window
+#+begin_src emacs-lisp :results none
+  (use-package golden-ratio)
+  (golden-ratio-mode)
+#+end_src
+
 ** Keybindings for desktop utilities
 We use the ~desktop-environment~ package to help us change the volume,
 adjust brightness, etc...
@@ -1568,15 +1580,4 @@ Display time in mode line
   (setq mu4e-search-threads nil)
 
   (setq mu4e-hide-index-messages t)
-#+end_src
-* Window Management
-Resizes the active window according to the gold ratio (extremely dope).
-#+begin_src emacs-lisp :results none
-  (use-package golden-ratio)
-  (golden-ratio-mode 1)
-#+end_src
-
-Full screen
-#+begin_src emacs-lisp :results none
-  (use-package zoom-window)
 #+end_src
