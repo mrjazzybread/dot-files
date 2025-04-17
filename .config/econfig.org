@@ -213,7 +213,7 @@ I never know man
 ** Multiple monitors
 Set the initial workspace for each display
 #+begin_src emacs-lisp :results none
-  (setq exwm-randr-workspace-monitor-plist '(0 "HDMI-1-0"))
+  ;; (setq exwm-randr-workspace-monitor-plist '(0 "HDMI-1-0"))
 #+end_src
 
 Mouse warping
