@@ -52,6 +52,8 @@ on the right. This way, we can use Emacs keybindings in X windows.
   (setq exwm-input-simulation-keys
         '(([?\C-b] . [left])
           ([?\C-f] . [right])
+  	([?\M-f] . [C-right])
+  	([?\M-b] . [C-left])
           ([?\C-p] . [up])
           ([?\C-n] . [down])
           ([?\C-a] . [home])
@@ -59,6 +61,7 @@ on the right. This way, we can use Emacs keybindings in X windows.
           ([?\M-v] . [prior])
   	([?\M-w] . [C-c])
   	([?\C-y] . [C-v])
+  	([?\C-_] . [C-z])
           ([?\C-v] . [next])
           ([?\C-d] . [delete])
   	([?\C-s] . [C-f])
@@ -229,16 +232,16 @@ Focus follows mouse
 
 Update displays
 #+begin_src emacs-lisp :results none
-  (defun efs/update-displays ()
-    (efs/run-in-background "autorandr --change --force")
-    (message "Display config: %s"
-             (string-trim (shell-command-to-string "autorandr --current")))
-    (start-process-shell-command
-     "feh" nil
-     "feh --bg-scale ~/.config/bg/lain.jpeg --bg-scale ~/.config/bg/lain-hands.jpeg"))
+    (defun efs/update-displays ()
+      (efs/run-in-background "autorandr --change --force")
+      (message "Display config: %s"
+               (string-trim (shell-command-to-string "autorandr --current")))
+      (start-process-shell-command
+       "feh" nil
+       "feh --bg-scale ~/.config/bg/lain.jpeg --bg-scale ~/.config/bg/lain-hands.jpeg"))
 
-  (add-hook 'exwm-randr-screen-change-hook #'efs/update-displays)
-  (exwm-randr-mode 1)
+    (add-hook 'exwm-randr-screen-change-hook #'efs/update-displays)
+    (exwm-randr-mode 1)
 #+end_src
 ** Keybindings
 Reset EXWM
