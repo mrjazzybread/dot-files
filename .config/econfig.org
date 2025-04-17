@@ -1412,9 +1412,9 @@ Set theme (currently Shades of Purple)
 #+begin_src emacs-lisp :results none
   (setq custom-safe-themes t)
   (setq custom-enabled-themes '(shades-of-purple))
-   (load-theme 'shades-of-purple)
-  ;; (use-package ef-themes
-  ;;   :config (ef-themes-select 'ef-summer))
+   ;(load-theme 'shades-of-purple)
+   (use-package ef-themes
+     :config (ef-themes-select 'ef-summer))
 #+end_src
 Disables a bunch of needless UI noise.
 #+begin_src emacs-lisp :results none
