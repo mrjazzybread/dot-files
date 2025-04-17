@@ -355,20 +355,6 @@ don't use ui dialogs
 #+begin_src emacs-lisp :results none
   (setq use-dialog-box nil)
 #+end_src
-Makes it so that the compilation window opens in a new frame
-#+begin_src emacs-lisp :results none
-  (setq special-display-buffer-names
-        '("*compilation*"))
-
-  (setq special-display-function
-        (lambda (buffer &optional args)
-          (if (get-buffer-window buffer t)
-              (message "Compiling")
-            (progn
-              (select-frame (make-frame))
-              (switch-to-buffer buffer)
-              (get-buffer-window buffer 0)))))
-#+end_src
 Keybinding for quickly evaluating ~elisp~ code
 #+begin_src emacs-lisp :results none
   (add-hook 'lisp-interaction-mode-hook
@@ -1426,9 +1412,9 @@ Set theme (currently Shades of Purple)
 #+begin_src emacs-lisp :results none
   (setq custom-safe-themes t)
   (setq custom-enabled-themes '(shades-of-purple))
-  ; (load-theme 'shades-of-purple)
-  (use-package ef-themes
-    :config (ef-themes-select 'ef-summer))
+   (load-theme 'shades-of-purple)
+  ;; (use-package ef-themes
+  ;;   :config (ef-themes-select 'ef-summer))
 #+end_src
 Disables a bunch of needless UI noise.
 #+begin_src emacs-lisp :results none
