@@ -213,7 +213,7 @@ I never know man
 ** Multiple monitors
 Set the initial workspace for each display
 #+begin_src emacs-lisp :results none
-  ;; (setq exwm-randr-workspace-monitor-plist '(0 "HDMI-1-0"))
+  (setq exwm-randr-workspace-monitor-plist '(0 "HDMI-1-0"))
 #+end_src
 
 Mouse warping
@@ -234,8 +234,8 @@ Update displays
     (message "Display config: %s"
              (string-trim (shell-command-to-string "autorandr --current"))))
 
-  ;(add-hook 'exwm-randr-screen-change-hook #'efs/update-displays)
-  ;(exwm-randr-mode 1)
+  (add-hook 'exwm-randr-screen-change-hook #'efs/update-displays)
+  					; (exwm-randr-mode 1)
 #+end_src
 
 Background image
