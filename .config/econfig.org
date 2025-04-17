@@ -232,7 +232,10 @@ Update displays
   (defun efs/update-displays ()
     (efs/run-in-background "autorandr --change --force")
     (message "Display config: %s"
-             (string-trim (shell-command-to-string "autorandr --current"))))
+             (string-trim (shell-command-to-string "autorandr --current")))
+    (start-process-shell-command
+     "feh" nil
+     "feh --bg-scale ~/.config/bg/lain.jpeg --bg-scale ~/.config/bg/lain-hands.jpeg"))
 
   (add-hook 'exwm-randr-screen-change-hook #'efs/update-displays)
   (exwm-randr-mode 1)
@@ -1464,12 +1467,7 @@ Display time in mode line
 #+begin_src emacs-lisp :results none
   (display-time-mode 1)
 #+end_src
-Background image
-#+begin_src emacs-lisp :results none
-  (start-process-shell-command
-   "feh" nil
-   "feh --bg-scale ~/.config/bg/lain.jpeg --bg-scale ~/.config/bg/lain-hands.jpeg")
-#+end_src
+
 * Email
 
 #+begin_src emacs-lisp :results none
