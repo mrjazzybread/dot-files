@@ -234,9 +234,8 @@ Update displays
     (message "Display config: %s"
              (string-trim (shell-command-to-string "autorandr --current"))))
 
-  (add-hook 'exwm-randr-screen-change-hook #'efs/update-displays)
-  (efs/update-displays)
-  (exwm-randr-mode 1)
+  ;(add-hook 'exwm-randr-screen-change-hook #'efs/update-displays)
+  ;(exwm-randr-mode 1)
 #+end_src
 
 Background image
@@ -315,7 +314,6 @@ Keybindings to switch the current workspace
                         (exwm-workspace-switch-create ,(- i 1)))))
                   (number-sequence 1 9))))
 #+end_src
-
 * Some Miscellaneous Configurations
 enable creation of pairs of brackets or quotes when one is inserted.
 #+begin_src emacs-lisp :results none
