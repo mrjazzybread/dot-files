@@ -1107,6 +1107,7 @@ Enable ~Writeroom~ mode for a more comfortable writing experience.
   (use-package writeroom-mode
     :hook (text-mode . writeroom-mode)
     :custom (writeroom-mode-line t)
+    :custom (writeroom-maximize-window t)
     )
 #+end_src
 Use ~aspell~ as default spell checking program (should be default, but
