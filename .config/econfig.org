@@ -74,11 +74,6 @@ network manager and other background applications will be.
   (exwm-systemtray-mode)
 #+end_src
 
-Package to zoom in on a window
-#+begin_src emacs-lisp :results none
-  (use-package zoom-window)
-#+end_src
-
 Resize focused window
 #+begin_src emacs-lisp :results none
   (use-package zoom)
@@ -88,11 +83,6 @@ Resize focused window
 Resize according to the golden ratio
 #+begin_src emacs-lisp :results none
   (setq zoom-size '(0.618 . 0.618))
-#+end_src
-
-Do not resize focused windows
-#+begin_src emacs-lisp :results none
-  (setq window-size-fixed t)
 #+end_src
 
 Sometimes when switching to an X window, EXWM does not focus on it.
@@ -312,6 +302,7 @@ Suspend the computer
 
 "Fullscreen mode"
 #+begin_src emacs-lisp :results none
+  (use-package zoom-window)
   (exwm-input-set-key (kbd "s-f") 'zoom-window-zoom)
 #+end_src
 
