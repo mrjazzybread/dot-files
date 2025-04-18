@@ -90,6 +90,17 @@ Resize focused window
   (golden-ratio-mode)
 #+end_src
 
+Sometimes when switching to an X window, EXWM does not focus on it.
+This piece of code prevents this.
+#+begin_src emacs-lisp :results none
+  (advice-add #'exwm-layout--hide
+              :after (lambda (id)
+                       (with-current-buffer (exwm--id->buffer id)
+                         (setq exwm--ewmh-state
+                               (delq xcb:Atom:_NET_WM_STATE_HIDDEN exwm--ewmh-state))
+                         (exwm-layout--set-ewmh-state id)
+                         (xcb:flush exwm--connection))))
+#+end_src
 ** Keybindings for desktop utilities
 We use the ~desktop-environment~ package to help us change the volume,
 adjust brightness, etc...
@@ -1369,6 +1380,28 @@ useful when creating and renaming files
 #+begin_src emacs-lisp :results none
   (setq ivy-use-selectable-prompt t)
 #+end_src
+
+Ivy completion now pops up in dedicated buffer
+#+begin_src emacs-lisp :results none
+  (use-package ivy-posframe)
+  (ivy-posframe-mode 1)
+#+end_src
+Non-transparent /posframe/
+#+begin_src emacs-lisp :results none
+  (defun opaque ()
+   (set-frame-parameter (selected-frame) 'alpha '(100 . 100)))
+
+  (defun ivy-posframe-display-opaque (str)
+    (ivy-posframe--display str #'opaque))
+#+end_src
+
+Do not use a /posframe/ for /swiper/
+#+begin_src emacs-lisp :results none
+  (setq ivy-posframe-display-functions-alist
+        '((swiper          . ivy-display-function-fallback)
+          (t               . ivy-posframe-display)))
+#+end_src
+
 Absolutely no idea what this does, but it makes ivy rich mode not slow
 as a brick
 #+begin_src emacs-lisp :results none
