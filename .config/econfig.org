@@ -1399,7 +1399,7 @@ Do not use a /posframe/ for /swiper/
 #+begin_src emacs-lisp :results none
   (setq ivy-posframe-display-functions-alist
         '((swiper          . ivy-display-function-fallback)
-          (t               . ivy-posframe-display)))
+          (t               . ivy-posframe-display-opaque)))
 #+end_src
 
 Absolutely no idea what this does, but it makes ivy rich mode not slow
