@@ -1105,7 +1105,7 @@ Enable auto-fill.
 Enable ~Writeroom~ mode for a more comfortable writing experience.
 #+begin_src emacs-lisp :results none
   (use-package writeroom-mode
-    :hook (text-mode . writeroom-mode)
+    ;:hook (text-mode . writeroom-mode)
     :custom (writeroom-mode-line t)
     )
 #+end_src
@@ -1396,6 +1396,17 @@ Do not use a /posframe/ for /swiper/
   (setq ivy-posframe-display-functions-alist
         '((swiper          . ivy-display-function-fallback)
           (t               . ivy-posframe-display)))
+#+end_src
+
+Fixed width for ivy posframe
+#+begin_src emacs-lisp :results none
+  (defun my-ivy-posframe-get-size ()
+    "Set the ivy-posframe size according to the current frame."
+    (let ((height (or ivy-posframe-height (or ivy-height 10)))
+          (width (min (or ivy-posframe-width 200) (round (* .75 (frame-width))))))
+      (list :height height :width width :min-height height :min-width width)))
+
+  (setq ivy-posframe-size-function 'my-ivy-posframe-get-size)
 #+end_src
 
 Absolutely no idea what this does, but it makes ivy rich mode not slow
