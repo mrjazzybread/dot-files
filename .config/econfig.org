@@ -459,6 +459,8 @@ of stinking up the working directory.
 Adds themes folder to custom themes
 #+begin_src emacs-lisp :results none
   (add-to-list 'custom-theme-load-path "~/.config/themes/")
+  (add-to-list 'custom-theme-load-path
+             "/.config/themes/plasma-theme/")
 #+end_src
 ** Miscellaneous Packages
 #+begin_src emacs-lisp :results none
