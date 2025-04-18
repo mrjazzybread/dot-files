@@ -1388,18 +1388,14 @@ Ivy completion now pops up in dedicated buffer
 #+end_src
 Non-transparent /posframe/
 #+begin_src emacs-lisp :results none
-  (defun opaque ()
-   (set-frame-parameter (selected-frame) 'alpha '(100 . 100)))
-
-  (defun ivy-posframe-display-opaque (str)
-    (ivy-posframe--display str #'opaque))
+  (setq ivy-posframe-parameters '((alpha . 100)))
 #+end_src
 
 Do not use a /posframe/ for /swiper/
 #+begin_src emacs-lisp :results none
   (setq ivy-posframe-display-functions-alist
         '((swiper          . ivy-display-function-fallback)
-          (t               . ivy-posframe-display-opaque)))
+          (t               . ivy-posframe-display)))
 #+end_src
 
 Absolutely no idea what this does, but it makes ivy rich mode not slow
