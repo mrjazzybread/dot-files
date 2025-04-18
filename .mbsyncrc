@@ -1,7 +1,7 @@
 IMAPAccount		gmail
 Host			imap.gmail.com
 User			tl.soares@campus.fct.unl.pt
-PassCmd			"gpg -d -q .cred.gpg | sed '1q;d'"
+PassCmd			"gpg -d -q ~/.cred.gpg | sed '1q;d'"
 TLSType			IMAPS
 CertificateFile		/etc/ssl/certs/ca-certificates.crt
 
@@ -24,7 +24,7 @@ SyncState		*
 IMAPAccount		inria
 Host			zimbra.inria.fr
 User			tiago.lopes-soares@inria.fr
-PassCmd			"gpg -d -q .cred.gpg | sed '2q;d'"
+PassCmd			"gpg -d -q ~/.cred.gpg | sed '2q;d'"
 TLSType			IMAPS
 CertificateFile		/etc/ssl/certs/ca-certificates.crt
 
