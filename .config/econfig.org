@@ -530,6 +530,7 @@ Package for completion suggestions
 
   (use-package ocamlformat
     :custom (ocamlformat-enable 'enable-outside-detected-project)
+    :custom (ocamlformat-show-errors nil)
     :hook (before-save . ocamlformat-before-save))
 
   (load "/home/tiago/.opam/4.14.1/share/emacs/site-lisp/tuareg.el")
