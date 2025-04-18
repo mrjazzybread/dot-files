@@ -1105,7 +1105,7 @@ Enable auto-fill.
 Enable ~Writeroom~ mode for a more comfortable writing experience.
 #+begin_src emacs-lisp :results none
   (use-package writeroom-mode
-    ;:hook (text-mode . writeroom-mode)
+    :hook (text-mode . writeroom-mode)
     :custom (writeroom-mode-line t)
     )
 #+end_src
