@@ -96,11 +96,13 @@ This piece of code prevents this.
                          (exwm-layout--set-ewmh-state id)
                          (xcb:flush exwm--connection))))
 #+end_src
+
 Switch to workspace 0 and open eshell at startup.
 #+begin_src emacs-lisp :results none
   (defun exwm-init ()
+    (progn
     (exwm-workspace-switch-create 0)
-    (eshell))
+    (eshell)))
 
   (add-hook 'exwm-init-hook #'exwm-init)
 #+end_src
