@@ -99,10 +99,10 @@ This piece of code prevents this.
 
 Switch to workspace 0 and open eshell at startup.
 #+begin_src emacs-lisp :results none
-  (defun exwm-init ()
-    (progn
-      (exwm-workspace-switch-create 0)
-      (eshell)))
+;  (defun exwm-init ()
+ ;   (progn
+  ;    (exwm-workspace-switch-create 0)
+   ;   (eshell)))
 
 ;  (add-hook 'exwm-init-hook #'exwm-init)
 #+end_src
