@@ -1566,9 +1566,8 @@ another window in the same frame, it selects that buffer by default
 #+end_src
 Start eshell
 #+begin_src emacs-lisp :results none
-  (eshell)
+  (scratch-buffer)
 #+end_src
-
 ** ~Eshell~ configuration
 Startup configuration. Sets the opam environment variables and runs
 ~fastfetch~.
