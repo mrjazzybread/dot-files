@@ -96,6 +96,10 @@ This piece of code prevents this.
                          (exwm-layout--set-ewmh-state id)
                          (xcb:flush exwm--connection))))
 #+end_src
+Start eshell
+#+begin_src emacs-lisp :results none
+  (add-hook 'exwm-init-hook #'efs/exwm-init-hook)
+#+end_src
 ** Keybindings for desktop utilities
 We use the ~desktop-environment~ package to help us change the volume,
 adjust brightness, etc...
@@ -672,6 +676,15 @@ Quickly browse files in read only mode
 
   (define-key view-mode-map (kbd "n") 'view-next-file)
   (define-key view-mode-map (kbd "p") 'view-previous-file)
+#+end_src
+Change ~ls~ switches to use human readable file sizes
+#+begin_src emacs-lisp :results none
+  (setq dired-listing-switches "-alh")
+#+end_src
+When copying a file, have it so if there is another dired buffer open in
+another window in the same frame, it selects that buffer by default
+#+begin_src emacs-lisp :results none
+  (setq dired-dwim-target t)
 #+end_src
 * Org
 ** Some Basic Bookkeeping
@@ -1537,10 +1550,6 @@ Function to run ~eshell~ command.
     (insert s)
     (eshell-send-input))
 #+end_src
-Change ~ls~ switches to use human readable file sizes
-#+begin_src emacs-lisp :results none
-  (setq dired-listing-switches "-alh")
-#+end_src
 Augments ~eshell~'s completion framework so that it behaves more like
 fish (e.g. "pacman -S ..." completes the name of the package)
 #+begin_src emacs-lisp :results none
@@ -1555,18 +1564,8 @@ Add rust packages to path
 #+begin_src emacs-lisp :results none
   (add-to-list 'exec-path "~/.cargo/bin")
 #+end_src
-When copying a file, have it so if there is another dired buffer open in
-another window in the same frame, it selects that buffer by default
-#+begin_src emacs-lisp :results none
-  (setq dired-dwim-target t)
-#+end_src
-
 #+begin_src emacs-lisp :results none
   (defun set-envs (l) (dolist (p (nth 0 l)) (setenv (nth 0 p) (nth 1 p))))
-#+end_src
-Start eshell
-#+begin_src emacs-lisp :results none
-  (eshell)
 #+end_src
 ** ~Eshell~ configuration
 Startup configuration. Sets the opam environment variables and runs
