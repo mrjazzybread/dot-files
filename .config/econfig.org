@@ -98,7 +98,7 @@ This piece of code prevents this.
 #+end_src
 Start eshell
 #+begin_src emacs-lisp :results none
-  (add-hook 'exwm-init-hook #'efs/exwm-init-hook)
+  (add-hook 'exwm-init-hook #'eshell)
 #+end_src
 ** Keybindings for desktop utilities
 We use the ~desktop-environment~ package to help us change the volume,
