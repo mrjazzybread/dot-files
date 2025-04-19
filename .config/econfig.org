@@ -1136,173 +1136,6 @@ Disable word completion in text-mode
 #+begin_src emacs-lisp :results none
   (setq text-mode-ispell-word-completion nil)
 #+end_src
-* ~Eshell~
-
-Fish like suggestions for ~eshell~
-
-#+begin_src emacs-lisp :results none
-  (use-package company)
-
-  (use-package esh-autosuggest
-    :hook (eshell-mode . esh-autosuggest-mode)
-    :custom (eshell-history-size 50000)
-    ; since esh autosuggest uses the eshell history, we increase it so
-    ; that we have more possible suggesions
-    :custom (company-minimum-prefix-length 1)
-    :bind (:map esh-autosuggest-active-map
-                ("C-f" . esh-autosuggest-complete-word)
-                ("C-e" . company-complete))
-    )
-#+end_src
-Pretty ~eshell~ prompt
-
-#+begin_src emacs-lisp :results none
-  (load-file "/home/tiago/.config/prompt.el")
-  (setq eshell-prompt-function #'epe-theme-dakrone)
-#+end_src
-
-Function for clearing the shell
-
-#+begin_src emacs-lisp :results none
-  (defun eshell-clear ()
-    (interactive)
-    "Clear the eshell buffer."
-    (let ((inhibit-read-only t))
-      (erase-buffer)
-      (eshell-send-input)
-      (beginning-of-buffer)
-      (kill-line)
-      (end-of-buffer)
-      ))
-#+end_src
-Function for getting to the base of any project. Useful for spawning
-shells since having it at the root of the project is generally more
-convenient.
-
-#+begin_src emacs-lisp :results none
-  (defvar project-files
-    '("dune-project" "package.json"
-      "CoqProject" "Makefile"
-      )
-    )
-
-  (defun is-base ()
-    (or (equal default-directory "/")
-        (not (eq (seq-intersection
-           (directory-files ".")
-           project-files
-           'equal
-           ) nil)
-        ))
-    )
-
-  (defun get-to-base ()
-    (let ((c default-directory))
-    (progn
-      (while (not (is-base))
-        (find-file ".."))
-      (when (equal default-directory "/")
-          (find-file c)
-          )
-    )))
-#+end_src
-Always spawns eshell on a new terminal
-#+begin_src emacs-lisp :results none
-  (defun multi-eshell ()
-    (interactive)
-    (let ((b (current-buffer)))
-    (when (seq-find
-           (lambda (val)
-             (equal "*eshell*" (buffer-name val)))
-           (buffer-list))
-      (switch-to-buffer "*eshell*")
-      (rename-uniquely))
-    (switch-to-buffer b)
-    (eshell)))
-#+end_src
-Key binding for spawning a new instance of ~eshell~ at the root of a
-project.
-
-#+begin_src emacs-lisp :results none
-  (defun eshell-spawn ()
-    (interactive)
-    (select-frame (make-frame))
-    (get-to-base)
-    (multi-eshell))
-  (bind-key "C-c C-SPC" 'eshell-spawn)
-#+end_src
-Delete duplicates in the ~eshell~ history
-#+begin_src emacs-lisp :results none
-  (setq eshell-hist-ignoredups t)
-#+end_src
-Function to run ~eshell~ command.
-#+begin_src emacs-lisp :results none
-  (defun eshell-send-command (s)
-    (interactive)
-    (eshell-return-to-prompt)
-    (insert s)
-    (eshell-send-input))
-#+end_src
-Change ~ls~ switches to use human readable file sizes
-#+begin_src emacs-lisp :results none
-  (setq dired-listing-switches "-alh")
-#+end_src
-Augments ~eshell~'s completion framework so that it behaves more like
-fish (e.g. "pacman -S ..." completes the name of the package)
-#+begin_src emacs-lisp :results none
-  (use-package fish-completion)
-  (global-fish-completion-mode 1)
-#+end_src
-I never know man
-#+begin_src emacs-lisp :results none
-  (setq eshell-cmpl-dir-ignore "\\`\\(CVS\\)/\\'")
-#+end_src
-Add rust packages to path
-#+begin_src emacs-lisp :results none
-  (add-to-list 'exec-path "~/.cargo/bin")
-#+end_src
-When copying a file, have it so if there is another dired buffer open in
-another window in the same frame, it selects that buffer by default
-#+begin_src emacs-lisp :results none
-  (setq dired-dwim-target t)
-#+end_src
-
-#+begin_src emacs-lisp :results none
-  (defun set-envs (l) (dolist (p (nth 0 l)) (setenv (nth 0 p) (nth 1 p))))
-#+end_src
-** ~Eshell~ configuration
-Startup configuration. Sets the opam environment variables and runs
-~fastfetch~.
-#+begin_src emacs-lisp :results none
-  (add-hook 'eshell-mode-hook
-          (lambda ()
-            (define-key eshell-mode-map (kbd "C-l") #'eshell-clear)))
-
-  (defun startup ()
-    (interactive)
-    (eshell-send-command "opam-set && fastfetch")
-    (let ((inhibit-read-only t))
-      (eshell-previous-prompt 1)
-      (beginning-of-line)
-      (kill-line)
-      (kill-line)
-      (eshell-next-prompt 1)))
-
-  (require 'eshell)
-  (use-package eshell
-    :hook (eshell-mode . startup)
-    :custom (eshell-banner-message "")
-    )
-#+end_src
-** Configuration for Visual Commands
-
-We use eat to run any commands that require visuals
-#+begin_src emacs-lisp :results none
-  (use-package eat
-    :custom (eat-kill-buffer-on-exit t)
-    :hook (eshell-mode . eat-eshell-mode)
-    )
-#+end_src
 * Ivy
 Default ivy configuration
 
@@ -1595,4 +1428,177 @@ Display time in mode line
   (setq mu4e-search-threads nil)
 
   (setq mu4e-hide-index-messages t)
+#+end_src
+
+* ~Eshell~
+
+Fish like suggestions for ~eshell~
+
+#+begin_src emacs-lisp :results none
+  (use-package company)
+
+  (use-package esh-autosuggest
+    :hook (eshell-mode . esh-autosuggest-mode)
+    :custom (eshell-history-size 50000)
+    ; since esh autosuggest uses the eshell history, we increase it so
+    ; that we have more possible suggesions
+    :custom (company-minimum-prefix-length 1)
+    :bind (:map esh-autosuggest-active-map
+                ("C-f" . esh-autosuggest-complete-word)
+                ("C-e" . company-complete))
+    )
+#+end_src
+Pretty ~eshell~ prompt
+
+#+begin_src emacs-lisp :results none
+  (load-file "/home/tiago/.config/prompt.el")
+  (setq eshell-prompt-function #'epe-theme-dakrone)
+#+end_src
+
+Function for clearing the shell
+
+#+begin_src emacs-lisp :results none
+  (defun eshell-clear ()
+    (interactive)
+    "Clear the eshell buffer."
+    (let ((inhibit-read-only t))
+      (erase-buffer)
+      (eshell-send-input)
+      (beginning-of-buffer)
+      (kill-line)
+      (end-of-buffer)
+      ))
+#+end_src
+Function for getting to the base of any project. Useful for spawning
+shells since having it at the root of the project is generally more
+convenient.
+
+#+begin_src emacs-lisp :results none
+  (defvar project-files
+    '("dune-project" "package.json"
+      "CoqProject" "Makefile"
+      )
+    )
+
+  (defun is-base ()
+    (or (equal default-directory "/")
+        (not (eq (seq-intersection
+           (directory-files ".")
+           project-files
+           'equal
+           ) nil)
+        ))
+    )
+
+  (defun get-to-base ()
+    (let ((c default-directory))
+    (progn
+      (while (not (is-base))
+        (find-file ".."))
+      (when (equal default-directory "/")
+          (find-file c)
+          )
+    )))
+#+end_src
+Always spawns eshell on a new terminal
+#+begin_src emacs-lisp :results none
+  (defun multi-eshell ()
+    (interactive)
+    (let ((b (current-buffer)))
+    (when (seq-find
+           (lambda (val)
+             (equal "*eshell*" (buffer-name val)))
+           (buffer-list))
+      (switch-to-buffer "*eshell*")
+      (rename-uniquely))
+    (switch-to-buffer b)
+    (eshell)))
+#+end_src
+Key binding for spawning a new instance of ~eshell~ at the root of a
+project.
+
+#+begin_src emacs-lisp :results none
+  (defun eshell-spawn ()
+    (interactive)
+    (select-frame (make-frame))
+    (get-to-base)
+    (multi-eshell))
+  (bind-key "C-c C-SPC" 'eshell-spawn)
+#+end_src
+Delete duplicates in the ~eshell~ history
+#+begin_src emacs-lisp :results none
+  (setq eshell-hist-ignoredups t)
+#+end_src
+Function to run ~eshell~ command.
+#+begin_src emacs-lisp :results none
+  (defun eshell-send-command (s)
+    (interactive)
+    (eshell-return-to-prompt)
+    (insert s)
+    (eshell-send-input))
+#+end_src
+Change ~ls~ switches to use human readable file sizes
+#+begin_src emacs-lisp :results none
+  (setq dired-listing-switches "-alh")
+#+end_src
+Augments ~eshell~'s completion framework so that it behaves more like
+fish (e.g. "pacman -S ..." completes the name of the package)
+#+begin_src emacs-lisp :results none
+  (use-package fish-completion)
+  (global-fish-completion-mode 1)
+#+end_src
+I never know man
+#+begin_src emacs-lisp :results none
+  (setq eshell-cmpl-dir-ignore "\\`\\(CVS\\)/\\'")
+#+end_src
+Add rust packages to path
+#+begin_src emacs-lisp :results none
+  (add-to-list 'exec-path "~/.cargo/bin")
+#+end_src
+When copying a file, have it so if there is another dired buffer open in
+another window in the same frame, it selects that buffer by default
+#+begin_src emacs-lisp :results none
+  (setq dired-dwim-target t)
+#+end_src
+
+#+begin_src emacs-lisp :results none
+  (defun set-envs (l) (dolist (p (nth 0 l)) (setenv (nth 0 p) (nth 1 p))))
+#+end_src
+Start eshell
+#+begin_src emacs-lisp :results none
+  (eshell)
+#+end_src
+
+** ~Eshell~ configuration
+Startup configuration. Sets the opam environment variables and runs
+~fastfetch~.
+#+begin_src emacs-lisp :results none
+  (add-hook 'eshell-mode-hook
+          (lambda ()
+            (define-key eshell-mode-map (kbd "C-l") #'eshell-clear)))
+
+  (defun startup ()
+    (interactive)
+    (eshell-send-command "opam-set && fastfetch")
+    (let ((inhibit-read-only t))
+      (eshell-previous-prompt 1)
+      (beginning-of-line)
+      (kill-line)
+      (kill-line)
+      (eshell-next-prompt 1)))
+
+  (require 'eshell)
+  (use-package eshell
+    :hook (eshell-mode . startup)
+    :custom (eshell-banner-message "")
+    )
+#+end_src
+** Configuration for Visual Commands
+
+We use eat to run any commands that require visuals
+#+begin_src emacs-lisp :results none
+  (use-package eat
+    :custom (eat-kill-buffer-on-exit t)
+    :hook (eshell-mode . eat-eshell-mode)
+    )
 #+end_src
