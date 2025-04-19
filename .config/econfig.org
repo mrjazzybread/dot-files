@@ -96,9 +96,13 @@ This piece of code prevents this.
                          (exwm-layout--set-ewmh-state id)
                          (xcb:flush exwm--connection))))
 #+end_src
-Start eshell
+Switch to workspace 0 and open eshell at startup.
 #+begin_src emacs-lisp :results none
-  (add-hook 'exwm-init-hook #'eshell)
+  (defun exwm-init ()
+    (exwm-workspace-switch-create 0)
+    (eshell))
+
+  (add-hook 'exwm-init-hook #'exwm-init)
 #+end_src
 ** Keybindings for desktop utilities
 We use the ~desktop-environment~ package to help us change the volume,
