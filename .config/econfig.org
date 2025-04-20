@@ -96,17 +96,6 @@ This piece of code prevents this.
                          (exwm-layout--set-ewmh-state id)
                          (xcb:flush exwm--connection))))
 #+end_src
-
-Switch to workspace 0 and open eshell at startup.
-#+begin_src emacs-lisp :results none
-  (defun exwm-init-fun ()
-    (interactive)
-    (message "wow epic, this should work why not")
-    (exwm-workspace-switch-create 0)
-    (eshell))
-
-  (add-hook 'exwm-init-hook #'exwm-init-fun)
-#+end_src
 ** Keybindings for desktop utilities
 We use the ~desktop-environment~ package to help us change the volume,
 adjust brightness, etc...
@@ -406,7 +395,7 @@ Add binding to go to previous and next buffer.
 Set scratch buffer major mode to ~org-mode~
 #+begin_src emacs-lisp :results none
   (setq initial-major-mode 'org-mode)
-  (setq initial-scratchp-message "")
+  (setq initial-scratch-message "")
 #+end_src
 Delete trailing white spaces after saving a file.
 #+begin_src emacs-lisp :results none
@@ -1291,7 +1280,7 @@ as a brick
 
 Disable Splash Screen
 #+begin_src emacs-lisp :results none
-  (setq inhibit-splash-screen t)
+  (setq inhibit-splash-screen nil)
 #+end_src
 Define font style and height
 #+begin_src emacs-lisp :results none
