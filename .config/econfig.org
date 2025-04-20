@@ -101,6 +101,7 @@ Switch to workspace 0 and open eshell at startup.
 #+begin_src emacs-lisp :results none
   (defun exwm-init-fun ()
     (interactive)
+    (message "wow epic, this should work why not")
     (exwm-workspace-switch-create 0)
     (eshell))
 
@@ -404,8 +405,8 @@ Add binding to go to previous and next buffer.
 #+end_src
 Set scratch buffer major mode to ~org-mode~
 #+begin_src emacs-lisp :results none
-;  (setq initial-major-mode 'org-mode)
- ; (setq initial-scratchp-message "")
+  (setq initial-major-mode 'org-mode)
+  (setq initial-scratchp-message "")
 #+end_src
 Delete trailing white spaces after saving a file.
 #+begin_src emacs-lisp :results none
