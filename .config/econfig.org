@@ -1,3 +1,6 @@
+#+begin_src emacs-lisp :results none
+  (load-file "~/.config/sensitive.el")
+#+end_src
 * Package Configuration
 Add MELPA to the list of recognized archives
 #+begin_src emacs-lisp :results none
@@ -215,6 +218,10 @@ Compositor
 
   (require 'org-crypt)
   (org-crypt-use-before-save-magic)
+
+  (setq epa-file-encrypt-to
+        '(email1))
+  (setq epa-file-select-keys 1)
 #+end_src
 ** Multiple monitors
 Set the initial workspace for each display
@@ -1036,19 +1043,29 @@ Function to create a latex project.
 Capture templates for org roam.
 #+begin_src emacs-lisp :results none
   (setq org-roam-capture-templates
-   '(("t" "travel" plain
-        "%?"
-        :if-new (file+head "travel/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
-        :unnarrowed t)
-  ("r" "Reading note" plain
-      (file "~/roam/templates/reading_template.org")
-      :if-new (file+head "research/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
-      :unnarrowed t)
-  ("p" "PhD Note" plain
-        "%?"
-        :if-new (file+head "research/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
-        :unnarrowed t)
-  ))
+        '(("t" "travel" plain
+           "%?"
+           :if-new (file+head "travel/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+           :unnarrowed t)
+  	("r" "Reading note" plain
+  	 (file "~/roam/templates/reading_template.org")
+  	 :if-new (file+head "research/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+  	 :unnarrowed t)
+  	("p" "PhD Note" plain
+           "%?"
+           :if-new (file+head "research/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+           :unnarrowed t)
+  	'("d" "default" plain "%?"
+  	   :target (file+head "${slug}.org.gpg"
+                                "#+title: ${title}\n")
+  	   :unnarrowed t)
+  	))
+#+end_src
+Capture template for org roam dailies
+#+begin_src emacs-lisp :results none
+  (setq org-roam-dailies-capture-templates
+        '(("d" "default" entry "* %?" :target (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>
+  "))))
 #+end_src
 * PDFs
 Opens the current file in ~zathura~ and kills the Doc View buffer.
@@ -1375,7 +1392,7 @@ Display time in mode line
             (lambda (msg)
               (when msg
                 (string-prefix-p "/inria" (mu4e-message-field msg :maildir))))
-            :vars '((user-mail-address . "tiago.lopes-soares@inria.fr")
+            :vars '((user-mail-address . email2)
                     (user-full-name    . "Tiago Soares")
   		  (smtpmail-smtp-server . "smtp.inria.fr")
   		  (smtpmail-smtp-service . 587)
