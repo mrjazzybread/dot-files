@@ -218,7 +218,6 @@ I never know man
   (require 'org-crypt)
   (org-crypt-use-before-save-magic)
 #+end_src
-
 ** Multiple monitors
 Set the initial workspace for each display
 #+begin_src emacs-lisp :results none
