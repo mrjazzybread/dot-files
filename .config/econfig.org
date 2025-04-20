@@ -404,8 +404,8 @@ Add binding to go to previous and next buffer.
 #+end_src
 Set scratch buffer major mode to ~org-mode~
 #+begin_src emacs-lisp :results none
-  (setq initial-major-mode 'org-mode)
-  (setq initial-scratch-message "")
+;  (setq initial-major-mode 'org-mode)
+ ; (setq initial-scratchp-message "")
 #+end_src
 Delete trailing white spaces after saving a file.
 #+begin_src emacs-lisp :results none
