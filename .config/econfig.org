@@ -69,6 +69,8 @@ on the right. This way, we can use Emacs keybindings in X windows.
           ([?\C-d] . [delete])
   	([?\C-s] . [C-f])
           ([?\C-k] . [S-end delete])
+  	([?\C- ] . [C-a])
+  	([?\C-g] . [escape])
   	))
 #+end_src
 
