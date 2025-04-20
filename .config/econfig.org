@@ -100,6 +100,7 @@ This piece of code prevents this.
 Switch to workspace 0 and open eshell at startup.
 #+begin_src emacs-lisp :results none
   (defun exwm-init-fun ()
+    (interactive)
     (exwm-workspace-switch-create 0)
     (eshell))
 

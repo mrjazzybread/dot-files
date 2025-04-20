@@ -17,8 +17,8 @@
 	 elfeed emojify esh-autosuggest exec-path-from-shell exwm
 	 eyebrowse fireplace fish-completion flycheck
 	 flyspell-correct-ivy gnu-elpa-keyring-update go-translate
-	 goto-chg ivy-posframe magit mingus mu4e-alert
-	 multiple-cursors nerd-icons-corfu nov ocamlformat
+	 goto-chg highlight-defined ivy-posframe magit mingus
+	 mu4e-alert multiple-cursors nerd-icons-corfu nov ocamlformat
 	 opam-switch-mode org-alert org-fragtog org-roam-ui pacmacs
 	 pinentry proof-general quelpa rustic shrface smex tablist
 	 trashed tuareg writeroom-mode yaml-mode zoom zoom-window))
