@@ -103,7 +103,7 @@ Switch to workspace 0 and open eshell at startup.
     (exwm-workspace-switch-create 0)
     (eshell))
 
-  (add-hook 'exwm-init-hook #'exwm-init)
+  (add-hook 'exwm-init-hook #'exwm-init-fun)
 #+end_src
 ** Keybindings for desktop utilities
 We use the ~desktop-environment~ package to help us change the volume,
