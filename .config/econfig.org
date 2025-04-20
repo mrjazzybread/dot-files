@@ -219,8 +219,7 @@ Compositor
   (require 'org-crypt)
   (org-crypt-use-before-save-magic)
 
-  (setq epa-file-encrypt-to
-        '(email1))
+  (setq epa-file-encrypt-to email1)
   (setq epa-file-select-keys 1)
 #+end_src
 ** Multiple monitors
@@ -1064,7 +1063,7 @@ Capture templates for org roam.
 Capture template for org roam dailies
 #+begin_src emacs-lisp :results none
   (setq org-roam-dailies-capture-templates
-        '(("d" "default" entry "* %?" :target (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>
+        '(("d" "default" entry "* %?" :target (file+head "%<%Y-%m-%d>.org.gpg" "#+title: %<%Y-%m-%d>
   "))))
 #+end_src
 * PDFs
