@@ -71,9 +71,9 @@ on the right. This way, we can use Emacs keybindings in X windows.
           ([?\C-k] . [S-end delete])
   	([?\C- ] . [C-a])
   	([?\C-g] . [escape])
+  	([?\C-j] . [S-enter])
   	))
 #+end_src
-
 Enable a system tray in the minibuffer. This is where icons for the
 network manager and other background applications will be.
 #+begin_src emacs-lisp :results none
