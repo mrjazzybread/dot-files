@@ -71,7 +71,7 @@ on the right. This way, we can use Emacs keybindings in X windows.
           ([?\C-k] . [S-end delete])
   	([?\C- ] . [C-a])
   	([?\C-g] . [escape])
-  	([?\C-j] . [S-enter])
+  	([?\C-j] . [S-RET])
   	))
 #+end_src
 Enable a system tray in the minibuffer. This is where icons for the
