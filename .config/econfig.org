@@ -1070,10 +1070,6 @@ Capture templates for org roam.
            "%?"
            :if-new (file+head "research/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
            :unnarrowed t)
-  	'("d" "default" plain "%?"
-  	   :target (file+head "${slug}.org.gpg"
-                                "#+title: ${title}\n")
-  	   :unnarrowed t)
   	))
 #+end_src
 Capture template for org roam dailies
