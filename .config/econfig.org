@@ -81,14 +81,16 @@ network manager and other background applications will be.
 #+end_src
 Better splitting of windows
 #+begin_src emacs-lisp :results none
-  (defun my-split-window-below (&optional arg)
+  (defun my-split-window-right (&optional arg)
     "Split the current window 70/30 rather than 50/50.
-  A single-digit prefix argument gives the top window arg*10%."
+  A single-digit prefix argument gives the top window arg*10%.
+     For some reason, exwm windows need to be treated specially."
     (interactive "P")
-    (let ((proportion (* (or arg 6) 0.1)))
+    (let ((proportion (* (or arg 6)
+  		       (if (equal major-mode 'exwm-mode) 0.07 0.1))))
       (split-window-right (- (round (* proportion (window-width)))))))
 
-  (global-set-key (kbd "C-x 3") 'my-split-window-below)
+  (global-set-key (kbd "C-x 3") 'my-split-window-right)
 #+end_src
 
 If a window is popped up with the same name as another window, reuse
@@ -332,16 +334,7 @@ Keybindings to switch the current workspace
                         (exwm-workspace-switch-create ,(- i 1)))))
                   (number-sequence 1 9))))
 #+end_src
-** Window layouts
-#+begin_src emacs-lisp :results none
-  (use-package perspective
-    :bind
-    ("C-x C-b" . persp-list-buffers)         ; or use a nicer switcher, see below
-    :custom
-    (persp-mode-prefix-key (kbd "C-c M-p"))  ; pick your own prefix key here
-    :init
-    (persp-mode))
-#+end_src
+
 * Some Miscellaneous Configurations
 enable creation of pairs of brackets or quotes when one is inserted.
 #+begin_src emacs-lisp :results none
