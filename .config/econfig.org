@@ -201,7 +201,7 @@ Update config files
 
 Auto-pause media when headphones are disconnected
 #+begin_src emacs-lisp :results none
-  (start-process-shell-command "autopause" nil " ~/.config/autopause.sh")
+  (efs/run-in-background nil "~/.config/autopause.sh")
 #+end_src
 
 Auto-mount usb drives
@@ -227,6 +227,7 @@ Compositor
 ** GPG
 #+begin_src emacs-lisp :results none
   ;; let's get encryption established
+  (use-package pinentry)
   (setenv "GPG_AGENT_INFO" nil)  ;; use emacs pinentry
   (setq auth-source-debug t)
 
@@ -256,7 +257,7 @@ Mouse warping
 
 Focus follows mouse
 #+begin_src emacs-lisp :results none
-  (setq mouse-autoselect-window t
+  (setq mouse-atuoselect-window t
         focus-follows-mouse t)
 #+end_src
 
