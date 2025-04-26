@@ -201,7 +201,7 @@ Update config files
 
 Auto-pause media when headphones are disconnected
 #+begin_src emacs-lisp :results none
-  (efs/run-in-background "~/.config/autopause.sh")
+  (efs/run-in-background "bash ~/.config/autopause.sh")
 #+end_src
 
 Auto-mount usb drives
