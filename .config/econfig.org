@@ -721,13 +721,11 @@ Some helpful variables
 
   (defvar agenda-file
     (org-directory "appoint.org"))
-
-  (defvar notes-file "~/website/content/notes.org")
 #+end_src
 My agenda files:
 
 #+begin_src emacs-lisp :results none
-  (setq org-agenda-files (list (org-directory "") notes-file))
+  (setq org-agenda-files (list (org-directory "")))
 #+end_src
 Settings for exporting Org files with citations to TeX.
 #+begin_src emacs-lisp :results none
