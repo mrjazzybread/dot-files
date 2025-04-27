@@ -340,8 +340,10 @@ Suspend the computer
 
 Open web browser
 #+begin_src emacs-lisp :results none
-  (exwm-input-set-key (kbd "S-s-<return>")
-  		    (lambda () (efs/run-in-background "firefox")))
+  (defun run-firefox ()
+    (efs/run-in-background "firefox"))
+
+  (exwm-input-set-key (kbd "S-s-<return>") 'run-firefox)
 #+end_src
 
 Keybindings to switch the current workspace
