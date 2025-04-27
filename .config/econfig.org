@@ -341,6 +341,7 @@ Suspend the computer
 Open web browser
 #+begin_src emacs-lisp :results none
   (defun run-firefox ()
+    (interactive)
     (efs/run-in-background "firefox"))
 
   (exwm-input-set-key (kbd "S-s-<return>") 'run-firefox)
