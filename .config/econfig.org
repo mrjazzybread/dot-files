@@ -72,7 +72,7 @@ on the right. This way, we can use Emacs keybindings in X windows.
   	([?\C- ] . [C-a])
   	([?\C-g] . [escape])
   	([?\C-j] . [S-return])
-  	([mouse-1])
+  	([?\C-w] . [C-c C-q C-x])
   	))
 #+end_src
 Minor mode to rename Firefox EXWM buffers to the names of the
