@@ -338,6 +338,12 @@ Suspend the computer
   (exwm-input-set-key (kbd "s-f") 'zoom-window-zoom)
 #+end_src
 
+Open web browser
+#+begin_src emacs-lisp :results none
+  (exwm-input-set-key (kbd "S-s-<return>")
+  		    (efs/run-in-background "firefox"))
+#+end_src
+
 Keybindings to switch the current workspace
 #+begin_src emacs-lisp :results none
   (setq exwm-input-global-keys
