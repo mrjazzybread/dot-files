@@ -348,7 +348,7 @@ Open web browser
     (interactive)
     (efs/run-in-background "firefox"))
 
-  (exwm-input-set-key (kbd "S-<return>") 'run-firefox)
+  (exwm-input-set-key (kbd "s-<return>") 'run-firefox)
 #+end_src
 
 Keybindings to switch the current workspace
