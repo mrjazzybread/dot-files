@@ -131,6 +131,11 @@ Functions to shutdown and reboot the system
     (interactive)
     (shell-command "shutdown -r now"))
 #+end_src
+Mouse follows focus
+#+begin_src emacs-lisp :results none
+  (use-package exwm-mff)
+#+end_src
+
 ** Keybindings for desktop utilities
 We use the ~desktop-environment~ package to help us change the volume,
 adjust brightness, etc...

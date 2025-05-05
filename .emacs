@@ -15,14 +15,14 @@
 	 corfu counsel desktop-environment dired-hist dired-subtree
 	 doom-modeline-now-playing dune eat ef-themes elcord eldoc-box
 	 elfeed emojify esh-autosuggest exec-path-from-shell exwm
-	 exwm-firefox-core eyebrowse fireplace fish-completion
-	 flycheck flyspell-correct-ivy gnu-elpa-keyring-update
-	 go-translate goto-chg highlight-defined ivy-posframe magit
-	 mingus mu4e-alert multiple-cursors nerd-icons-corfu nov
-	 ocamlformat opam-switch-mode org-alert org-fragtog
-	 org-roam-ui pacmacs pinentry proof-general quelpa rustic
-	 shrface smex tablist trashed tuareg writeroom-mode yaml-mode
-	 zoom-window))
+	 exwm-firefox-core exwm-mff eyebrowse fireplace
+	 fish-completion flycheck flyspell-correct-ivy
+	 gnu-elpa-keyring-update go-translate goto-chg
+	 highlight-defined ivy-posframe magit mingus mu4e-alert
+	 multiple-cursors nerd-icons-corfu nov ocamlformat
+	 opam-switch-mode org-alert org-fragtog org-roam-ui pacmacs
+	 pinentry proof-general quelpa rustic shrface smex tablist
+	 trashed tuareg writeroom-mode yaml-mode zoom-window))
  '(zoom-window-mode-line-color "pink"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
