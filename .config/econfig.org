@@ -285,7 +285,7 @@ Update displays
                (string-trim (shell-command-to-string "autorandr --current")))
       (start-process-shell-command
        "feh" nil
-       "feh --bg-scale ~/downloads/yorha.png --bg-scale ~/.config/bg/lain-hands.jpeg"))
+       "feh --bg-scale ~/.config/bg/lain-dark.jpeg --bg-scale ~/.config/bg/lain-hands.jpeg"))
 
     (add-hook 'exwm-randr-screen-change-hook #'efs/update-displays)
     (exwm-randr-mode 1)
