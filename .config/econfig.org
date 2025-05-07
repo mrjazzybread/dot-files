@@ -1395,7 +1395,7 @@ Display time in mode line
 
   (require 'mu4e)
 
-  (setq user-mail-address "tl.soares@campus.fct.unl.pt")
+  (setq user-mail-address email1)
   (use-package mu4e
     :ensure nil
     ;; :load-path "/usr/share/emacs/site-lisp/mu4e/"
@@ -1407,9 +1407,10 @@ Display time in mode line
     ;; This is set to 't' to avoid mail syncing issues when using mbsync
     (setq mu4e-change-filenames-when-moving t)
     (setq mu4e-context-policy "pick-first")
-    ;; Refresh mail using isync every 10 minutes
-    (setq mu4e-update-interval 60000)
+    ;; Refresh mail using isync every minute
+    (setq mu4e-update-interval 60)
     (setq mu4e-get-mail-command "mbsync -a")
+
     (setq mu4e-maildir "~/mail")
 
     (setq mu4e-contexts
@@ -1421,7 +1422,7 @@ Display time in mode line
             (lambda (msg)
               (when msg
                 (string-prefix-p "/gmail" (mu4e-message-field msg :maildir))))
-            :vars '((user-mail-address . "tl.soares@campus.fct.unl.pt")
+            :vars '((user-mail-address . email1)
                     (user-full-name    . "Tiago Soares")
   		  (smtpmail-smtp-server . "smtp.gmail.com")
   		  (smtpmail-smtp-service . 465)
@@ -1485,16 +1486,15 @@ Display time in mode line
   (add-hook 'mu4e-view-mode-hook #'writeroom-mode)
   (add-hook 'mu4e-headers-mode-hook #'writeroom-mode)
   (add-hook 'message-mode-hook #'auto-fill-mode)
-  (use-package async)
   (load "~/.mu4e-dashboard/mu4e-dashboard.el")
 
   (mu4e)
 
   (setq message-cite-reply-position 'above)
 
-  (setq mu4e-search-threads nil)
+  ;(setq mu4e-search-threads nil)
 
-  (setq mu4e-hide-index-messages t)
+  ;(setq mu4e-hide-index-messages nil)
 #+end_src
 
 * ~Eshell~
