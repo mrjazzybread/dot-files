@@ -1395,7 +1395,7 @@ Display time in mode line
 
   (require 'mu4e)
 
-  (setq user-mail-address email1)
+  (setq user-mail-address "tl.soares@campus.fct.unl.pt")
   (use-package mu4e
     :ensure nil
     ;; :load-path "/usr/share/emacs/site-lisp/mu4e/"
@@ -1422,7 +1422,7 @@ Display time in mode line
             (lambda (msg)
               (when msg
                 (string-prefix-p "/gmail" (mu4e-message-field msg :maildir))))
-            :vars '((user-mail-address . email1)
+            :vars '((user-mail-address . "tl.soares@campus.fct.unl.pt")
                     (user-full-name    . "Tiago Soares")
   		  (smtpmail-smtp-server . "smtp.gmail.com")
   		  (smtpmail-smtp-service . 465)
@@ -1494,7 +1494,7 @@ Display time in mode line
 
   ;(setq mu4e-search-threads nil)
 
-  ;(setq mu4e-hide-index-messages nil)
+  (setq mu4e-hide-index-messages nil)
 #+end_src
 
 * ~Eshell~
