@@ -656,8 +656,11 @@ Set files to omit
                 (seq bol ".") ;; dot-files
                 (seq "~" eol)                 ;; backup-files
                 (seq bol "CVS" eol)           ;; CVS dirs
+  	      (seq bol "CVS" eol)           ;; CVS dirs
                 ))
         )
+  (setq dired-omit-files
+        (concat dired-omit-files "\\|\\.gpg$")) ;; encrypted files
 #+end_src
 Make it so ~Dired~ buffers are just a list of file names.
 #+begin_src emacs-lisp :results none
