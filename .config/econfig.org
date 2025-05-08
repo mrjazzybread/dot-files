@@ -1492,8 +1492,6 @@ Display time in mode line
 
   (setq message-cite-reply-position 'above)
 
-  ;(setq mu4e-search-threads nil)
-
   (setq mu4e-hide-index-messages nil)
 #+end_src
 
