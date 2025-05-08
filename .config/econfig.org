@@ -527,10 +527,6 @@ Adds themes folder to custom themes
     :custom (avy-timeout-seconds 0.3))
   (bind-key "M-j" 'avy-goto-char-timer)
 
-  (use-package elcord
-    :custom (elcord-editor-icon "doom_cute_icon")
-    :custom (elcord-idle-message "😴"))
-  (elcord-mode 1)
   (use-package exec-path-from-shell)
   (when (daemonp)
     (exec-path-from-shell-initialize))
@@ -1492,7 +1488,7 @@ Display time in mode line
 
   (setq message-cite-reply-position 'above)
 
-  (setq mu4e-hide-index-messages nil)
+  (setq mu4e-hide-index-messages t)
 #+end_src
 
 * ~Eshell~

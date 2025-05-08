@@ -14,7 +14,7 @@
 	 autothemer avy bluetooth browse-kill-ring calibredb
 	 company-coq consult corfu counsel desktop-environment
 	 dired-hist dired-subtree doom-modeline-now-playing dune eat
-	 ef-themes elcord eldoc-box elfeed emojify esh-autosuggest
+	 ef-themes eldoc-box elfeed emojify esh-autosuggest
 	 exec-path-from-shell exwm exwm-firefox-core exwm-mff
 	 eyebrowse fireplace fish-completion flycheck
 	 flyspell-correct-ivy gnu-elpa-keyring-update go-translate
