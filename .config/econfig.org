@@ -1418,7 +1418,7 @@ Display time in mode line
             (lambda (msg)
               (when msg
                 (string-prefix-p "/gmail" (mu4e-message-field msg :maildir))))
-            :vars '((user-mail-address . "tl.soares@campus.fct.unl.pt")
+            :vars `((user-mail-address . ,email1)
                     (user-full-name    . "Tiago Soares")
   		  (smtpmail-smtp-server . "smtp.gmail.com")
   		  (smtpmail-smtp-service . 465)
@@ -1433,7 +1433,7 @@ Display time in mode line
             (lambda (msg)
               (when msg
                 (string-prefix-p "/inria" (mu4e-message-field msg :maildir))))
-            :vars '((user-mail-address . email2)
+            :vars `((user-mail-address . ,email2)
                     (user-full-name    . "Tiago Soares")
   		  (smtpmail-smtp-server . "smtp.inria.fr")
   		  (smtpmail-smtp-service . 587)
