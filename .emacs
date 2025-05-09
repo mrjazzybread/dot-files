@@ -29,4 +29,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(variable-pitch-text ((t (:inherit default :height 1.1)))))
+ '(variable-pitch-text ((t (:inherit default :height 1.1))))
+ '(vertical-border (nil))
+ '(window-divider-first-pixel ((t (:foreground "black"))))
+ '(window-divider-last-pixel ((t (:background "black")))))
