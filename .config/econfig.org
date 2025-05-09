@@ -134,7 +134,6 @@ Functions to shutdown and reboot the system
 Mouse follows focus
 #+begin_src emacs-lisp :results none
   (use-package exwm-mff)
-  (exwm-mff-mode 1)
 #+end_src
 Inner "Gaps"
 #+begin_src emacs-lisp :results none
