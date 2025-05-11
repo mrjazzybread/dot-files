@@ -36,7 +36,7 @@ GNU keys to enable downloading packages
 * EXWM
 #+begin_src emacs-lisp :results none
   (use-package exwm)
-    #+end_src
+#+end_src
 
 Setting the initial workspace number
 #+begin_src emacs-lisp :results none
