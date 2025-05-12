@@ -31,5 +31,6 @@
  ;; If there is more than one, they won't work right.
  '(variable-pitch-text ((t (:inherit default :height 1.1))))
  '(vertical-border (nil))
+ '(window-divider ((t (:foreground "black"))))
  '(window-divider-first-pixel ((t (:foreground "black"))))
  '(window-divider-last-pixel ((t (:background "black")))))

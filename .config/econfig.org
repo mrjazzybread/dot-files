@@ -138,8 +138,9 @@ Mouse follows focus
 Inner "Gaps"
 #+begin_src emacs-lisp :results none
   (window-divider-mode 1)
-  (setq window-divider-default-bottom-width 8)
-  (setq window-divider-default-right-width 8)
+  (setq window-divider-default-bottom-width 6)
+  (setq window-divider-default-right-width 6)
+  (menu-bar-bottom-and-right-window-divider)
 #+end_src
 ** Keybindings for desktop utilities
 We use the ~desktop-environment~ package to help us change the volume,
