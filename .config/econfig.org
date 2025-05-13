@@ -432,7 +432,7 @@ Enable ~recentf~ mode to remember recently opened files
   (add-to-list 'recentf-exclude
     	     (lambda (s) (cl-search "/test/" s)))
   (add-to-list 'recentf-exclude
-    	     (lambda (s) ((cl-search "/tmp/" s))))
+    	     (lambda (s) (cl-search "/tmp/" s)))
 #+end_src
 Keybindings for splitting a window instead clones the frame
 #+begin_src emacs-lisp :results none
@@ -1117,13 +1117,14 @@ Capture template for org roam dailies
 Opens the current file in ~zathura~ and kills the Doc View buffer.
 #+begin_src emacs-lisp :results none
   (defun zathura ()
+    (when (equal (file-name-extension (buffer-file-name)) "pdf")
     (start-process "zathura" nil "zathura" (buffer-file-name))
     (let ((b (current-buffer)))
       (add-to-list 'recentf-list (buffer-file-name))
       (recentf-save-list)
       (previous-buffer)
       (kill-buffer b)
-    ))
+    )))
 #+end_src
 When we open a PDF in Emacs, open it in ~zathura~ instead.
 #+begin_src emacs-lisp :results none
