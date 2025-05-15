@@ -1,6 +1,6 @@
 alias opam-set set-envs ${opam-env} && export PATH=${getenv "PATH"}
 alias opam-env read ${format "%s" ${*opam env --sexp}}
-alias ocaml-sanity git rebase --interactive --exec "dune fmt --preview && dune test" $1
+alias ocaml-sanity git rebase --interactive --exec "dune fmt --preview && dune build && dune test" $1
 alias ocaml rlwrap ocaml $1
 alias echo echo $*
 alias rlwrap env -u INSIDE_EMACS rlwrap $1
