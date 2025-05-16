@@ -1088,7 +1088,7 @@ Function to create a latex project.
             ;; Dailies
             ("C-c n j" . org-roam-dailies-capture-today)))
 
-   (org-roam-db-autosync-mode)
+;   (org-roam-db-autosync-mode)
 #+end_src
 Capture templates for org roam.
 #+begin_src emacs-lisp :results none
