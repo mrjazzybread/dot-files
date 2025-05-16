@@ -835,7 +835,7 @@ Automatic latex preview in Org mode
 Scale up latex preview in Org mode
 #+begin_src emacs-lisp :results none
   (setq org-format-latex-options
-        (plist-put org-format-latex-options :scale 2.5))
+        (plist-put org-format-latex-options :scale 3))
 #+end_src
 Automatically converts strings to emojis
 #+begin_src emacs-lisp :results none
