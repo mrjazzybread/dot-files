@@ -1353,6 +1353,7 @@ Disable Splash Screen
 Define font style and height
 #+begin_src emacs-lisp :results none
   (setq default-frame-alist '((font . "Roboto Mono 22")))
+  (add-to-list 'default-frame-alist '(background-color . "#34293E"))
 #+end_src
 Set theme (currently Shades of Purple)
 #+begin_src emacs-lisp :results none
