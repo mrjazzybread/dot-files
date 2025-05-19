@@ -4,9 +4,8 @@
     "separator": " :: "
   },
   "logo" : {
-    "color": { "1" : "magenta", "2" : "magenta", "3" : "magenta" }
+    "color": { "1" : "magenta", "2" : "magenta", "3" : "magenta" },
   },
-  "font": "JHL Typewriter",
   "modules": [
     { "type" : "break" },
     { "type" : "break" },
