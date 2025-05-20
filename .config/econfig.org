@@ -142,6 +142,10 @@ Inner "Gaps"
   (setq window-divider-default-right-width 6)
   (menu-bar-bottom-and-right-window-divider)
 #+end_src
+Mouse follows focus
+#+begin_src emacs-lisp :results none
+  (add-hook 'exwm-init-hook #'exwm-mff-mode)
+#+end_src
 ** Keybindings for desktop utilities
 We use the ~desktop-environment~ package to help us change the volume,
 adjust brightness, etc...
