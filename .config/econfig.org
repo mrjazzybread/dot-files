@@ -1633,6 +1633,15 @@ Add rust packages to path
 #+begin_src emacs-lisp :results none
   (defun set-envs (l) (dolist (p (nth 0 l)) (setenv (nth 0 p) (nth 1 p))))
 #+end_src
+
+Buffer name matches eshell directory
+#+begin_src emacs-lisp :results none
+  (defun sync-dir-in-buffer-name ()
+      (rename-buffer (concat "*eshell* " default-directory)))
+
+  (add-hook 'eshell-directory-change-hook #'sync-dir-in-buffer-name)
+#+end_src
+
 ** ~Eshell~ configuration
 Startup configuration. Sets the opam environment variables and runs
 ~fastfetch~.
