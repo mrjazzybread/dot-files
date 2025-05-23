@@ -607,7 +607,7 @@ Package for completion suggestions
 Package for language servers
 #+begin_src emacs-lisp :results none
   (use-package eglot
-    :hook (prog-mode . eglot-ensure))
+    :hook (prog-mode . (unless (eq major-mode 'coq-mode) eglot-ensure)))
 #+end_src
 Neat eldoc popup
 #+begin_src emacs-lisp :results none
