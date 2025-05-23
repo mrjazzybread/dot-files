@@ -1158,7 +1158,6 @@ Function for a more convenient Coq buffer split.
 Package for working with Coq
 #+begin_src emacs-lisp :results none
   (use-package proof-general
-    :hook (coq-mode . unset)
     :bind (:map coq-mode-map
                 ("C-c C-k" . split-proof-general))
     :custom
