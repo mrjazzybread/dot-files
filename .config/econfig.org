@@ -567,16 +567,19 @@ Package used by Eglot for highlighting errors
     :hook (prog-mode . flymake-mode)
     )
 #+end_src
-** Corfu
+** Company
 Package for completion suggestions
 #+begin_src emacs-lisp :results none
-  (use-package corfu
-    :custom (corfu-auto t))
 
-  (global-corfu-mode 1)
+  (use-package company)
+  (global-company-mode 1)
+  ;; (use-package corfu
+  ;;   :custom (corfu-auto t))
 
-  (use-package nerd-icons-corfu)
-  (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter)
+  ;; (global-corfu-mode 1)
+
+  ;; (use-package nerd-icons-corfu)
+  ;; (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter)
 #+end_src
 
 ** OCaml packages
@@ -606,8 +609,12 @@ Package for completion suggestions
 ** ~Eglot~
 Package for language servers
 #+begin_src emacs-lisp :results none
+  (defun lsp-no-coq ()
+    (interactive)
+    (unless (eq major-mode 'coq-mode) (eglot-ensure)))
+
   (use-package eglot
-    :hook (prog-mode . (unless (eq major-mode 'coq-mode) eglot-ensure)))
+      :hook (prog-mode . lsp-no-coq))
 #+end_src
 Neat eldoc popup
 #+begin_src emacs-lisp :results none

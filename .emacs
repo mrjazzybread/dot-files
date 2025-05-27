@@ -18,7 +18,7 @@
 	 exec-path-from-shell exwm exwm-firefox-core exwm-mff
 	 eyebrowse fireplace fish-completion flycheck
 	 flyspell-correct-ivy gnu-elpa-keyring-update go-translate
-	 goto-chg highlight-defined ivy-posframe magit mingus
+	 goto-chg highlight-defined ivy-posframe magit merlin mingus
 	 mu4e-alert multiple-cursors nerd-icons-corfu nov ocamlformat
 	 opam-switch-mode org-alert org-fragtog org-roam-ui pacmacs
 	 pinentry proof-general quelpa rustic shrface smex tablist
