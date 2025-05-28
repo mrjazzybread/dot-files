@@ -1702,7 +1702,7 @@ We use eat to run any commands that require visuals
     :config
     (require 'shrface)
     (advice-add 'eww-display-html :around #'shrface-render-advice)
-    ;(add-hook 'eww-after-render-hook #'org-indent-mode)
+    (add-hook 'eww-after-render-hook #'org-indent-mode)
     (add-hook 'eww-after-render-hook #'eldoc-mode)
     (add-hook 'eww-after-render-hook #'eldoc-box-hover-mode)
     (add-hook 'eww-after-render-hook #'shrface-eww-setup))
