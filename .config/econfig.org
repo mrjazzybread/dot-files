@@ -797,95 +797,6 @@ This is very important
     (insert "👁️👄👁️")
     )
 #+end_src
-** Appearance
-Hide emphasis markers and macro braces
-
-#+begin_src emacs-lisp :results none
-  (setq org-hide-emphasis-markers t)
-  (setq org-hide-macro-markers t)
-#+end_src
-Make it there is only one star visible in each heading.
-
-#+begin_src emacs-lisp :results none
-  (setq org-hide-leading-stars t)
-#+end_src
-Use LaTeX like syntax to insert special symbols
-
-#+begin_src emacs-lisp :results none
-  (setq org-pretty-entities t)
-#+end_src
-Start Org files with each heading folded.
-
-#+begin_src emacs-lisp :results none
-  (setq org-startup-folded t)
-#+end_src
-Enable Org indentation
-
-#+begin_src emacs-lisp :results none
-  (setq org-startup-indented t)
-  (use-package org-modern-indent
-    :load-path "~/"
-    ; or
-    ; :straight (org-modern-indent :type git :host github :repo "jdtsmith/org-modern-indent"))
-    :config ; add late to hook
-    (add-hook 'org-mode-hook #'org-modern-indent-mode 90))
-#+end_src
-Centre Org agenda
-#+begin_src emacs-lisp :results none
-  (add-hook 'org-agenda-mode-hook #'writeroom-mode)
-#+end_src
-Don't show items that are marked as done.
-#+begin_src emacs-lisp :results none
-  (setq org-agenda-skip-timestamp-if-done t
-        org-agenda-skip-deadline-if-done t
-        org-agenda-skip-scheduled-if-done t
-        org-agenda-skip-scheduled-if-deadline-is-shown t
-        org-agenda-skip-timestamp-if-deadline-is-shown t)
-#+end_src
-Automatic latex preview in Org mode
-#+begin_src emacs-lisp :results none
-  (setq org-startup-with-latex-preview t)
-
-  (use-package org-fragtog
-    :hook (org-mode . org-fragtog-mode))
-#+end_src
-Scale up latex preview in Org mode
-#+begin_src emacs-lisp :results none
-  (setq org-format-latex-options
-        (plist-put org-format-latex-options :scale 3))
-#+end_src
-Automatically converts strings to emojis
-#+begin_src emacs-lisp :results none
-  (use-package emojify)
-#+end_src
-
-*** Org Pretty Symbols
-
-Function for adding pretty symbols for Org mode. Most of these are
-just so that Org mode environments aren't awful to look at.
-#+begin_src emacs-lisp :results none
-    ;; Pretty Symbols for Org
-  (defun add-symbols ()
-    (push '("#+end_example" . ? ) prettify-symbols-alist)
-    (push '("#+end_src" . ? ) prettify-symbols-alist)
-    (push '("#+begin_example coq" . ?🐓) prettify-symbols-alist)
-    (push '("#+begin_example ocaml" . ?🐫) prettify-symbols-alist)
-    (push '("#+begin_src ocaml" . ?🐫) prettify-symbols-alist)
-    (push '("#+begin_example ocaml :why3" . ?❔) prettify-symbols-alist)
-    ;;errrrrrm, what the ...
-    (push '("#+begin_src emacs-lisp :results none" . ?🗿) prettify-symbols-alist)
-    (push '("#+ATTR_LATEX: :environment cfml" . ? ) prettify-symbols-alist)
-    (push '("#+ATTR_LATEX: :environment ocamlenv" . ? ) prettify-symbols-alist)
-    (push '("#+ATTR_LATEX: :environment gospel" . ? ) prettify-symbols-alist)
-    (push '("#+ATTR_LATEX: :environment whylang" . ? ) prettify-symbols-alist)
-    (push '("->" . ?→) prettify-symbols-alist)
-    (push '("<->" . ?↔) prettify-symbols-alist)
-    (push '("|-" . ?⊢) prettify-symbols-alist)
-    (push '("/\\" . ?∧) prettify-symbols-alist)
-    (push '("\\/" . ?∨) prettify-symbols-alist)
-    (push '("<-" . ?←) prettify-symbols-alist)
-    (prettify-symbols-mode 1))
-#+end_src
 ** Org capture templates
 #+begin_src emacs-lisp :results none
   (setq org-capture-templates
@@ -1791,7 +1702,7 @@ We use eat to run any commands that require visuals
     :config
     (require 'shrface)
     (advice-add 'eww-display-html :around #'shrface-render-advice)
-    (add-hook 'eww-after-render-hook #'org-indent-mode)
+    ;(add-hook 'eww-after-render-hook #'org-indent-mode)
     (add-hook 'eww-after-render-hook #'eldoc-mode)
     (add-hook 'eww-after-render-hook #'eldoc-box-hover-mode)
     (add-hook 'eww-after-render-hook #'shrface-eww-setup))
