@@ -20,5 +20,5 @@ xrandr --dpi 90
 #export CLUTTER_IM_MODULE=xim
 
 # Finally start Emacs
-emacs --daemon -f exwm-enable
-exec emacsclient -c
+emacs -f exwm-enable
+# exec emacsclient -c
