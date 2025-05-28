@@ -916,7 +916,6 @@ Global key bindings to access and update the agenda.
 Concise way of using the previous definitions to configure Org.
 #+begin_src emacs-lisp :results none
   (use-package org
-    :hook (org-mode . add-symbols)
     :bind
     (:map org-mode-map
           ("C-c C-x C-x" . org-insert-code-env))
