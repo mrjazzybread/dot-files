@@ -1329,9 +1329,6 @@ Display time in mode line
 
   (setq user-mail-address "tl.soares@campus.fct.unl.pt")
   (use-package mu4e
-    :defer t
-    :config
-    (advice-add 'mu4e-shr2text :around #'shrface-render-advice)
     :ensure nil
     ;; :load-path "/usr/share/emacs/site-lisp/mu4e/"
     ;; :defer 20 ; Wait until 20 seconds after startup
