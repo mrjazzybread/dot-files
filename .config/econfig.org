@@ -103,11 +103,11 @@ Better splitting of windows
 If a window is popped up with the same name as another window, reuse
 it.
 #+begin_src emacs-lisp :results none
-(customize-set-variable 'display-buffer-base-action
-  '((display-buffer-reuse-window display-buffer-same-window)
-    (reusable-frames . t)))
+  ;; (customize-set-variable 'display-buffer-base-action
+  ;;   '((display-buffer-reuse-window display-buffer-same-window)
+  ;;     (reusable-frames . t)))
 
-(customize-set-variable 'even-window-sizes nil)     ; avoid resizing
+  ;; (customize-set-variable 'even-window-sizes nil)     ; avoid resizing
 #+end_src
 
 Sometimes when switching to an X window, EXWM does not focus on it.
