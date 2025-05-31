@@ -100,14 +100,15 @@ Better splitting of windows
   (global-set-key (kbd "C-x 3") 'my-split-window-right)
 #+end_src
 
-If a window is popped up with the same name as another window, reuse
-it.
-#+begin_src emacs-lisp :results none
-  ;; (customize-set-variable 'display-buffer-base-action
-  ;;   '((display-buffer-reuse-window display-buffer-same-window)
-  ;;     (reusable-frames . t)))
+I use the shackle package to control the behaviour of pop up windows.
 
-  ;; (customize-set-variable 'even-window-sizes nil)     ; avoid resizing
+#+begin_src emacs-lisp :results none
+  (use-package shackle)
+  (setq shackle-select-reused-windows t)
+  (setq shackle-rules
+        '(("*compilation*" :same t)
+  	('magit-status-mode :same t)))
+  (shackle-mode 1)
 #+end_src
 
 Sometimes when switching to an X window, EXWM does not focus on it.
