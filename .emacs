@@ -24,7 +24,6 @@
 	 org-roam-ui pacmacs pinentry proof-general quelpa rustic
 	 shackle shr-tag-pre-highlight shrface smex tablist trashed
 	 tuareg wallabag writeroom-mode yaml-mode zoom-window))
- '(shackle-rules '(("*compilation*" :same t)))
  '(zoom-window-mode-line-color "pink"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
