@@ -147,6 +147,12 @@ Mouse follows focus
 #+begin_src emacs-lisp :results none
   (add-hook 'exwm-init-hook #'exwm-mff-mode)
 #+end_src
+
+EXWM allows switching to X windows in a different workspace.
+#+begin_src emacs-lisp :results none
+  (setq exwm-workspace-show-all-buffers 1)
+  (setq exwm-layout-show-all-buffers 1)
+#+end_src
 ** Keybindings for desktop utilities
 We use the ~desktop-environment~ package to help us change the volume,
 adjust brightness, etc...
