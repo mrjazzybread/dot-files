@@ -302,7 +302,7 @@ Update displays
                (string-trim (shell-command-to-string "autorandr --current")))
       (start-process-shell-command
        "feh" nil
-       "feh --bg-scale ~/.config/bg/lain.jpeg --bg-scale ~/.config/bg/lain-hands.jpeg"))
+       "feh --bg-scale ~/.config/bg/lain-dark.jpeg --bg-scale ~/.config/bg/lain-hands.jpeg"))
 
     (add-hook 'exwm-randr-screen-change-hook #'efs/update-displays)
     (exwm-randr-mode 1)
@@ -1654,7 +1654,6 @@ Buffer name matches eshell directory
 
   (add-hook 'eshell-directory-change-hook #'sync-dir-in-buffer-name)
 #+end_src
-
 ** ~Eshell~ configuration
 Startup configuration. Sets the opam environment variables and runs
 ~fastfetch~.
