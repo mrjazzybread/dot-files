@@ -20,7 +20,7 @@ playlist_display_mode = "columns"
 ## }
 ##
 #
-#visualizer_fifo_path = "/tmp/mpd.fifo"
+visualizer_fifo_path = "/tmp/mpd.fifo"
 #
 ##
 ## Note: Below parameter is needed for ncmpcpp
@@ -30,7 +30,7 @@ playlist_display_mode = "columns"
 ## are some problems with it.
 ##
 #
-#visualizer_output_name = "my_fifo"
+visualizer_output_name = "my_fifo"
 #
 ##
 ## Note: Below parameter defines how often ncmpcpp
@@ -40,7 +40,7 @@ playlist_display_mode = "columns"
 ## Keep in mind that sane values start with >=10.
 ##
 #
-#visualizer_sync_interval = "30"
+visualizer_sync_interval = "30"
 #
 ##
 ## Note: To enable spectrum frequency visualization
