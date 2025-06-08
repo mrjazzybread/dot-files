@@ -106,8 +106,9 @@ files.
 #+end_src
 Add binding to go to previous and next buffer.
 #+begin_src emacs-lisp :results none
-  (global-set-key "\C-xp" 'previous-buffer)
-  (global-set-key "\C-xn" 'next-buffer)
+  (winner-mode)
+  (global-set-key "\C-xp" 'winner-undo)
+  (global-set-key "\C-xn" 'winner-redo)
 #+end_src
 Set scratch buffer major mode to ~org-mode~
 #+begin_src emacs-lisp :results none
@@ -203,11 +204,9 @@ when I have already used a buffer navigation command.
 
 #+begin_src emacs-lisp :results none
   (repeat-mode 1)
-  (setq buffer-navigation-repeat-map
-        (let ((map (make-sparse-keymap)))
-          (define-key map (kbd "n") #'next-buffer)
-          (define-key map (kbd "p") #'previous-buffer)
-          map))
+  (put 'winner-undo 'repeat-map 'winner-repeat-map)
+  (put 'winner-redo 'repeat-map 'winner-repeat-map)
+
 #+end_src
 Disable repeat mode in Dired
 #+begin_src emacs-lisp :results none
