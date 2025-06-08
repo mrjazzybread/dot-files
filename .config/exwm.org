@@ -313,3 +313,8 @@ Keybindings to switch the current workspace
                         (exwm-workspace-switch-create ,(- i 1)))))
                   (number-sequence 1 9))))
 #+end_src
+* Enable EXWM
+
+#+begin_src emacs-lisp :results none
+  (exwm-enable)
+#+end_src
