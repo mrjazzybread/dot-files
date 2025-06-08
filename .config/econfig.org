@@ -203,13 +203,13 @@ This allows me to easily switch to another buffer using "p" and "n"
 when I have already used a buffer navigation command.
 
 #+begin_src emacs-lisp :results none
-  ;;  (repeat-mode 1)
+  (repeat-mode 1)
 
-  ;;   (put 'winner-repeat-map (kbd "<left>")
-  ;;         (let ((map (make-sparse-keymap)))
-  ;; 	  (define-key map (kbd "<left>") 'winner-undo)
-  ;;           (define-key map (kbd "<right>") 'winner-redo)
-  ;;  	map))
+  (setq winner-repeat-map
+        (let ((map (make-sparse-keymap)))
+  	(define-key map (kbd "<left>") 'winner-undo)
+          (define-key map (kbd "<right>") 'winner-redo)
+  	map))
 
 #+end_src
 Disable repeat mode in Dired
