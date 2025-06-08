@@ -204,8 +204,15 @@ when I have already used a buffer navigation command.
 
 #+begin_src emacs-lisp :results none
   (repeat-mode 1)
-  (put 'winner-undo 'repeat-map 'winner-repeat-map)
-  (put 'winner-redo 'repeat-map 'winner-repeat-map)
+
+  ;; (setq winner-repeat-map
+  ;;       (let ((map (make-sparse-keymap)))
+  ;; 	(define-key map (kbd "<left>") 'winner-undo)
+  ;; 	(define-key map (kbd "<right>") 'winner-redo)
+  ;; 	map))
+
+  ;; (put 'winner-undo 'repeat-map 'winner-repeat-map)
+  ;; (put 'winner-redo 'repeat-map 'winner-repeat-map)
 
 #+end_src
 Disable repeat mode in Dired
