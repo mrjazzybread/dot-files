@@ -207,8 +207,8 @@ when I have already used a buffer navigation command.
 
   (setq winner-repeat-map
         (let ((map (make-sparse-keymap)))
-  	(define-key map (kbd "<left>") 'winner-undo)
-          (define-key map (kbd "<right>") 'winner-redo)
+  	(define-key map (kbd "p") 'winner-undo)
+          (define-key map (kbd "n") 'winner-redo)
   	map))
 
 #+end_src
@@ -324,6 +324,9 @@ I will always use ~magit~ though. ~magit~ :)
 
   (setq magit-display-buffer-function
         #'magit-display-buffer-traditional)
+
+  (setq magit-bury-buffer-function
+        'magit-restore-window-configuration)
 
   (bind-key "C-x g" #'magit-status)
 #+end_src
