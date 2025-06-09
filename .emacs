@@ -19,11 +19,11 @@
 	 eyebrowse fireplace fish-completion flycheck
 	 flyspell-correct-ivy gnu-elpa-keyring-update go-translate
 	 goto-chg highlight-defined ivy-posframe magit merlin mingus
-	 mu4e mu4e-alert multiple-cursors nerd-icons-corfu nov
-	 ocamlformat opam-switch-mode org-alert org-fragtog
-	 org-roam-ui pacmacs pinentry proof-general quelpa rustic
-	 shackle shr-tag-pre-highlight shrface smex tablist trashed
-	 tuareg wallabag writeroom-mode yaml-mode zoom-window))
+	 morrowind-theme mu4e mu4e-alert multiple-cursors
+	 nerd-icons-corfu nov ocamlformat opam-switch-mode org-alert
+	 org-fragtog org-roam-ui pacmacs pinentry proof-general quelpa
+	 rustic shackle shr-tag-pre-highlight shrface smex tablist
+	 trashed tuareg wallabag writeroom-mode yaml-mode zoom-window))
  '(zoom-window-mode-line-color "pink"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
