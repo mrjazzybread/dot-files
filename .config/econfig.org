@@ -226,6 +226,7 @@ I use the ~shackle~ package to control the behaviour of pop up windows.
   (setq shackle-rules
         '(("*compilation*" :same t)
   	('magit-status-mode :same t)))
+  (setq shackle-inhibit-window-quit-on-same-windows t)
   (shackle-mode 1)
 #+end_src
 ** GPG
