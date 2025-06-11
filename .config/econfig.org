@@ -450,17 +450,18 @@ another window in the same frame, it selects that buffer by default
 Some helpful variables
 #+begin_src emacs-lisp :results none
   (defun org-directory (file)
-    (concat "~/org/" file))
+    (concat "~/roam/daily/personal" file))
 
   (defvar todo-file
-    (org-directory "todo.org"))
+    (org-directory "todo.org.gpg"))
 
   (defvar agenda-file
-    (org-directory "appoint.org"))
+    (org-directory "appoint.org.gpg"))
 #+end_src
 My agenda files:
 
 #+begin_src emacs-lisp :results none
+  (setq org-agenda-file-regexp "\\`[^.].*\\.org\\\(\\.gpg\\\)?\\'")
   (setq org-agenda-files (list (org-directory "")))
 #+end_src
 Settings for exporting Org files with citations to TeX.

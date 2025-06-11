@@ -9,6 +9,7 @@
  ;; If there is more than one, they won't work right.
  '(emojify-display-style 'unicode)
  '(ispell-alternate-dictionary "/usr/lib/aspell-0.60/")
+ '(org-roam-file-exclude-regexp '("data/" "daily/"))
  '(package-selected-packages
    '(aio all-the-icons-dired all-the-icons-ivy-rich anki anki-mode auctex
 	 autothemer avy bluetooth browse-kill-ring calibredb
