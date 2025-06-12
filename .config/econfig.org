@@ -790,19 +790,20 @@ Function to create a latex project.
 #+end_src
 ** Org Roam
 #+begin_src emacs-lisp :results none
-   (use-package org-roam
-     :custom
-     (org-roam-directory (file-truename "~/roam"))
-     (org-roam-completion-everywhere t)
-     :bind (("C-c n l" . org-roam-buffer-toggle)
-            ("C-c n f" . org-roam-node-find)
-            ("C-c n g" . org-roam-graph)
-            ("C-c n i" . org-roam-node-insert)
-            ("C-c n c" . org-roam-capture)
-            ;; Dailies
-            ("C-c n j" . org-roam-dailies-capture-today)))
+  (use-package org-roam
+    :custom
+    (org-roam-directory (file-truename "~/roam"))
+    (org-roam-file-exclude-regexp '("data/" "daily/"))
+    (org-roam-completion-everywhere t)
+    :bind (("C-c n l" . org-roam-buffer-toggle)
+           ("C-c n f" . org-roam-node-find)
+           ("C-c n g" . org-roam-graph)
+           ("C-c n i" . org-roam-node-insert)
+           ("C-c n c" . org-roam-capture)
+           ;; Dailies
+           ("C-c n j" . org-roam-dailies-capture-today)))
 
-   (org-roam-db-autosync-mode)
+  (org-roam-db-autosync-mode)
 #+end_src
 Capture templates for org roam.
 #+begin_src emacs-lisp :results none
