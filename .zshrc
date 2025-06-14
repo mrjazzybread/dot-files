@@ -149,3 +149,4 @@ clear
 fastfetch
 
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+alias startx="gpg -d -q ~/.cred.gpg && startx"
