@@ -932,7 +932,7 @@ Weird arrow :/
    ("\\points" ?↦)
 
    ;; accents (for iLöb)
-   ("\\"o" ?ö)
+   ("\\\"o" ?ö)
 
    ;; subscripts and superscripts
    ("^^+" ?⁺) ("__+" ?₊) ("^^-" ?⁻)
