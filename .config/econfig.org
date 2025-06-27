@@ -152,6 +152,12 @@ indentation
 #+begin_src emacs-lisp :results none
   (global-set-key (kbd "C-a") #'back-to-indentation)
 #+end_src
+Markdown windows are viewed without markup, similar to org mode
+visualisation.
+
+#+begin_src emacs-lisp :results none
+  (setq markdown-hide-markup t)
+#+end_src
 ** ~utf-8~
 #+begin_src emacs-lisp :results none
   (prefer-coding-system       'utf-8)
