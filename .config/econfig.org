@@ -519,12 +519,6 @@ Enable Org indentation
 
 #+begin_src emacs-lisp :results none
   (setq org-startup-indented t)
-  (use-package org-modern-indent
-    :load-path "~/"
-    ; or
-    ; :straight (org-modern-indent :type git :host github :repo "jdtsmith/org-modern-indent"))
-    :config ; add late to hook
-    (add-hook 'org-mode-hook #'org-modern-indent-mode 90))
 #+end_src
 Centre Org agenda
 #+begin_src emacs-lisp :results none
