@@ -9,22 +9,7 @@
  ;; If there is more than one, they won't work right.
  '(emojify-display-style 'unicode)
  '(ispell-alternate-dictionary "/usr/lib/aspell-0.60/")
- '(package-selected-packages
-   '(aio all-the-icons-dired all-the-icons-ivy-rich anki anki-mode auctex
-	 autothemer avy bluetooth browse-kill-ring calibredb
-	 company-coq consult corfu counsel desktop-environment
-	 dired-hist dired-subtree doom-modeline-now-playing dune eat
-	 ef-themes eldoc-box elfeed emojify esh-autosuggest
-	 exec-path-from-shell exwm exwm-firefox-core exwm-mff
-	 eyebrowse fireplace fish-completion flycheck
-	 flyspell-correct-ivy gnu-elpa-keyring-update go-translate
-	 goto-chg highlight-defined ivy-posframe magit merlin mingus
-	 morrowind-theme mu4e mu4e-alert multiple-cursors
-	 nerd-icons-corfu nov ocamlformat opam-switch-mode org-alert
-	 org-fragtog org-present org-roam-ui pacmacs pinentry
-	 proof-general quelpa rustic shackle shr-tag-pre-highlight
-	 shrface smex tablist trashed tuareg wallabag writeroom-mode
-	 yaml-mode zoom-window))
+ '(package-selected-packages nil)
  '(zoom-window-mode-line-color "pink"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
