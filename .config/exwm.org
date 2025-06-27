@@ -40,6 +40,7 @@ on the right. This way, we can use Emacs keybindings in X windows.
 Minor mode to rename Firefox EXWM buffers to the names of the
 respective tabs.
 #+begin_src emacs-lisp :results none
+  (use-package exwm-firefox-core)
   (load-file "~/exwm-firefox.el")
   (exwm-firefox-mode 1)
 #+end_src
