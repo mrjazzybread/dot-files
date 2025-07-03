@@ -14,12 +14,12 @@
 	 autothemer avy bluetooth browse-kill-ring calibredb
 	 catppuccin-theme company-coq consult corfu counsel
 	 desktop-environment dired-hist dired-subtree
-	 doom-modeline-now-playing dune eat ef-themes elcord eldoc-box
-	 elfeed emojify esh-autosuggest exec-path-from-shell exwm
-	 exwm-firefox-core exwm-mff eyebrowse fireplace
-	 fish-completion flycheck flyspell-correct-ivy
-	 gnu-elpa-keyring-update go-translate goto-chg
-	 highlight-defined ivy-posframe magit merlin mingus
+	 doom-modeline-now-playing doom-themes dune eat ef-themes
+	 elcord eldoc-box elfeed emojify esh-autosuggest
+	 exec-path-from-shell exwm exwm-firefox-core exwm-mff
+	 eyebrowse fireplace fish-completion flycheck
+	 flyspell-correct-ivy gnu-elpa-keyring-update go-translate
+	 goto-chg highlight-defined ivy-posframe magit merlin mingus
 	 morrowind-theme mu4e mu4e-alert multiple-cursors
 	 nerd-icons-corfu nov ocamlformat opam-switch-mode org-alert
 	 org-fragtog org-present org-roam-ui pacmacs pinentry
