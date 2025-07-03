@@ -11,6 +11,9 @@ xsetroot -cursor_name left_ptr
 xset r rate 200 25
 xrandr --dpi 90
 
+# Keyboard layout
+setxkbmap -layout pt
+
 #xss-lock -- ~/.config/lock.sh
 
 # Uncomment the following block to use the exwm-xim module.
