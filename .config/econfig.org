@@ -847,7 +847,13 @@ When we open a PDF in Emacs, open it in ~zathura~ instead.
 #+end_src
 When using pdf-tools, always use the minor mode
 #+begin_src emacs-lisp :results none
+  (pdf-tools-install)
   (add-hook 'pdf-view-mode-hook #'pdf-view-roll-minor-mode)
+
+  (defun run-latex ()
+    (interactive)
+    (async-shell-command
+     "latexmk -pdf  -pdflatex='pdflatex -interaction=nonstopmode' -pvc --synctex=1 -use-make"))
 #+end_src
 * Proof General
 Function for a more convenient Coq buffer split.
