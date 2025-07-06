@@ -843,7 +843,7 @@ Opens the current file in ~zathura~ and kills the Doc View buffer.
 #+end_src
 When we open a PDF in Emacs, open it in ~zathura~ instead.
 #+begin_src emacs-lisp :results none
-  (add-hook 'doc-view-mode-hook #'zathura)
+  ;; (add-hook 'doc-view-mode-hook #'zathura)
 #+end_src
 * Proof General
 Function for a more convenient Coq buffer split.
