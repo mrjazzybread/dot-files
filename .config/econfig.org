@@ -1144,6 +1144,7 @@ Set theme (currently Shades of Purple)
 #+begin_src emacs-lisp :results none
   (setq custom-safe-themes t)
   (setq custom-enabled-themes '(shades-of-purple))
+  (use-package doom-themes)
   (load-theme 'doom-shades-of-purple t)
    ;; (use-package ef-themes
    ;;   :config (ef-themes-select 'ef-summer))
