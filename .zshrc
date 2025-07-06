@@ -134,6 +134,8 @@ alias update="sudo pacman -Syu"
 alias agenda="emacsclient -c -n -e '(org-agenda-list)'"
 #Command to add a font all the fonts in the current directory.
 alias vpn="/opt/cisco/anyconnect/bin/vpnui"
+#Command to start latex process that refreshes in the background
+alias latexbg="latexmk -pdf  -pdflatex="pdflatex -interaction=nonstopmode" -pvc --synctex=1 -use-make"
 function add-fonts(){
     mv *.ttf ~/.local/share/fonts
     fc-cache -f -v
