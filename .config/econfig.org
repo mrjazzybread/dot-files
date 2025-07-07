@@ -1150,7 +1150,6 @@ Define font style and height
 #+begin_src emacs-lisp :results none
   (setq default-frame-alist '((font . "Roboto Mono 22")))
   (add-to-list 'default-frame-alist '(background-color . "#34293E"))
-  (set-background-color "#34293E")
 #+end_src
 Set theme (currently Shades of Purple)
 #+begin_src emacs-lisp :results none
@@ -1158,6 +1157,7 @@ Set theme (currently Shades of Purple)
   (setq custom-enabled-themes '(shades-of-purple))
   (use-package doom-themes)
   (load-theme 'doom-shades-of-purple t)
+  (set-background-color "#34293E")
    ;; (use-package ef-themes
    ;;   :config (ef-themes-select 'ef-summer))
   ;(load-theme 'plasma-dark)
