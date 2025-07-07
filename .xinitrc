@@ -23,5 +23,6 @@ setxkbmap -layout pt
 #export CLUTTER_IM_MODULE=xim
 
 # Finally start Emacs
-emacs --daemon -eval '(org-babel-load-file "~/.config/exwm.org")'
+emacs --daemon # -eval '(org-babel-load-file "~/.config/exwm.org")'
 exec emacsclient -c
+#exec alacritty
