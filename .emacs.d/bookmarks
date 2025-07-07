@@ -126,9 +126,9 @@
  (position . 1)
  (last-modified 26427 36304 305026 399000))
 ("org-capture-last-stored"
- (filename . "~/roam/research/20250707171451-formal_semantics_program_logics_for_a_fragment_of_ocaml.org")
+ (filename . "~/roam/research/20250707180007-osiris.org")
  (front-context-string)
- (rear-context-string . "agment of OCaml\n")
- (position . 135)
- (last-modified 26731 59462 776466 380000))
+ (rear-context-string . "#+title: Osiris\n")
+ (position . 84)
+ (last-modified 26731 61196 619060 971000))
 )

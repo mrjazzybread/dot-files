@@ -23,7 +23,7 @@
 	 morrowind-theme mu4e mu4e-alert multiple-cursors
 	 nerd-icons-corfu nov ocamlformat opam-switch-mode org-alert
 	 org-fragtog org-present org-roam-ui pacmacs pdf-tools
-	 pinentry proof-general quelpa rustic shackle
+	 pdf-view-restore pinentry proof-general quelpa rustic shackle
 	 shr-tag-pre-highlight shrface smex tablist trashed tuareg w3m
 	 wallabag writeroom-mode yaml-mode zoom-window))
  '(zoom-window-mode-line-color "pink"))

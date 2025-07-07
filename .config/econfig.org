@@ -846,10 +846,14 @@ When we open a PDF in Emacs, open it in ~zathura~ instead.
 #+begin_src emacs-lisp :results none
   ;; (add-hook 'doc-view-mode-hook #'zathura)
 #+end_src
-When using pdf-tools, always use the minor mode
+When using pdf-tools, always use the minor mode for continuous scroll
 #+begin_src emacs-lisp :results none
   (pdf-tools-install)
+
   (add-hook 'pdf-view-mode-hook #'pdf-view-roll-minor-mode)
+
+  (use-package pdf-view-restore
+    :hook (pdf-view-mode . pdf-view-restore-mode))
 
   (defun run-latex ()
     (interactive)
@@ -968,6 +972,7 @@ Weird arrow :/
 Enable auto-fill.
 #+begin_src emacs-lisp :results none
   (add-hook 'text-mode-hook #'auto-fill-mode)
+
 #+end_src
 Enable ~Writeroom~ mode for a more comfortable writing experience.
 #+begin_src emacs-lisp :results none
