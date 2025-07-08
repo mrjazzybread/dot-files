@@ -321,5 +321,6 @@ Keybindings to switch the current workspace
 * Enable EXWM
 
 #+begin_src emacs-lisp :results none
+  (mu4e-dashboard)
   (exwm-enable)
 #+end_src
