@@ -1,3 +1,4 @@
+#+title: Emacs configuration
 #+begin_src emacs-lisp :results none
   (load-file "~/.config/sensitive.el")
 #+end_src
