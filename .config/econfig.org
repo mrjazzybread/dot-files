@@ -1157,12 +1157,15 @@ Define font style and height
   (setq default-frame-alist '((font . "Roboto Mono 22")))
   (add-to-list 'default-frame-alist '(background-color . "#34293E"))
 #+end_src
-Set theme (currently Shades of Purple)
+Set theme (currently Shades of Purple).  My setup is a little weird: I
+first set it to ~doom-shades-of-purple~ and then ~shades-of-purple~.  This
+ends up with a color scheme that is pleasant for most modes.
 #+begin_src emacs-lisp :results none
   (setq custom-safe-themes t)
   (setq custom-enabled-themes '(shades-of-purple))
   (use-package doom-themes)
   (load-theme 'doom-shades-of-purple t)
+  (load-theme 'shades-of-purple)
   (set-background-color "#34293E")
    ;; (use-package ef-themes
    ;;   :config (ef-themes-select 'ef-summer))
