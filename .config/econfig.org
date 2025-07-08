@@ -442,9 +442,10 @@ Quickly browse files in read only mode
   (define-key view-mode-map (kbd "n") 'view-next-file)
   (define-key view-mode-map (kbd "p") 'view-previous-file)
 #+end_src
-Change ~ls~ switches to use human readable file sizes
+Change ~ls~ switches to use human readable file sizes and to list
+directories first.
 #+begin_src emacs-lisp :results none
-  (setq dired-listing-switches "-alh")
+  (setq dired-listing-switches "-alh --group-directories-first")
 #+end_src
 When copying a file, have it so if there is another dired buffer open in
 another window in the same frame, it selects that buffer by default
@@ -1436,8 +1437,9 @@ Add rust packages to path
 Buffer name matches eshell directory
 #+begin_src emacs-lisp :results none
   (defun sync-dir-in-buffer-name ()
-      (rename-buffer (concat "*eshell* " default-directory)))
+      (rename-buffer (concat "*eshell* " default-directory) t))
 
+  (add-hook 'eshell-mode-hook #'sync-dir-in-buffer-name)
   (add-hook 'eshell-directory-change-hook #'sync-dir-in-buffer-name)
 #+end_src
 ** ~Eshell~ configuration

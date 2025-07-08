@@ -290,12 +290,6 @@ Suspend the computer
   (exwm-input-set-key (kbd "s-<escape>") 'desktop-environment-lock-screen)
 #+end_src
 
-"Fullscreen mode"
-#+begin_src emacs-lisp :results none
-  (use-package zoom-window)
-  (exwm-input-set-key (kbd "s-f") 'zoom-window-zoom)
-#+end_src
-
 Open web browser
 #+begin_src emacs-lisp :results none
   (defun run-firefox ()
@@ -304,7 +298,16 @@ Open web browser
 
   (exwm-input-set-key (kbd "s-<return>") 'run-firefox)
 #+end_src
+Lists all of my firefox tabs
+#+begin_src emacs-lisp :results none
+  (defun list-firefox ()
+    (interactive)
+    (minibuffer-with-setup-hook
+        (lambda () (insert "firefox"))
+      (call-interactively #'ivy-switch-buffer)))
 
+  (exwm-input-set-key (kbd "s-f") #'list-firefox)
+#+end_src
 Keybindings to switch the current workspace
 #+begin_src emacs-lisp :results none
   (setq exwm-input-global-keys

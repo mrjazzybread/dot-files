@@ -25,7 +25,7 @@
 	 org-fragtog org-present org-roam-ui pacmacs pdf-tools
 	 pdf-view-restore pinentry proof-general quelpa rustic shackle
 	 shr-tag-pre-highlight shrface smex tablist trashed tuareg w3m
-	 wallabag writeroom-mode yaml-mode zoom-window))
+	 wallabag writeroom-mode yaml-mode))
  '(zoom-window-mode-line-color "pink"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
