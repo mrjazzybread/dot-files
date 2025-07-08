@@ -31,20 +31,20 @@ cyan    = '#73FBF1'
 white   = '#FEFEF8'
 
 [font]
-size = 20
+size = 22
 
 [font.bold]
-family = "Ubuntu Mono"
+family = "Roboto Mono"
 style = "Bold"
 
 [font.bold_italic]
-family = "Ubuntu Mono"
+family = "Roboto Mono"
 style = "Bold Italic"
 
 [font.italic]
-family = "Ubuntu Mono"
+family = "Roboto Mono"
 style = "Italic"
 
 [font.normal]
-family = "Ubuntu Mono"
+family = "Roboto Mono"
 style = "Regular"
