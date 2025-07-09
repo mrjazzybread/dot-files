@@ -17,7 +17,7 @@
 	 doom-modeline-now-playing doom-themes dune eat ef-themes
 	 elcord eldoc-box elfeed emojify esh-autosuggest
 	 exec-path-from-shell exwm exwm-firefox-core exwm-mff
-	 eyebrowse fireplace fish-completion flycheck flyover
+	 eyebrowse fireplace fish-completion flycheck
 	 flyspell-correct-ivy gnu-elpa-keyring-update go-translate
 	 goto-chg highlight-defined ivy-posframe magit merlin mingus
 	 morrowind-theme mu4e mu4e-alert multiple-cursors
