@@ -557,7 +557,10 @@ Automatically converts strings to emojis
 #+begin_src emacs-lisp :results none
   (use-package emojify)
 #+end_src
-
+Org agenda takes up the full window
+#+begin_src emacs-lisp :results none
+  (setq org-agenda-window-setup 'only-window)
+#+end_src
 *** Org Pretty Symbols
 
 Function for adding pretty symbols for Org mode. Most of these are
@@ -790,6 +793,10 @@ Function to create a latex project.
           (kill-buffer b)
           (switch-to-buffer f)
           ))))
+#+end_src
+Disable exporting with table of contents.
+#+begin_src emacs-lisp :results none
+  (setq org-export-with-toc nil)
 #+end_src
 ** Org Roam
 #+begin_src emacs-lisp :results none
