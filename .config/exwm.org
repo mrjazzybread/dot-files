@@ -206,6 +206,12 @@ Compositor
 #+begin_src emacs-lisp :results none
   (efs/run-in-background "picom")
 #+end_src
+Whatsapp and Telegram
+#+begin_src emacs-lisp :results none
+  (efs/run-in-background "firefox --new-window https://web.whatsapp.com/")
+  (efs/run-in-background "firefox --new-window https://web.telegram.org/k/")
+
+#+end_src
 
 * Multiple monitors
 Set the initial workspace for each display
