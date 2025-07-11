@@ -126,9 +126,9 @@
  (position . 1)
  (last-modified 26427 36304 305026 399000))
 ("org-capture-last-stored"
- (filename . "~/roam/daily/personal/appoint.org.gpg")
+ (filename . "~/roam/daily/personal/todo.org.gpg")
  (front-context-string . #1="")
  (rear-context-string . #1#)
- (position . 22969)
- (last-modified 26734 41380 398026 652000))
+ (position . 11191)
+ (last-modified 26736 21187 913111 704000))
 )
