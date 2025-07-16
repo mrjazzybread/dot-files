@@ -1,4 +1,3 @@
-(package-initialize)
 (org-babel-load-file "~/.config/econfig.org")
 
 (custom-set-variables

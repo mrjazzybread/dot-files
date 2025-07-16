@@ -5,6 +5,7 @@
 * Package Configuration
 Add MELPA to the list of recognized archives
 #+begin_src emacs-lisp :results none
+  (require 'package)
   (add-to-list 'package-archives
                '("melpa" . "https://melpa.org/packages/") t)
 #+end_src
@@ -223,13 +224,13 @@ Disable repeat mode in Dired
 I use the ~shackle~ package to control the behaviour of pop up windows.
 
 #+begin_src emacs-lisp :results none
-  (use-package shackle)
+  ;(use-package shackle)
   (setq shackle-select-reused-windows t)
   (setq shackle-rules
         '(("*compilation*" :same t)
   	('magit-status-mode :same t)))
   (setq shackle-inhibit-window-quit-on-same-windows t)
-  (shackle-mode 1)
+  ;(shackle-mode 1)
 #+end_src
 ** GPG
 #+begin_src emacs-lisp :results none
