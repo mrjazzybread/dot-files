@@ -182,12 +182,6 @@ of stinking up the working directory.
   (setq auto-save-list-file-prefix autosave-dir)
   (setq auto-save-file-name-transforms `((".*" ,autosave-dir t)))
 #+end_src
-Adds themes folder to custom themes
-#+begin_src emacs-lisp :results none
-  (add-to-list 'custom-theme-load-path "~/.config/themes/")
-  (add-to-list 'custom-theme-load-path
-             "~/.config/themes/plasma-theme/")
-#+end_src
 ** Miscellaneous Packages
 #+begin_src emacs-lisp :results none
   (use-package pacmacs)
@@ -298,7 +292,6 @@ Package for completion suggestions
     :custom (ocamlformat-show-errors nil)
     :hook (before-save . ocamlformat-before-save))
 
-  (load "/home/tiago/.opam/4.14.1/share/emacs/site-lisp/tuareg.el")
   (use-package dune)
 #+end_src
 ** Rust packages
@@ -440,8 +433,8 @@ Quickly browse files in read only mode
     (view-browse (lambda () (dired-previous-line 1)))
     )
 
-  (define-key view-mode-map (kbd "n") 'view-next-file)
-  (define-key view-mode-map (kbd "p") 'view-previous-file)
+  ;(define-key view-mode-map (kbd "n") 'view-next-file)
+  ;(define-key view-mode-map (kbd "p") 'view-previous-file)
 #+end_src
 Change ~ls~ switches to use human readable file sizes and to list
 directories first.
@@ -797,21 +790,23 @@ Function to create a latex project.
 Disable exporting with table of contents.
 #+begin_src emacs-lisp :results none
   (setq org-export-with-toc nil)
-#+end_src
+
 ** Org Roam
 #+begin_src emacs-lisp :results none
+  (use-package sqlite3)
+  (use-package emacsql)
   (use-package org-roam
-    :custom
-    (org-roam-directory (file-truename "~/roam"))
-    (org-roam-file-exclude-regexp '("data/" "daily/"))
-    (org-roam-completion-everywhere t)
-    :bind (("C-c n l" . org-roam-buffer-toggle)
-           ("C-c n f" . org-roam-node-find)
-           ("C-c n g" . org-roam-graph)
-           ("C-c n i" . org-roam-node-insert)
-           ("C-c n c" . org-roam-capture)
-           ;; Dailies
-           ("C-c n j" . org-roam-dailies-capture-today)))
+      :custom
+      (org-roam-directory (file-truename "~/roam"))
+      (org-roam-file-exclude-regexp '("data/" "daily/"))
+      (org-roam-completion-everywhere t)
+      :bind (("C-c n l" . org-roam-buffer-toggle)
+             ("C-c n f" . org-roam-node-find)
+             ("C-c n g" . org-roam-graph)
+             ("C-c n i" . org-roam-node-insert)
+             ("C-c n c" . org-roam-capture)
+             ;; Dailies
+             ("C-c n j" . org-roam-dailies-capture-today)))
 
   (org-roam-db-autosync-mode)
 #+end_src
@@ -857,6 +852,8 @@ When we open a PDF in Emacs, open it in ~zathura~ instead.
 #+end_src
 When using pdf-tools, always use the minor mode for continuous scroll
 #+begin_src emacs-lisp :results none
+
+  (use-package pdf-tools)
   (pdf-tools-install)
 
   (add-hook 'pdf-view-mode-hook #'pdf-view-roll-minor-mode)
@@ -902,7 +899,7 @@ Weird arrow :/
 ** Unicode Symbols for Iris
 #+begin_src emacs-lisp :results none
   ;; Input of unicode symbols
-  (require 'math-symbol-lists)
+  (use-package math-symbol-lists)
   					; Automatically use math input method for Coq files
   (add-hook 'coq-mode-hook (lambda () (set-input-method "math")))
   					; Input method for the minibuffer
@@ -1158,26 +1155,25 @@ as a brick
 
 Disable Splash Screen
 #+begin_src emacs-lisp :results none
-  (setq inhibit-splash-screen nil)
+  (setq inhibit-splash-screen t)
 #+end_src
 Define font style and height
 #+begin_src emacs-lisp :results none
   (setq default-frame-alist '((font . "Roboto Mono 22")))
   (add-to-list 'default-frame-alist '(background-color . "#34293E"))
+
+  (setq initial-frame-alist '((font . "Roboto Mono 22")))
+  (add-to-list 'initial-frame-alist '(background-color . "#34293E"))
 #+end_src
 Set theme (currently Shades of Purple).  My setup is a little weird: I
 first set it to ~doom-shades-of-purple~ and then ~shades-of-purple~.  This
 ends up with a color scheme that is pleasant for most modes.
 #+begin_src emacs-lisp :results none
-  (setq custom-safe-themes t)
-  (setq custom-enabled-themes '(shades-of-purple))
   (use-package doom-themes)
+  (use-package shades-of-purple-theme)
+  (setq custom-safe-themes t)
   (load-theme 'doom-shades-of-purple t)
   (load-theme 'shades-of-purple)
-  (set-background-color "#34293E")
-   ;; (use-package ef-themes
-   ;;   :config (ef-themes-select 'ef-summer))
-  ;(load-theme 'plasma-dark)
 #+end_src
 Disables a bunch of needless UI noise.
 #+begin_src emacs-lisp :results none
@@ -1194,12 +1190,12 @@ Pretty mode line
   (use-package doom-modeline)
   (doom-modeline-mode 1)
 
-  (use-package doom-modeline-now-playing)
-  (doom-modeline-now-playing-timer)
+;  (use-package doom-modeline-now-playing)
+ ; (doom-modeline-now-playing-timer)
 
-  (doom-modeline-def-modeline 'main
-    '(bar matches buffer-info buffer-position now-playing)
-    '(time major-mode))
+  ;(doom-modeline-def-modeline 'main
+   ; '(bar matches buffer-info buffer-position now-playing)
+    ;'(time major-mode))
 
 #+end_src
 
@@ -1219,9 +1215,10 @@ Display time in mode line
 #+begin_src emacs-lisp :results none
   (setq message-send-mail-function 'smtpmail-send-it)
 
+  (setq user-mail-address "tl.soares@campus.fct.unl.pt")
+
   (require 'mu4e)
 
-  (setq user-mail-address "tl.soares@campus.fct.unl.pt")
   (use-package mu4e
     :ensure nil
     ;; :load-path "/usr/share/emacs/site-lisp/mu4e/"

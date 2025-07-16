@@ -1,5 +1,5 @@
 #+begin_src emacs-lisp :results none
-  (use-package exwm)
+;  (use-package exwm)
 #+end_src
 Setting the initial workspace number
 #+begin_src emacs-lisp :results none
@@ -40,7 +40,6 @@ on the right. This way, we can use Emacs keybindings in X windows.
 Minor mode to rename Firefox EXWM buffers to the names of the
 respective tabs.
 #+begin_src emacs-lisp :results none
-  (use-package exwm-firefox-core)
   (load-file "~/exwm-firefox.el")
   (exwm-firefox-mode 1)
 #+end_src
@@ -166,10 +165,10 @@ Sound display
 
 Messaging apps
 #+begin_src emacs-lisp :results none
-  (efs/run-in-background "discord")
-  (efs/run-in-background "slack")
-  (efs/run-in-background "firefox --new-window https://web.whatsapp.com/")
-  (efs/run-in-background "firefox --new-window https://web.telegram.org/k/")
+;  (efs/run-in-background "discord")
+ ; (efs/run-in-background "slack")
+;  (efs/run-in-background "firefox --new-window https://web.whatsapp.com/")
+ ; (efs/run-in-background "firefox --new-window https://web.telegram.org/k/")
 #+end_src
 
 Music player
@@ -187,11 +186,6 @@ Update config files
 Auto-pause media when headphones are disconnected
 #+begin_src emacs-lisp :results none
   (efs/run-in-background "bash ~/.config/autopause.sh")
-#+end_src
-
-Auto-mount usb drives
-#+begin_src emacs-lisp :results none
-  (efs/run-in-background "udiskie")
 #+end_src
 
 Notification daemon

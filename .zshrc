@@ -1,6 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
-plugins=(git z zsh-autosuggestions)
+plugins=(git zsh-syntax-highlighting)
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -111,7 +111,7 @@ alias rm="trash"
 #Define screenshot directory
 export XDG_SCREENSHOTS_DIR="~/Pictures/Screenshots"
 #Replace ls with exa
-alias ls="exa --long --header --no-user --no-permissions"
+alias ls="eza --long --header --no-user --no-permissions"
 # Created by `pipx` on 2024-06-11 00:05:52
 export PATH="$PATH:/home/tiago/.local/bin"
 #More convinient OCaml shell
@@ -124,6 +124,7 @@ alias cp="cp -r"
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 #Convinient command for installing packages
 alias pac="sudo pacman -S"
+alias emer="sudo emerge --ask"
 #command to copy from terminal
 alias c="xclip -sel c"
 #mpc always checks port 6601
@@ -148,5 +149,5 @@ function ocaml-trace-disable(){
 clear
 fastfetch
 
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 alias startx="gpg -d -q ~/.cred.gpg && startx"
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
