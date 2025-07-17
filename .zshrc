@@ -150,4 +150,4 @@ clear
 fastfetch
 
 alias startx="gpg -d -q ~/.cred.gpg && startx"
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+#source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
