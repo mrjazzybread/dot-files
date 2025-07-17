@@ -1160,11 +1160,14 @@ Disable Splash Screen
 #+end_src
 Define font style and height
 #+begin_src emacs-lisp :results none
+  ;All future frames (useful for the daemon)
   (setq default-frame-alist '((font . "Roboto Mono 22")))
   (add-to-list 'default-frame-alist '(background-color . "#34293E"))
-
+  ;The initial frame (useful for the gui)
   (setq initial-frame-alist '((font . "Roboto Mono 22")))
   (add-to-list 'initial-frame-alist '(background-color . "#34293E"))
+  ; Only relevant for terminals
+  (set-background-color "black")
 #+end_src
 Set theme (currently Shades of Purple).  My setup is a little weird: I
 first set it to ~doom-shades-of-purple~ and then ~shades-of-purple~.  This
