@@ -325,5 +325,5 @@ I call ~scratch-buffer~ first so that each new workspace opens in a
 scratch buffer.  The call to ~exwm-enable~ is what actually starts EXWM
 #+begin_src emacs-lisp :results none
   (scratch-buffer)
-  (exwm-enable)
+  (exwm-wm-mode)
 #+end_src
