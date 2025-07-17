@@ -1191,12 +1191,12 @@ Pretty mode line
   (use-package doom-modeline)
   (doom-modeline-mode 1)
 
-;  (use-package doom-modeline-now-playing)
- ; (doom-modeline-now-playing-timer)
+  (use-package doom-modeline-now-playing)
+  (doom-modeline-now-playing-timer)
 
-  ;(doom-modeline-def-modeline 'main
-   ; '(bar matches buffer-info buffer-position now-playing)
-    ;'(time major-mode))
+  (doom-modeline-def-modeline 'main
+   '(bar matches buffer-info buffer-position now-playing)
+   '(time major-mode))
 
 #+end_src
 
