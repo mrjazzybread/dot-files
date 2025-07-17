@@ -794,8 +794,6 @@ Disable exporting with table of contents.
 
 ** Org Roam
 #+begin_src emacs-lisp :results none
-  (use-package sqlite3)
-  (use-package emacsql)
   (use-package org-roam
       :custom
       (org-roam-directory (file-truename "~/roam"))
