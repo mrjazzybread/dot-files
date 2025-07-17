@@ -201,7 +201,7 @@ Battery notifications
 
 Compositor
 #+begin_src emacs-lisp :results none
-  (efs/run-in-background "picom")
+;  (efs/run-in-background "picom")
 #+end_src
 * Multiple monitors
 Set the initial workspace for each display
