@@ -66,13 +66,13 @@ Better splitting of windows
 Sometimes when switching to an X window, EXWM does not focus on it.
 This piece of code prevents this.
 #+begin_src emacs-lisp :results none
-  (advice-add #'exwm-layout--hide
-              :after (lambda (id)
-                       (with-current-buffer (exwm--id->buffer id)
-                         (setq exwm--ewmh-state
-                               (delq xcb:Atom:_NET_WM_STATE_HIDDEN exwm--ewmh-state))
-                         (exwm-layout--set-ewmh-state id)
-                         (xcb:flush exwm--connection))))
+;  (advice-add #'exwm-layout--hide
+ ;             :after (lambda (id)
+  ;                     (with-current-buffer (exwm--id->buffer id)
+   ;                      (setq exwm--ewmh-state
+    ;                           (delq xcb:Atom:_NET_WM_STATE_HIDDEN exwm--ewmh-state))
+     ;                    (exwm-layout--set-ewmh-state id)
+      ;                   (xcb:flush exwm--connection))))
 #+end_src
 Functions to shutdown and reboot the system
 #+begin_src emacs-lisp :results none
