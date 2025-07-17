@@ -40,9 +40,9 @@ on the right. This way, we can use Emacs keybindings in X windows.
 Minor mode to rename Firefox EXWM buffers to the names of the
 respective tabs.
 #+begin_src emacs-lisp :results none
-  ;; (use-package exwm-firefox-core)
-  ;; (load-file "~/exwm-firefox.el")
-  ;; (exwm-firefox-mode 1)
+  (use-package exwm-firefox-core)
+  (load-file "~/exwm-firefox.el")
+  (exwm-firefox-mode 1)
 #+end_src
 Enable a system tray in the minibuffer. This is where icons for the
 network manager and other background applications will be.
@@ -66,13 +66,13 @@ Better splitting of windows
 Sometimes when switching to an X window, EXWM does not focus on it.
 This piece of code prevents this.
 #+begin_src emacs-lisp :results none
-;  (advice-add #'exwm-layout--hide
- ;             :after (lambda (id)
-  ;                     (with-current-buffer (exwm--id->buffer id)
-   ;                      (setq exwm--ewmh-state
-    ;                           (delq xcb:Atom:_NET_WM_STATE_HIDDEN exwm--ewmh-state))
-     ;                    (exwm-layout--set-ewmh-state id)
-      ;                   (xcb:flush exwm--connection))))
+   (advice-add #'exwm-layout--hide
+               :after (lambda (id)
+                        (with-current-buffer (exwm--id->buffer id)
+                          (setq exwm--ewmh-state
+                                (delq xcb:Atom:_NET_WM_STATE_HIDDEN exwm--ewmh-state))
+                          (exwm-layout--set-ewmh-state id)
+                          (xcb:flush exwm--connection))))
 #+end_src
 Functions to shutdown and reboot the system
 #+begin_src emacs-lisp :results none
@@ -87,8 +87,8 @@ Functions to shutdown and reboot the system
 Mouse follows focus
 
 #+begin_src emacs-lisp :results none
-  ;; (use-package exwm-mff)
-  ;; (add-hook 'exwm-init-hook #'exwm-mff-mode)
+  (use-package exwm-mff)
+  (add-hook 'exwm-init-hook #'exwm-mff-mode)
 #+end_src
 
 Inner "Gaps"
@@ -166,10 +166,10 @@ Sound display
 
 Messaging apps
 #+begin_src emacs-lisp :results none
-;  (efs/run-in-background "discord")
- ; (efs/run-in-background "slack")
-;  (efs/run-in-background "firefox --new-window https://web.whatsapp.com/")
- ; (efs/run-in-background "firefox --new-window https://web.telegram.org/k/")
+  (efs/run-in-background "discord")
+  (efs/run-in-background "slack")
+  (efs/run-in-background "firefox --new-window https://web.whatsapp.com/")
+  (efs/run-in-background "firefox --new-window https://web.telegram.org/k/")
 #+end_src
 
 Music player
@@ -201,7 +201,7 @@ Battery notifications
 
 Compositor
 #+begin_src emacs-lisp :results none
-;  (efs/run-in-background "picom")
+  (efs/run-in-background "picom")
 #+end_src
 * Multiple monitors
 Set the initial workspace for each display
