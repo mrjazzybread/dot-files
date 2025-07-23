@@ -168,8 +168,8 @@ Messaging apps
 #+begin_src emacs-lisp :results none
   (efs/run-in-background "discord")
   (efs/run-in-background "slack")
-  (efs/run-in-background "firefox --new-window https://web.whatsapp.com/")
-  (efs/run-in-background "firefox --new-window https://web.telegram.org/k/")
+  ;(efs/run-in-background "firefox --new-window https://web.whatsapp.com/")
+  ;(efs/run-in-background "firefox --new-window https://web.telegram.org/k/")
 #+end_src
 
 Music player
