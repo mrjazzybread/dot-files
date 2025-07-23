@@ -322,8 +322,13 @@ Keybindings to switch the current workspace
 * Enable EXWM
 
 I call ~scratch-buffer~ first so that each new workspace opens in a
-scratch buffer.  The call to ~exwm-enable~ is what actually starts EXWM
+scratch buffer.  I then call server-start to turn the Emacs instance
+into a daemon.  This is so that when a program tries to open a text
+editor, it can connect to the Emacs instance without reloading the
+config. The call to ~exwm-enable~ is what actually starts EXWM.
+
 #+begin_src emacs-lisp :results none
   (scratch-buffer)
+  (server-start)
   (exwm-wm-mode)
 #+end_src
