@@ -164,12 +164,32 @@ Sound display
   (efs/run-in-background "volumeicon")
 #+end_src
 
-Messaging apps
+Messaging apps are started after EXWM is initialized.  We also create
+a hook that moves any newly created window with a messaging app to
+workspace 4.
 #+begin_src emacs-lisp :results none
-  (efs/run-in-background "discord")
-  (efs/run-in-background "slack")
-  (efs/run-in-background "firefox --new-window https://web.whatsapp.com/")
-  (efs/run-in-background "firefox --new-window https://web.telegram.org/k/")
+  (defun messaging-apps ()
+    (interactive)
+    (efs/run-in-background "discord")
+    (efs/run-in-background "slack")
+    (efs/run-in-background "firefox --new-window https://web.whatsapp.com/")
+    (efs/run-in-background "firefox --new-window https://web.telegram.org/k/"))
+
+  (defun is-messaging-app ()
+    (member (buffer-name)
+  	  '("*firefox : WhatsApp"
+  	    "*firefox : Telegram Web"
+  	    "slack"
+  	    "discord")))
+
+  (add-hook 'exwm-manage-finish-hook
+  	  (lambda () (interactive)
+  	    (message "wow")
+  	    (when (is-messaging-app)
+  		(exwm-workspace-move-window 4)
+  	      )))
+
+  (add-hook 'exwm-init-hook #'messaging-apps)
 #+end_src
 
 Music player
