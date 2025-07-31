@@ -7,21 +7,7 @@
  ;; If there is more than one, they won't work right.
  '(emojify-display-style 'unicode)
  '(ispell-alternate-dictionary "/usr/lib/aspell-0.60/")
- '(package-selected-packages
-   '(all-the-icons-dired all-the-icons-ivy-rich async auctex avy
-			 bluetooth browse-kill-ring counsel
-			 desktop-environment dired-hist dired-subtree
-			 doom-modeline doom-themes dune eat eldoc-box
-			 emojify esh-autosuggest exec-path-from-shell
-			 exwm-firefox-core exwm-mff fireplace
-			 fish-completion flyspell-correct-ivy
-			 gnu-elpa-keyring-update go-translate
-			 ivy-posframe magit math-symbol-lists mingus
-			 mu4e-alert multiple-cursors ocamlformat
-			 org-alert org-fragtog pacmacs
-			 pdf-view-restore pinentry proof-general
-			 quelpa rustic shades-of-purple-theme smex
-			 trashed tuareg writeroom-mode yaml-mode))
+ '(package-selected-packages nil)
  '(zoom-window-mode-line-color "pink"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

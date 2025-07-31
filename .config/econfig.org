@@ -285,8 +285,7 @@ Package for completion suggestions
 
   (use-package tuareg
     ;; changes the default compile command
-    :hook (tuareg-mode . ocaml-compile)
-    :hook (tuareg-mode . flycheck-mode))
+    :hook (tuareg-mode . ocaml-compile))
 
   (use-package ocamlformat
     :custom (ocamlformat-enable 'enable-outside-detected-project)
