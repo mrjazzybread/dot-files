@@ -230,7 +230,7 @@ I use the ~shackle~ package to control the behaviour of pop up windows.
         '(("*compilation*" :same t)
   	('magit-status-mode :same t)))
   (setq shackle-inhibit-window-quit-on-same-windows t)
-  ;(shackle-mode 1)
+  (shackle-mode 1)
 #+end_src
 ** GPG
 #+begin_src emacs-lisp :results none
@@ -792,6 +792,7 @@ Disable exporting with table of contents.
   (setq org-export-with-toc nil)
 
 ** Org Roam
+
 #+begin_src emacs-lisp :results none
   (use-package org-roam
       :custom
