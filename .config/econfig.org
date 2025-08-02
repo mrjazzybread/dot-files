@@ -280,8 +280,7 @@ Package for completion suggestions
 ** OCaml packages
 #+begin_src emacs-lisp :results none
   (defun ocaml-compile ()
-    (setq compile-command "~/.config/ocompile.sh")
-    )
+    (setq compile-command "~/.config/ocompile.sh"))
 
   (use-package tuareg
     ;; changes the default compile command

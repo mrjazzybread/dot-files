@@ -324,7 +324,7 @@ Lists all of my firefox tabs
   (defun list-firefox ()
     (interactive)
     (minibuffer-with-setup-hook
-        (lambda () (insert "firefox"))
+        (lambda () (insert "firefox "))
       (call-interactively #'ivy-switch-buffer)))
 
   (exwm-input-set-key (kbd "s-f") #'list-firefox)
