@@ -171,15 +171,11 @@ workspace 4.
   (defun messaging-apps ()
     (interactive)
     (efs/run-in-background "discord")
-    (efs/run-in-background "slack")
-    (efs/run-in-background "firefox --new-window https://web.whatsapp.com/")
-    (efs/run-in-background "firefox --new-window https://web.telegram.org/k/"))
+    (efs/run-in-background "slack"))
 
   (defun is-messaging-app ()
     (member (buffer-name)
-  	  '("*firefox : WhatsApp"
-  	    "*firefox : Telegram Web"
-  	    "slack"
+  	  '("slack"
   	    "discord")))
 
   (add-hook 'exwm-manage-finish-hook
@@ -271,8 +267,7 @@ receive notifications in the background.
 #+begin_src emacs-lisp :results none
   (defun kill-except-message-apps ()
     (interactive)
-    (if (member (buffer-name)
-  	      '("discord" "*firefox: Telegram Web*" "*firefox: WhatsApp*"))
+    (if (is-messaging-app)
         (previous-buffer)
       (kill-this-buffer)))
 
