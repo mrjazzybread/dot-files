@@ -265,13 +265,14 @@ Switch workspace
 Kill the current buffer unless it is a messaging app so that I can
 receive notifications in the background.
 #+begin_src emacs-lisp :results none
-  (defun kill-except-message-apps ()
-    (interactive)
-    (if (is-messaging-app)
-        (previous-buffer)
-      (kill-this-buffer)))
+    (defun kill-except-message-apps ()
+      (interactive)
+      (if (is-messaging-app)
+          (previous
+  	 -buffer)
+        (kill-this-buffer)))
 
-  (exwm-input-set-key (kbd "s-c") 'kill-except-message-apps)
+    (exwm-input-set-key (kbd "s-c") 'kill-except-message-apps)
 #+end_src
 
 Window movement

@@ -126,9 +126,9 @@
  (position . 1)
  (last-modified 26427 36304 305026 399000))
 ("org-capture-last-stored"
- (filename . "~/roam/research/20250807185555-wow.org.gpg")
+ (filename . "~/roam/daily/personal/appoint.org.gpg")
  (front-context-string . #1="")
  (rear-context-string . #1#)
- (position . 81)
- (last-modified 26772 59565 641550 174000))
+ (position . 24593)
+ (last-modified 26774 10444 954238 655000))
 )
