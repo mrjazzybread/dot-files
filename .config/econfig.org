@@ -817,11 +817,11 @@ Capture templates for org roam.
            :unnarrowed t)
   	("r" "Reading note" plain
   	 (file "~/roam/templates/reading_template.org")
-  	 :if-new (file+head "research/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+  	 :if-new (file+head "research/%<%Y%m%d%H%M%S>-${slug}.org.gpg" "#+title: ${title}\n")
   	 :unnarrowed t)
   	("p" "PhD Note" plain
            "%?"
-           :if-new (file+head "research/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+           :if-new (file+head "research/%<%Y%m%d%H%M%S>-${slug}.org.gpg" "#+title: ${title}\n")
            :unnarrowed t)
   	))
 #+end_src
