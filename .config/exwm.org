@@ -190,9 +190,7 @@ workspace 4.
 
 Music player
 #+begin_src emacs-lisp :results none
-  (efs/run-in-background "mpd")
-  (efs/run-in-background "mpd-notification")
-  (start-process-shell-command "work" nil "~/.config/work.sh")
+  (efs/run-in-background "mpd && mpd-notification && ~/.config/work.sh")
 #+end_src
 
 Update config files
