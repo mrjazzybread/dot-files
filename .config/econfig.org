@@ -1283,9 +1283,9 @@ Display time in mode line
   (use-package mu4e-alert)
   (mu4e-alert-enable-notifications)
 
-  (use-package go-translate)
-  (setq gt-langs '(fr en))
-  (setq gt-default-translator (gt-translator :engines (gt-google-engine)))
+;  (use-package go-translate)
+ ; (setq gt-langs '(fr en))
+  ;(setq gt-default-translator (gt-translator :engines (gt-google-engine)))
 
   ;; This configuration means:
   ;; Initialize the default translator, let it translate between en and fr via Google Translate,
