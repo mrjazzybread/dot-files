@@ -87,8 +87,8 @@ Functions to shutdown and reboot the system
 Mouse follows focus
 
 #+begin_src emacs-lisp :results none
-  ;(use-package exwm-mff)
-  ;(add-hook 'exwm-init-hook #'exwm-mff-mode)
+  (use-package exwm-mff)
+  (add-hook 'exwm-init-hook #'exwm-mff-mode)
 #+end_src
 
 Inner "Gaps"
@@ -170,8 +170,7 @@ workspace 4.
 #+begin_src emacs-lisp :results none
   (defun messaging-apps ()
     (interactive)
-    (efs/run-in-background "discord")
-    (efs/run-in-background "slack"))
+    (efs/run-in-background "discord"))
 
   (defun is-messaging-app ()
     (member (buffer-name)
@@ -238,16 +237,16 @@ Focus follows mouse
 Have autorandr running in the background to ensure that extra monitors
 are correctly configured.
 #+begin_src emacs-lisp :results none
-  ;; (defun efs/update-displays ()
-  ;;   (efs/run-in-background "autorandr --change --force")
-  ;;   (message "Display config: %s"
-  ;;            (string-trim (shell-command-to-string "autorandr --current")))
-  ;;   (start-process-shell-command
-  ;;    "feh" nil
-  ;;    "feh --bg-scale ~/.config/bg/lain-dark.jpeg --bg-scale ~/.config/bg/lain-hands.jpeg"))
+  (defun efs/update-displays ()
+    (efs/run-in-background "autorandr --change --force")
+    (message "Display config: %s"
+             (string-trim (shell-command-to-string "autorandr --current")))
+    (start-process-shell-command
+     "feh" nil
+     "feh --bg-scale ~/.config/bg/lain-dark.jpeg --bg-scale ~/.config/bg/lain-hands.jpeg"))
 
-  ;; (add-hook 'exwm-randr-screen-change-hook #'efs/update-displays)
-  ;; (exwm-randr-mode 1)
+  (add-hook 'exwm-randr-screen-change-hook #'efs/update-displays)
+  (exwm-randr-mode 1)
 #+end_src
 * Keybindings
 Reset EXWM
