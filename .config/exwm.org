@@ -249,16 +249,22 @@ are correctly configured.
   (exwm-randr-mode 1)
 #+end_src
 * Keybindings
-Reset EXWM
+Keybindings to switch the current workspace
 #+begin_src emacs-lisp :results none
-  (exwm-input-set-key (kbd "s-r") 'exwm-reset)
+  (setq exwm-input-global-keys
+      `(([?\s-r] . exwm-reset) ;; s-r: Reset (to line-mode).
+        ([?\s-w] . exwm-workspace-switch) ;; s-w: Switch workspace.
+        ([?\s-&] . (lambda (cmd) ;; s-&: Launch application.
+                     (interactive (list (read-shell-command "$ ")))
+                     (start-process-shell-command cmd nil cmd)))
+        ;; s-N: Switch to certain workspace.
+        ,@(mapcar (lambda (i)
+                    `(,(kbd (format "s-%d" i)) .
+                      (lambda ()
+                        (interactive)
+                        (exwm-workspace-switch-create ,i))))
+                  (number-sequence 0 9))))
 #+end_src
-
-Switch workspace
-#+begin_src emacs-lisp :results none
-  (exwm-input-set-key (kbd "s-w") 'exwm-workspace-switch)
-#+end_src
-
 Kill the current buffer unless it is a messaging app so that I can
 receive notifications in the background.
 #+begin_src emacs-lisp :results none
@@ -321,16 +327,6 @@ Lists all of my firefox tabs
       (call-interactively #'ivy-switch-buffer)))
 
   (exwm-input-set-key (kbd "s-f") #'list-firefox)
-#+end_src
-Keybindings to switch the current workspace
-#+begin_src emacs-lisp :results none
-  ;; (setq exwm-input-global-keys
-  ;;     `( ,@(mapcar (lambda (i)
-  ;;                   `(,(kbd (format "s-%d" i)) .
-  ;;                     (lambda ()
-  ;;                       (interactive)
-  ;;                       (exwm-workspace-switch-create ,(- i 1)))))
-  ;;                 (number-sequence 1 9))))
 #+end_src
 * Enable EXWM
 
