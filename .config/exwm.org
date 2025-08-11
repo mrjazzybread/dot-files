@@ -324,13 +324,13 @@ Lists all of my firefox tabs
 #+end_src
 Keybindings to switch the current workspace
 #+begin_src emacs-lisp :results none
-  (setq exwm-input-global-keys
-      `( ,@(mapcar (lambda (i)
-                    `(,(kbd (format "s-%d" i)) .
-                      (lambda ()
-                        (interactive)
-                        (exwm-workspace-switch-create ,(- i 1)))))
-                  (number-sequence 1 9))))
+  ;; (setq exwm-input-global-keys
+  ;;     `( ,@(mapcar (lambda (i)
+  ;;                   `(,(kbd (format "s-%d" i)) .
+  ;;                     (lambda ()
+  ;;                       (interactive)
+  ;;                       (exwm-workspace-switch-create ,(- i 1)))))
+  ;;                 (number-sequence 1 9))))
 #+end_src
 * Enable EXWM
 
