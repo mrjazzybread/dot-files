@@ -1291,11 +1291,11 @@ Display time in mode line
   ;; Initialize the default translator, let it translate between en and fr via Google Translate,
   ;; and the result will be displayed in the Echo Area.
 
-  (setq gt-default-translator
-        (gt-translator
-         :taker   (gt-taker :text 'buffer :pick 'paragraph)  ; config the Taker
-         :engines (list (gt-bing-engine) (gt-google-engine)) ; specify the Engines
-         :render  (gt-buffer-render)))                       ; config the Render
+;  (setq gt-default-translator
+ ;       (gt-translator
+  ;       :taker   (gt-taker :text 'buffer :pick 'paragraph)  ; config the Taker
+   ;      :engines (list (gt-bing-engine) (gt-google-engine)) ; specify the Engines
+    ;     :render  (gt-buffer-render)))                       ; config the Render
 
   (setq mu4e-headers-fields '((:human-date . 12) (:from . 22) (:subject)))
 
