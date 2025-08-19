@@ -179,7 +179,6 @@ workspace 4.
 
   (add-hook 'exwm-manage-finish-hook
   	  (lambda () (interactive)
-  	    (message "wow")
   	    (when (is-messaging-app)
   		(exwm-workspace-move-window 4)
   	      )))
