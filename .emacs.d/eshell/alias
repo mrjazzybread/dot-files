@@ -27,3 +27,4 @@ alias vi find-file $1
 alias test dune test --auto-promote
 alias setenvs set-envs $1
 alias emer sudo emerge --ask $*
+alias sudo eshell/sudo $*

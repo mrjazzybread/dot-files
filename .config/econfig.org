@@ -160,6 +160,22 @@ visualisation.
 #+begin_src emacs-lisp :results none
   (setq markdown-hide-markup t)
 #+end_src
+Better keybinding to run a shell command
+#+begin_src emacs-lisp :results none
+  (global-set-key (kbd "M-s s") #'async-shell-command)
+#+end_src
+When running a shell command, do not display the command buffer until
+there is output.
+#+begin_src emacs-lisp :results none
+  (setq async-shell-command-display-buffer nil)
+#+end_src
+Command to insert the current file name
+#+begin_src emacs-lisp :results none
+  (global-set-key (kbd "C-c w")
+  		(lambda () (interactive)
+  		  (insert (buffer-file-name
+  			   (window-buffer (minibuffer-selected-window))))))
+#+end_src
 ** ~utf-8~
 #+begin_src emacs-lisp :results none
   (prefer-coding-system       'utf-8)
@@ -1489,4 +1505,6 @@ We use eat to run any commands that require visuals
 (require 'em-tramp)
 (setq eshell-prefer-lisp-functions t)
 (setq eshell-prefer-lisp-variables t)
+(setq password-cache t)
+(setq password-cache-expiry 86400)
 #+end_src
