@@ -1484,3 +1484,9 @@ We use eat to run any commands that require visuals
     :hook (eshell-mode . eat-eshell-mode)
     )
 #+end_src
+** Remember ~sudo~
+#+begin_src emacs-lisp :results none
+(require 'em-tramp)
+(setq eshell-prefer-lisp-functions t)
+(setq eshell-prefer-lisp-variables t)
+#+end_src
