@@ -20,8 +20,9 @@
 			 google-translate ivy-posframe magit
 			 math-symbol-lists mingus mu4e-alert
 			 multiple-cursors ocamlformat org-alert
-			 org-fragtog org-roam pacmacs pdf-view-restore
-			 pinentry proof-general quelpa rustic shackle
+			 org-contrib org-fragtog org-roam ox-gfm
+			 pacmacs pdf-view-restore pinentry
+			 proof-general quelpa rustic shackle
 			 shades-of-purple-theme smex trashed tuareg
 			 writeroom-mode yaml-mode))
  '(zoom-window-mode-line-color "pink"))
