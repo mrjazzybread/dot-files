@@ -13,7 +13,7 @@
 			 bluetooth browse-kill-ring counsel
 			 desktop-environment dired-hist dired-subtree
 			 doom-modeline-now-playing doom-themes dune
-			 eat eldoc-box emojify esh-autosuggest
+			 eat elcord eldoc-box emojify esh-autosuggest
 			 exec-path-from-shell exwm exwm-firefox-core
 			 exwm-mff fireplace fish-completion
 			 flyspell-correct-ivy gnu-elpa-keyring-update
