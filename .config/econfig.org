@@ -806,10 +806,11 @@ Function to create a latex project.
           (switch-to-buffer f)
           ))))
 #+end_src
+
 Disable exporting with table of contents.
 #+begin_src emacs-lisp :results none
   (setq org-export-with-toc nil)
-
+#+end_src
 ** Org Roam
 
 #+begin_src emacs-lisp :results none
