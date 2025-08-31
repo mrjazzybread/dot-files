@@ -8,7 +8,22 @@
  '(auth-source-save-behavior nil)
  '(emojify-display-style 'unicode)
  '(ispell-alternate-dictionary "/usr/lib/aspell-0.60/")
- '(package-selected-packages nil)
+ '(package-selected-packages
+   '(all-the-icons-dired all-the-icons-ivy-rich async auctex avy
+			 bluetooth browse-kill-ring counsel
+			 desktop-environment dired-hist dired-subtree
+			 doom-modeline-now-playing doom-themes dune
+			 eat elcord eldoc-box emojify esh-autosuggest
+			 exec-path-from-shell exwm-firefox-core
+			 exwm-mff fireplace fish-completion
+			 flyspell-correct-ivy gnu-elpa-keyring-update
+			 go-translate ivy-posframe magit
+			 math-symbol-lists mingus mu4e-alert
+			 multiple-cursors ocamlformat org-alert
+			 org-fragtog org-roam pacmacs pinentry
+			 proof-general quelpa rustic shackle
+			 shades-of-purple-theme smex sqlite3 trashed
+			 tuareg writeroom-mode yaml-mode))
  '(zoom-window-mode-line-color "pink"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

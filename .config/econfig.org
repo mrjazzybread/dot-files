@@ -867,19 +867,10 @@ Opens the current file in ~zathura~ and kills the Doc View buffer.
 #+end_src
 When we open a PDF in Emacs, open it in ~zathura~ instead.
 #+begin_src emacs-lisp :results none
-  ;; (add-hook 'doc-view-mode-hook #'zathura)
+  (add-hook 'doc-view-mode-hook #'zathura)
 #+end_src
-When using pdf-tools, always use the minor mode for continuous scroll
+Function to run a latex process in the background.
 #+begin_src emacs-lisp :results none
-
-  (use-package pdf-tools)
-  (pdf-tools-install)
-
-  (add-hook 'pdf-view-mode-hook #'pdf-view-roll-minor-mode)
-
-  (use-package pdf-view-restore
-    :hook (pdf-view-mode . pdf-view-restore-mode))
-
   (defun run-latex ()
     (interactive)
     (async-shell-command
