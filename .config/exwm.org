@@ -250,19 +250,22 @@ are correctly configured.
 * Keybindings
 Keybindings to switch the current workspace
 #+begin_src emacs-lisp :results none
-  (setq exwm-input-global-keys
-      `(([?\s-r] . exwm-reset) ;; s-r: Reset (to line-mode).
-        ([?\s-w] . exwm-workspace-switch) ;; s-w: Switch workspace.
-        ([?\s-&] . (lambda (cmd) ;; s-&: Launch application.
-                     (interactive (list (read-shell-command "$ ")))
-                     (start-process-shell-command cmd nil cmd)))
-        ;; s-N: Switch to certain workspace.
-        ,@(mapcar (lambda (i)
-                    `(,(kbd (format "s-%d" i)) .
-                      (lambda ()
-                        (interactive)
-                        (exwm-workspace-switch-create ,i))))
-                  (number-sequence 0 9))))
+    (setq exwm-input-global-keys
+        `(([?\s-r] . exwm-reset) ;; s-r: Reset (to line-mode).
+          ([?\s-w] . exwm-workspace-switch) ;; s-w: Switch workspace.
+          ([?\s-&] . (lambda (cmd) ;; s-&: Launch application.
+                       (interactive (list (read-shell-command "$ ")))
+                       (start-process-shell-command cmd nil cmd)))
+          ;; s-N: Switch to certain workspace.
+          ,@(mapcar (lambda (i)
+                      `(,(kbd (format "s-%d" i)) .
+                        (lambda ()
+                          (interactive)
+                          (exwm-workspace-switch-create ,i))))
+                    (number-sequence 1 9))))
+
+  (add-hook #'exwm-init-hook
+  	  (lambda () (interactive) (exwm-workspace-switch-create 1)))
 #+end_src
 Kill the current buffer unless it is a messaging app so that I can
 receive notifications in the background.
