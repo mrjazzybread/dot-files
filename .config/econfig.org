@@ -906,6 +906,12 @@ Weird arrow :/
 #+begin_src emacs-lisp :results none
   (setq overlay-arrow-string "")
 #+end_src
+Function to generate a ~Rocq~ Makefile
+#+begin_src emacs-lisp :results none
+  (defun coq-makefile-gen ()
+    (interactive)
+    (async-shell-command "coq_makefile -f _CoqProject -o Makefile"))
+#+end_src
 ** Unicode Symbols for Iris
 #+begin_src emacs-lisp :results none
   ;; Input of unicode symbols
