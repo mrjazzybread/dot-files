@@ -23,7 +23,7 @@
 			 org-fragtog org-roam pacmacs pinentry
 			 proof-general quelpa rustic shackle
 			 shades-of-purple-theme smex sqlite3 trashed
-			 tuareg writeroom-mode yaml-mode))
+			 tuareg vertico writeroom-mode yaml-mode))
  '(zoom-window-mode-line-color "pink"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
