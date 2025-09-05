@@ -272,6 +272,56 @@ I use the ~shackle~ package to control the behaviour of pop up windows.
   (setq epa-file-encrypt-to email1)
   (setq epa-file-select-keys 1)
 #+end_src
+** Kill Processes
+#+begin_src emacs-lisp :results none
+  (use-package dwim-shell-command)
+  (require 'map)
+  (require 'proced)
+  (require 'seq)
+
+  (defun dwim-shell-commands-kill-process ()
+    "Select and kill process."
+    (interactive)
+    (let* ((pid-width 5)
+           (comm-width 25)
+           (user-width 10)
+           (processes (proced-process-attributes))
+           (candidates
+            (mapcar (lambda (attributes)
+                      (let* ((process (cdr attributes))
+                             (pid (format (format "%%%ds" pid-width) (map-elt process 'pid)))
+                             (user (format (format "%%-%ds" user-width)
+                                           (truncate-string-to-width
+                                            (map-elt process 'user) user-width nil nil t)))
+                             (comm (format (format "%%-%ds" comm-width)
+                                           (truncate-string-to-width
+                                            (map-elt process 'comm) comm-width nil nil t)))
+                             (args-width (- (window-width) (+ pid-width user-width comm-width 3)))
+                             (args (map-elt process 'args)))
+                        (cons (if args
+                                  (format "%s %s %s %s" pid user comm (truncate-string-to-width args args-width nil nil t))
+                                (format "%s %s %s" pid user comm))
+                              process)))
+                    processes))
+           (selection (map-elt candidates
+                               (completing-read "kill process: "
+                                                (seq-sort
+                                                 (lambda (p1 p2)
+                                                   (string-lessp (nth 2 (split-string (string-trim (car p1))))
+                                                                 (nth 2 (split-string (string-trim (car p2))))))
+                                                 candidates) nil t)))
+           (prompt-title (format "%s %s %s"
+                                 (map-elt selection 'pid)
+                                 (map-elt selection 'user)
+                                 (map-elt selection 'comm))))
+      (when (y-or-n-p (format "Kill? %s" prompt-title))
+        (dwim-shell-command-on-marked-files
+         (format "Kill %s" prompt-title)
+         (format "kill -9 %d" (map-elt selection 'pid))
+         :utils "kill"
+         :error-autofocus t
+         :silent-success t))))
+#+end_src
 * Coding Packages
 ** ~Flymake~
 Package used by Eglot for highlighting errors
@@ -1019,10 +1069,7 @@ Enable ~Flyspell~ for spell checking
   (use-package flyspell-correct
     :bind
     (:map flyspell-mode-map
-          ("C-c  $" . flyspell-correct-wrapper)
-          ))
-
-  (use-package flyspell-correct-ivy)
+          ("C-c  $" . flyspell-correct-wrapper)))
 #+end_src
 Removes completion at point from ~flyspell~ so that I can use it for
 completing org roam nodes.
@@ -1081,10 +1128,19 @@ Disable word completion in text-mode
     (completion-category-overrides '((file (styles partial-completion)))))
 
   (use-package vertico-posframe
-    :init (vertico-posframe-mode 1))
+    :init (vertico-multiform-mode 1))
+
+  (setq vertico-multiform-commands
+        '((consult-line (:not posframe))
+          (t posframe)))
 
   (setq vertico-posframe-parameters '((alpha . 100)))
   (all-the-icons-completion-mode)
+
+  (setq vertico-count-format nil)
+
+  (global-set-key (kbd "C-x C-b") 'recentf)
+  (global-set-key "\C-s" 'consult-line)
 #+end_src
 * Appearance
 
