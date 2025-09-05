@@ -1074,7 +1074,7 @@ Enable ~Flyspell~ for spell checking
 Removes completion at point from ~flyspell~ so that I can use it for
 completing org roam nodes.
 #+begin_src emacs-lisp :results none
-  ;(keymap-unset flyspell-mode-map "C-M-i")
+  (keymap-unset flyspell-mode-map "C-M-i")
 #+end_src
 Package for TeX files
 #+begin_src emacs-lisp :results none
