@@ -1143,6 +1143,7 @@ Disable word completion in text-mode
       (setq vertico-count-format nil)
 
       (global-set-key (kbd "C-x C-b") 'recentf)
+  (use-package consult)
       (global-set-key "\C-s" 'consult-line)
 #+end_src
 * Appearance
