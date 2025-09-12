@@ -176,6 +176,7 @@ Command to insert the current file name
   		  (insert (buffer-file-name
   			   (window-buffer (minibuffer-selected-window))))))
 #+end_src
+Minibuffer history persists across multiple sessions
 ** ~utf-8~
 #+begin_src emacs-lisp :results none
   (prefer-coding-system       'utf-8)
@@ -821,40 +822,6 @@ Add common scientific paper classes.
                    "\\documentclass{IEEEtran}"
                    ("\\section{%s}" . "\\section*{%s}")
                    ("\\subsection{%s}" . "\\subsection*{%s}"))))
-#+end_src
-Function to create a latex project.
-#+begin_src emacs-lisp :results none
-  (defun latex-project (title class)
-    (interactive "sTitle: \nsClass: ")
-    (mkdir title)
-    (cd title)
-    (let ((d default-directory))
-      (find-file "~/org/latex-templates/latex.org")
-      (beginning-of-buffer)
-      (let ((b (current-buffer)))
-        (replace-string "?title" title)
-        (replace-string "?class" class)
-        (if (string= class "beamer")
-            (org-beamer-export-as-latex)
-          (org-latex-export-as-latex)
-          )
-        (let ((f (current-buffer)))
-          (copy-file "config.tex" d)
-          (copy-file "Makefile" d)
-          (copy-file "mymacros.tex" d)
-          (copy-file "gospel.sty" d)
-          (copy-file "why3lang.sty" d)
-          (copy-file "lstcoq.sty" d)
-          (copy-file ".gitignore" d)
-          (copy-file "bibliography.bib" d)
-          (when (or (string= class "llncs") (string= class "IEEEtran"))
-            (copy-file (concat class ".cls") d))
-          (write-file (concat d "/main.tex"))
-          (switch-to-buffer b)
-          (set-buffer-modified-p nil)
-          (kill-buffer b)
-          (switch-to-buffer f)
-          ))))
 #+end_src
 
 Disable exporting with table of contents.
