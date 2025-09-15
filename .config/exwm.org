@@ -242,7 +242,7 @@ are correctly configured.
              (string-trim (shell-command-to-string "autorandr --current")))
     (start-process-shell-command
      "feh" nil
-     "feh --bg-scale ~/.config/bg/lain.jpeg --bg-scale ~/.config/bg/lain-hands.jpeg"))
+     "feh --bg-scale ~/.config/bg/lain-hands.jpeg --bg-scale ~/.config/bg/lain.jpeg"))
 
   (add-hook 'exwm-randr-screen-change-hook #'efs/update-displays)
   (exwm-randr-mode 1)
