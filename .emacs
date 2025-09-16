@@ -18,8 +18,9 @@
 			      elcord eldoc-box emojify esh-autosuggest
 			      exec-path-from-shell exwm-firefox-core
 			      exwm-mff fireplace fish-completion
-			      flyspell-correct gnu-elpa-keyring-update
-			      google-translate ivy-posframe magit
+			      flyspell-correct flyspell-correct-ivy
+			      gnu-elpa-keyring-update google-translate
+			      ivy-flyspell-correct ivy-posframe magit
 			      math-symbol-lists mingus mu4e-alert
 			      multiple-cursors ocamlformat orderless
 			      org-alert org-contrib org-fragtog
