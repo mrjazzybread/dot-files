@@ -211,7 +211,9 @@ of stinking up the working directory.
   (global-set-key "\C-cy" #'browse-kill-ring)
 
   (use-package elcord
-    :custom (elcord-display-buffer-details nil))
+    :custom (elcord-display-buffer-details nil)
+    :custom (elcord-editor-icon "doom_cute_icon"))
+
   (elcord-mode)
 
   (use-package avy
