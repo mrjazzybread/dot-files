@@ -180,7 +180,7 @@ workspace 4.
   (add-hook 'exwm-manage-finish-hook
   	  (lambda () (interactive)
   	    (when (is-messaging-app)
-  		(exwm-workspace-move-window 4)
+  		(exwm-workspace-move-window 0)
   	      )))
 
   (add-hook 'exwm-init-hook #'messaging-apps)
