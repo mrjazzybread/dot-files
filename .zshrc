@@ -146,7 +146,7 @@ function ocaml-trace-disable(){
     unset OCAMLRUNPARAM
 }
 
-#clear
+clear
 fastfetch
 
 #source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
