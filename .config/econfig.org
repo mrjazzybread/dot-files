@@ -1205,17 +1205,18 @@ something is changing it)
 #+end_src
 Enable ~Flyspell~ for spell checking wow
 #+begin_src emacs-lisp :results none
-  ;; (use-package flyspell
-  ;;   :hook (text-mode . flyspell-mode)
-  ;;   :hook (prog-mode . flyspell-prog-mode))
+  (use-package flyspell
+    :hook (text-mode . flyspell-mode)
+    :hook (prog-mode . flyspell-prog-mode))
 
-  ;; (use-package flyspell-correct
-  ;;   :bind
-  ;;   (:map flyspell-mode-map
-  ;;         ("M-$" . flyspell-correct-wrapper)))
+  (use-package flyspell-correct
+    :bind
+    (:map flyspell-mode-map
+          ("M-$" . flyspell-correct-wrapper))
+    :after flyspell)
 
-  ;; (use-package flyspell-correct-ivy
-  ;;   :after flyspell-correct)
+  (use-package flyspell-correct-ivy
+    :after flyspell-correct)
 #+end_src
 Removes completion at point from ~flyspell~ so that I can use it for
 completing org roam nodes.
