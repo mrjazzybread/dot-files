@@ -186,10 +186,20 @@ workspace 0.
 
   (add-hook 'exwm-init-hook #'messaging-apps)
 #+end_src
-
-Script to add songs to MPD
+Add songs to mingus
 #+begin_src emacs-lisp :results none
-  (start-process-shell-command "mpd-add" nil "~/.config/work.sh")
+  (defmacro without-yes-or-no (&rest body)
+  "Override `yes-or-no-p' & `y-or-n-p',
+   not to prompt for input and return t."
+  (declare (indent 1))
+  `(cl-letf (((symbol-function 'yes-or-no-p) (lambda (&rest _) t))
+             ((symbol-function 'y-or-n-p) (lambda (&rest _) t)))
+    ,@body))
+
+  (without-yes-or-no (mingus-load-all))
+  (mingus-shuffle)
+  (mingus-play)
+  (mingus-pause)
 #+end_src
 
 Update config files
