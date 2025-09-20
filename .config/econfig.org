@@ -158,6 +158,8 @@ Enable ~recentf~ mode to remember recently opened files
     	     (lambda (s) (cl-search "/test/" s)))
   (add-to-list 'recentf-exclude
     	     (lambda (s) (cl-search "/tmp/" s)))
+  (add-to-list 'recentf-exclude
+    	     (lambda (s) (cl-search "/sudo:" s)))
 #+end_src
 Keybindings for splitting a window instead clones the frame
 #+begin_src emacs-lisp :results none
