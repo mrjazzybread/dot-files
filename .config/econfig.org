@@ -20,8 +20,8 @@ messages
 #+end_src
 Updates the local cache if it is missing
 #+begin_src emacs-lisp :results none
-  (unless package-archive-contents
-    (package-refresh-contents))
+  ;; (unless package-archive-contents
+  ;;   (package-refresh-contents))
 #+end_src
 Use-package always installs packages
 #+begin_src emacs-lisp :results none

@@ -40,5 +40,3 @@
  '(window-divider ((t (:foreground "black"))))
  '(window-divider-first-pixel ((t (:foreground "black" :foreground "black"))))
  '(window-divider-last-pixel ((t (:foreground "black")))))
-
-(set-background-color "#34293E")
