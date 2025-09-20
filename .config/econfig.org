@@ -1498,18 +1498,20 @@ Startup configuration. Sets the opam environment variables and runs
 ~fastfetch~.
 #+begin_src emacs-lisp :results none
   (add-hook 'eshell-mode-hook
-          (lambda ()
-            (define-key eshell-mode-map (kbd "C-l") #'eshell-clear)))
+            (lambda ()
+              (define-key eshell-mode-map (kbd "C-l") #'eshell-clear)))
 
   (defun startup ()
     (interactive)
-    (eshell-send-command "opam-set && fastfetch")
-    (let ((inhibit-read-only t))
-      (eshell-previous-prompt 1)
-      (beginning-of-line)
-      (kill-line)
-      (kill-line)
-      (eshell-next-prompt 1)))
+    (unless (eshell-command-mode)
+      (progn
+        (eshell-send-command "opam-set && fastfetch")
+        (let ((inhibit-read-only t))
+  	(eshell-previous-prompt 1)
+  	(beginning-of-line)
+  	(kill-line)
+  	(kill-line)
+  	(eshell-next-prompt 1)))))
 
   (require 'eshell)
   (use-package eshell
