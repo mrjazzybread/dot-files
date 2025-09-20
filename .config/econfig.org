@@ -242,6 +242,14 @@ Command to insert the current file name
   			   (window-buffer (minibuffer-selected-window))))))
 #+end_src
 Minibuffer history persists across multiple sessions
+#+begin_src emacs-lisp :results none
+  (save-hist-mode)
+#+end_src
+Automatically follow symbolic links to files tracked by Git
+#+begin_src emacs-lisp :results none
+  (setq vc-follow-symlinks nil)
+#+end_src
+
 ** ~utf-8~
 #+begin_src emacs-lisp :results none
   (prefer-coding-system       'utf-8)
