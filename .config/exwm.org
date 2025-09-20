@@ -170,7 +170,8 @@ workspace 0.
   (defun messaging-apps ()
     (interactive)
     (efs/run-in-background "discord")
-    (efs/run-in-background "slack"))
+;    (efs/run-in-background "slack")
+)
 
   (defun is-messaging-app ()
     (member (buffer-name)
