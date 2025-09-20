@@ -198,7 +198,7 @@ Update config files
 
 Auto-pause media when headphones are disconnected
 #+begin_src emacs-lisp :results none
-  (start-process-shell-command "~/.config/autopause.sh")
+  (start-process-shell-command "autopause" nil "~/.config/autopause.sh")
 #+end_src
 
 Notification daemon
