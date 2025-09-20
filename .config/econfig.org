@@ -8,6 +8,7 @@ Add MELPA to the list of recognized archives
   (require 'package)
   (add-to-list 'package-archives
                '("melpa" . "https://melpa.org/packages/") t)
+  (package-initialize)
 #+end_src
 Installs use-package if I don't have it already and enables verbose
 messages
@@ -247,7 +248,7 @@ Disable repeat mode in Dired
 I use the ~shackle~ package to control the behaviour of pop up windows.
 
 #+begin_src emacs-lisp :results none
-  ;(use-package shackle)
+  (use-package shackle)
   (setq shackle-select-reused-windows t)
   (setq shackle-rules
         '(("*compilation*" :same t)
@@ -526,6 +527,7 @@ another window in the same frame, it selects that buffer by default
   (setq user-mail-address "tl.soares@campus.fct.unl.pt")
 
   (require 'mu4e)
+  (use-package async)
 
   (use-package mu4e
     :ensure nil
