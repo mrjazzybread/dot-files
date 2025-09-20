@@ -188,7 +188,7 @@ workspace 0.
 
 Script to add songs to MPD
 #+begin_src emacs-lisp :results none
-  (start-process-shell-command "mpd-add" nil "~/.config/work.sh")
+;  (start-process-shell-command "mpd-add" nil "~/.config/work.sh")
 #+end_src
 
 Update config files
@@ -198,7 +198,7 @@ Update config files
 
 Auto-pause media when headphones are disconnected
 #+begin_src emacs-lisp :results none
-  (efs/run-in-background "bash ~/.config/autopause.sh")
+  (start-process-shell-command "~/.config/autopause.sh")
 #+end_src
 
 Notification daemon
