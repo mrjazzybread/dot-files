@@ -1502,3 +1502,8 @@ We use eat to run any commands that require visuals
     :custom (eat-kill-buffer-on-exit t)
     :hook (eshell-mode . eat-eshell-mode))
 #+end_src
+
+#+begin_src emacs-lisp :results none
+  (setq eshell-prefer-lisp-variables t)
+  (setq eshell-prefer-lisp-functions t)
+#+end_src
