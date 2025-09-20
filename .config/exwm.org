@@ -271,7 +271,7 @@ Keybindings to switch the current workspace
 
 Kills the current buffer.
 #+begin_src emacs-lisp :results none
-  (exwm-input-set-key (kbd "s-c") 'kill-this-buffer)
+  (exwm-input-set-key (kbd "s-c") 'kill-current-buffer)
 #+end_src
 
 Window movement
