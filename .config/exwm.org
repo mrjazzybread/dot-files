@@ -54,11 +54,10 @@ Better splitting of windows
   (defun my-split-window-right (&optional arg)
     "Split the current window 70/30 rather than 50/50.
   A single-digit prefix argument gives the top window arg*10%.
-     Writeroom window must be treated specially."
+     We use window-total-width to account for writeroom-mode."
     (interactive "P")
-    (let ((proportion (* (or arg 6)
-  		       (if writeroom-mode 0.14 0.1))))
-      (split-window-right (round (* proportion (window-width))))))
+    (let ((proportion (* (or arg 6) .1)))
+      (split-window-right (round (* proportion (window-total-width))))))
 
   (global-set-key (kbd "C-x 3") 'my-split-window-right)
 #+end_src
@@ -78,11 +77,11 @@ Functions to shutdown and reboot the system
 #+begin_src emacs-lisp :results none
   (defun efs/shutdown ()
     (interactive)
-    (async-shell-command "sudo shutdown -h now"))
+    (eshell-command "sudo shutdown -h now"))
 
   (defun efs/reboot ()
     (interactive)
-    (async-shell-command "sudo shutdown -r now"))
+    (eshell-command "sudo shutdown -r now"))
 #+end_src
 Mouse follows focus
 
@@ -166,11 +165,12 @@ Sound display
 
 Messaging apps are started after EXWM is initialized.  We also create
 a hook that moves any newly created window with a messaging app to
-workspace 4.
+workspace 0.
 #+begin_src emacs-lisp :results none
   (defun messaging-apps ()
     (interactive)
-    (efs/run-in-background "discord"))
+    (efs/run-in-background "discord")
+    (efs/run-in-background "slack"))
 
   (defun is-messaging-app ()
     (member (buffer-name)
@@ -186,9 +186,9 @@ workspace 4.
   (add-hook 'exwm-init-hook #'messaging-apps)
 #+end_src
 
-Music player
+Script to add songs to MPD
 #+begin_src emacs-lisp :results none
-  (efs/run-in-background "mpd && mpd-notification && ~/.config/work.sh")
+  (start-process-shell-command "mpd-add" nil "~/.config/work.sh")
 #+end_src
 
 Update config files
@@ -267,17 +267,10 @@ Keybindings to switch the current workspace
   (add-hook #'exwm-init-hook
   	  (lambda () (interactive) (exwm-workspace-switch-create 1)))
 #+end_src
-Kill the current buffer unless it is a messaging app so that I can
-receive notifications in the background.
-#+begin_src emacs-lisp :results none
-    (defun kill-except-message-apps ()
-      (interactive)
-      (if (is-messaging-app)
-          (previous
-  	 -buffer)
-        (kill-this-buffer)))
 
-    (exwm-input-set-key (kbd "s-c") 'kill-except-message-apps)
+Kills the current buffer.
+#+begin_src emacs-lisp :results none
+  (exwm-input-set-key (kbd "s-c") 'kill-this-buffer)
 #+end_src
 
 Window movement

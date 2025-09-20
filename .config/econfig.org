@@ -36,6 +36,68 @@ GNU keys to enable downloading packages
 #+begin_src emacs-lisp :results none
   (use-package gnu-elpa-keyring-update)
 #+end_src
+* Appearance
+
+Disable Splash Screen
+#+begin_src emacs-lisp :results none
+  (setq inhibit-splash-screen t)
+#+end_src
+Define font style and height
+#+begin_src emacs-lisp :results none
+  ;All future frames (useful for the daemon)
+  (setq default-frame-alist '((font . "Roboto Mono 22")))
+  (add-to-list 'default-frame-alist '(background-color . "#34293E"))
+  ;The initial frame (useful for the gui)
+  (setq initial-frame-alist '((font . "Roboto Mono 22")))
+  (add-to-list 'initial-frame-alist '(background-color . "#34293E"))
+  ; Only relevant for terminals
+  (set-background-color "black")
+#+end_src
+Set theme (currently Shades of Purple).  My setup is a little weird: I
+first set it to ~doom-shades-of-purple~ and then ~shades-of-purple~.  This
+ends up with a color scheme that is pleasant for most modes.
+#+begin_src emacs-lisp :results none
+  (use-package doom-themes)
+  (use-package shades-of-purple-theme)
+  (setq custom-safe-themes t)
+  (load-theme 'doom-shades-of-purple t)
+  (load-theme 'shades-of-purple)
+#+end_src
+Disables a bunch of needless UI noise.
+#+begin_src emacs-lisp :results none
+(cond ((> emacs-major-version 20)
+       (tool-bar-mode -1) ; introduced in emacs 21
+       (menu-bar-mode -1)
+       (scroll-bar-mode -1)
+       (menu-bar-showhide-fringe-menu-customize-disable)
+       (blink-cursor-mode -1)
+       (windmove-default-keybindings 'meta)))
+#+end_src
+Pretty mode line
+#+begin_src emacs-lisp :results none
+  (use-package doom-modeline)
+  (doom-modeline-mode 1)
+
+  (use-package doom-modeline-now-playing)
+  (doom-modeline-now-playing-timer)
+
+  (doom-modeline-def-modeline 'main
+   '(bar matches buffer-info buffer-position now-playing)
+   '(time major-mode))
+
+#+end_src
+
+Transparent emacs frames.
+#+begin_src emacs-lisp :results none
+  (set-frame-parameter (selected-frame) 'alpha '(80 . 80))
+  (add-to-list 'default-frame-alist '(alpha . (70 . 70)))
+#+end_src
+
+Display time in mode line
+#+begin_src emacs-lisp :results none
+  (display-time-mode 1)
+#+end_src
+
 * Some Miscellaneous Configurations
 enable creation of pairs of brackets or quotes when one is inserted.
 #+begin_src emacs-lisp :results none
@@ -1297,68 +1359,6 @@ as a brick
 
       (advice-add 'ivy-rich--ivy-switch-buffer-transformer :around 'ek/ivy-rich-cache-lookup)
       (advice-add 'ivy-switch-buffer :after 'ek/ivy-rich-cache-rebuild-trigger)))
-#+end_src
-
-* Appearance
-
-Disable Splash Screen
-#+begin_src emacs-lisp :results none
-  (setq inhibit-splash-screen t)
-#+end_src
-Define font style and height
-#+begin_src emacs-lisp :results none
-  ;All future frames (useful for the daemon)
-  (setq default-frame-alist '((font . "Roboto Mono 22")))
-  (add-to-list 'default-frame-alist '(background-color . "#34293E"))
-  ;The initial frame (useful for the gui)
-  (setq initial-frame-alist '((font . "Roboto Mono 22")))
-  (add-to-list 'initial-frame-alist '(background-color . "#34293E"))
-  ; Only relevant for terminals
-  (set-background-color "black")
-#+end_src
-Set theme (currently Shades of Purple).  My setup is a little weird: I
-first set it to ~doom-shades-of-purple~ and then ~shades-of-purple~.  This
-ends up with a color scheme that is pleasant for most modes.
-#+begin_src emacs-lisp :results none
-  (use-package doom-themes)
-  (use-package shades-of-purple-theme)
-  (setq custom-safe-themes t)
-  (load-theme 'doom-shades-of-purple t)
-  (load-theme 'shades-of-purple)
-#+end_src
-Disables a bunch of needless UI noise.
-#+begin_src emacs-lisp :results none
-(cond ((> emacs-major-version 20)
-       (tool-bar-mode -1) ; introduced in emacs 21
-       (menu-bar-mode -1)
-       (scroll-bar-mode -1)
-       (menu-bar-showhide-fringe-menu-customize-disable)
-       (blink-cursor-mode -1)
-       (windmove-default-keybindings 'meta)))
-#+end_src
-Pretty mode line
-#+begin_src emacs-lisp :results none
-  (use-package doom-modeline)
-  (doom-modeline-mode 1)
-
-  (use-package doom-modeline-now-playing)
-  (doom-modeline-now-playing-timer)
-
-  (doom-modeline-def-modeline 'main
-   '(bar matches buffer-info buffer-position now-playing)
-   '(time major-mode))
-
-#+end_src
-
-Transparent emacs frames.
-#+begin_src emacs-lisp :results none
-  (set-frame-parameter (selected-frame) 'alpha '(80 . 80))
-  (add-to-list 'default-frame-alist '(alpha . (70 . 70)))
-#+end_src
-
-Display time in mode line
-#+begin_src emacs-lisp :results none
-  (display-time-mode 1)
 #+end_src
 
 * ~Eshell~
