@@ -1462,14 +1462,6 @@ Delete duplicates in the ~eshell~ history
 #+begin_src emacs-lisp :results none
   (setq eshell-hist-ignoredups t)
 #+end_src
-Function to run ~eshell~ command.
-#+begin_src emacs-lisp :results none
-  (defun eshell-send-command (s)
-    (interactive)
-    (eshell-return-to-prompt)
-    (insert s)
-    (eshell-send-input))
-#+end_src
 Augments ~eshell~'s completion framework so that it behaves more like
 fish (e.g. "pacman -S ..." completes the name of the package)
 #+begin_src emacs-lisp :results none
@@ -1484,58 +1476,29 @@ Add rust packages to path
 #+begin_src emacs-lisp :results none
   (add-to-list 'exec-path "~/.cargo/bin")
 #+end_src
-#+begin_src emacs-lisp :results none
-  (defun set-envs (l) (dolist (p (nth 0 l)) (setenv (nth 0 p) (nth 1 p))))
-#+end_src
 
 Buffer name matches eshell directory
 #+begin_src emacs-lisp :results none
   (defun sync-dir-in-buffer-name ()
-      (rename-buffer (concat "*eshell* " default-directory) t))
+    (rename-buffer (concat "*eshell* " default-directory) t))
 
   (add-hook 'eshell-mode-hook #'sync-dir-in-buffer-name)
   (add-hook 'eshell-directory-change-hook #'sync-dir-in-buffer-name)
 #+end_src
-** ~Eshell~ configuration
-Startup configuration. Sets the opam environment variables and runs
-~fastfetch~.
+
 #+begin_src emacs-lisp :results none
   (add-hook 'eshell-mode-hook
             (lambda ()
               (define-key eshell-mode-map (kbd "C-l") #'eshell-clear)))
 
-  (defun startup ()
-    (interactive)
-    (unless (eshell-command-mode)
-      (progn
-        (eshell-send-command "opam-set && fastfetch")
-        (let ((inhibit-read-only t))
-  	(eshell-previous-prompt 1)
-  	(beginning-of-line)
-  	(kill-line)
-  	(kill-line)
-  	(eshell-next-prompt 1)))))
-
   (require 'eshell)
   (use-package eshell
-    :hook (eshell-mode . startup)
-    :custom (eshell-banner-message "")
-    )
+    :custom (eshell-banner-message ""))
 #+end_src
-** Configuration for Visual Commands
 
 We use eat to run any commands that require visuals
 #+begin_src emacs-lisp :results none
   (use-package eat
     :custom (eat-kill-buffer-on-exit t)
-    :hook (eshell-mode . eat-eshell-mode)
-    )
-#+end_src
-** Remember ~sudo~
-#+begin_src emacs-lisp :results none
-(require 'em-tramp)
-(setq eshell-prefer-lisp-functions t)
-(setq eshell-prefer-lisp-variables t)
-(setq password-cache t)
-(setq password-cache-expiry 86400)
+    :hook (eshell-mode . eat-eshell-mode))
 #+end_src
