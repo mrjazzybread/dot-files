@@ -1503,7 +1503,10 @@ We use eat to run any commands that require visuals
     :hook (eshell-mode . eat-eshell-mode))
 #+end_src
 
+Enable elisp ~sudo~ in ~eshell~
 #+begin_src emacs-lisp :results none
+  (require 'em-tramp)
   (setq eshell-prefer-lisp-variables t)
   (setq eshell-prefer-lisp-functions t)
+  (setq password-cache-expiry 3600)
 #+end_src
