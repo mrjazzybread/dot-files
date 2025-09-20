@@ -146,6 +146,8 @@ function ocaml-trace-disable(){
     unset OCAMLRUNPARAM
 }
 
+alias startx="gpg -d ~/.authinfo.gpg && startx"
+
 clear
 fastfetch
 
