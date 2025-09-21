@@ -243,11 +243,7 @@ Command to insert the current file name
 #+end_src
 Minibuffer history persists across multiple sessions
 #+begin_src emacs-lisp :results none
-  (save-hist-mode)
-#+end_src
-Automatically follow symbolic links to files tracked by Git
-#+begin_src emacs-lisp :results none
-  (setq vc-follow-symlinks nil)
+  (savehist-mode)
 #+end_src
 
 ** ~utf-8~
