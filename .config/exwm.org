@@ -167,24 +167,24 @@ Messaging apps are started after EXWM is initialized.  We also create
 a hook that moves any newly created window with a messaging app to
 workspace 0.
 #+begin_src emacs-lisp :results none
-  (defun messaging-apps ()
-    (interactive)
-    (efs/run-in-background "discord")
-;    (efs/run-in-background "slack")
-)
+    (defun messaging-apps ()
+      (interactive)
+      (efs/run-in-background "discord")
+      (efs/run-in-background "alacritty -e sh -c 'ncmpcpp -s visualizer'")
+  ;    (efs/run-in-background "slack")
+  )
 
-  (defun is-messaging-app ()
-    (member (buffer-name)
-  	  '("slack"
-  	    "discord")))
+    (defun is-messaging-app ()
+      (member (buffer-name)
+    	    '("slack" "discord" "Alacritty")))
 
-  (add-hook 'exwm-manage-finish-hook
-  	  (lambda () (interactive)
-  	    (when (is-messaging-app)
-  		(exwm-workspace-move-window 0)
-  	      )))
+    (add-hook 'exwm-manage-finish-hook
+    	  (lambda () (interactive)
+    	    (when (is-messaging-app)
+    		(exwm-workspace-move-window 0)
+    	      )))
 
-  (add-hook 'exwm-init-hook #'messaging-apps)
+    (add-hook 'exwm-init-hook #'messaging-apps)
 #+end_src
 Add songs to mingus
 #+begin_src emacs-lisp :results none
