@@ -1,3 +1,5 @@
 [user]
 	email = tl.soares@campus.fct.unl.pt
 	name = Tiago
+[diff "gpg"]
+	textconv = gpg --no-tty --decrypt

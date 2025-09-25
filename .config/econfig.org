@@ -317,12 +317,12 @@ Special rule for "magit-diff" to prevent it from taking up the entire
 window when committing.
 #+begin_src emacs-lisp :results none
   (add-to-list 'display-buffer-alist
-               '("magit-diff"
-                 (display-buffer-no-window)))
-
-  (add-to-list 'display-buffer-alist
                  '(""
                    (display-buffer-same-window)))
+
+  (add-to-list 'display-buffer-alist
+               '("magit-diff"
+                 (display-buffer-no-window)))
 #+end_src
 
 ** GPG
