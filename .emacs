@@ -12,19 +12,20 @@
  '(package-selected-packages
    '(all-the-icons-dired all-the-icons-ivy-rich async auctex avy
 			 bluetooth browse-kill-ring counsel
-			 desktop-environment dired-hist dired-subtree
-			 doom-modeline-now-playing doom-themes dune
-			 dwim-shell-command eat elcord eldoc-box
-			 emojify esh-autosuggest exec-path-from-shell
-			 exwm exwm-firefox-core exwm-mff fireplace
-			 fish-completion flyspell-correct-ivy
-			 gnu-elpa-keyring-update ivy-posframe magit
-			 math-symbol-lists mingus mu4e-alert
-			 multiple-cursors ocamlformat org-alert
-			 org-fragtog org-roam pacmacs pinentry
-			 proof-general quelpa rustic shackle
+			 csharp-mode desktop-environment dired-hist
+			 dired-subtree doom-modeline-now-playing
+			 doom-themes dune dwim-shell-command eat
+			 elcord eldoc-box emojify esh-autosuggest
+			 exec-path-from-shell exwm exwm-firefox-core
+			 exwm-mff fireplace fish-completion
+			 flyspell-correct-ivy gnu-elpa-keyring-update
+			 ivy-posframe magit math-symbol-lists mingus
+			 mu4e-alert multiple-cursors ocamlformat
+			 org-alert org-fragtog org-roam pacmacs
+			 pinentry proof-general quelpa rustic
 			 shades-of-purple-theme smex trashed tuareg
 			 writeroom-mode yaml-mode))
+ '(transient-mode-line-format nil)
  '(zoom-window-mode-line-color "pink"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

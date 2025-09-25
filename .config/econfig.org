@@ -312,17 +312,19 @@ Disable repeat mode in Dired
   (setq dired-jump-map nil)
 #+end_src
 ** Popup windows
-
-I use the ~shackle~ package to control the behaviour of pop up windows.
-
+This makes it so every pop up window appears in the current window.
+Special rule for "magit-diff" to prevent it from taking up the entire
+window when committing.
 #+begin_src emacs-lisp :results none
-  (use-package shackle)
-  (setq shackle-select-reused-windows t)
-  (setq shackle-rules
-        '(("*" :same t :regexp t)))
-  (setq shackle-inhibit-window-quit-on-same-windows t)
-  (shackle-mode 1)
+  (add-to-list 'display-buffer-alist
+               '("magit-diff"
+                 (display-buffer-no-window)))
+
+  (add-to-list 'display-buffer-alist
+                 '(""
+                   (display-buffer-same-window)))
 #+end_src
+
 ** GPG
 #+begin_src emacs-lisp :results none
   ;; let's get encryption established
