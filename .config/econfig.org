@@ -323,6 +323,10 @@ window when committing.
   (add-to-list 'display-buffer-alist
                '("magit-diff"
                  (display-buffer-no-window)))
+
+  (add-to-list 'display-buffer-alist
+  	     '((derived-mode coq-response-mode coq-goals-mode)
+  	       (display-buffer-no-window)))
 #+end_src
 
 ** GPG
