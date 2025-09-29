@@ -1235,13 +1235,20 @@ completing org roam nodes.
   (require 'flyspell)
   (keymap-unset flyspell-mode-map "C-M-i")
 #+end_src
-Package for TeX files
-#+begin_src emacs-lisp :results none
-  (use-package auctex)
-#+end_src
 Disable word completion in text-mode
 #+begin_src emacs-lisp :results none
   (setq text-mode-ispell-word-completion nil)
+#+end_src
+Add the preamble necessary to write math symbols in a latex Gospel
+code block.
+#+begin_src emacs-lisp :results none
+  (defun gospel-unicode () (interactive) (tag-word-or-region "*?$" "$?*"))
+  (require 'latex)
+
+  (use-package auctex
+    :bind
+    (:map LaTeX-mode-map
+          ("C-c C-x C-m" . gospel-unicode)))
 #+end_src
 * Ivy
 Default ivy configuration
