@@ -1,4 +1,5 @@
 ;; -*- lexical-binding: t; -*-
+(load-file "sensitive.el")
 (setq touch-screen-display-keyboard t)
 (savehist-mode)
 (require 'package)
@@ -32,7 +33,7 @@
 (require 'org-crypt)
 (org-crypt-use-before-save-magic)
 
-(setq epa-file-encrypt-to "tl.soares@campus.fct.unl.pt")
+(setq epa-file-encrypt-to email1)
 (setq epa-file-select-keys 1)
 
 (global-set-key "\C-ca" 'org-agenda)
