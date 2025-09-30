@@ -82,7 +82,7 @@
 
 (defun pull-agenda ()
     (interactive)
-    (shell-command "" "git --git-dir=$HOME/journal/.git pull"))
+    (shell-command "git --git-dir=$HOME/journal/.git pull"))
 
 (pull-agenda)
 (bind-key "C-x x" #'pull-agenda)
