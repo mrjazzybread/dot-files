@@ -80,6 +80,12 @@
       org-agenda-skip-scheduled-if-deadline-is-shown t
       org-agenda-skip-timestamp-if-deadline-is-shown t)
 
+(defun pull-agenda ()
+    (interactive)
+    (start-process-shell-command "git --git-dir=$HOME/journal/.git pull"))
+
+(pull-agenda)
+(bind-key "C-x x" #'pull-agenda)
 (org-agenda-list)
 (delete-other-windows)
 
