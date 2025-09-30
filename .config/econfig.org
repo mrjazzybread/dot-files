@@ -1081,24 +1081,9 @@ Function to run a latex process in the background.
      "latexmk -pdf  -pdflatex='pdflatex -interaction=nonstopmode' -pvc --synctex=1 -use-make main.tex"))
 #+end_src
 * Proof General
-Function for a more convenient Coq buffer split.
-#+begin_src emacs-lisp :results none
-  (defun split-proof-general ()
-    (interactive)
-    (let ((f1 (selected-frame)) (f2 (clone-frame)))
-      (select-frame f1)
-      (delete-other-windows)
-      (select-frame f2)
-      (delete-window)
-      (select-frame-set-input-focus f1) ; doesn't work! argh!
-      )
-    )
-#+end_src
 Package for working with Coq
 #+begin_src emacs-lisp :results none
   (use-package proof-general
-    :bind (:map coq-mode-map
-                ("C-c C-k" . split-proof-general))
     :custom
     ;; when starting a proof, splits windows so that the goals
     ;; window is larger than the response window
