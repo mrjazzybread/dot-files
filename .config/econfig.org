@@ -1078,7 +1078,8 @@ Function to run a latex process in the background.
   (defun run-latex ()
     (interactive)
     (async-shell-command
-     "latexmk -pdf  -pdflatex='pdflatex -interaction=nonstopmode' -pvc --synctex=1 -use-make main.tex"))
+     "latexmk -pdf  -pdflatex='pdflatex -interaction=nonstopmode' -pvc --synctex=1 -use-make main.tex"
+     "LaTeX"))
 #+end_src
 * Proof General
 Package for working with Coq
