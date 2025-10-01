@@ -1235,6 +1235,10 @@ code block.
     (:map LaTeX-mode-map
           ("C-c C-x C-m" . gospel-unicode)))
 #+end_src
+Automatic insertion of right brace in Latex-mode
+#+begin_src emacs-lisp :results none
+  (setq LaTeX-electric-left-right-brace t)
+#+end_src
 * Ivy
 Default ivy configuration
 
