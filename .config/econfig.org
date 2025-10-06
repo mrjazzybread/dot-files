@@ -325,7 +325,8 @@ window when committing.
                  (display-buffer-no-window)))
 
   (add-to-list 'display-buffer-alist
-  	     '((derived-mode coq-response-mode coq-goals-mode)
+  	     '((derived-mode
+  		coq-response-mode coq-goals-mode mu4e-view-mode)
   	       (display-buffer-no-window)))
 #+end_src
 
@@ -728,6 +729,10 @@ Settings for exporting Org files with citations to TeX.
   (setq org-cite-export-processors '((t biblatex "numeric" "numeric")))
 ;  (setq org-cite-global-bibliography '("~/org/org.bib"))
   (setq org-export-with-sub-superscripts nil)
+#+end_src
+Restore the window configuration when quitting the agenda view
+#+begin_src emacs-lisp :results none
+ (setq org-agenda-restore-windows-after-quit t)
 #+end_src
 Enable notifications for Org agenda items
 
