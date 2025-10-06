@@ -1052,14 +1052,15 @@ Capture templates for org roam.
   	("p" "PhD Note" plain
            "%?"
            :if-new (file+head "research/%<%Y%m%d%H%M%S>-${slug}.org.gpg" "#+title: ${title}\n")
-           :unnarrowed t)
+           :unnarrowed t
+  	 :jump-to-captured t)
   	))
 #+end_src
 Capture template for org roam dailies
 #+begin_src emacs-lisp :results none
   (setq org-roam-dailies-capture-templates
-        '(("d" "default" entry "* %?" :target (file+head "%<%Y-%m-%d>.org.gpg" "#+title: %<%Y-%m-%d>
-  "))))
+        '(("d" "default" plain "* %?" :target (file+head "%<%Y-%m-%d>.org.gpg" "#+title: %<%Y-%m-%d>
+  ") :jump-to-captured t)))
 #+end_src
 * PDFs
 Opens the current file in ~zathura~ and kills the Doc View buffer.
