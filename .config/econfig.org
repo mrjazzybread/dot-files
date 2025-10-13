@@ -152,8 +152,8 @@ Suppress annoying message any time you start a new frame
 #+end_src
 Enable ~recentf~ mode to remember recently opened files
 #+begin_src emacs-lisp :results none
-  (recentf-mode 1)
   (setq recentf-max-saved-items 10000)
+  (recentf-mode 1)
   (add-to-list 'recentf-exclude
     	     (lambda (s) (cl-search "/test/" s)))
   (add-to-list 'recentf-exclude
