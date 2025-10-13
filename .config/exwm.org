@@ -3,7 +3,7 @@
 #+end_src
 Setting the initial workspace number
 #+begin_src emacs-lisp :results none
-  (setq exwm-workspace-number 4)
+  (setq exwm-workspace-number 5)
 #+end_src
 Make it so that EXWM buffers are named after the window they are managing
 #+begin_src emacs-lisp :results none
