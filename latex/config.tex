@@ -1,0 +1,35 @@
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{xspace}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{bold-extra}
+\usepackage{listings}
+\usepackage{tikz}
+\usepackage{todonotes}
+\usepackage[skins]{tcolorbox}
+\usepackage{latexsym}
+\usepackage[os=win, mackeys=symbols]{menukeys}
+
+\newcommand{\redtodo}[2][]{\todo[color=red,#1]{#2}}
+\newcommand{\revisiontodo}[2][]{\todo[color=yellow,#1]{#2}}
+
+\definecolor{codemarkcolor}{RGB}{178, 190, 181} % Define the color (you can adjust the RGB values)
+\newcommand{\codemark}[1]{%
+  \hspace{6pt}% Adjust the spacing here
+  \tikz[overlay,remember picture,baseline=(marker.base)]\node[draw,circle,inner sep=0.7pt,yscale=0.8,xscale=0.8,fill=codemarkcolor] (marker) {\textbf{#1}};
+  \hspace{4pt}% Adjust the spacing here
+}
+
+\renewcommand{\check}{
+ \raisebox{-.25\height}{\includegraphics[width=1em,height=1em]{assets/check.png}}}
+
+\newcommand{\cross}{
+ \raisebox{-.25\height}{\includegraphics[width=1em,height=1em]{assets/cross.png}}}
+
+\usepackage{gospel}
+\DeclareCaptionFormat{listing}{\hfill#3}
+\captionsetup[lstlisting]{format=listing,singlelinecheck=false, margin=0pt,
+  font={sf,it},labelsep=space,labelfont=bf,belowskip=-1pt}
