@@ -1,18 +1,30 @@
-personal_ws-1.1 en 32
+personal_ws-1.1 en 47 
+ADTs
 CFML
+CompCert
+Dafny
+François
 Functors
+Hoare
+IDF
 Minibuffer
 OCaml
+Pereira
 Rocq
 SILKSONG
+SPEcification
+backend
 backends
 codomain
 completly
+desugar
 desugared
 desugaring
 desugars
 duplicable
+encodable
 expressivity
+frontend
 hacky
 inlined
 inlining
@@ -26,7 +38,11 @@ multisets
 namespace
 natively
 polymorphism
+pre
+prover
 provers
 rebases
 rebasing
+stateful
 typechecker
+verifier
