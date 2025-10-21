@@ -1110,6 +1110,23 @@ Function to generate a ~Rocq~ Makefile
     (interactive)
     (async-shell-command "coq_makefile -f _CoqProject -o Makefile"))
 #+end_src
+Why3 configuration
+#+begin_src emacs-lisp :results none
+  (setq opam-share
+        (if (boundp 'opam-share) opam-share
+  	(ignore-errors (car (process-lines "opam" "var" "share")))))
+
+  (setq why3-share
+        (if (boundp 'why3-share) why3-share
+    	(ignore-errors (car (process-lines "why3" "--print-datadir")))))
+  (setq why3el
+        (let ((f (expand-file-name "emacs/why3.elc" why3-share)))
+    	(if (file-readable-p f) f
+    	  (when (and opam-share (file-directory-p opam-share))
+              (let ((f (expand-file-name "emacs/site-lisp/why3.elc" opam-share)))
+                (if (file-readable-p f) f nil))))))
+  (when why3el (require 'why3 why3el))
+#+end_src
 ** Unicode Symbols for Iris
 #+begin_src emacs-lisp :results none
   ;; Input of unicode symbols
