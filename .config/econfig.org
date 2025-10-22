@@ -729,7 +729,7 @@ My agenda files:
 Settings for exporting Org files with citations to TeX.
 #+begin_src emacs-lisp :results none
   (setq org-cite-export-processors '((t biblatex "numeric" "numeric")))
-;  (setq org-cite-global-bibliography '("~/org/org.bib"))
+  (setq org-cite-global-bibliography '("~/.dot-files/latex/english.bib"))
   (setq org-export-with-sub-superscripts nil)
 #+end_src
 Restore the window configuration when quitting the agenda view
