@@ -724,7 +724,7 @@ My agenda files:
 
 #+begin_src emacs-lisp :results none
   (setq org-agenda-file-regexp "\\`[^.].*\\.org\\\(\\.gpg\\\)?\\'")
-  (setq org-agenda-files (list (org-directory "")))
+  (setq org-agenda-files (list todo-file agenda-file))
 #+end_src
 Settings for exporting Org files with citations to TeX.
 #+begin_src emacs-lisp :results none
@@ -877,7 +877,7 @@ just so that Org mode environments aren't awful to look at.
 ** Org Keywords
 #+begin_src emacs-lisp :results none
 (setq org-todo-keywords
-      '((sequence "APPOINTMENT(p)" "TODO(t)" "IN-PROGRESS(i@/!)" "VERIFYING(v!)" "BLOCKED(b@)" "👁️👄👁️(q)" "|" "DONE(d!)" "OBE(o@!)" "WONT-DO(w@/!)" )
+      '((sequence "APPOINTMENT(p)" "SPEC(s)" "TODO(t)" "IN-PROGRESS(i@/!)" "VERIFYING(v!)" "BLOCKED(b@)" "👁️👄👁️(q)" "|" "DONE(d!)" "OBE(o@!)" "WONT-DO(w@/!)" )
         ))
 ;; TODO colors
 (setq org-todo-keyword-faces
@@ -888,7 +888,8 @@ just so that Org mode environments aren't awful to look at.
         ("VERIFYING" . (:foreground "DarkOrange" :weight bold))
         ("BLOCKED" . (:foreground "Red" :weight bold))
         ("DONE" . (:foreground "LimeGreen" :weight bold))
-        ("WONT-DO" . (:foreground "LimeGreen" :weight bold))
+        ("WONT-DO" . (:foreground "Firebrick" :weight bold))
+        ("SPEC" . (:foreground "LightCyan" :weight bold))
         ))
 #+end_src
 ** Inserting Org Example Blocks
@@ -1210,7 +1211,7 @@ Why3 configuration
 Enable auto-fill.
 #+begin_src emacs-lisp :results none
   (add-hook 'text-mode-hook #'auto-fill-mode)
-
+  (setq fill-column 80)
 #+end_src
 Enable ~Writeroom~ mode for a more comfortable writing experience.
 #+begin_src emacs-lisp :results none
