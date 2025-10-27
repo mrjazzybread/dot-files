@@ -1398,6 +1398,12 @@ as a brick
       (advice-add 'ivy-switch-buffer :after 'ek/ivy-rich-cache-rebuild-trigger)))
 #+end_src
 
+When the cursor is hovering over a string that can be interpreted as a
+file path, ~counsel-find-file~ goes to that file.
+#+begin_src emacs-lisp :results none
+  (setq counsel-find-file-at-point t)
+#+end_src
+
 * ~Eshell~
 
 Fish like suggestions for ~eshell~
