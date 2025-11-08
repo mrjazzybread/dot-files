@@ -77,11 +77,11 @@ Functions to shutdown and reboot the system
 #+begin_src emacs-lisp :results none
   (defun efs/shutdown ()
     (interactive)
-    (eshell-command "sudo shutdown -h now"))
+    (async-shell-command "sudo shutdown -h now"))
 
   (defun efs/reboot ()
     (interactive)
-    (eshell-command "sudo shutdown -r now"))
+    (async-shell-command "sudo shutdown -r now"))
 #+end_src
 Mouse follows focus
 
