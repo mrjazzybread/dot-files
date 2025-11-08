@@ -1,6 +1,8 @@
-personal_ws-1.1 en 48 
+personal_ws-1.1 en 53 
+ADT
 ADTs
 CFML
+Changelog
 CompCert
 Dafny
 François
@@ -8,11 +10,13 @@ Functors
 Hoare
 IDF
 Minibuffer
+Mário
 OCaml
 Pereira
 Rocq
 SILKSONG
 SPEcification
+Tiago
 arity
 backend
 backends
@@ -26,6 +30,7 @@ duplicable
 encodable
 expressivity
 frontend
+functors
 hacky
 inlined
 inlining
