@@ -245,7 +245,30 @@ Minibuffer history persists across multiple sessions
 #+begin_src emacs-lisp :results none
   (savehist-mode)
 #+end_src
+Some macros to help writing Rocq proofs of Gospel signatures.
+#+begin_src emacs-lisp :results none
+  (defun gospel-abstract (var)
+    (interactive "sName:")
+    (insert
+     (format
+      "Global Instance _%s_inst : _%s_sig :="
+      var var))
+    (newline 1 t)
+    (insert (format "{ %s :=  }." var))
+    (backward-char 3))
 
+  (defun gospel-lemma (var)
+    (interactive "sName:")
+    (insert
+     (format
+      "#[refine] Global Instance _%s_inst : _%s_sig := { }."
+      var var var))
+    (newline 1 t)
+    (insert "Proof.")
+    (newline 1 t))
+
+
+#+end_src
 ** ~utf-8~
 #+begin_src emacs-lisp :results none
   (prefer-coding-system       'utf-8)
