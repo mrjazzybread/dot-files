@@ -492,9 +492,7 @@ I will always use ~magit~ though. ~magit~ :)
 #+begin_src emacs-lisp :results none
   (use-package magit
     :bind (:map magit-mode-map
-                ("C-c C-p" . magit-section-up))
-    :custom (magit-diff-visit-prefer-worktree t)
-    )
+                ("C-c C-p" . magit-section-up)))
 
   (setq magit-display-buffer-function
         #'magit-display-buffer-traditional)
