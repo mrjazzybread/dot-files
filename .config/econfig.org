@@ -887,7 +887,7 @@ just so that Org mode environments aren't awful to look at.
 
           ("?" "Question"
            entry (file+headline todo-file "Questions")
-           "* 👁️👄👁️ %?\n "
+           "* 👁️👄👁️ [[%L][%?]]\n "
            :empty-lines 0)
 
           ("r" "Reading"
