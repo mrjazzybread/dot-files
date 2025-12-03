@@ -167,24 +167,26 @@ Messaging apps are started after EXWM is initialized.  We also create
 a hook that moves any newly created window with a messaging app to
 workspace 0.
 #+begin_src emacs-lisp :results none
-    (defun messaging-apps ()
-      (interactive)
-      (efs/run-in-background "discord")
-      (efs/run-in-background "alacritty -e sh -c 'ncmpcpp -s visualizer'")
-  ;    (efs/run-in-background "slack")
-  )
+  (defun messaging-apps ()
+    (interactive)
+    (efs/run-in-background "discord"))
 
-    (defun is-messaging-app ()
-      (member (buffer-name)
-    	    '("slack" "discord" "Alacritty")))
+  (defun is-substring (haystack needle)
+    (string-match-p (regexp-quote needle) haystack))
 
-    (add-hook 'exwm-manage-finish-hook
-    	  (lambda () (interactive)
-    	    (when (is-messaging-app)
-    		(exwm-workspace-move-window 0)
-    	      )))
+  (defun is-messaging-app ()
+    (seq-drop-while
+     (lambda (elt) (not (is-substring (buffer-name) elt)))
+     '("discord")))
 
-    (add-hook 'exwm-init-hook #'messaging-apps)
+  (defun minimize-messaging-app ()
+    (interactive)
+    (when (is-messaging-app)
+      (exwm-workspace-move-window 0)))
+
+  (add-hook 'exwm-manage-finish-hook #'minimize-messaging-app)
+
+  (add-hook 'exwm-init-hook #'messaging-apps)
 #+end_src
 Add songs to mingus
 #+begin_src emacs-lisp :results none
@@ -273,7 +275,7 @@ Keybindings to switch the current workspace
                         (lambda ()
                           (interactive)
                           (exwm-workspace-switch-create ,i))))
-                    (number-sequence 1 9))))
+                    (number-sequence 0 9))))
 
   (add-hook #'exwm-init-hook
   	  (lambda () (interactive) (exwm-workspace-switch-create 1)))
@@ -281,7 +283,12 @@ Keybindings to switch the current workspace
 
 Kills the current buffer.
 #+begin_src emacs-lisp :results none
-  (exwm-input-set-key (kbd "s-c") 'kill-current-buffer)
+  (defun kill-or-minimize ()
+    (interactive)
+    (unless (minimize-messaging-app)
+      (kill-current-buffer)))
+
+  (exwm-input-set-key (kbd "s-c") 'kill-or-minimize)
 #+end_src
 
 Window movement
