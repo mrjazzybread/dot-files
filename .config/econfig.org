@@ -1425,6 +1425,11 @@ file path, ~counsel-find-file~ goes to that file.
   (setq counsel-find-file-at-point t)
 #+end_src
 
+Ivy buffer includes recent files
+#+begin_src emacs-lisp :results none
+  (setq ivy-use-virtual-buffers 'recentf)
+#+end_src
+
 * ~Eshell~
 
 Fish like suggestions for ~eshell~
