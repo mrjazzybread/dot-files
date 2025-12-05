@@ -1,4 +1,4 @@
-personal_ws-1.1 en 56 
+personal_ws-1.1 en 60 
 ADT
 ADTs
 CFML
@@ -13,11 +13,13 @@ IDF
 Minibuffer
 Mário
 OCaml
+Orderless
 Pereira
 Rocq
 SILKSONG
 SPEcification
 Tiago
+Vertico
 arity
 backend
 backends
@@ -41,12 +43,14 @@ instantiations
 invariants
 logics
 lookups
+minibuffer
 monomorphic
 multiset
 multisets
 namespace
 natively
 polymorphism
+posframe
 pre
 prover
 provers
