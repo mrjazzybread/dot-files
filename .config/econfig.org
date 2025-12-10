@@ -1383,6 +1383,8 @@ Do not use posframe for consult line and consult mark
   (setq vertico-multiform-commands
         '((consult-line (:not posframe))
   	(consult-mark (:not posframe))
+  	(consult-mark (:not posframe))
+  	(consult-org-maybe (:not posframe))
           (t posframe)))
 #+end_src
 
