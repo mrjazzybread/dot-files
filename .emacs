@@ -26,7 +26,10 @@
 			      org-roam-ui pinentry proof-general
 			      rustic shades-of-purple-theme smex
 			      trashed tuareg vertico vertico-posframe
-			      writeroom-mode yaml-mode)))
+			      volume writeroom-mode xdg-launcher
+			      yaml-mode))
+ '(package-vc-selected-packages
+   '((xdg-launcher :url "https://github.com/emacs-exwm/xdg-launcher"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

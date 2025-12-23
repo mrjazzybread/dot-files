@@ -167,7 +167,7 @@ Network manager applet
 
 Sound display
 #+begin_src emacs-lisp :results none
-  (efs/run-in-background "volumeicon")
+  (use-package volume)
 #+end_src
 
 Messaging apps are started after EXWM is initialized.  We also create
@@ -314,15 +314,13 @@ Window management
   (exwm-input-set-key (kbd "s-K") 'windmove-swap-states-down)
 #+end_src
 
-Start a desktop application using /counsel linux app/ in a new window
+Start a desktop application using switch to buffer
 #+begin_src emacs-lisp :results none
-  (defun open-app ()
-    (interactive)
-    (counsel-linux-app))
+  (use-package xdg-launcher
+    :vc (:url "https://github.com/emacs-exwm/xdg-launcher"))
 
-  (setq counsel-linux-app-format-function
-        #'counsel-linux-app-format-function-name-only)
-  (exwm-input-set-key (kbd "s-d") 'open-app)
+  (with-eval-after-load 'consult
+    (push 'xdg-launcher-consult-source (cdr (memq 'consult-source-buffer consult-buffer-sources))))
 #+end_src
 
 Suspend the computer
