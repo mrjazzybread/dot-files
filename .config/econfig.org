@@ -1278,6 +1278,12 @@ No live preview when switching buffers
 #+begin_src emacs-lisp :results none
   (setq consult-preview-excluded-buffers t)
 #+end_src
+Replace I-search with consult-line.  Vertico cycle is set to ~t~ so that
+we can go to candidates in previous lines.
+#+begin_src emacs-lisp :results none
+  (setq vertico-cycle t)
+  (global-set-key (kbd "C-s") #'consult-line)
+#+end_src
 
 * ~Eshell~
 
