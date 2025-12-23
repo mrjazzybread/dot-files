@@ -7,7 +7,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(auth-source-save-behavior nil)
- '(emojify-display-style 'unicode)
  '(ispell-alternate-dictionary "/usr/lib/aspell-0.60/")
  '(package-selected-packages
    '(all-the-icons-completion all-the-icons-dired async auctex avy
@@ -15,7 +14,7 @@
 			      desktop-environment dired-hist
 			      dired-subtree doom-modeline-now-playing
 			      doom-themes dune dwim-shell-command eat
-			      elcord eldoc-box emojify esh-autosuggest
+			      elcord eldoc-box esh-autosuggest
 			      exec-path-from-shell exwm-firefox-core
 			      exwm-mff fireplace fish-completion
 			      gnu-elpa-keyring-update magit marginalia
