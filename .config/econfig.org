@@ -23,10 +23,6 @@ Use-package always installs packages
 #+begin_src emacs-lisp :results none
   (setq use-package-always-ensure t)
 #+end_src
-Install ~quelpa~
-#+begin_src emacs-lisp :results none
-  (use-package quelpa)
-#+end_src
 GNU keys to enable downloading packages
 #+begin_src emacs-lisp :results none
   (use-package gnu-elpa-keyring-update)

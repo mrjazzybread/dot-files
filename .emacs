@@ -12,21 +12,20 @@
  '(ispell-alternate-dictionary "/usr/lib/aspell-0.60/")
  '(package-selected-packages
    '(all-the-icons-completion all-the-icons-dired async auctex avy
-			      bluetooth consult counsel csharp-mode
-			      desktop-environment dired-hist
-			      dired-subtree doom-modeline-now-playing
-			      doom-themes dune dwim-shell-command eat
-			      elcord eldoc-box esh-autosuggest
+			      bluetooth consult desktop-environment
+			      dired-hist dired-subtree
+			      doom-modeline-now-playing doom-themes
+			      dune dwim-shell-command eat elcord
+			      eldoc-box esh-autosuggest
 			      exec-path-from-shell exwm-firefox-core
-			      exwm-mff fireplace fish-completion
+			      exwm-mff fish-completion
 			      gnu-elpa-keyring-update magit marginalia
 			      math-symbol-lists mingus mu4e-alert
 			      multiple-cursors ocamlformat orderless
 			      org-alert org-fragtog org-roam
-			      org-roam-ui pacmacs pinentry
-			      proof-general quelpa rustic shackle
-			      shades-of-purple-theme smex trashed
-			      tuareg vertico vertico-posframe
+			      org-roam-ui pinentry proof-general
+			      rustic shades-of-purple-theme smex
+			      trashed tuareg vertico vertico-posframe
 			      writeroom-mode yaml-mode))
  '(transient-mode-line-format nil)
  '(zoom-window-mode-line-color "pink"))
