@@ -26,9 +26,7 @@
 			      org-roam-ui pinentry proof-general
 			      rustic shades-of-purple-theme smex
 			      trashed tuareg vertico vertico-posframe
-			      writeroom-mode yaml-mode))
- '(transient-mode-line-format nil)
- '(zoom-window-mode-line-color "pink"))
+			      writeroom-mode yaml-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
