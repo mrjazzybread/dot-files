@@ -102,6 +102,13 @@ EXWM allows switching to X windows in a different workspace.
   (setq exwm-workspace-show-all-buffers 1)
   (setq exwm-layout-show-all-buffers 1)
 #+end_src
+
+Transparent emacs frames.
+#+begin_src emacs-lisp :results none
+  (set-frame-parameter (selected-frame) 'alpha '(80 . 80))
+  (add-to-list 'default-frame-alist '(alpha . (70 . 70)))
+#+end_src
+
 * Keybindings for desktop utilities
 We use the ~desktop-environment~ package to help us change the volume,
 adjust brightness, etc...

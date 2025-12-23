@@ -19,11 +19,6 @@ messages
   (require 'use-package)
   (setq use-package-verbose t)
 #+end_src
-Updates the local cache if it is missing
-#+begin_src emacs-lisp :results none
-  ;; (unless package-archive-contents
-  ;;   (package-refresh-contents))
-#+end_src
 Use-package always installs packages
 #+begin_src emacs-lisp :results none
   (setq use-package-always-ensure t)
@@ -50,8 +45,6 @@ Define font style and height
   ;The initial frame (useful for the gui)
   (setq initial-frame-alist '((font . "Roboto Mono 22")))
   (add-to-list 'initial-frame-alist '(background-color . "#34293E"))
-  ; Only relevant for terminals
-  (set-background-color "black")
 #+end_src
 Set theme (currently Shades of Purple).  My setup is a little weird: I
 first set it to ~doom-shades-of-purple~ and then ~shades-of-purple~.  This
@@ -65,13 +58,13 @@ ends up with a color scheme that is pleasant for most modes.
 #+end_src
 Disables a bunch of needless UI noise.
 #+begin_src emacs-lisp :results none
-(cond ((> emacs-major-version 20)
-       (tool-bar-mode -1) ; introduced in emacs 21
-       (menu-bar-mode -1)
-       (scroll-bar-mode -1)
-       (menu-bar-showhide-fringe-menu-customize-disable)
-       (blink-cursor-mode -1)
-       (windmove-default-keybindings 'meta)))
+  (cond ((> emacs-major-version 20)
+         (tool-bar-mode -1) ; introduced in emacs 21
+         (menu-bar-mode -1)
+         (scroll-bar-mode -1)
+         (menu-bar-showhide-fringe-menu-customize-disable)
+         (blink-cursor-mode -1)
+         (windmove-default-keybindings 'meta)))
 #+end_src
 Pretty mode line
 #+begin_src emacs-lisp :results none
@@ -84,22 +77,168 @@ Pretty mode line
   (doom-modeline-def-modeline 'main
    '(bar matches buffer-info buffer-position now-playing)
    '(time major-mode))
-
 #+end_src
-
-Transparent emacs frames.
-#+begin_src emacs-lisp :results none
-  (set-frame-parameter (selected-frame) 'alpha '(80 . 80))
-  (add-to-list 'default-frame-alist '(alpha . (70 . 70)))
-#+end_src
-
 Display time in mode line
 #+begin_src emacs-lisp :results none
   (display-time-mode 1)
 #+end_src
+Allows me to see the column number as well as the line number.
+#+begin_src emacs-lisp :results none
+  (column-number-mode)
+#+end_src
 
-* Some Miscellaneous Configurations
-enable creation of pairs of brackets or quotes when one is inserted.
+* ~utf-8~
+#+begin_src emacs-lisp :results none
+  (prefer-coding-system       'utf-8)
+  (set-default-coding-systems 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (set-keyboard-coding-system 'utf-8)
+  (setq default-buffer-file-coding-system 'utf-8)
+  (set-language-environment 'utf-8)
+  (set-selection-coding-system 'utf-8)
+  (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
+#+end_src
+
+* Conveniences
+Don't use ui dialogs
+#+begin_src emacs-lisp :results none
+  (setq use-dialog-box nil)
+#+end_src
+Suppress annoying message any time you start a new frame
+#+begin_src emacs-lisp :results none
+  (setq server-client-instructions nil)
+#+end_src
+Enable ~recentf~ mode to remember recently opened files
+#+begin_src emacs-lisp :results none
+  (setq recentf-max-saved-items 10000)
+  (recentf-mode 1)
+
+  (add-to-list 'recentf-exclude
+    	     (lambda (s) (cl-search "/test/" s)))
+  (add-to-list 'recentf-exclude
+    	     (lambda (s) (cl-search "/tmp/" s)))
+  (add-to-list 'recentf-exclude
+    	     (lambda (s) (cl-search "/sudo:" s)))
+#+end_src
+Every time a file is visited, update the list of recently visited
+files.
+#+begin_src emacs-lisp :results none
+  (add-hook 'find-file-hook 'recentf-save-list)
+#+end_src
+Undo and redo modifications to the window configuration.  Use repeat
+mode to easily undo multiple modifications.
+#+begin_src emacs-lisp :results none
+  (winner-mode)
+  (global-set-key "\C-xp" 'winner-undo)
+  (global-set-key "\C-xn" 'winner-redo)
+
+  (repeat-mode 1)
+
+  (setq winner-repeat-map
+        (let ((map (make-sparse-keymap)))
+  	(define-key map (kbd "p") 'winner-undo)
+          (define-key map (kbd "n") 'winner-redo)
+  	map))
+#+end_src
+Disable repeat mode in Dired
+#+begin_src emacs-lisp :results none
+  (setq dired-jump-map nil)
+#+end_src
+Set scratch buffer major mode to ~org-mode~
+#+begin_src emacs-lisp :results none
+  (setq initial-major-mode 'org-mode)
+  (setq initial-scratch-message "")
+#+end_src
+Better keybinding to run a shell command
+#+begin_src emacs-lisp :results none
+  (global-set-key (kbd "M-s s") #'async-shell-command)
+#+end_src
+When running a shell command, do not display the command buffer until
+there is output.
+#+begin_src emacs-lisp :results none
+  (setq async-shell-command-display-buffer nil)
+#+end_src
+Minibuffer history persists across multiple sessions
+#+begin_src emacs-lisp :results none
+  (savehist-mode)
+#+end_src
+Ensures that backups and auto-saves go to a separate directory instead
+of stinking up the working directory.
+#+begin_src emacs-lisp :results none
+  (defvar backup-dir (expand-file-name "~/.emacs.d/backup/"))
+  (defvar autosave-dir (expand-file-name "~/.emacs.d/autosave/"))
+  (setq backup-directory-alist (list (cons ".*" backup-dir)))
+  (setq auto-save-list-file-prefix autosave-dir)
+  (setq auto-save-file-name-transforms `((".*" ,autosave-dir t)))
+#+end_src
+Package to interface with MPD
+#+begin_src emacs-lisp :results none
+  (use-package mingus)
+#+end_src
+Package for using connecting and pairing Bluetooth devices
+#+begin_src emacs-lisp :results none
+  (use-package bluetooth)
+#+end_src
+Package for restoring and reading from the trash folder
+#+begin_src emacs-lisp :results none
+  (use-package trashed)
+#+end_src
+Package that displays when I am in Emacs on discord
+#+begin_src emacs-lisp :results none
+  (use-package elcord)
+  (setq elcord-display-buffer-details nil)
+  (setq elcord-editor-icon "doom_cute_icon")
+  (elcord-mode)
+#+end_src
+Updates the PATH according to the environment in which Emacs is running
+#+begin_src emacs-lisp :results none
+  (use-package exec-path-from-shell)
+  (when (daemonp)
+    (exec-path-from-shell-initialize))
+#+end_src
+
+** Buffer Navigation
+Function for jumping to another part of the buffer quickly
+#+begin_src emacs-lisp :results none
+  (use-package avy)
+  (setq avy-timeout-seconds 0.3)
+  (bind-key "M-j" 'avy-goto-char-timer)
+#+end_src
+Keybindings for navigating functions
+#+begin_src emacs-lisp :results none
+  (bind-key "C-M-p" #'beginning-of-defun)
+  (bind-key "C-M-n" #'end-of-defun)
+#+end_src
+Opens files at the last visited location
+#+begin_src emacs-lisp :results none
+  (save-place-mode 1)
+#+end_src
+Key binding for returning to the beginning of the line ignores
+indentation
+#+begin_src emacs-lisp :results none
+  (global-set-key (kbd "C-a") #'back-to-indentation)
+#+end_src
+Shows an indexed view of the current buffer and allows for
+straightforward navigation
+#+begin_src emacs-lisp :results none
+  (use-package consult)
+  (defun consult-org-maybe ()
+    (interactive)
+    (if (eq major-mode 'org-mode)
+        (consult-org-heading)
+      (consult-imenu)))
+
+  (global-set-key (kbd "M-g i") #'consult-org-maybe)
+#+end_src
+Faster scroll
+#+begin_src emacs-lisp :results none
+  (when (display-graphic-p)
+    (setq mouse-wheel-scroll-amount '(2 ((shift) . 1))
+          mouse-wheel-progressive-speed nil))
+#+end_src
+
+** Editing Buffers
+Enable creation of pairs of brackets or quotes when one is inserted.
 #+begin_src emacs-lisp :results none
   (setq skeleton-pair t)
   (bind-key "(" 'skeleton-pair-insert-maybe)
@@ -111,79 +250,8 @@ enable creation of pairs of brackets or quotes when one is inserted.
 #+end_src
 Enable Emacs to track changes made to files by different programs.
 #+begin_src emacs-lisp :results none
+  (setq auto-revert-interval 1)
   (global-auto-revert-mode 1)
-#+end_src
-Allows me to see the column number as well as the line number.
-#+begin_src emacs-lisp :results none
-  (column-number-mode)
-#+end_src
-Bookmarks are preserved throughout different sessions
-#+begin_src emacs-lisp :results none
-  (setq bookmark-save-flag 0)
-#+end_src
-Keybindings for navigating functions
-#+begin_src emacs-lisp :results none
-  (bind-key "C-M-p" #'beginning-of-defun)
-  (bind-key "C-M-n" #'end-of-defun)
-#+end_src
-Better scroll
-#+begin_src emacs-lisp :results none
-  (when (display-graphic-p)
-    (setq mouse-wheel-scroll-amount '(2 ((shift) . 1))
-          mouse-wheel-progressive-speed nil))
-#+end_src
-opens files at the last visited location
-#+begin_src emacs-lisp :results none
-  (save-place-mode 1)
-#+end_src
-don't use ui dialogs
-#+begin_src emacs-lisp :results none
-  (setq use-dialog-box nil)
-#+end_src
-Keybinding for quickly evaluating ~elisp~ code
-#+begin_src emacs-lisp :results none
-  (add-hook 'lisp-interaction-mode-hook
-            (lambda () (local-set-key
-                        (kbd "C-c C-c") #'eval-region)))
-#+end_src
-Suppress annoying message any time you start a new frame
-#+begin_src emacs-lisp :results none
-  (setq server-client-instructions nil)
-#+end_src
-Enable ~recentf~ mode to remember recently opened files
-#+begin_src emacs-lisp :results none
-  (setq recentf-max-saved-items 10000)
-  (recentf-mode 1)
-
-  (global-set-key (kbd "C-x C-b") #'recentf)
-
-  (add-to-list 'recentf-exclude
-    	     (lambda (s) (cl-search "/test/" s)))
-  (add-to-list 'recentf-exclude
-    	     (lambda (s) (cl-search "/tmp/" s)))
-  (add-to-list 'recentf-exclude
-    	     (lambda (s) (cl-search "/sudo:" s)))
-#+end_src
-Keybindings for splitting a window instead clones the frame
-#+begin_src emacs-lisp :results none
-  ;; (bind-key "C-x 3" #'clone-frame)
-  ;; (bind-key "C-x 2" #'clone-frame)
-#+end_src
-Every time a file is visited, update the list of recently visited
-files.
-#+begin_src emacs-lisp :results none
-(add-hook 'find-file-hook 'recentf-save-list)
-#+end_src
-Add binding to go to previous and next buffer.
-#+begin_src emacs-lisp :results none
-  (winner-mode)
-  (global-set-key "\C-xp" 'winner-undo)
-  (global-set-key "\C-xn" 'winner-redo)
-#+end_src
-Set scratch buffer major mode to ~org-mode~
-#+begin_src emacs-lisp :results none
-  (setq initial-major-mode 'org-mode)
-  (setq initial-scratch-message "")
 #+end_src
 Delete trailing white spaces after saving a file.
 #+begin_src emacs-lisp :results none
@@ -202,41 +270,6 @@ Yanking a string replaces the current selection
 #+begin_src emacs-lisp :results none
   (delete-selection-mode 1)
 #+end_src
-Gospel thing
-#+begin_src emacs-lisp :results none
-    (defun gospel-header ()
-      (interactive)
-      (insert "(**************************************************************************)
-  (*                                                                        *)
-  (*  GOSPEL -- A Specification Language for OCaml                          *)
-  (*                                                                        *)
-  (*  Copyright (c) 2018- The VOCaL Project                                 *)
-  (*                                                                        *)
-  (*  This software is free software, distributed under the MIT license     *)
-  (*  (as described in file LICENSE enclosed).                              *)
-  (**************************************************************************)
-  "))
-#+end_src
-Key binding for returning to the beginning of the line ignores
-indentation
-#+begin_src emacs-lisp :results none
-  (global-set-key (kbd "C-a") #'back-to-indentation)
-#+end_src
-Markdown windows are viewed without markup, similar to org mode
-visualisation.
-
-#+begin_src emacs-lisp :results none
-  (setq markdown-hide-markup t)
-#+end_src
-Better keybinding to run a shell command
-#+begin_src emacs-lisp :results none
-  (global-set-key (kbd "M-s s") #'async-shell-command)
-#+end_src
-When running a shell command, do not display the command buffer until
-there is output.
-#+begin_src emacs-lisp :results none
-  (setq async-shell-command-display-buffer nil)
-#+end_src
 Command to insert the current file name
 #+begin_src emacs-lisp :results none
   (global-set-key (kbd "C-c w")
@@ -244,109 +277,13 @@ Command to insert the current file name
   		  (insert (buffer-file-name
   			   (window-buffer (minibuffer-selected-window))))))
 #+end_src
-Minibuffer history persists across multiple sessions
+Command to consult and insert from kill-ring
 #+begin_src emacs-lisp :results none
-  (savehist-mode)
-#+end_src
-Some macros to help writing Rocq proofs of Gospel signatures.
-#+begin_src emacs-lisp :results none
-  (defun gospel-abstract (var)
-    (interactive "sName:")
-    (insert
-     (format
-      "Global Instance _%s_inst : _%s_sig :="
-      var var))
-    (newline 1 t)
-    (insert (format "{ %s :=  }." var))
-    (backward-char 3))
-
-  (defun gospel-lemma (var)
-    (interactive "sName:")
-    (insert
-     (format
-      "#[refine] Global Instance _%s_inst : _%s_sig := { }."
-      var var var))
-    (newline 1 t)
-    (insert "Proof.")
-    (newline 1 t))
-
-
-#+end_src
-** ~utf-8~
-#+begin_src emacs-lisp :results none
-  (prefer-coding-system       'utf-8)
-  (set-default-coding-systems 'utf-8)
-  (set-terminal-coding-system 'utf-8)
-  (set-keyboard-coding-system 'utf-8)
-  (setq default-buffer-file-coding-system 'utf-8)
-  (set-language-environment 'utf-8)
-  (set-selection-coding-system 'utf-8)
-  (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
-
-#+end_src
-** Backup files
-
-Ensures that backups and auto-saves go to a separate directory instead
-of stinking up the working directory.
-#+begin_src emacs-lisp :results none
-  (defvar backup-dir (expand-file-name "~/.emacs.d/backup/"))
-  (defvar autosave-dir (expand-file-name "~/.emacs.d/autosave/"))
-  (setq backup-directory-alist (list (cons ".*" backup-dir)))
-  (setq auto-save-list-file-prefix autosave-dir)
-  (setq auto-save-file-name-transforms `((".*" ,autosave-dir t)))
-#+end_src
-** Miscellaneous Packages
-#+begin_src emacs-lisp :results none
-  (use-package pacmacs)
-  (use-package fireplace)
-  (use-package mingus)
-  (use-package bluetooth)
-  (use-package trashed)
-
-  (use-package elcord
-    :custom (elcord-display-buffer-details nil)
-    :custom (elcord-editor-icon "doom_cute_icon"))
-
-  (elcord-mode)
-
-  (use-package avy
-    :custom (avy-timeout-seconds 0.3))
-  (bind-key "M-j" 'avy-goto-char-timer)
-
-  (use-package exec-path-from-shell)
-  (when (daemonp)
-    (exec-path-from-shell-initialize))
-  (use-package consult)
   (global-set-key (kbd "C-c y") #'consult-yank-from-kill-ring)
   (global-set-key (kbd "C-x C-SPC") #'consult-mark)
-
-  (defun consult-org-maybe ()
-    (interactive)
-    (if (eq major-mode 'org-mode)
-        (consult-org-heading)
-      (consult-imenu)))
-
-  (global-set-key (kbd "M-g i") #'consult-org-maybe)
 #+end_src
-** Repeat mode
-This allows me to easily switch to another buffer using "p" and "n"
-when I have already used a buffer navigation command.
 
-#+begin_src emacs-lisp :results none
-  (repeat-mode 1)
-
-  (setq winner-repeat-map
-        (let ((map (make-sparse-keymap)))
-  	(define-key map (kbd "p") 'winner-undo)
-          (define-key map (kbd "n") 'winner-redo)
-  	map))
-
-#+end_src
-Disable repeat mode in Dired
-#+begin_src emacs-lisp :results none
-  (setq dired-jump-map nil)
-#+end_src
-** Popup windows
+* Popup windows
 This makes it so every pop up window appears in the current window.
 Special rule for "magit-diff" to prevent it from taking up the entire
 window when committing.
@@ -365,7 +302,7 @@ window when committing.
   	       (display-buffer-no-window)))
 #+end_src
 
-** GPG
+* GPG
 #+begin_src emacs-lisp :results none
   ;; let's get encryption established
   (use-package pinentry)
@@ -385,126 +322,82 @@ window when committing.
   (setq epa-file-encrypt-to email1)
   (setq epa-file-select-keys 1)
 #+end_src
-** Kill Processes
-#+begin_src emacs-lisp :results none
-  (use-package dwim-shell-command)
-  (require 'map)
-  (require 'proced)
-  (require 'seq)
 
-  (defun dwim-shell-commands-kill-process ()
-    "Select and kill process."
-    (interactive)
-    (let* ((pid-width 5)
-           (comm-width 25)
-           (user-width 10)
-           (processes (proced-process-attributes))
-           (candidates
-            (mapcar (lambda (attributes)
-                      (let* ((process (cdr attributes))
-                             (pid (format (format "%%%ds" pid-width) (map-elt process 'pid)))
-                             (user (format (format "%%-%ds" user-width)
-                                           (truncate-string-to-width
-                                            (map-elt process 'user) user-width nil nil t)))
-                             (comm (format (format "%%-%ds" comm-width)
-                                           (truncate-string-to-width
-                                            (map-elt process 'comm) comm-width nil nil t)))
-                             (args-width (- (window-width) (+ pid-width user-width comm-width 3)))
-                             (args (map-elt process 'args)))
-                        (cons (if args
-                                  (format "%s %s %s %s" pid user comm (truncate-string-to-width args args-width nil nil t))
-                                (format "%s %s %s" pid user comm))
-                              process)))
-                    processes))
-           (selection (map-elt candidates
-                               (completing-read "kill process: "
-                                                (seq-sort
-                                                 (lambda (p1 p2)
-                                                   (string-lessp (nth 2 (split-string (string-trim (car p1))))
-                                                                 (nth 2 (split-string (string-trim (car p2))))))
-                                                 candidates) nil t)))
-           (prompt-title (format "%s %s %s"
-                                 (map-elt selection 'pid)
-                                 (map-elt selection 'user)
-                                 (map-elt selection 'comm))))
-      (when (y-or-n-p (format "Kill? %s" prompt-title))
-        (dwim-shell-command-on-marked-files
-         (format "Kill %s" prompt-title)
-         (format "kill -9 %d" (map-elt selection 'pid))
-         :utils "kill"
-         :error-autofocus t
-         :silent-success t))))
-#+end_src
 * Coding Packages
 ** ~Flymake~
 Package used by Eglot for highlighting errors
 #+begin_src emacs-lisp :results none
-  (use-package flymake
-    :bind (:map flymake-mode-map
-           ("\C-c \C-x" . flymake-goto-next-error))
-    :hook (prog-mode . flymake-mode)
-    )
+  (use-package flymake)
+  (add-hook 'prog-mode-hook #'flymake-mode)
+  (keymap-set flymake-mode-map "C-c C-x" #'flymake-goto-next-error)
 #+end_src
-** Company
+
+** Corfu
 Package for completion suggestions
 #+begin_src emacs-lisp :results none
+  (use-package corfu)
+  (setq corfu-auto t)
 
-  (use-package company)
-  (global-company-mode 1)
-  ;; (use-package corfu
-  ;;   :custom (corfu-auto t))
+  (global-corfu-mode 1)
 
-  ;; (global-corfu-mode 1)
-
-  ;; (use-package nerd-icons-corfu)
-  ;; (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter)
+  (use-package nerd-icons-corfu)
+  (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter)
 #+end_src
 
 ** OCaml packages
+Dune is bad and stupid and so I use a custom build command that goes
+to the root of the project and then calls dune.
 #+begin_src emacs-lisp :results none
   (defun ocaml-compile ()
     (setq compile-command "~/.config/ocompile.sh"))
 
-  (use-package tuareg
-    ;; changes the default compile command
-    :hook (tuareg-mode . ocaml-compile))
-
-  (use-package ocamlformat
-    :custom (ocamlformat-enable 'enable-outside-detected-project)
-    :custom (ocamlformat-show-errors nil)
-    :hook (before-save . ocamlformat-before-save))
-
+  (use-package tuareg)
+  (add-hook 'tuareg-mode-hook #'ocaml-compile)
+#+end_src
+Format OCaml code after saving the buffer
+#+begin_src emacs-lisp :results none
+  (use-package ocamlformat)
+  (setq ocamlformat-enable 'enable-outside-detected-project)
+  (setq ocamlformat-show-errors nil)
+  (add-hook 'before-save-hook #'ocamlformat-before-save)
+#+end_src
+Dune package
+#+begin_src emacs-lisp :results none
   (use-package dune)
 #+end_src
+
 ** Rust packages
 #+begin_src emacs-lisp :results none
-  (use-package rustic
-    :config (setq rustic-lsp-client #'eglot))
+  (use-package rustic)
+  (setq rustic-lsp-client #'eglot)
 #+end_src
+
 ** ~Eglot~
-Package for language servers
+Prevent ~Eglot~ from being using when writing Rocq.
 #+begin_src emacs-lisp :results none
   (defun lsp-no-coq ()
     (interactive)
     (unless (eq major-mode 'coq-mode) (eglot-ensure)))
 
-  (use-package eglot
-      :hook (prog-mode . lsp-no-coq))
+  (use-package eglot)
+  (add-hook 'prog-mode-hook #'lsp-no-coq)
 #+end_src
-Neat eldoc popup
+Eldoc popup.  Useful for displaying documentation and errors.  I have
+it set to a keybinding and not a timer since I prefer to control what
+pop ups appear.
 #+begin_src emacs-lisp :results none
-  (use-package eldoc-box
-    :custom (eldoc-box-only-multi-line t))
-
+  (use-package eldoc-box)
+  (setq eldoc-box-only-multi-line t)
   (bind-key "\C-hj" #'eldoc-box-help-at-point)
 #+end_src
+
 ** Git packages
 
-I will always use ~magit~ though. ~magit~ :)
+Folks... It's ~Magit~.
 #+begin_src emacs-lisp :results none
-  (use-package magit
-    :bind (:map magit-mode-map
-                ("C-c C-p" . magit-section-up)))
+  (use-package magit)
+
+  (keymap-set magit-mode-map "C-c C-p" #'magit-section-up)
 
   (setq magit-display-buffer-function
         #'magit-display-buffer-traditional)
@@ -514,11 +407,13 @@ I will always use ~magit~ though. ~magit~ :)
 
   (bind-key "C-x g" #'magit-status)
 #+end_src
-** Miscellaneous Coding Packages
 
+** Yaml
+Not a lot to be said here
 #+begin_src emacs-lisp :results none
-(use-package yaml-mode)
+  (use-package yaml-mode)
 #+end_src
+
 * ~Dired~
 Deleted files are moved to the trash folder
 #+begin_src emacs-lisp :results none
@@ -582,10 +477,9 @@ Keeps track of visited ~Dired~ buffers
 #+end_src
 More convenient way to search through sub-directories.
 #+begin_src emacs-lisp :results none
-  (use-package dired-subtree
-    :bind (:map dired-mode-map
-          ("i" . dired-subtree-insert)
-          ("DEL" . dired-subtree-remove)))
+  (use-package dired-subtree)
+  (keymap-set dired-mode-map "i" #'dired-subtree-insert)
+  (keymap-set dired-mode-map "DEL" #'dired-subtree-remove)
 #+end_src
 Disable "Omit N files" message
 #+begin_src emacs-lisp :results none
@@ -615,8 +509,8 @@ Quickly browse files in read only mode
     (view-browse (lambda () (dired-previous-line 1)))
     )
 
-  ;(define-key view-mode-map (kbd "n") 'view-next-file)
-  ;(define-key view-mode-map (kbd "p") 'view-previous-file)
+  (define-key view-mode-map (kbd "n") 'view-next-file)
+  (define-key view-mode-map (kbd "p") 'view-previous-file)
 #+end_src
 Change ~ls~ switches to use human readable file sizes and to list
 directories first.
@@ -628,118 +522,114 @@ another window in the same frame, it selects that buffer by default
 #+begin_src emacs-lisp :results none
   (setq dired-dwim-target t)
 #+end_src
+
 * Email
 
+Use mu4e to manage emails.  Naturally, requires mu4e to already be
+installed.
 #+begin_src emacs-lisp :results none
-    (setq message-send-mail-function 'smtpmail-send-it)
+  (require 'mu4e)
+#+end_src
+Fancy dashboard for mu4e.  Requires local file
+#+begin_src emacs-lisp :results none
+  (use-package async)
+  (load "~/.mu4e-dashboard/mu4e-dashboard.el")
+#+end_src
+This is necessary so that mu4e won't print an annoying error message
+#+begin_src emacs-lisp :results none
+  (setq user-mail-address email1)
+#+end_src
+Function to use for sending emails.
+#+begin_src emacs-lisp :results none
+  (setq message-send-mail-function 'smtpmail-send-it)
+#+end_src
+Quitting mu4e returns to the dashboard
+#+begin_src emacs-lisp :results none
+  (keymap-set mu4e-headers-mode-map "q" #'mu4e-dashboard)
+#+end_src
+Avoids mail syncing issues
+#+begin_src emacs-lisp :results none
+  (setq mu4e-change-filenames-when-moving t)
+  (setq mu4e-context-policy "pick-first")
+#+end_src
+Refreshes email every minute
+#+begin_src emacs-lisp :results none
+  (setq mu4e-update-interval 60)
+  (setq mu4e-get-mail-command "mbsync -a")
+#+end_src
+Set mail directory
+#+begin_src emacs-lisp :results none
+  (setq mu4e-maildir "~/mail")
+#+end_src
+Creates two contexts for my two work emails.
+#+begin_src emacs-lisp :results none
+  (setq mu4e-contexts
+        (list
+         ;; Work account
+         (make-mu4e-context
+          :name "FCT"
+          :match-func
+          (lambda (msg)
+            (when msg
+              (string-prefix-p "/gmail" (mu4e-message-field msg :maildir))))
+          :vars `((user-mail-address . ,email1)
+                  (user-full-name    . "Tiago Soares")
+      		(smtpmail-smtp-server . "smtp.gmail.com")
+      		(smtpmail-smtp-service . 465)
+      		(smtpmail-stream-type . ssl)
+                  (mu4e-drafts-folder  . "/gmail/[Gmail]/Drafts")
+                  (mu4e-sent-folder  . "/gmail/[Gmail]/Sent Mail")
+                  (mu4e-refile-folder  . "/gmail/[Gmail]/All Mail")
+                  (mu4e-trash-folder  . "/gmail/[Gmail]/Trash")))
+         (make-mu4e-context
+          :name "Inria"
+          :match-func
+          (lambda (msg)
+            (when msg
+              (string-prefix-p "/inria" (mu4e-message-field msg :maildir))))
+          :vars `((user-mail-address . ,email2)
+                  (user-full-name    . "Tiago Soares")
+      		(smtpmail-smtp-server . "smtp.inria.fr")
+      		(smtpmail-smtp-service . 587)
+      		(smtpmail-stream-type . nil)
+                  (mu4e-drafts-folder  . "/inria/Drafts")
+                  (mu4e-sent-folder  . "/inria/Sent")
+                  (mu4e-trash-folder  . "/inria/Trash")))
 
-    (setq user-mail-address "tl.soares@campus.fct.unl.pt")
-
-    (require 'mu4e)
-    (use-package async)
-
-    (use-package mu4e
-      :ensure nil
-      ;; :load-path "/usr/share/emacs/site-lisp/mu4e/"
-      ;; :defer 20 ; Wait until 20 seconds after startup
-      :bind (:map mu4e-headers-mode-map
-    	      ("q" . mu4e-dashboard))
-      :config
-
-      ;; This is set to 't' to avoid mail syncing issues when using mbsync
-      (setq mu4e-change-filenames-when-moving t)
-      (setq mu4e-context-policy "pick-first")
-      ;; Refresh mail using isync every minute
-      (setq mu4e-update-interval 60)
-      (setq mu4e-get-mail-command "mbsync -a")
-
-      (setq mu4e-maildir "~/mail")
-
-      (setq mu4e-contexts
-            (list
-             ;; Work account
-             (make-mu4e-context
-              :name "FCT"
-              :match-func
-              (lambda (msg)
-                (when msg
-                  (string-prefix-p "/gmail" (mu4e-message-field msg :maildir))))
-              :vars `((user-mail-address . ,email1)
-                      (user-full-name    . "Tiago Soares")
-    		  (smtpmail-smtp-server . "smtp.gmail.com")
-    		  (smtpmail-smtp-service . 465)
-    		  (smtpmail-stream-type . ssl)
-                      (mu4e-drafts-folder  . "/gmail/[Gmail]/Drafts")
-                      (mu4e-sent-folder  . "/gmail/[Gmail]/Sent Mail")
-                      (mu4e-refile-folder  . "/gmail/[Gmail]/All Mail")
-                      (mu4e-trash-folder  . "/gmail/[Gmail]/Trash")))
-    	 (make-mu4e-context
-              :name "Inria"
-              :match-func
-              (lambda (msg)
-                (when msg
-                  (string-prefix-p "/inria" (mu4e-message-field msg :maildir))))
-              :vars `((user-mail-address . ,email2)
-                      (user-full-name    . "Tiago Soares")
-    		  (smtpmail-smtp-server . "smtp.inria.fr")
-    		  (smtpmail-smtp-service . 587)
-    		  (smtpmail-stream-type . nil)
-                      (mu4e-drafts-folder  . "/inria/Drafts")
-                      (mu4e-sent-folder  . "/inria/Sent")
-                      (mu4e-trash-folder  . "/inria/Trash")))
-
-    	 )
-    	)
-      (setq mu4e-maildir-shortcuts
-    	'(("/gmail/inbox"             . ?f)
-              ("/inria/inbox"             . ?i)
-              ("/gmail/[Gmail]/Trash"     . ?t)
-              ("/gmail/[Gmail]/Drafts"    . ?d)
-              ("/gmail/[Gmail]/All Mail"  . ?a)))
-      )
-
-    (use-package mu4e-alert
-      :custom (mu4e-alert-style 'libnotify))
-    (mu4e-alert-enable-notifications)
-
-
-  ;  (use-package go-translate)
-   ; (setq gt-langs '(fr en))
-    ;(setq gt-default-translator (gt-translator :engines (gt-google-engine)))
-
-    ;; This configuration means:
-    ;; Initialize the default translator, let it translate between en and fr via Google Translate,
-    ;; and the result will be displayed in the Echo Area.
-
-  ;  (setq gt-default-translator
-   ;       (gt-translator
-    ;       :taker   (gt-taker :text 'buffer :pick 'paragraph)  ; config the Taker
-     ;      :engines (list (gt-bing-engine) (gt-google-engine)) ; specify the Engines
-      ;     :render  (gt-buffer-render)))                       ; config the Render
-
-    (setq mu4e-headers-fields '((:human-date . 12) (:from . 22) (:subject)))
-
-    ;; This configuration means:
-    ;; Initialize the default translator, let it send all paragraphs in the buffer to Bing and Google,
-    ;; and output the results with a new Buffer.
-
-    ;; This configuration means:
-    ;; Initialize the default translator, let it translate between en and fr via Google Translate,
-    ;; and the result will be displayed in the Echo Area.
-
-    (add-hook 'mu4e-view-mode-hook #'writeroom-mode)
-    (add-hook 'mu4e-headers-mode-hook #'writeroom-mode)
-    (add-hook 'message-mode-hook #'auto-fill-mode)
-    (load "~/.mu4e-dashboard/mu4e-dashboard.el")
-
-    (mu4e)
-
-    (setq message-cite-reply-position 'above)
-
-    (setq mu4e-hide-index-messages t)
+         )
+        )
+#+end_src
+Notifications for mu4e
+#+begin_src emacs-lisp :results none
+  (use-package mu4e-alert)
+  (setq mu4e-alert-style 'libnotify)
+  (mu4e-alert-enable-notifications)
+#+end_src
+Human readable header fields
+#+begin_src emacs-lisp :results none
+  (setq mu4e-headers-fields '((:human-date . 12) (:from . 22) (:subject)))
+#+end_src
+Better reading and writing experience for emails
+#+begin_src emacs-lisp :results none
+  (add-hook 'mu4e-view-mode-hook #'writeroom-mode)
+  (add-hook 'mu4e-headers-mode-hook #'writeroom-mode)
+  (add-hook 'message-mode-hook #'auto-fill-mode)
+#+end_src
+Suppress annoying "Indexing... message"
+#+begin_src emacs-lisp :results none
+  (setq mu4e-hide-index-messages t)
+#+end_src
+Start mu4e
+#+begin_src emacs-lisp :results none
+  (mu4e)
 #+end_src
 
 * Org
+
+#+begin_src emacs-lisp :results none
+  (use-package org)
+#+end_src
+
 ** Some Basic Bookkeeping
 
 Some helpful variables
@@ -770,14 +660,13 @@ Restore the window configuration when quitting the agenda view
  (setq org-agenda-restore-windows-after-quit t)
 #+end_src
 Enable notifications for Org agenda items
-
 #+begin_src emacs-lisp :results none
-  (use-package org-alert
-    :custom (alert-default-style 'libnotify)
-    :custom (org-alert-interval 300)
-    :custom (org-alert-notify-cutoff 10)
-    :custom (org-alert-notify-after-event-cutoff 0)
-    )
+  (use-package org-alert)
+  (setq alert-default-style 'libnotify)
+  (setq org-alert-interval 300)
+  (setq org-alert-notify-cutoff 10)
+  (setq org-alert-notify-after-event-cutoff 0)
+
   (org-alert-enable)
 #+end_src
 Add menu item to list only items with a ~TODO~ keyword.
@@ -792,6 +681,7 @@ This is very important
     (insert "👁️👄👁️")
     )
 #+end_src
+
 ** Appearance
 Hide emphasis markers and macro braces
 
@@ -834,23 +724,22 @@ Don't show items that are marked as done.
 Automatic latex preview in Org mode
 #+begin_src emacs-lisp :results none
   (setq org-startup-with-latex-preview t)
-
-  (use-package org-fragtog
-    :hook (org-mode . org-fragtog-mode))
+#+end_src
+Package for editing latex snippets in Org-mode.
+#+begin_src emacs-lisp :results none
+  (use-package org-fragtog)
+  (add-hook 'org-mode-hook #'org-fragtog-mode)
 #+end_src
 Scale up latex preview in Org mode
 #+begin_src emacs-lisp :results none
   (setq org-format-latex-options
         (plist-put org-format-latex-options :scale 3))
 #+end_src
-Automatically converts strings to emojis
-#+begin_src emacs-lisp :results none
-  (use-package emojify)
-#+end_src
 Org agenda takes up the full window
 #+begin_src emacs-lisp :results none
   (setq org-agenda-window-setup 'only-window)
 #+end_src
+
 *** Org Pretty Symbols
 
 Function for adding pretty symbols for Org mode. Most of these are
@@ -877,8 +766,12 @@ just so that Org mode environments aren't awful to look at.
     (push '("\\/" . ?∨) prettify-symbols-alist)
     (push '("<-" . ?←) prettify-symbols-alist)
     (prettify-symbols-mode 1))
+
+  (add-hook 'org-mode-hook #'add-symbols)
 #+end_src
+
 ** Org capture templates
+
 #+begin_src emacs-lisp :results none
   (setq org-capture-templates
         '(
@@ -907,6 +800,7 @@ just so that Org mode environments aren't awful to look at.
            "[ ] %?\n")
         ))
 #+end_src
+
 ** Org Keywords
 #+begin_src emacs-lisp :results none
 (setq org-todo-keywords
@@ -925,6 +819,7 @@ just so that Org mode environments aren't awful to look at.
         ("SPEC" . (:foreground "LightCyan" :weight bold))
         ))
 #+end_src
+
 ** Inserting Org Example Blocks
 
 Function for wrapping text around a block
@@ -976,6 +871,7 @@ Function to insert a macro
     (interactive)
     (tag-word-or-region "{{{" "}}}") )
 #+end_src
+
 ** Remove Spell Checking in Code Blocks
 #+begin_src emacs-lisp :results none
   (add-to-list 'ispell-skip-region-alist '("^#\\+BEGIN_SRC" . "#\\+END_SRC"))
@@ -988,6 +884,7 @@ Function to insert a macro
   (add-to-list 'ispell-skip-region-alist '("{{{" . "}}}"))
   (add-to-list 'ispell-skip-region-alist '("<<" . ">>"))
 #+end_src
+
 ** Org Key Bindings and Hooks
 
 Global key bindings to access and update the agenda.
@@ -995,18 +892,19 @@ Global key bindings to access and update the agenda.
   (global-set-key "\C-ca" 'org-agenda)
   (global-set-key "\C-cc" 'org-capture)
 #+end_src
-Concise way of using the previous definitions to configure Org.
+
+Keybindings to navigate agenda view
 #+begin_src emacs-lisp :results none
-  (use-package org
-    :hook (org-mode . add-symbols)
-    :bind
-    (:map org-mode-map
-          ("C-c C-x C-x" . org-insert-code-env))
-    :bind
-    (:map org-mode-map
-          ("C-c C-x C-m" . org-insert-macro))
-    )
+  (keymap-set org-agenda-keymap "n" #'org-agenda-next-item)
+  (keymap-set org-agenda-keymap "p" #'org-agenda-previous-item)
 #+end_src
+
+Keybindings to insert code environments
+#+begin_src emacs-lisp :results none
+  (keymap-set org-mode-map "C-c C-x C-x" #'org-insert-code-env)
+  (keymap-set org-mode-map "C-c C-x C-m" #'org-insert-macro)
+#+end_src
+
 ** French Notes
 
 Function for inserting a conjugation table for french verbs
@@ -1033,6 +931,7 @@ Function for inserting a conjugation table for french verbs
     (org-cycle)
     (org-cycle))
 #+end_src
+
 ** LaTeX export
 Add common scientific paper classes.
 
@@ -1056,21 +955,21 @@ Disable exporting with table of contents.
 #+begin_src emacs-lisp :results none
   (setq org-export-with-toc nil)
 #+end_src
+
 ** Org Roam
 
 #+begin_src emacs-lisp :results none
-  (use-package org-roam
-      :custom
-      (org-roam-directory (file-truename "~/roam"))
-      (org-roam-file-exclude-regexp '("data/" "daily/"))
-      (org-roam-completion-everywhere t)
-      :bind (("C-c n l" . org-roam-buffer-toggle)
-             ("C-c n f" . org-roam-node-find)
-             ("C-c n g" . org-roam-graph)
-             ("C-c n i" . org-roam-node-insert)
-             ("C-c n c" . org-roam-capture)
-             ;; Dailies
-             ("C-c n j" . org-roam-dailies-capture-today)))
+  (use-package org-roam)
+  (setq org-roam-directory (file-truename "~/roam"))
+  (setq org-roam-file-exclude-regexp '("data/" "daily/"))
+  (setq org-roam-completion-everywhere t)
+
+  (keymap-global-set "C-c n l" #'org-roam-buffer-toggle)
+  (keymap-global-set "C-c n f" #'org-roam-node-find)
+  (keymap-global-set "C-c n g" #'org-roam-graph)
+  (keymap-global-set "C-c n i" #'org-roam-node-insert)
+  (keymap-global-set "C-c n c" #'org-roam-capture)
+  (keymap-global-set "C-c n j" #'org-roam-dailies-capture-today)
 
   (org-roam-db-autosync-mode)
 #+end_src
@@ -1098,6 +997,7 @@ Capture template for org roam dailies
         '(("d" "default" plain "* %?" :target (file+head "%<%Y-%m-%d>.org.gpg" "#+title: %<%Y-%m-%d>
   ") :jump-to-captured t)))
 #+end_src
+
 * PDFs
 Opens the current file in ~zathura~ and kills the Doc View buffer.
 #+begin_src emacs-lisp :results none
@@ -1123,16 +1023,20 @@ Function to run a latex process in the background.
      "latexmk -pdf  -pdflatex='pdflatex -interaction=nonstopmode' -pvc --synctex=1 -use-make main.tex"
      "LaTeX"))
 #+end_src
+
 * Proof General
-Package for working with Coq
+Package for working with Rocq
 #+begin_src emacs-lisp :results none
-  (use-package proof-general
-    :custom
-    ;; when starting a proof, splits windows so that the goals
-    ;; window is larger than the response window
-    (proof-three-window-mode-policy 'hybrid)
-    ;; Removes the EXTREMELY annoying proof general splash screen
-    (proof-splash-enable nil))
+  (use-package proof-general)
+#+end_src
+Removes the EXTREMELY annoying proof general splash screen
+#+begin_src emacs-lisp :results none
+  (setq proof-splash-enable nil)
+#+end_src
+When starting a proof, splits windows so that the goals window is
+larger than the response window
+#+begin_src emacs-lisp :results none
+  (setq proof-three-window-mode-policy 'hybrid)
 #+end_src
 Weird arrow :/
 #+begin_src emacs-lisp :results none
@@ -1161,6 +1065,7 @@ Why3 configuration
                 (if (file-readable-p f) f nil))))))
   (when why3el (require 'why3 why3el))
 #+end_src
+
 ** Unicode Symbols for Iris
 #+begin_src emacs-lisp :results none
   ;; Input of unicode symbols
@@ -1240,6 +1145,7 @@ Why3 configuration
   					; see <https://mattermost.mpi-sws.org/iris/pl/46onxnb3tb8ndg8b6h1z1f7tny> for discussion
         (reverse (append math-symbol-list-basic math-symbol-list-extended)))
 #+end_src
+
 * Settings for Text Mode
 Enable auto-fill.
 #+begin_src emacs-lisp :results none
@@ -1248,11 +1154,10 @@ Enable auto-fill.
 #+end_src
 Enable ~Writeroom~ mode for a more comfortable writing experience.
 #+begin_src emacs-lisp :results none
-  (use-package writeroom-mode
-    :hook (text-mode . writeroom-mode)
-    :custom (writeroom-mode-line t)
-    :custom (writeroom-maximize-window nil)
-    )
+  (use-package writeroom-mode)
+  (add-hook 'text-mode-hook #'writeroom-mode)
+  (setq writeroom-mode-line t)
+  (setq writeroom-maximize-window nil)
 #+end_src
 Use ~aspell~ as default spell checking program (should be default, but
 something is changing it)
@@ -1261,15 +1166,12 @@ something is changing it)
 #+end_src
 Enable ~Flyspell~ for spell checking
 #+begin_src emacs-lisp :results none
-  (use-package flyspell
-    :hook (text-mode . flyspell-mode)
-    :hook (prog-mode . flyspell-prog-mode))
+  (use-package flyspell)
+  (add-hook 'text-mode-hook #'flyspell-mode)
+  (add-hook 'prog-mode-hook #'flyspell-prog-mode)
 
-  (use-package flyspell-correct
-    :bind
-    (:map flyspell-mode-map
-          ("M-$" . flyspell-correct-wrapper))
-    :after flyspell)
+  (use-package flyspell-correct)
+  (keymap-set flyspell-mode-map "M-$" #'flyspell-correct-wrapper)
 #+end_src
 Removes completion at point from ~flyspell~ so that I can use it for
 completing org roam nodes.
@@ -1281,21 +1183,11 @@ Disable word completion in text-mode
 #+begin_src emacs-lisp :results none
   (setq text-mode-ispell-word-completion nil)
 #+end_src
-Add the preamble necessary to write math symbols in a latex Gospel
-code block.
-#+begin_src emacs-lisp :results none
-  (defun gospel-unicode () (interactive) (tag-word-or-region "*?$" "$?*"))
-  (require 'latex)
-
-  (use-package auctex
-    :bind
-    (:map LaTeX-mode-map
-          ("C-c C-x C-m" . gospel-unicode)))
-#+end_src
 Automatic insertion of right brace in Latex-mode
 #+begin_src emacs-lisp :results none
   (setq LaTeX-electric-left-right-brace t)
 #+end_src
+
 * Minibuffer completion w/Vertico
 
 #+begin_src emacs-lisp :results none
@@ -1303,65 +1195,50 @@ Automatic insertion of right brace in Latex-mode
   (vertico-mode 1)
   (vertico-multiform-mode 1)
 #+end_src
-
 Allows using minibuffer commands within the minibuffer.
 #+begin_src emacs-lisp :results none
   (setq enable-recursive-minibuffers t)
 #+end_src
-
 TAB works the same way as in other completion systems.
 #+begin_src emacs-lisp :results none
   (keymap-set vertico-map "TAB" #'minibuffer-complete)
 #+end_src
-
 Completion at point uses Vertico
 #+begin_src emacs-lisp :results none
   (setq completion-in-region-function #'consult-completion-in-region)
 #+end_src
-
 Orderless allows for more flexible completion styles.
 #+begin_src emacs-lisp :results none
-    ;; Optionally use the `orderless' completion style.
-  (use-package orderless
-    :custom
-    ;; Configure a custom style dispatcher (see the Consult wiki)
-    ;; (orderless-style-dispatchers '(+orderless-consult-dispatch orderless-affix-dispatch))
-    ;; (orderless-component-separator #'orderless-escapable-split-on-space)
-    (completion-styles '(orderless basic))
-    (completion-category-overrides '((file (styles partial-completion))))
-    (completion-category-defaults nil) ;; Disable defaults, use our settings
-    (completion-pcm-leading-wildcard t)) ;; Emacs 31: partial-completion behaves like substring
+  (use-package orderless)
+  (setq completion-styles '(orderless basic))
+  (setq completion-category-overrides '((file (styles partial-completion))))
+  (setq completion-category-defaults nil) ;; Disable defaults, use orderless settings
+  (setq completion-pcm-leading-wildcard t) ;; Emacs 31: partial-completion behaves like substring
 #+end_src
-
 More information in minibuffer
 #+begin_src emacs-lisp :results none
   (use-package marginalia)
 #+end_src
-
 Icons in minibuffer
 #+begin_src emacs-lisp :results none
   (use-package all-the-icons)
 
-  (use-package all-the-icons-completion
-    :after (marginalia all-the-icons)
-    :hook (marginalia-mode . all-the-icons-completion-marginalia-setup)
-    :init
-    (all-the-icons-completion-mode))
+  (use-package all-the-icons-completion)
+  (add-hook 'marginalia-mode-hook
+  	  #'all-the-icons-completion-marginalia-setup)
 
+  (all-the-icons-completion-mode)
   (marginalia-mode)
 #+end_src
-
 Vertico completion in a posframe
 #+begin_src emacs-lisp :results none
   (use-package vertico-posframe)
   (vertico-posframe-mode 1)
 #+end_src
-
 Non-transparent popup
 #+begin_src emacs-lisp :results none
   (setq vertico-posframe-parameters '((alpha . 100)))
 #+end_src
-
 Fixed size Vertico posframe
 #+begin_src emacs-lisp :results none
   (defun my-vertico-posframe-get-size (buffer)
@@ -1372,12 +1249,6 @@ Fixed size Vertico posframe
 
   (setq vertico-posframe-size-function #'my-vertico-posframe-get-size)
 #+end_src
-
-Replace I-search with consult line
-#+begin_src emacs-lisp :results none
-  (global-set-key (kbd "C-s") #'consult-line)
-#+end_src
-
 Do not use posframe for consult line and consult mark
 #+begin_src emacs-lisp :results none
   (setq vertico-multiform-commands
@@ -1387,19 +1258,15 @@ Do not use posframe for consult line and consult mark
   	(consult-org-maybe (:not posframe))
           (t posframe)))
 #+end_src
-
 Overrides the normal find file by using the string at point as a
 possible candidate
 #+begin_src emacs-lisp :results none
   (global-set-key (kbd "C-x C-f") #'find-file-at-point)
 #+end_src
-
 Switch to buffer with ~recentf~ files.
-
 #+begin_src emacs-lisp :results none
   (global-set-key (kbd "C-x b") #'consult-buffer)
 #+end_src
-
 No live preview when switching buffers
 #+begin_src emacs-lisp :results none
   (setq consult-preview-excluded-buffers t)
@@ -1407,31 +1274,33 @@ No live preview when switching buffers
 
 * ~Eshell~
 
-Fish like suggestions for ~eshell~
-
 #+begin_src emacs-lisp :results none
-  (use-package company)
+  (use-package eshell)
+#+end_src
 
-  (use-package esh-autosuggest
-    :hook (eshell-mode . esh-autosuggest-mode)
-    :custom (eshell-history-size 50000)
-    ; since esh autosuggest uses the eshell history, we increase it so
-    ; that we have more possible suggesions
-    :custom (company-minimum-prefix-length 1)
-    :bind (:map esh-autosuggest-active-map
-                ("C-f" . esh-autosuggest-complete-word)
-                ("C-e" . company-complete))
-    )
+Fish like suggestions for ~eshell~
+#+begin_src emacs-lisp :results none
+  (use-package esh-autosuggest)
+  (add-hook 'eshell-mode-hook #'esh-autosuggest-mode)
+#+end_src
+Same keybindings as zsh.
+#+begin_src emacs-lisp :results none
+  (keymap-set esh-autosuggest-active-map "C-f"
+    	     #'esh-autosuggest-complete-word)
+  (keymap-set esh-autosuggest-active-map "C-e"
+    	     #'esh-autosuggest-complete-word)
+#+end_src
+Increase the history size.  This is helpful when using ~esh-autosuggest~
+since that package checks the history for completion candidates.
+#+begin_src emacs-lisp :results none
+  (setq eshell-history-size 50000)
 #+end_src
 Pretty ~eshell~ prompt
-
 #+begin_src emacs-lisp :results none
   (load-file "/home/tiago/.config/prompt.el")
   (setq eshell-prompt-function #'epe-theme-dakrone)
 #+end_src
-
 Function for clearing the shell
-
 #+begin_src emacs-lisp :results none
   (defun eshell-clear ()
     (interactive)
@@ -1447,7 +1316,6 @@ Function for clearing the shell
 Function for getting to the base of any project. Useful for spawning
 shells since having it at the root of the project is generally more
 convenient.
-
 #+begin_src emacs-lisp :results none
   (defvar project-files
     '("dune-project" "package.json"
@@ -1526,28 +1394,63 @@ Buffer name matches eshell directory
   (add-hook 'eshell-mode-hook #'sync-dir-in-buffer-name)
   (add-hook 'eshell-directory-change-hook #'sync-dir-in-buffer-name)
 #+end_src
-
+No message when starting ~eshell~
 #+begin_src emacs-lisp :results none
-  (add-hook 'eshell-mode-hook
-            (lambda ()
-              (define-key eshell-mode-map (kbd "C-l") #'eshell-clear)))
-
-  (require 'eshell)
-  (use-package eshell
-    :custom (eshell-banner-message ""))
+  (setq eshell-banner-message "")
 #+end_src
-
+Keybinding to clear the shell
+#+begin_src emacs-lisp :results none
+  (keymap-set eshell-mode-map "C-l" #'eshell-clear)
+#+end_src
 We use eat to run any commands that require visuals
 #+begin_src emacs-lisp :results none
-  (use-package eat
-    :custom (eat-kill-buffer-on-exit t)
-    :hook (eshell-mode . eat-eshell-mode))
+  (use-package eat)
+  (setq eat-kill-buffer-on-exit t)
+  (add-hook 'eshell-mode-hook #'eat-eshell-mode)
 #+end_src
 
-Enable elisp ~sudo~ in ~eshell~
+* Gospel Specific Things
+Some macros to help writing Rocq proofs of Gospel signatures.
 #+begin_src emacs-lisp :results none
-  (require 'em-tramp)
-  (setq eshell-prefer-lisp-variables t)
-  (setq eshell-prefer-lisp-functions t)
-  (setq password-cache-expiry 3600)
+  (defun gospel-abstract (var)
+    (interactive "sName:")
+    (insert
+     (format
+      "Global Instance _%s_inst : _%s_sig :="
+      var var))
+    (newline 1 t)
+    (insert (format "{ %s :=  }." var))
+    (backward-char 3))
+
+  (defun gospel-lemma (var)
+    (interactive "sName:")
+    (insert
+     (format
+      "#[refine] Global Instance _%s_inst : _%s_sig := { }."
+      var var var))
+    (newline 1 t)
+    (insert "Proof.")
+    (newline 1 t))
+#+end_src
+Function to insert Gospel header
+#+begin_src emacs-lisp :results none
+(defun gospel-header ()
+      (interactive)
+      (insert "(**************************************************************************)
+(*                                                                        *)
+(*  GOSPEL -- A Specification Language for OCaml                          *)
+(*                                                                        *)
+(*  Copyright (c) 2018- The VOCaL Project                                 *)
+(*                                                                        *)
+(*  This software is free software, distributed under the MIT license     *)
+(*  (as described in file LICENSE enclosed).                              *)
+(**************************************************************************)
+  "))
+#+end_src
+Add the preamble necessary to write math symbols in a latex Gospel
+code block.
+#+begin_src emacs-lisp :results none
+  (defun gospel-unicode () (interactive) (tag-word-or-region "*?$" "$?*"))
+  (require 'latex)
+  (keymap-set LaTeX-mode-map "C-c C-x C-m" #'gospel-unicode)
 #+end_src
