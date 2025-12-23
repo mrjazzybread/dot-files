@@ -1,4 +1,4 @@
-personal_ws-1.1 en 60 
+personal_ws-1.1 en 62 
 ADT
 ADTs
 CFML
@@ -10,6 +10,7 @@ François
 Functors
 Hoare
 IDF
+MPD
 Minibuffer
 Mário
 OCaml
@@ -29,6 +30,7 @@ desugar
 desugared
 desugaring
 desugars
+dialogs
 duplicable
 encodable
 expressivity
