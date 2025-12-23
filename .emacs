@@ -7,6 +7,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(auth-source-save-behavior nil)
+ '(auto-revert-interval 1)
+ '(auto-revert-use-notify nil)
  '(ispell-alternate-dictionary "/usr/lib/aspell-0.60/")
  '(package-selected-packages
    '(all-the-icons-completion all-the-icons-dired async auctex avy
