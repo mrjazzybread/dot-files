@@ -739,6 +739,13 @@ Org agenda takes up the full window
 #+begin_src emacs-lisp :results none
   (setq org-agenda-window-setup 'only-window)
 #+end_src
+Org agenda does not display the files in which items are written in.
+#+begin_src emacs-lisp :results none
+  (setq org-agenda-prefix-format
+        '((agenda . "%?-12t% s")
+  	(todo . "%-12:c") (tags . "%-12:c")
+  	(search . "%-12:c")))
+#+end_src
 
 *** Org Pretty Symbols
 
