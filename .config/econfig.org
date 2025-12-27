@@ -705,7 +705,7 @@ Enable Org indentation
 #+begin_src emacs-lisp :results none
   (setq org-startup-indented t)
 #+end_src
-Centre Org agenda
+Center Org agenda
 #+begin_src emacs-lisp :results none
   (add-hook 'org-agenda-mode-hook #'writeroom-mode)
 #+end_src
