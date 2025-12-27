@@ -16,6 +16,7 @@
 (setq custom-safe-themes t)
 (use-package doom-themes)
 (load-theme 'doom-shades-of-purple)
+(add-to-list 'initial-frame-alist '(background-color . "#34293E"))
 
 (use-package pinentry)
 (setenv "GPG_AGENT_INFO" nil)  ;; use emacs pinentry
@@ -42,6 +43,11 @@
 (setq inhibit-splash-screen t)
 
 (defvar agenda "~/journal/personal/appoint.org.gpg")
+
+(setq org-agenda-prefix-format
+        '((agenda . "%?-12t% s")
+  	(todo . "%-12:c") (tags . "%-12:c")
+  	(search . "%-12:c")))
 
 (setq org-agenda-file-regexp "\\`[^.].*\\.org\\\(\\.gpg\\\)?\\'")
 (setq org-agenda-files (list "~/journal/personal"))
@@ -81,14 +87,16 @@
       org-agenda-skip-scheduled-if-deadline-is-shown t
       org-agenda-skip-timestamp-if-deadline-is-shown t)
 
+(setq org-agenda-start-on-weekday nil)
+
 (defun pull-agenda ()
     (interactive)
-    (shell-command "git --git-dir=$HOME/journal/.git pull"))
+    (shell-command "git --git-dir=$HOME/journal/.git pull")
+    (org-agenda-list)
+    (delete-other-windows))
 
 (pull-agenda)
-(bind-key "C-x x" #'pull-agenda)
-(org-agenda-list)
-(delete-other-windows)
+(keymap-set org-agenda-mode-map "$" #'pull-agenda)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
