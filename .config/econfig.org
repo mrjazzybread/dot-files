@@ -1289,17 +1289,11 @@ we can go to candidates in previous lines.
 
 Fish like suggestions for ~eshell~
 #+begin_src emacs-lisp :results none
-  (use-package esh-autosuggest)
-  (add-hook 'eshell-mode-hook #'esh-autosuggest-mode)
+  (use-package capf-autosuggest)
+  (add-hook 'eshell-mode-hook #'capf-autosuggest-mode)
 #+end_src
-Same keybindings as zsh.
-#+begin_src emacs-lisp :results none
-  (keymap-set esh-autosuggest-active-map "C-f"
-    	     #'esh-autosuggest-complete-word)
-  (keymap-set esh-autosuggest-active-map "C-e"
-    	     #'esh-autosuggest-complete-word)
-#+end_src
-Increase the history size.  This is helpful when using ~esh-autosuggest~
+
+Increase the history size.  This is helpful when using ~capf-autosuggest~
 since that package checks the history for completion candidates.
 #+begin_src emacs-lisp :results none
   (setq eshell-history-size 50000)
