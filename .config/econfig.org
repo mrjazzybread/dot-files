@@ -742,7 +742,10 @@ Org agenda does not display the files in which items are written in.
   	(todo . "%-12:c") (tags . "%-12:c")
   	(search . "%-12:c")))
 #+end_src
-
+Org agenda starts on the current day
+#+begin_src emacs-lisp :results none
+  (setq org-agenda-start-on-weekday nil)
+#+end_src
 *** Org Pretty Symbols
 
 Function for adding pretty symbols for Org mode. Most of these are
