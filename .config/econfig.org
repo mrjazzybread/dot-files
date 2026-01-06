@@ -404,6 +404,12 @@ Folks... It's ~Magit~.
   (bind-key "C-x g" #'magit-status)
 #+end_src
 
+Commit on every file save
+#+begin_src emacs-lisp :results none
+  (use-package git-auto-commit-mode)
+  (setq gac-automatically-add-new-files-p t)
+#+end_src
+
 ** Yaml
 Not a lot to be said here
 #+begin_src emacs-lisp :results none
@@ -627,6 +633,13 @@ Start mu4e
 #+end_src
 
 ** Some Basic Bookkeeping
+
+Automatically commit changes to org files.
+#+begin_src emacs-lisp :results none
+  (defun epic () (setq gac-automatically-push-p t))
+
+  (add-hook 'git-auto-commit-mode-hook #'epic)
+#+end_src
 
 Some helpful variables
 #+begin_src emacs-lisp :results none
