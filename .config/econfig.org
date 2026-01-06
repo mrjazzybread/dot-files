@@ -598,7 +598,7 @@ Creates two contexts for my two work emails.
 Notifications for mu4e
 #+begin_src emacs-lisp :results none
   (use-package mu4e-alert)
-  (setq mu4e-alert-style 'libnotify)
+  (mu4e-alert-set-default-style 'libnotify)
   (mu4e-alert-enable-notifications)
 #+end_src
 Human readable header fields
