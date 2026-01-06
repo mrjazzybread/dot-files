@@ -18,16 +18,16 @@
 			      doom-themes dune dwim-shell-command eat
 			      elcord eldoc-box exec-path-from-shell
 			      exwm-firefox-core exwm-mff
-			      fish-completion gnu-elpa-keyring-update
-			      magit marginalia math-symbol-lists
-			      mingus mu4e-alert multiple-cursors
-			      ocamlformat orderless org-alert
-			      org-fragtog org-roam org-roam-ui
-			      pinentry proof-general rustic
-			      shades-of-purple-theme smex trashed
-			      tuareg vertico vertico-posframe volume
-			      writeroom-mode xdg-launche xdg-launcher
-			      yaml-mode))
+			      fish-completion git-auto-commit-mode
+			      gnu-elpa-keyring-update magit marginalia
+			      math-symbol-lists mingus mu4e-alert
+			      multiple-cursors ocamlformat orderless
+			      org-alert org-fragtog org-roam
+			      org-roam-ui pinentry proof-general
+			      rustic shades-of-purple-theme smex
+			      trashed tuareg vertico vertico-posframe
+			      volume writeroom-mode xdg-launche
+			      xdg-launcher yaml-mode))
  '(package-vc-selected-packages
    '((xdg-launcher :url "https://github.com/emacs-exwm/xdg-launcher")
      (xdg-launche :url "https://github.com/emacs-exwm/xdg-launcher"))))
