@@ -95,6 +95,8 @@
     (org-agenda-list)
     (delete-other-windows))
 
+(use-package git-auto-commit-mode)
+
 (pull-agenda)
 (keymap-set org-agenda-mode-map "$" #'pull-agenda)
 
