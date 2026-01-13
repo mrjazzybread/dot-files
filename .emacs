@@ -31,6 +31,7 @@
  '(package-vc-selected-packages
    '((xdg-launcher :url "https://github.com/emacs-exwm/xdg-launcher")
      (xdg-launche :url "https://github.com/emacs-exwm/xdg-launcher"))))
+ '(safe-local-variable-values '((eval org-columns))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

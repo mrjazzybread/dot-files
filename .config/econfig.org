@@ -703,8 +703,8 @@ Enable notifications for Org agenda items
 #+end_src
 Add menu item to list only items with a ~TODO~ keyword.
 #+begin_src emacs-lisp :results none
-  (setq org-agenda-custom-commands
-        '(("t" "List all items with the TODO keyword" ((todo "TODO")))))
+  (add-to-list 'org-agenda-custom-commands
+   '("t" "List all items with the TODO keyword" ((todo "TODO"))))
 #+end_src
 This is very important
 #+begin_src emacs-lisp :results none
@@ -734,7 +734,7 @@ Use LaTeX like syntax to insert special symbols
 Start Org files with each heading folded.
 
 #+begin_src emacs-lisp :results none
-  (setq org-startup-folded t)
+  (setq org-startup-folded 'content)
 #+end_src
 Enable Org indentation
 
@@ -840,9 +840,36 @@ just so that Org mode environments aren't awful to look at.
           ("r" "Reading"
            checkitem (file+headline todo-file "Reading List")
            "[ ] %?\n")
+
+  	("l" "Album"
+  	 entry (file+headline log-file "Albums")
+  	 "* TOLISTEN %?\n %^{Artist}p"
+  	 :empty-lines 0)
         ))
 #+end_src
 
+** Search for albums
+This function searches for albums in my personal list from a certain
+artist (this can probably be simplified with ~org-ql~).
+#+begin_src emacs-lisp :results none
+  (defun list-albums-by-artist ()
+    (interactive)
+    (with-current-buffer "art.org.gpg"
+      (let* ((value (completing-read
+        		   "Value: " (mapcar #'list (org-property-values "ARTIST")))))
+        (unless (string-match "\\`{.*}\\'" value)
+  	(setq value (concat "\"" value "\"")))
+        (switch-to-buffer "art.org.gpg")
+        (org-match-sparse-tree nil (concat "ARTIST=" value))
+        )))
+#+end_src
+Lists albums that I haven't listened
+#+begin_src emacs-lisp :results none
+  (defun unlistened ()
+    (interactive)
+    (switch-to-buffer "art.org.gpg")
+    (call-interactively 'org-show-todo-tree))
+#+end_src
 ** Org Keywords
 #+begin_src emacs-lisp :results none
 (setq org-todo-keywords
