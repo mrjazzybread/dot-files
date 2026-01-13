@@ -671,12 +671,15 @@ Some helpful variables
 
   (defvar agenda-file
     (org-directory "appoint.org.gpg"))
+
+  (defvar log-file
+    (org-directory "art.org.gpg"))
 #+end_src
 My agenda files:
 
 #+begin_src emacs-lisp :results none
   (setq org-agenda-file-regexp "\\`[^.].*\\.org\\\(\\.gpg\\\)?\\'")
-  (setq org-agenda-files (list todo-file agenda-file))
+  (setq org-agenda-files (list todo-file agenda-file log-file))
 #+end_src
 Settings for exporting Org files with citations to TeX.
 #+begin_src emacs-lisp :results none
@@ -843,12 +846,13 @@ just so that Org mode environments aren't awful to look at.
 ** Org Keywords
 #+begin_src emacs-lisp :results none
 (setq org-todo-keywords
-      '((sequence "APPOINTMENT(p)" "SPEC(s)" "TODO(t)" "IN-PROGRESS(i@/!)" "VERIFYING(v!)" "BLOCKED(b@)" "👁️👄👁️(q)" "|" "DONE(d!)" "OBE(o@!)" "WONT-DO(w@/!)" )
+      '((sequence "APPOINTMENT(p)" "SPEC(s)" "TODO(t)" "IN-PROGRESS(i@/!)" "VERIFYING(v!)" "BLOCKED(b@)" "👁️👄👁️(q)" "TOLISTEN(l)" "|" "DONE(d!)" "OBE(o@!)" "WONT-DO(w@/!)" "LISTENED(m@)" )
         ))
 ;; TODO colors
 (setq org-todo-keyword-faces
       '(
         ("TODO" . (:foreground "GoldenRod" :weight bold))
+        ("TOLISTEN" . (:foreground "GoldenRod" :weight bold))
         ("APPOINTMENT" . (:foreground "DeepPink" :weight bold))
         ("IN-PROGRESS" . (:foreground "Cyan" :weight bold))
         ("VERIFYING" . (:foreground "DarkOrange" :weight bold))
@@ -856,6 +860,7 @@ just so that Org mode environments aren't awful to look at.
         ("DONE" . (:foreground "LimeGreen" :weight bold))
         ("WONT-DO" . (:foreground "Firebrick" :weight bold))
         ("SPEC" . (:foreground "LightCyan" :weight bold))
+        ("LISTENED" . (:foreground "LimeGreen" :weight bold))
         ))
 #+end_src
 
