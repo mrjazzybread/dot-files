@@ -176,22 +176,7 @@ workspace 0.
 #+begin_src emacs-lisp :results none
   (defun messaging-apps ()
     (interactive)
-    (efs/run-in-background "discord"))
-
-  (defun is-substring (haystack needle)
-    (string-match-p (regexp-quote needle) haystack))
-
-  (defun is-messaging-app ()
-    (seq-drop-while
-     (lambda (elt) (not (is-substring (buffer-name) elt)))
-     '("discord")))
-
-  (defun minimize-messaging-app ()
-    (interactive)
-    (when (is-messaging-app)
-      (exwm-workspace-move-window 0)))
-
-  (add-hook 'exwm-manage-finish-hook #'minimize-messaging-app)
+    (efs/run-in-background "discord --start-minimized"))
 
   (add-hook 'exwm-init-hook #'messaging-apps)
 #+end_src
@@ -292,12 +277,7 @@ Keybindings to switch the current workspace
 
 Kills the current buffer.
 #+begin_src emacs-lisp :results none
-  (defun kill-or-minimize ()
-    (interactive)
-    (unless (minimize-messaging-app)
-      (kill-current-buffer)))
-
-  (exwm-input-set-key (kbd "s-c") 'kill-or-minimize)
+  (exwm-input-set-key (kbd "s-c") 'kill-current-buffer)
 #+end_src
 
 Window movement
