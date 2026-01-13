@@ -205,10 +205,12 @@ Add songs to mingus
              ((symbol-function 'y-or-n-p) (lambda (&rest _) t)))
     ,@body))
 
-  (without-yes-or-no (mingus-load-all))
-  (mingus-shuffle)
-  (mingus-play)
-  (mingus-pause)
+  ; checks if mpd is already playing
+  (unless (mpd-get-current-song mpd-inter-conn)
+    (without-yes-or-no (mingus-load-all))
+    (mingus-shuffle)
+    (mingus-play)
+    (mingus-pause))
 #+end_src
 
 Update config files
