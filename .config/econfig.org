@@ -706,6 +706,12 @@ Add menu item to list only items with a ~TODO~ keyword.
   (add-to-list 'org-agenda-custom-commands
   	     '("t" "List all items with the TODO keyword" ((todo "TODO"))))
 #+end_src
+Add menu item to list albums I haven't listened
+#+begin_src emacs-lisp :results none
+  (add-to-list 'org-agenda-custom-commands
+  	     '("l" "List all unlistened albums" ((todo "TOLISTEN" nil))
+  	       ((org-agenda-view-columns-initially t))))
+#+end_src
 This is very important
 #+begin_src emacs-lisp :results none
   (defun what ()
@@ -862,13 +868,6 @@ artist (this can probably be simplified with ~org-ql~).
         (switch-to-buffer "art.org.gpg")
         (org-match-sparse-tree nil (concat "ARTIST=" value))
         )))
-#+end_src
-Lists albums that I haven't listened
-#+begin_src emacs-lisp :results none
-  (defun unlistened ()
-    (interactive)
-    (switch-to-buffer "art.org.gpg")
-    (call-interactively 'org-show-todo-tree))
 #+end_src
 ** Org Keywords
 #+begin_src emacs-lisp :results none
