@@ -788,6 +788,13 @@ Org agenda starts on the current day
 #+begin_src emacs-lisp :results none
   (setq org-agenda-start-on-weekday nil)
 #+end_src
+Add Rocq and Gospel to the list of languages that Org is aware of
+#+begin_src emacs-lisp :results none
+  (add-to-list 'org-babel-tangle-lang-exts '("rocq" . "v"))
+  (add-to-list 'org-babel-tangle-lang-exts '("gospel" . "mli"))
+  (add-to-list 'org-src-lang-modes '("gospel" . tuareg))
+  (add-to-list 'org-src-lang-modes '("rocq" . coq))
+#+end_src
 *** Org Pretty Symbols
 
 Function for adding pretty symbols for Org mode. Most of these are
@@ -797,16 +804,11 @@ just so that Org mode environments aren't awful to look at.
   (defun add-symbols ()
     (push '("#+end_example" . ? ) prettify-symbols-alist)
     (push '("#+end_src" . ? ) prettify-symbols-alist)
-    (push '("#+begin_example coq" . ?🐓) prettify-symbols-alist)
-    (push '("#+begin_example ocaml" . ?🐫) prettify-symbols-alist)
     (push '("#+begin_src ocaml" . ?🐫) prettify-symbols-alist)
+    (push '("#+begin_src gospel" . ?🐫) prettify-symbols-alist)
+    (push '("#+begin_src rocq" . ?🦅) prettify-symbols-alist)
     (push '("#+begin_example ocaml :why3" . ?❔) prettify-symbols-alist)
-    ;;errrrrrm, what the ...
     (push '("#+begin_src emacs-lisp :results none" . ?🗿) prettify-symbols-alist)
-    (push '("#+ATTR_LATEX: :environment cfml" . ? ) prettify-symbols-alist)
-    (push '("#+ATTR_LATEX: :environment ocamlenv" . ? ) prettify-symbols-alist)
-    (push '("#+ATTR_LATEX: :environment gospel" . ? ) prettify-symbols-alist)
-    (push '("#+ATTR_LATEX: :environment whylang" . ? ) prettify-symbols-alist)
     (push '("->" . ?→) prettify-symbols-alist)
     (push '("<->" . ?↔) prettify-symbols-alist)
     (push '("|-" . ?⊢) prettify-symbols-alist)
@@ -890,58 +892,6 @@ artist (this can probably be simplified with ~org-ql~).
         ))
 #+end_src
 
-** Inserting Org Example Blocks
-
-Function for wrapping text around a block
-#+begin_src emacs-lisp :results none
-  (defun tag-word-or-region (text-begin text-end)
-  "Surround current word or region with given text."
-  (interactive "sStart tag: \nsEnd tag: ")
-  (let (pos1 pos2 bds)
-    (if (and transient-mark-mode mark-active)
-        (progn
-          (goto-char (region-end))
-          (insert text-end)
-          (goto-char (region-beginning))
-          (insert text-begin))
-      (progn
-        (setq bds (point))
-        (goto-char bds)
-        (insert text-end)
-        (goto-char bds)
-        (insert text-begin)))))
-#+end_src
-Associative list that maps environment names to programming languages
-#+begin_src emacs-lisp :results none
-  (setq env-map '( ("cfml" . "coq")
-    ("ocamlenv" . "ocaml")
-    ("gospel" . "ocaml")
-    ("whylang" . "ocaml :why3")
-  ))
-#+end_src
-Function to wrap text around an example block
-
-#+begin_src emacs-lisp :results none
-  (defun org-insert-code-env (env-name)
-    (interactive "sEnvironment name: ")
-    (if (equal env-name "elisp")
-        (tag-word-or-region
-         "#+begin_src emacs-lisp :results none\n"
-         "\n#+end_src"
-         )
-      (tag-word-or-region
-       (concat "#+ATTR_LATEX: :environment " env-name
-                                "\n#+begin_example " (alist-get env-name env-map nil nil #'equal) "\n")
-                        "\n#+end_example"
-                        )))
-#+end_src
-Function to insert a macro
-#+begin_src emacs-lisp :results none
-  (defun org-insert-macro ()
-    (interactive)
-    (tag-word-or-region "{{{" "}}}") )
-#+end_src
-
 ** Remove Spell Checking in Code Blocks
 #+begin_src emacs-lisp :results none
   (add-to-list 'ispell-skip-region-alist '("^#\\+BEGIN_SRC" . "#\\+END_SRC"))
@@ -967,12 +917,6 @@ Keybindings to navigate agenda view
 #+begin_src emacs-lisp :results none
   (keymap-set org-agenda-keymap "n" #'org-agenda-next-item)
   (keymap-set org-agenda-keymap "p" #'org-agenda-previous-item)
-#+end_src
-
-Keybindings to insert code environments
-#+begin_src emacs-lisp :results none
-  (keymap-set org-mode-map "C-c C-x C-x" #'org-insert-code-env)
-  (keymap-set org-mode-map "C-c C-x C-m" #'org-insert-macro)
 #+end_src
 
 ** French Notes
@@ -1025,7 +969,50 @@ Disable exporting with table of contents.
 #+begin_src emacs-lisp :results none
   (setq org-export-with-toc nil)
 #+end_src
+Automatically export to latex on save when the ~export-org-buffer~
+variable is non-nil.  This should be buffer local.
+#+begin_src emacs-lisp :results none
+  (setq org-export-buffer nil)
+  (defun org-export-auto ()
+    (when org-export-buffer
+     (if (equal org-export-buffer 'beamer)
+        (org-beamer-export-to-latex)
+      (org-latex-export-to-latex))
+    (org-babel-tangle)
+    (let ((gospel (car (directory-files "." t "\\.mli$" t 1)))
+  	(rocq (car (directory-files "." t "\\.v$" t 1))))
+      (shell-command (concat "gospel check " gospel) "Gospel Type Checking")
+      (shell-command (concat "rocq c " rocq ">> /dev/null") "Rocq Compilation"))))
 
+  (add-hook 'after-save-hook #'org-export-auto)
+#+end_src
+Use listings for source code blocks
+#+begin_src emacs-lisp :results none
+  (setq org-latex-src-block-backend 'listings)
+#+end_src
+Command to display the compilation windows for LaTeX, Gospel and Rocq
+#+begin_src emacs-lisp :results none
+  (defun latex-compilation-windows ()
+    (interactive)
+    (delete-other-windows)
+    (switch-to-buffer "LaTeX")
+    (my-split-window-right)
+    (windmove-right)
+    (switch-to-buffer "Gospel Type Checking")
+    (split-window-below)
+    (windmove-down)
+    (switch-to-buffer "Rocq Compilation"))
+#+end_src
+
+Use the \gosp macro for code snippets
+#+begin_src emacs-lisp :results none
+  (setq org-export-filter-code-functions
+        '((lambda
+  	  (s b info)
+  	  (replace-regexp-in-string "texttt" "\gosp" s t t))))
+#+end_src
+
+Replaces certain strings with latex
 ** Org Roam
 
 #+begin_src emacs-lisp :results none
