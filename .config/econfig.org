@@ -704,7 +704,7 @@ Enable notifications for Org agenda items
 Add menu item to list only items with a ~TODO~ keyword.
 #+begin_src emacs-lisp :results none
   (add-to-list 'org-agenda-custom-commands
-   '("t" "List all items with the TODO keyword" ((todo "TODO"))))
+  	     '("t" "List all items with the TODO keyword" ((todo "TODO"))))
 #+end_src
 This is very important
 #+begin_src emacs-lisp :results none
