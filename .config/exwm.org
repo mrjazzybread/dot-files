@@ -1,19 +1,20 @@
-#+begin_src emacs-lisp :results none
+#+PROPERTY: header-args :results none
+#+begin_src emacs-lisp
   (use-package exwm)
 #+end_src
 Setting the initial workspace number
-#+begin_src emacs-lisp :results none
+#+begin_src emacs-lisp
   (setq exwm-workspace-number 5)
 #+end_src
 Make it so that EXWM buffers are named after the window they are managing
-#+begin_src emacs-lisp :results none
+#+begin_src emacs-lisp
   (add-hook 'exwm-update-class-hook
   	  (lambda () (exwm-workspace-rename-buffer exwm-class-name)))
 #+end_src
 
 In an EXWM buffer, the bindings on the left are mapped to the bindings
 on the right. This way, we can use Emacs keybindings in X windows.
-#+begin_src emacs-lisp :results none
+#+begin_src emacs-lisp
   (setq exwm-input-simulation-keys
         '(([?\C-b] . [left])
           ([?\C-f] . [right])
@@ -39,18 +40,13 @@ on the right. This way, we can use Emacs keybindings in X windows.
 #+end_src
 Minor mode to rename Firefox EXWM buffers to the names of the
 respective tabs.
-#+begin_src emacs-lisp :results none
+#+begin_src emacs-lisp
   (use-package exwm-firefox-core)
   (load-file "~/exwm-firefox.el")
   (exwm-firefox-mode 1)
 #+end_src
-Enable a system tray in the minibuffer. This is where icons for the
-network manager and other background applications will be.
-#+begin_src emacs-lisp :results none
-  (exwm-systemtray-mode)
-#+end_src
 Better splitting of windows
-#+begin_src emacs-lisp :results none
+#+begin_src emacs-lisp
   (defun my-split-window-right (&optional arg)
     "Split the current window 70/30 rather than 50/50.
   A single-digit prefix argument gives the top window arg*10%.
@@ -64,7 +60,7 @@ Better splitting of windows
 
 Sometimes when switching to an X window, EXWM does not focus on it.
 This piece of code prevents this.
-#+begin_src emacs-lisp :results none
+#+begin_src emacs-lisp
    (advice-add #'exwm-layout--hide
                :after (lambda (id)
                         (with-current-buffer (exwm--id->buffer id)
@@ -74,7 +70,7 @@ This piece of code prevents this.
                           (xcb:flush exwm--connection))))
 #+end_src
 Functions to shutdown and reboot the system
-#+begin_src emacs-lisp :results none
+#+begin_src emacs-lisp
   (defun efs/shutdown ()
     (interactive)
     (async-shell-command "shutdown -h now"))
@@ -85,103 +81,174 @@ Functions to shutdown and reboot the system
 #+end_src
 Mouse follows focus
 
-#+begin_src emacs-lisp :results none
+#+begin_src emacs-lisp
   (use-package exwm-mff)
   (add-hook 'exwm-init-hook #'exwm-mff-mode)
 #+end_src
 
 Inner "Gaps"
-#+begin_src emacs-lisp :results none
+#+begin_src emacs-lisp
   (window-divider-mode 1)
   (setq window-divider-default-bottom-width 6)
   (setq window-divider-default-right-width 6)
   (menu-bar-bottom-and-right-window-divider)
 #+end_src
 EXWM allows switching to X windows in a different workspace.
-#+begin_src emacs-lisp :results none
+#+begin_src emacs-lisp
   (setq exwm-workspace-show-all-buffers 1)
   (setq exwm-layout-show-all-buffers 1)
 #+end_src
 
 Transparent emacs frames.
-#+begin_src emacs-lisp :results none
+#+begin_src emacs-lisp
   (set-frame-parameter (selected-frame) 'alpha '(80 . 80))
   (add-to-list 'default-frame-alist '(alpha . (70 . 70)))
+#+end_src
+
+* Battery Notifications
+Id for critical notifications.
+#+begin_src emacs-lisp
+  (defvar notification-id nil)
+#+end_src
+This variable is ~t~ if the battery was previously charging.
+#+begin_src emacs-lisp
+  (defvar was-charging t)
+#+end_src
+This variable is ~t~ if the battery was previously fully charged.
+#+begin_src emacs-lisp
+  (defvar was-full nil)
+#+end_src
+Notifications for different battery states
+#+begin_src emacs-lisp
+  (defun battery-critical-notification (charge)
+    (setq notification-id
+  	(notifications-notify
+  	 :timeout 0 :urgency 'high
+  	 :title (format "Battery level critical %d%%!" charge)
+  	 :app-icon "/home/tiago/roam/daily/personal/low-battery.png"
+  	 :replaces-id notification-id)))
+
+  (defun battery-charging-notification ()
+    (setq notification-id
+  	(notifications-notify
+  	 :urgency 'medium
+  	 :title "Battery charging!"
+  	 :app-icon "/home/tiago/roam/daily/personal/battery-charging.png"
+  	 :replaces-id notification-id)))
+
+  (defun battery-discharging-notification ()
+    (setq notification-id
+  	(notifications-notify
+  	 :urgency 'medium
+  	 :title "Battery discharging!"
+  	 :app-icon "/home/tiago/roam/daily/personal/battery-charging.png"
+  	 :replaces-id notification-id)))
+
+  (defun battery-charged-notification ()
+    (setq notification-id
+  	(notifications-notify
+  	 :urgency 'medium
+  	 :title "Battery charged!"
+  	 :app-icon "/home/tiago/roam/daily/personal/battery-charged.png"
+  	 :replaces-id notification-id)))
+
+  (defun is-charging (data)
+    (equal (alist-get ?L data) "on-line"))
+
+  (defun dcharge (data)
+    (string-to-number (alist-get ?p data)))
+
+  (defun critical-battery (data)
+    (when (and (not (is-charging data))
+  	     (< (dcharge data) 10))
+      (battery-critical-notification (dcharge data))))
+
+  (defun battery-charging (data)
+    (when (and was-charging (not (is-charging data)))
+      (battery-discharging-notification))
+    (when (and (not was-charging) (is-charging data))
+      (battery-charging-notification))
+    (setq was-charging (is-charging data)))
+
+  (defun battery-full (data)
+    (if (and (eq (dcharge data) 100) (is-charging data))
+  	(unless was-full
+  	  (setq was-full t)
+  	  (battery-charged-notification))
+        (setq was-full nil)))
+
+  (setq battery-update-functions
+        '(critical-battery battery-charging battery-full))
 #+end_src
 
 * Keybindings for desktop utilities
 We use the ~desktop-environment~ package to help us change the volume,
 adjust brightness, etc...
-#+begin_src emacs-lisp :results none
+#+begin_src emacs-lisp
   (use-package desktop-environment)
   (desktop-environment-mode 1)
 #+end_src
 
 Disable the keybinding for locking the screen as we use this binding
 for window navigation
-#+begin_src emacs-lisp :results none
+#+begin_src emacs-lisp
   (define-key desktop-environment-mode-map (kbd "s-l") nil t)
 #+end_src
 
 Command for muting the volume
-#+begin_src emacs-lisp :results none
+#+begin_src emacs-lisp
   (setq desktop-environment-volume-toggle-command
         "amixer -D pulse set Master 1+ toggle")
 #+end_src
 
 Command for setting the volume
-#+begin_src emacs-lisp :results none
+#+begin_src emacs-lisp
   (setq desktop-environment-volume-set-command
         "~/.config/vol_set.sh %s")
 #+end_src
 
 Command for getting the current value of the volume
-#+begin_src emacs-lisp :results none
+#+begin_src emacs-lisp
   (setq desktop-environment-volume-get-command
         "amixer -D pulse get Master")
 #+end_src
 
 Command for screenshots
-#+begin_src emacs-lisp :results none
+#+begin_src emacs-lisp
   (setq desktop-environment-screenshot-directory
         "~/pictures")
 #+end_src
 
 Locking the screen also pauses any media
-#+begin_src emacs-lisp :results none
+#+begin_src emacs-lisp
   (setq desktop-environment-screenlock-command "~/.config/lock.sh")
 #+end_src
 
 * Background processes
 Helper function to run a program in the background
-#+begin_src emacs-lisp :results none
+#+begin_src emacs-lisp
   (defun efs/run-in-background (command)
     (let ((command-parts (split-string command "[ ]+")))
       (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
 #+end_src
 
-Network manager applet
-#+begin_src emacs-lisp :results none
-  (efs/run-in-background "nm-applet")
-#+end_src
-
 Sound display
-#+begin_src emacs-lisp :results none
+#+begin_src emacs-lisp
   (use-package volume)
 #+end_src
 
-Messaging apps are started after EXWM is initialized.  We also create
-a hook that moves any newly created window with a messaging app to
-workspace 0.
-#+begin_src emacs-lisp :results none
-  (defun messaging-apps ()
+Run applications after EXWM has initialized.
+#+begin_src emacs-lisp
+  (defun startup-apps ()
     (interactive)
-    (efs/run-in-background "discord --start-minimized"))
+    (efs/run-in-background "discord --start-minimized")
+    (efs/run-in-background "dunst")
+    (efs/run-in-background "picom"))
 
-  (add-hook 'exwm-init-hook #'messaging-apps)
+  (add-hook 'exwm-init-hook #'startup-apps)
 #+end_src
 Add songs to mingus
-#+begin_src emacs-lisp :results none
+#+begin_src emacs-lisp
   (defmacro without-yes-or-no (&rest body)
   "Override `yes-or-no-p' & `y-or-n-p',
    not to prompt for input and return t."
@@ -199,50 +266,36 @@ Add songs to mingus
 #+end_src
 
 Update config files
-#+begin_src emacs-lisp :results none
+#+begin_src emacs-lisp
   (start-process-shell-command "config" nil "~/.update.sh")
 #+end_src
 
 Auto-pause media when headphones are disconnected
-#+begin_src emacs-lisp :results none
+#+begin_src emacs-lisp
   (start-process-shell-command "autopause" nil "~/.config/autopause.sh")
 #+end_src
 
-Notification daemon
-#+begin_src emacs-lisp :results none
-  (efs/run-in-background "dunst")
-#+end_src
-
-Battery notifications
-#+begin_src emacs-lisp :results none
-  (efs/run-in-background "cbatticon")
-#+end_src
-
-Compositor
-#+begin_src emacs-lisp :results none
-  (efs/run-in-background "picom")
-#+end_src
 * Multiple monitors
 Set the initial workspace for each display
-#+begin_src emacs-lisp :results none
+#+begin_src emacs-lisp
   (setq exwm-randr-workspace-monitor-plist
         '(1 "eDP-1" 2 "HDMI-1-0"))
 #+end_src
 
 Mouse warping
-#+begin_src emacs-lisp :results none
+#+begin_src emacs-lisp
   (setq exwm-workspace-warp-cursor t)
 #+end_src
 
 Focus follows mouse
-#+begin_src emacs-lisp :results none
+#+begin_src emacs-lisp
   (setq mouse-atuoselect-window t
         focus-follows-mouse t)
 #+end_src
 
 Have autorandr running in the background to ensure that extra monitors
 are correctly configured.
-#+begin_src emacs-lisp :results none
+#+begin_src emacs-lisp
   (defun efs/update-displays ()
     (efs/run-in-background "autorandr --change --force")
     (message "Display config: %s"
@@ -256,7 +309,7 @@ are correctly configured.
 #+end_src
 * Keybindings
 Keybindings to switch the current workspace
-#+begin_src emacs-lisp :results none
+#+begin_src emacs-lisp
     (setq exwm-input-global-keys
         `(([?\s-r] . exwm-reset) ;; s-r: Reset (to line-mode).
           ([?\s-w] . exwm-workspace-switch) ;; s-w: Switch workspace.
@@ -276,12 +329,12 @@ Keybindings to switch the current workspace
 #+end_src
 
 Kills the current buffer.
-#+begin_src emacs-lisp :results none
+#+begin_src emacs-lisp
   (exwm-input-set-key (kbd "s-c") 'kill-current-buffer)
 #+end_src
 
 Window movement
-#+begin_src emacs-lisp :results none
+#+begin_src emacs-lisp
   (exwm-input-set-key (kbd "s-l") 'windmove-right)
   (exwm-input-set-key (kbd "s-j") 'windmove-left)
   (exwm-input-set-key (kbd "s-i") 'windmove-up)
@@ -289,7 +342,7 @@ Window movement
 #+end_src
 
 Window management
-#+begin_src emacs-lisp :results none
+#+begin_src emacs-lisp
   (exwm-input-set-key (kbd "s-L") 'windmove-swap-states-right)
   (exwm-input-set-key (kbd "s-J") 'windmove-swap-states-left)
   (exwm-input-set-key (kbd "s-I") 'windmove-swap-states-up)
@@ -297,7 +350,7 @@ Window management
 #+end_src
 
 Start a desktop application using switch to buffer
-#+begin_src emacs-lisp :results none
+#+begin_src emacs-lisp
   (use-package xdg-launcher
     :vc (:url "https://github.com/emacs-exwm/xdg-launcher"))
 
@@ -306,12 +359,12 @@ Start a desktop application using switch to buffer
 #+end_src
 
 Suspend the computer
-#+begin_src emacs-lisp :results none
+#+begin_src emacs-lisp
   (exwm-input-set-key (kbd "s-<escape>") 'desktop-environment-lock-screen)
 #+end_src
 
 Open web browser
-#+begin_src emacs-lisp :results none
+#+begin_src emacs-lisp
   (defun run-firefox ()
     (interactive)
     (efs/run-in-background "firefox"))
@@ -319,12 +372,12 @@ Open web browser
   (exwm-input-set-key (kbd "s-<return>") 'run-firefox)
 #+end_src
 Lists all of my firefox tabs
-#+begin_src emacs-lisp :results none
+#+begin_src emacs-lisp
   (defun list-firefox ()
     (interactive)
     (minibuffer-with-setup-hook
         (lambda () (insert "firefox "))
-      (call-interactively #'switch-to-buffer)))
+      (call-interactively #'consult-buffer)))
 
   (exwm-input-set-key (kbd "s-f") #'list-firefox)
 #+end_src
@@ -336,14 +389,14 @@ into a daemon.  This is so that when a program tries to open a text
 editor, it can connect to the Emacs instance without reloading the
 config.  The call to ~exwm-wm-mode~ is what actually starts EXWM.
 
-#+begin_src emacs-lisp :results none
+#+begin_src emacs-lisp
   (scratch-buffer)
   (server-start)
   (exwm-wm-mode)
 #+END_SRC
 For some reason autorandr doesn't work on one of my monitors so I have
 to put this in.
-#+begin_src emacs-lisp :results none
+#+begin_src emacs-lisp
   (start-process-shell-command
    "aaa" nil
    "xrandr --output eDP-1 --auto --output HDMI-1-0 --auto --primary --above eDP-1")
