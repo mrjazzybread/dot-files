@@ -393,7 +393,7 @@ config.  The call to ~exwm-wm-mode~ is what actually starts EXWM.
   (scratch-buffer)
   (server-start)
   (exwm-wm-mode)
-#+END_SRC
+#+end_src
 For some reason autorandr doesn't work on one of my monitors so I have
 to put this in.
 #+begin_src emacs-lisp
