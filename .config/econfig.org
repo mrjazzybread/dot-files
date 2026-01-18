@@ -70,9 +70,11 @@ Pretty mode line
   (use-package doom-modeline-now-playing)
   (doom-modeline-now-playing-timer)
 
+  (display-battery-mode 1)
+
   (doom-modeline-def-modeline 'main
    '(bar matches buffer-info buffer-position now-playing)
-   '(time major-mode))
+   '(time major-mode battery))
 #+end_src
 Display time in mode line
 #+begin_src emacs-lisp :results none
