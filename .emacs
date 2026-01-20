@@ -32,9 +32,7 @@
    '((tuareg :url "https://github.com/mrjazzybread/tuareg")
      (xdg-launcher :url "https://github.com/emacs-exwm/xdg-launcher")
      (xdg-launche :url "https://github.com/emacs-exwm/xdg-launcher")))
- '(safe-local-variable-values
-   '((org-export-buffer . beamer)
-     (org-export-buffer . t))))
+ '(safe-local-variable-values '((org-export-buffer . beamer) (org-export-buffer . t))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
