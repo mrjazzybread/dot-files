@@ -1023,10 +1023,32 @@ Use the \gosp macro for code snippets
   (setq org-export-filter-code-functions
         '((lambda
   	  (s b info)
-  	  (replace-regexp-in-string "texttt" "\gosp" s t t))))
+  	  (let ((s (replace-regexp-in-string "texttt" "gosp" s t t)))
+  	    (replace-regexp-in-string "\\\\_" "_" s t t)))))
 #+end_src
 
 Replaces certain strings with latex
+#+begin_src emacs-lisp
+  (setq org-export-filter-body-functions
+        '((lambda
+  	  (s b info)
+  	  (let ((case-fold-search nil)
+  		(macros '(("GospelSL" . "gospelsl")
+  			  ("Gospel" . "gospel")
+  			  ("Rocq" . "rocq")
+  			  ("OCaml" . "ocaml")
+  			  ("Peter" . "peter")
+  			  ("Ortac" . "ortac")
+  			  ("Why3" . "whythree")
+  			  ("Iris" . "iris")
+  			  ("CFML" . "cfml")
+  			  ("Viper" . "viper")
+  			  ("Cameleer" . "cameleer"))))
+  	    (dolist (v macros)
+  	      (setq s (replace-regexp-in-string
+  		       (car v) (concat "\\" (cdr v)) s t t))))
+  	  s)))
+#+end_src
 ** Org Roam
 
 #+begin_src emacs-lisp
