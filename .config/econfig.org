@@ -363,7 +363,9 @@ Package for completion suggestions
 
 ** OCaml packages
 #+begin_src emacs-lisp
-  (use-package tuareg)
+  (use-package tuareg
+    :vc (:url "https://github.com/mrjazzybread/tuareg"
+  	    :rev :newest))
   #+end_src
 Compile at root of directory
 #+begin_src emacs-lisp

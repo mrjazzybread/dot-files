@@ -29,7 +29,8 @@
 			      volume writeroom-mode xdg-launche
 			      xdg-launcher yaml-mode))
  '(package-vc-selected-packages
-   '((xdg-launcher :url "https://github.com/emacs-exwm/xdg-launcher")
+   '((tuareg :url "https://github.com/mrjazzybread/tuareg")
+     (xdg-launcher :url "https://github.com/emacs-exwm/xdg-launcher")
      (xdg-launche :url "https://github.com/emacs-exwm/xdg-launcher")))
  '(safe-local-variable-values
    '((org-export-buffer . beamer)
