@@ -88,17 +88,19 @@
 
 (defun exwm-firefox--class+title->buffer-name (&optional class title)
   (save-match-data
-    (when-let ((browser-name (exwm-firefox? (or class exwm-class-name))))
-      (let* ((title (or title exwm-title))
-             (page-loaded? (caar (last (s-matched-positions-all "\\S+[-—]\\S+" title))))
-             (page-title (if page-loaded? (substring title 0 page-loaded?) nil))
-             (window-description (if page-loaded? (substring title page-loaded?) title))
-             (private? (s-contains? "private" window-description t)))
-        (concat "*"
-                browser-name
-                (when private? "-private")
-                (when page-title (concat ": " page-title))
-                "*")))))
+    (if (equal exwm-class-name "Zathura")
+	(file-name-nondirectory exwm-title)
+      (when-let ((browser-name (exwm-firefox? (or class exwm-class-name))))
+	(let* ((title (or title exwm-title))
+               (page-loaded? (caar (last (s-matched-positions-all "\\S+[-—]\\S+" title))))
+               (page-title (if page-loaded? (substring title 0 page-loaded?) nil))
+               (window-description (if page-loaded? (substring title page-loaded?) title))
+               (private? (s-contains? "private" window-description t)))
+          (concat "*"
+                  browser-name
+                  (when private? "-private")
+                  (when page-title (concat ": " page-title))
+                "*"))))))
 
 (defun exwm-firefox--update-title ()
   (when-let ((name (exwm-firefox--class+title->buffer-name)))
