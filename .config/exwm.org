@@ -125,7 +125,7 @@ Notifications for different battery states
   	(notifications-notify
   	 :timeout 0 :urgency 'high
   	 :title (format "Battery level critical %d%%!" charge)
-  	 :app-icon "/home/tiago/roam/daily/personal/low-battery.png"
+  	 :app-icon "/home/tiago/.dot-files/low-battery.png"
   	 :replaces-id notification-id)))
 
   (defun battery-charging-notification ()
@@ -133,7 +133,7 @@ Notifications for different battery states
   	(notifications-notify
   	 :urgency 'medium
   	 :title "Battery charging!"
-  	 :app-icon "/home/tiago/roam/daily/personal/battery-charging.png"
+  	 :app-icon "/home/tiago/.dot-files/battery-charging.png"
   	 :replaces-id notification-id)))
 
   (defun battery-discharging-notification ()
@@ -141,7 +141,7 @@ Notifications for different battery states
   	(notifications-notify
   	 :urgency 'medium
   	 :title "Battery discharging!"
-  	 :app-icon "/home/tiago/roam/daily/personal/battery-charging.png"
+  	 :app-icon "/home/tiago/.dot-files/battery-charging.png"
   	 :replaces-id notification-id)))
 
   (defun battery-charged-notification ()
@@ -149,7 +149,7 @@ Notifications for different battery states
   	(notifications-notify
   	 :urgency 'medium
   	 :title "Battery charged!"
-  	 :app-icon "/home/tiago/roam/daily/personal/battery-charged.png"
+  	 :app-icon "/home/tiago/.dot-files/battery-charged.png"
   	 :replaces-id notification-id)))
 
   (defun is-charging (data)

@@ -639,7 +639,7 @@ Notifications for mu4e
   (use-package mu4e-alert)
   (mu4e-alert-set-default-style 'libnotify)
   (mu4e-alert-enable-notifications)
-  (setq mu4e-alert-icon "/home/tiago/roam/daily/personal/email.png")
+  (setq mu4e-alert-icon "/home/tiago/.dot-files/email.png")
 #+end_src
 Human readable header fields
 #+begin_src emacs-lisp
