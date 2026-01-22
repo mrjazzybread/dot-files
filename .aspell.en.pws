@@ -1,6 +1,7 @@
-personal_ws-1.1 en 68 
+personal_ws-1.1 en 74 
 ADT
 ADTs
+BTS
 CFML
 Cameleer
 Changelog
@@ -10,8 +11,10 @@ EXWM
 Fixpoint
 François
 Functors
+GospelSL
 Hoare
 IDF
+JFLA
 MPD
 Minibuffer
 Mário
@@ -24,6 +27,7 @@ SILKSONG
 SPEcification
 Tiago
 Vertico
+Zathura
 arity
 backend
 backends
@@ -48,6 +52,7 @@ inlining
 instantiation
 instantiations
 invariants
+journaled
 logics
 lookups
 minibuffer
@@ -56,6 +61,7 @@ multiset
 multisets
 namespace
 natively
+padel
 polymorphism
 posframe
 pre
