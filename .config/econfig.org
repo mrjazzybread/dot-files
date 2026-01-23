@@ -91,7 +91,7 @@ Allows me to see the column number as well as the line number.
 #+end_src
 Cute icon for notifications
 #+begin_src emacs-lisp
-  (setq alert-default-icon "/home/tiago/roam/daily/personal/doom-cute.png")
+  (setq alert-default-icon "/home/tiago/.dot-files/doom-cute.png")
 #+end_src
 
 * ~utf-8~
