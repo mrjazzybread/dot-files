@@ -177,8 +177,11 @@ Notifications for different battery states
   	  (battery-charged-notification))
         (setq was-full nil)))
 
-  (setq battery-update-functions
-        '(critical-battery battery-charging battery-full))
+
+  (add-hook 'exwm-init-hook
+  	  (lambda ()
+  	    (setq battery-update-functions
+  		  '(critical-battery battery-charging battery-full))))
 #+end_src
 
 * Keybindings for desktop utilities
