@@ -155,20 +155,24 @@ Notifications for different battery states
   (defun is-charging (data)
     (equal (alist-get ?L data) "on-line"))
 
+  (defun is-connected (data)
+    (or (equal (alist-get ?L data) "N/A")
+        (is-charging data)))
+
   (defun dcharge (data)
     (string-to-number (alist-get ?p data)))
 
   (defun critical-battery (data)
-    (when (and (not (is-charging data))
+    (when (and (not (is-connected data))
   	     (< (dcharge data) 10))
       (battery-critical-notification (dcharge data))))
 
   (defun battery-charging (data)
-    (when (and was-charging (not (is-charging data)))
+    (when (and was-charging (not (is-connected data)))
       (battery-discharging-notification))
     (when (and (not was-charging) (is-charging data))
       (battery-charging-notification))
-    (setq was-charging (is-charging data)))
+    (setq was-charging (is-connected data)))
 
   (defun battery-full (data)
     (if (and (eq (dcharge data) 100) (is-charging data))
