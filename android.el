@@ -91,9 +91,14 @@
 
 (defun pull-agenda ()
     (interactive)
-    (shell-command "git --git-dir=$HOME/journal/.git pull")
+    (start-process-shell-command
+     "update" nil
+     "cd $HOME/journal && git pull")
     (org-agenda-list)
+    (message "pulled")
     (delete-other-windows))
+
+(run-at-time t 60 #'pull-agenda)
 
 (use-package git-auto-commit-mode)
 
