@@ -289,7 +289,6 @@ Command to consult and insert from kill-ring
   (global-set-key (kbd "C-c y") #'consult-yank-from-kill-ring)
   (global-set-key (kbd "C-x C-SPC") #'consult-mark)
 #+end_src
-
 * Popup windows
 This makes it so every pop up window appears in the current window.
 Special rule for "magit-diff" to prevent it from taking up the entire
