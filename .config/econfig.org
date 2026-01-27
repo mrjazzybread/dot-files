@@ -1547,3 +1547,22 @@ code block.
   (require 'latex)
   (keymap-set LaTeX-mode-map "C-c C-x C-m" #'gospel-unicode)
 #+end_src
+Remove escaped Latex code
+#+begin_src emacs-lisp
+  (defun delete-until-end ()
+    (while (and (< (point) (- (point-max) 1))
+  	      (not (and (eq (char-after) ?\?)
+  			(eq (char-after (+ (point) 1)) ?*))))
+      (delete-char 1))
+    (delete-char 2))
+
+  (defun delete-gospel-escape ()
+    (beginning-of-buffer)
+    (while (< (point) (- (point-max) 1))
+      (if (and (eq (char-after) ?*) (eq (char-after (+ (point) 1)) ?\?))
+  	(delete-until-end)
+        (forward-char)))
+    (save-buffer))
+
+  (add-hook 'org-babel-post-tangle-hook #'delete-gospel-escape)
+#+end_src
