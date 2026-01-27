@@ -733,6 +733,12 @@ This is very important
     )
 #+end_src
 
+Add Markdown as a an export backend
+#+begin_src emacs-lisp
+  (require 'ox-md)
+  (add-to-list 'org-export-backends 'md)
+#+end_src
+
 ** Appearance
 Hide emphasis markers and macro braces
 
