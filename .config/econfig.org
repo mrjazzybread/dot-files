@@ -1356,11 +1356,6 @@ Do not use posframe for consult line and consult mark
   	(consult-org-maybe (:not posframe))
           (t posframe)))
 #+end_src
-Overrides the normal find file by using the string at point as a
-possible candidate
-#+begin_src emacs-lisp
-  (global-set-key (kbd "C-x C-f") #'find-file-at-point)
-#+end_src
 Switch to buffer with ~recentf~ files.
 #+begin_src emacs-lisp
   (global-set-key (kbd "C-x b") #'consult-buffer)
