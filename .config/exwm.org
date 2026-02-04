@@ -73,10 +73,12 @@ Functions to shutdown and reboot the system
 #+begin_src emacs-lisp
   (defun efs/shutdown ()
     (interactive)
+    (org-save-all-org-buffers)
     (async-shell-command "shutdown -h now"))
 
   (defun efs/reboot ()
     (interactive)
+    (org-save-all-org-buffers)
     (async-shell-command "shutdown -r now"))
 #+end_src
 Mouse follows focus
