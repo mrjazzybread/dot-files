@@ -719,10 +719,14 @@ Add menu item to list only items with a ~TODO~ keyword.
   (add-to-list 'org-agenda-custom-commands
   	     '("t" "List all items with the TODO keyword" ((todo "TODO"))))
 #+end_src
-Add menu item to list albums I haven't listened
+Add menu item to list albums I haven't listened and movies I haven't watched.
 #+begin_src emacs-lisp
   (add-to-list 'org-agenda-custom-commands
   	     '("l" "List all unlistened albums" ((todo "TOLISTEN" nil))
+  	       ((org-agenda-view-columns-initially t))))
+
+  (add-to-list 'org-agenda-custom-commands
+  	     '("m" "List all unwatched movies" ((todo "TOWATCH" nil))
   	       ((org-agenda-view-columns-initially t))))
 #+end_src
 This is very important
@@ -872,7 +876,9 @@ just so that Org mode environments aren't awful to look at.
   	 entry (file+headline log-file "Albums")
   	 "* TOLISTEN %?\n %^{Artist}p"
   	 :empty-lines 0)
-        ))
+  	("m" "Movie"
+  	 entry (file+headline log-file "Movie")
+  	 "* TOWATCH %?\n %^{Recommended}p")))
 #+end_src
 
 ** Search for albums
@@ -890,25 +896,40 @@ artist (this can probably be simplified with ~org-ql~).
         (org-match-sparse-tree nil (concat "ARTIST=" value))
         )))
 #+end_src
+
 ** Org Keywords
 #+begin_src emacs-lisp
-(setq org-todo-keywords
-      '((sequence "APPOINTMENT(p)" "SPEC(s)" "TODO(t)" "IN-PROGRESS(i@/!)" "VERIFYING(v!)" "BLOCKED(b@)" "👁️👄👁️(q)" "TOLISTEN(l)" "|" "DONE(d!)" "OBE(o@!)" "WONT-DO(w@/!)" "LISTENED(m@)" )
-        ))
-;; TODO colors
-(setq org-todo-keyword-faces
-      '(
-        ("TODO" . (:foreground "GoldenRod" :weight bold))
-        ("TOLISTEN" . (:foreground "GoldenRod" :weight bold))
-        ("APPOINTMENT" . (:foreground "DeepPink" :weight bold))
-        ("IN-PROGRESS" . (:foreground "Cyan" :weight bold))
-        ("VERIFYING" . (:foreground "DarkOrange" :weight bold))
-        ("BLOCKED" . (:foreground "Red" :weight bold))
-        ("DONE" . (:foreground "LimeGreen" :weight bold))
-        ("WONT-DO" . (:foreground "Firebrick" :weight bold))
-        ("SPEC" . (:foreground "LightCyan" :weight bold))
-        ("LISTENED" . (:foreground "LimeGreen" :weight bold))
-        ))
+  (setq org-todo-keywords
+        '((sequence "APPOINTMENT(p)"
+  		  "SPEC(s)"
+  		  "TODO(t)"
+  		  "IN-PROGRESS(i@/!)"
+  		  "VERIFYING(v!)"
+  		  "BLOCKED(b@)"
+  		  "👁️👄👁️(q)"
+  		  "TOLISTEN(l)"
+  		  "TOWATCH(e)" "|"
+  		  "DONE(d!)"
+  		  "OBE(o@!)"
+  		  "WONT-DO(w@/!)"
+  		  "LISTENED(m@)"
+  		  "WATCHED(r@)")))
+
+  ;; TODO colors
+  (setq org-todo-keyword-faces
+        '(
+          ("TODO" . (:foreground "GoldenRod" :weight bold))
+          ("TOLISTEN" . (:foreground "GoldenRod" :weight bold))
+  	("TOWATCH" . (:foreground "LightBlue" :weight bold))
+          ("APPOINTMENT" . (:foreground "DeepPink" :weight bold))
+          ("IN-PROGRESS" . (:foreground "Cyan" :weight bold))
+          ("VERIFYING" . (:foreground "DarkOrange" :weight bold))
+          ("BLOCKED" . (:foreground "Red" :weight bold))
+          ("DONE" . (:foreground "LimeGreen" :weight bold))
+          ("WONT-DO" . (:foreground "Firebrick" :weight bold))
+          ("SPEC" . (:foreground "LightCyan" :weight bold))
+          ("LISTENED" . (:foreground "LimeGreen" :weight bold))
+          ))
 #+end_src
 
 ** Remove Spell Checking in Code Blocks
