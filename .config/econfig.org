@@ -355,6 +355,9 @@ Package for completion suggestions
   (setq corfu-auto t)
 
   (global-corfu-mode 1)
+  (corfu-popupinfo-mode 1)
+  (setq corfu-popupinfo-delay nil)
+  (keymap-set corfu-popupinfo-map "C-M-i" #'corfu-popupinfo-toggle)
 
   (use-package nerd-icons-corfu)
   (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter)
@@ -929,6 +932,7 @@ artist (this can probably be simplified with ~org-ql~).
           ("WONT-DO" . (:foreground "Firebrick" :weight bold))
           ("SPEC" . (:foreground "LightCyan" :weight bold))
           ("LISTENED" . (:foreground "LimeGreen" :weight bold))
+  	("WATCHED" . (:foreground "LimeGreen" :weight bold))
           ))
 #+end_src
 
