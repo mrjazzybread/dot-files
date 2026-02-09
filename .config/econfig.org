@@ -657,6 +657,10 @@ Suppress annoying "Indexing... message"
 #+begin_src emacs-lisp
   (setq mu4e-hide-index-messages t)
 #+end_src
+Fold threads at startup
+#+begin_src emacs-lisp
+  (add-hook 'mu4e-thread-mode-hook #'mu4e-thread-fold-all)
+#+end_src
 Start mu4e
 #+begin_src emacs-lisp
   (mu4e)
