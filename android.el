@@ -94,9 +94,8 @@
     (start-process-shell-command
      "update" nil
      "cd $HOME/journal && git pull")
-    (org-agenda-list)
-    (message "pulled")
-    (delete-other-windows))
+    (when (eq major-mode 'org-agenda-mode)
+      (org-agenda-list)))
 
 (run-at-time t 60 #'pull-agenda)
 
