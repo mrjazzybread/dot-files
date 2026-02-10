@@ -740,8 +740,7 @@ This is very important
 #+begin_src emacs-lisp
   (defun what ()
     (interactive)
-    (insert "👁️👄👁️")
-    )
+    (insert "👁️👄👁️"))
 #+end_src
 
 Add Markdown as a an export backend
