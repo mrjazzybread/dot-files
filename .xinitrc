@@ -24,6 +24,3 @@ setxkbmap -layout pt
 
 # Finally start Emacs
 exec emacs -eval '(org-babel-load-file "~/.config/exwm.org")'
-#exec emacs -eval "(exwm-wm-mode)"
-#exec i3
-#exec alacritty
