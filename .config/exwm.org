@@ -107,6 +107,13 @@ Transparent emacs frames.
   (add-to-list 'default-frame-alist '(alpha . (70 . 70)))
 #+end_src
 
+Update dot files.
+#+begin_src emacs-lisp
+  (start-process-shell-command
+     "update" nil
+     "cd $HOME/.dot-files && git pull")
+#+end_src
+
 * Battery Notifications
 Id for critical notifications.
 #+begin_src emacs-lisp
