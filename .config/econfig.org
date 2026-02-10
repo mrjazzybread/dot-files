@@ -1066,7 +1066,8 @@ Replaces certain strings with latex
   (setq org-export-filter-body-functions
         '((lambda
   	  (s b info)
-  	  (let ((case-fold-search nil)
+  	  (when (or (eq b 'latex) (eq b 'beamer))
+  	   (let ((case-fold-search nil)
   		(macros '(("GospelSL" . "gospelsl")
   			  ("Gospel" . "gospel")
   			  ("Rocq" . "rocq")
@@ -1080,7 +1081,7 @@ Replaces certain strings with latex
   			  ("Cameleer" . "cameleer"))))
   	    (dolist (v macros)
   	      (setq s (replace-regexp-in-string
-  		       (car v) (concat "\\" (cdr v)) s t t))))
+  		       (car v) (concat "\\" (cdr v)) s t t)))))
   	  s)))
 #+end_src
 ** Org Roam
