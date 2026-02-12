@@ -439,7 +439,12 @@ Folks... It's ~Magit~.
   (bind-key "C-x g" #'magit-status)
 #+end_src
 
-Commit on every file save
+Automatically save files when entering ~Magit~.
+#+begin_src emacs-lisp
+  (setq magit-save-repository-buffers 'dontask)
+#+end_src
+
+Commit on every file save.  I use this to sync my agenda files automatically.
 #+begin_src emacs-lisp
   (use-package git-auto-commit-mode)
   (setq gac-automatically-add-new-files-p t)
