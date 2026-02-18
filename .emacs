@@ -11,23 +11,25 @@
  '(auto-revert-use-notify nil)
  '(ispell-alternate-dictionary "/usr/lib/aspell-0.60/")
  '(package-selected-packages
-   '(all-the-icons-completion all-the-icons-dired async auctex avy
-			      bluetooth capf-autosuggest consult
+   '(all-the-icons-completion all-the-icons-dired async auctex bluetooth
+			      capf-autosuggest consult
 			      desktop-environment dired-hist
 			      dired-subtree doom-modeline-now-playing
 			      doom-themes dune dwim-shell-command eat
 			      elcord eldoc-box exec-path-from-shell
 			      exwm-firefox-core exwm-mff
-			      fish-completion git-auto-commit-mode
+			      fish-completion flash
+			      git-auto-commit-mode
 			      gnu-elpa-keyring-update magit marginalia
 			      math-symbol-lists mingus mu4e-alert
-			      multiple-cursors ocamlformat orderless
-			      org-alert org-fragtog org-roam
-			      org-roam-ui pinentry proof-general
-			      rustic shades-of-purple-theme smex
-			      trashed tuareg vertico vertico-posframe
-			      volume writeroom-mode xdg-launche
-			      xdg-launcher yaml-mode))
+			      multiple-cursors ocamlformat
+			      opam-switch-mode orderless org-alert
+			      org-fragtog org-roam org-roam-ui
+			      pinentry proof-general rustic
+			      shades-of-purple-theme smex trashed
+			      tuareg vertico vertico-posframe volume
+			      writeroom-mode xdg-launche xdg-launcher
+			      yaml-mode))
  '(package-vc-selected-packages
    '((tuareg :url "https://github.com/mrjazzybread/tuareg")
      (xdg-launcher :url "https://github.com/emacs-exwm/xdg-launcher")

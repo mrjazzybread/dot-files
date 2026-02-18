@@ -207,9 +207,8 @@ Updates the PATH according to the environment in which Emacs is running
 ** Buffer Navigation
 Function for jumping to another part of the buffer quickly
 #+begin_src emacs-lisp
-  (use-package avy)
-  (setq avy-timeout-seconds 0.3)
-  (bind-key "M-j" 'avy-goto-char-timer)
+  (use-package flash)
+  (bind-key "M-j" #'flash-jump)
 #+end_src
 Keybindings for navigating functions
 #+begin_src emacs-lisp
