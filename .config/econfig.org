@@ -411,6 +411,7 @@ Prevent ~Eglot~ from being using when writing Rocq.
 
   (use-package eglot)
   (add-hook 'prog-mode-hook #'lsp-no-coq)
+  (add-hook 'LaTeX-mode-hook #'eglot-ensure)
 #+end_src
 Eldoc popup.  Useful for displaying documentation and errors.  I have
 it set to a keybinding and not a timer since I prefer to control what
