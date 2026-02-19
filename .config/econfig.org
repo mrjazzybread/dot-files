@@ -449,10 +449,12 @@ Commit on every file save.  I use this to sync my agenda files automatically.
   (setq gac-automatically-add-new-files-p t)
 #+end_src
 
-** Yaml
-Not a lot to be said here
+** Miscellaneous Coding packages
+
 #+begin_src emacs-lisp
   (use-package yaml-mode)
+  (use-package boogie-friends)
+  (setq flycheck-dafny-executable "/usr/bin/dafny")
 #+end_src
 
 * ~Dired~
@@ -841,7 +843,7 @@ just so that Org mode environments aren't awful to look at.
     (push '("#+end_example" . ? ) prettify-symbols-alist)
     (push '("#+end_src" . ? ) prettify-symbols-alist)
     (push '("#+begin_src ocaml" . ?🐫) prettify-symbols-alist)
-    (push '("#+begin_src gospel" . ?🐫) prettify-symbols-alist)
+    (push '("#+begin_src gospel" . ?🛐) prettify-symbols-alist)
     (push '("#+begin_src rocq" . ?🦅) prettify-symbols-alist)
     (push '("#+begin_example ocaml :why3" . ?❔) prettify-symbols-alist)
     (push '("#+begin_src emacs-lisp" . ?🗿) prettify-symbols-alist)

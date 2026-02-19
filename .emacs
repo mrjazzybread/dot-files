@@ -12,7 +12,7 @@
  '(ispell-alternate-dictionary "/usr/lib/aspell-0.60/")
  '(package-selected-packages
    '(all-the-icons-completion all-the-icons-dired async auctex bluetooth
-			      capf-autosuggest consult
+			      boogie-friends capf-autosuggest consult
 			      desktop-environment dired-hist
 			      dired-subtree doom-modeline-now-playing
 			      doom-themes dune dwim-shell-command eat
