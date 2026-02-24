@@ -263,24 +263,6 @@ Run applications after EXWM has initialized.
 
   (add-hook 'exwm-init-hook #'startup-apps)
 #+end_src
-Add songs to Mingus
-#+begin_src emacs-lisp
-  (defmacro without-yes-or-no (&rest body)
-  "Override `yes-or-no-p' & `y-or-n-p',
-   not to prompt for input and return t."
-  (declare (indent 1))
-  `(cl-letf (((symbol-function 'yes-or-no-p) (lambda (&rest _) t))
-             ((symbol-function 'y-or-n-p) (lambda (&rest _) t)))
-    ,@body))
-
-  ; checks if mpd is already playing
-  (unless (mpd-get-current-song mpd-inter-conn)
-    (without-yes-or-no (mingus-load-all))
-    (mingus-shuffle)
-    (mingus-play)
-    (mingus-pause))
-#+end_src
-
 Update config files
 #+begin_src emacs-lisp
   (start-process-shell-command "config" nil "~/.update.sh")

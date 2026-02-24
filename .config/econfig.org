@@ -74,11 +74,8 @@ Pretty mode line
   (use-package doom-modeline)
   (doom-modeline-mode 1)
 
-  (use-package doom-modeline-now-playing)
-  (doom-modeline-now-playing-timer)
-
   (doom-modeline-def-modeline 'main
-   '(bar matches buffer-info buffer-position now-playing)
+   '(bar matches buffer-info buffer-position)
    '(time major-mode battery))
 #+end_src
 Display time in mode line
@@ -177,10 +174,6 @@ of stinking up the working directory.
   (setq backup-directory-alist (list (cons ".*" backup-dir)))
   (setq auto-save-list-file-prefix autosave-dir)
   (setq auto-save-file-name-transforms `((".*" ,autosave-dir t)))
-#+end_src
-Package to interface with MPD
-#+begin_src emacs-lisp
-  (use-package mingus)
 #+end_src
 Package for using connecting and pairing Bluetooth devices
 #+begin_src emacs-lisp
