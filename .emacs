@@ -12,16 +12,17 @@
  '(ispell-alternate-dictionary "/usr/lib/aspell-0.60/")
  '(package-selected-packages
    '(all-the-icons-completion all-the-icons-dired async auctex bluetooth
-			      capf-autosuggest company consult corfu
-			      desktop-environment dired-hist
-			      dired-subtree doom-modeline-now-playing
-			      doom-themes dune dwim-shell-command eat
-			      elcord eldoc-box exec-path-from-shell
+			      boogie-friends capf-autosuggest company
+			      consult corfu desktop-environment
+			      dired-hist dired-subtree
+			      doom-modeline-now-playing doom-themes
+			      dune dwim-shell-command eat elcord
+			      eldoc-box exec-path-from-shell
 			      exwm-firefox-core exwm-mff
 			      fish-completion flash flyspell-correct
 			      git-auto-commit-mode
-			      gnu-elpa-keyring-update magit marginalia
-			      math-symbol-lists mu4e-alert
+			      gnu-elpa-keyring-update libmpdee magit
+			      marginalia math-symbol-lists mu4e-alert
 			      multiple-cursors nerd-icons-corfu
 			      ocamlformat orderless org-alert
 			      org-fragtog org-roam-ui pdd pinentry
