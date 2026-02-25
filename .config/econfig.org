@@ -1329,9 +1329,9 @@ Allows using minibuffer commands within the minibuffer.
 #+begin_src emacs-lisp
   (setq enable-recursive-minibuffers t)
 #+end_src
-TAB works the same way as in other completion systems.
+M-TAB expands the prefix of candidates (TAB completion).
 #+begin_src emacs-lisp
-  (keymap-set vertico-map "TAB" #'minibuffer-complete)
+  (keymap-set vertico-map "M-TAB" #'minibuffer-complete)
 #+end_src
 Completion at point uses Vertico
 #+begin_src emacs-lisp
