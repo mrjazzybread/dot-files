@@ -1388,9 +1388,10 @@ Do not use posframe for consult line and consult mark
   	(consult-org-maybe (:not posframe))
           (t posframe)))
 #+end_src
-Switch to buffer with ~recentf~ files.
+Keybindings for switch to buffer.
 #+begin_src emacs-lisp
-  (global-set-key (kbd "C-x b") #'consult-buffer)
+  (global-set-key (kbd "C-x b") #'consult-project-buffer)
+  (global-set-key (kbd "C-x C-b") #'consult-buffer)
 #+end_src
 No live preview when switching buffers
 #+begin_src emacs-lisp
