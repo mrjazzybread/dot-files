@@ -17,7 +17,7 @@
 			      dired-hist dired-subtree
 			      doom-modeline-now-playing doom-themes
 			      dune dwim-shell-command eat elcord
-			      eldoc-box exec-path-from-shell
+			      eldoc-box ewm exec-path-from-shell
 			      exwm-firefox-core exwm-mff
 			      fish-completion flash flyspell-correct
 			      git-auto-commit-mode
