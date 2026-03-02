@@ -1,4 +1,4 @@
-personal_ws-1.1 en 93 
+personal_ws-1.1 en 95 
 ADT
 ADTs
 Almadense
@@ -10,6 +10,7 @@ Cameleer
 Changelog
 CompCert
 Dafny
+EWM
 EXWM
 Fixpoint
 François
@@ -37,6 +38,7 @@ SPEcification
 Soares
 Tiago
 Vertico
+Wayland
 Zathura
 arity
 babyyyy
