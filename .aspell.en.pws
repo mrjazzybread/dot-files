@@ -1,6 +1,7 @@
-personal_ws-1.1 en 95 
+personal_ws-1.1 en 102 
 ADT
 ADTs
+AST
 Almadense
 Almeirim
 BTS
@@ -8,8 +9,11 @@ Blergh
 CFML
 Cameleer
 Changelog
+Charguéraud
+Chirica
 CompCert
 Dafny
+Dired
 EWM
 EXWM
 Fixpoint
@@ -76,10 +80,12 @@ multiset
 multisets
 namespace
 natively
+notational
 padel
 polymorphism
 posframe
 postcondition
+postconditions
 pre
 prover
 provers
@@ -91,6 +97,7 @@ syntaxes
 trillionaires
 typechecker
 typeclass
+typeclasses
 unlistened
 verifier
 wokeism
