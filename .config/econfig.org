@@ -1599,22 +1599,3 @@ Remove escaped Latex code
 
   (add-hook 'org-babel-post-tangle-hook #'delete-gospel-escape)
 #+end_src
-
-* EWM
-
-There is a new Wayland Emacs window manager.  It is superior to EXWM
-in every way EXCEPT that I can't have multiple displays since it
-cannot detect the correct GPU.  For now, I will leave these
-configurations here in case this is fixed.
-
-#+begin_src emacs-lisp
-  (setq ewm-output-config
-         '(("eDP-1" :width 1920 :height 1080)
-  	 ("HDMI-A-1" :width 3440 :height 1440)))
-
-  (setq ewm-input-config
-        '((touchpad :natural-scroll t :tap t)
-  	(mouse :natural-scroll t :accel-profile "adaptive")
-  	(keyboard :repeat-delay 200 :repeat-rate 25
-  		  :xkb-layouts "pt")))
-#+end_src

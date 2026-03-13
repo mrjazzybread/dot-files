@@ -1,12 +1,4 @@
 #+PROPERTY: header-args :results none
-#+begin_src emacs-lisp
-  (use-package ewm)
-#+end_src
-Make it so that EXWM buffers are named after the window they are managing
-#+begin_src emacs-lisp
-  (add-hook 'exwm-update-class-hook
-  	  (lambda () (exwm-workspace-rename-buffer exwm-class-name)))
-#+end_src
 Better splitting of windows
 #+begin_src emacs-lisp
   (defun my-split-window-right (&optional arg)
@@ -76,6 +68,11 @@ Open applications with consult buffer
   	consult-source-recent-file
   	consult-source-xdg-apps))
 #+end_src
+Do not show tab bar
+#+begin_src emacs-lisp
+  (setq tab-bar-show nil)
+#+end_src
+
 * Battery Notifications
 Id for critical notifications.
 #+begin_src emacs-lisp
@@ -301,4 +298,23 @@ Lists all of my firefox tabs
       (call-interactively #'consult-buffer)))
 
   (keymap-set ewm-mode-map "s-f" #'list-firefox)
+#+end_src
+
+* Device Configuration
+
+#+begin_src emacs-lisp
+  (setq ewm-output-config
+         '(("eDP-1" :width 1920 :height 1080)
+  	 ("HDMI-A-1" :width 3440 :height 1440)))
+
+  (setq ewm-input-config
+        '((touchpad :natural-scroll t :tap t)
+  	(mouse :natural-scroll t :accel-profile "adaptive")
+  	(keyboard :repeat-delay 200 :repeat-rate 25
+  		  :xkb-layouts "pt")))
+#+end_src
+
+* Start EWM
+#+begin_src emacs-lisp
+  (ewm-start-module)
 #+end_src
