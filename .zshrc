@@ -103,6 +103,7 @@ alias down="cd ~/downloads"
 #Add snap to bin
 export PATH="/var/lib/snapd/snap/bin:$PATH"
 export PATH=$PATH:./node_modules/.bin
+export PATH=$PATH:"/home/tiago/phd/verifast/bin/vfide"
 #Emacs as default editor
 export EDITOR="emacsclient"
 
@@ -135,6 +136,8 @@ alias update="sudo pacman -Syu"
 alias agenda="emacsclient -c -n -e '(org-agenda-list)'"
 #Command to add a font all the fonts in the current directory.
 alias vpn="/opt/cisco/anyconnect/bin/vpnui"
+#veridumb
+alias verifast="~/phd/verifast/bin/vfide"
 function add-fonts(){
     mv *.ttf ~/.local/share/fonts
     fc-cache -f -v
