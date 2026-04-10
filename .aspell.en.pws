@@ -1,4 +1,4 @@
-personal_ws-1.1 en 108
+personal_ws-1.1 en 115 
 ADT
 ADTs
 AST
@@ -36,10 +36,13 @@ Mário
 OCaml
 Orderless
 Ortac
+Palma
 Pearlite
 Pereira
+RAC
 Rocq
 SILKSONG
+SMT
 SPEcification
 Soares
 Tiago
@@ -49,6 +52,8 @@ Wayland
 WhyML
 Zathura
 arity
+ary
+axiomatized
 babyyyy
 backend
 backends
@@ -65,11 +70,13 @@ dialogs
 disjointness
 duplicable
 encodable
+enum
 expressivity
 frontend
 functors
 hacky
 iProp
+idk
 inlined
 inlining
 instantiation
