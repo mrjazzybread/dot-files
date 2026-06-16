@@ -12,25 +12,26 @@
  '(ispell-alternate-dictionary "/usr/lib/aspell-0.60/")
  '(package-selected-packages
    '(all-the-icons-completion all-the-icons-dired async auctex bluetooth
-			      boogie-friends capf-autosuggest company
-			      consult corfu desktop-environment
-			      dired-hist dired-subtree
-			      doom-modeline-now-playing doom-themes
-			      dune dwim-shell-command eat elcord
-			      eldoc-box exec-path-from-shell
-			      exwm-firefox-core exwm-mff
+			      boogie-friends capf-autosuggest consult
+			      corfu csv-mode desktop-environment
+			      dired-hist dired-subtree doom-modeline
+			      doom-themes dune dwim-shell-command eat
+			      elcord eldoc-box exec-path-from-shell
+			      exwm-firefox-core exwm-mff eyebrowse
 			      fish-completion flash flyspell-correct
 			      git-auto-commit-mode
-			      gnu-elpa-keyring-update libmpdee magit
-			      marginalia math-symbol-lists mu4e-alert
-			      multiple-cursors nerd-icons-corfu
-			      ocamlformat orderless org-alert
-			      org-fragtog org-roam-ui pdd pinentry
-			      proof-general quelpa rustic
+			      gnu-elpa-keyring-update goto-chg logito
+			      magit marginalia marshal
+			      math-symbol-lists mingus mu4e-alert
+			      multiple-cursors navigel
+			      nerd-icons-corfu ocamlformat
+			      opam-switch-mode orderless org-alert
+			      org-fragtog org-roam-ui ox-gfm pcache
+			      pinentry proof-general rustic
 			      shades-of-purple-theme smex trashed
 			      tuareg vertico-posframe volume
-			      writeroom-mode xdg-launcher yaml-mode
-			      yasnippet))
+			      writeroom-mode xdg-launcher yaml
+			      yaml-mode))
  '(package-vc-selected-packages
    '((tuareg :url "https://github.com/mrjazzybread/tuareg")
      (xdg-launcher :url "https://github.com/emacs-exwm/xdg-launcher")
