@@ -1,6 +1,12 @@
 [HDMI-A-1]
 path = "/home/tiago/.config/bg/lain-hands.jpeg"
 
+[DP-2]
+path = "/home/tiago/.config/bg/lain-hands.jpeg"
+
+[DP-3]
+path = "/home/tiago/.config/bg/lain-hands.jpeg"
+
 [eDP-1]
 path = "/home/tiago/.config/bg/flick"
 sorting = "ascending"
