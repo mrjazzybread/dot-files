@@ -150,6 +150,7 @@ function ocaml-trace-disable(){
 }
 
 alias startx="gpg -d ~/.authinfo.gpg > /dev/null && startx"
+alias start-hyprland="gpg -d ~/.authinfo.gpg > /dev/null && start-hyprland"
 
 clear
 fastfetch
