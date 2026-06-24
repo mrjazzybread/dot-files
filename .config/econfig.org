@@ -9,7 +9,6 @@ Add MELPA to the list of recognized archives
   (require 'package)
   (add-to-list 'package-archives
                '("melpa" . "https://melpa.org/packages/") t)
-  (package-initialize)
 #+end_src
 Installs use-package if I don't have it already and enables verbose
 messages
@@ -29,19 +28,10 @@ GNU keys to enable downloading packages
   (use-package gnu-elpa-keyring-update)
 #+end_src
 * Appearance
-
-Disable Splash Screen
-#+begin_src emacs-lisp
-  (setq inhibit-splash-screen t)
-#+end_src
 Define font style and height
 #+begin_src emacs-lisp
-  ;All future frames (useful for the daemon)
-  (setq default-frame-alist '((font . "Roboto Mono 22")))
-  (add-to-list 'default-frame-alist '(background-color . "#34293E"))
-  ;The initial frame (useful for the gui)
-  (setq initial-frame-alist '((font . "Roboto Mono 22")))
-  (add-to-list 'initial-frame-alist '(background-color . "#34293E"))
+  (modify-all-frames-parameters '((font . "Roboto Mono 22")))
+  (modify-all-frames-parameters '((background-color . "#34293E")))
 #+end_src
 Set theme (currently Shades of Purple).  My setup is a little weird: I
 first set it to ~doom-shades-of-purple~ and then ~shades-of-purple~.  This
@@ -50,7 +40,7 @@ ends up with a color scheme that is pleasant for most modes.
   (use-package doom-themes)
   (use-package shades-of-purple-theme)
   (setq custom-safe-themes t)
-  (load-theme 'doom-shades-of-purple t)
+  (load-theme 'doom-shades-of-purple)
   (load-theme 'shades-of-purple)
 #+end_src
 Disables a bunch of needless UI noise.
@@ -61,7 +51,7 @@ Disables a bunch of needless UI noise.
          (scroll-bar-mode -1)
          (menu-bar-showhide-fringe-menu-customize-disable)
          (blink-cursor-mode -1)
-         (windmove-default-keybindings 'meta)))
+         ))
 #+end_src
 Use Emacs to display the battery level.
 #+begin_src emacs-lisp
@@ -101,6 +91,7 @@ Cute icon for notifications
   (set-language-environment 'utf-8)
   (set-selection-coding-system 'utf-8)
   (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
+  (setq alert-default-icon icon-path)
 #+end_src
 
 * Conveniences
@@ -197,45 +188,28 @@ Updates the PATH according to the environment in which Emacs is running
     (exec-path-from-shell-initialize))
 #+end_src
 
-** Buffer Navigation
-Function for jumping to another part of the buffer quickly
+Normal scroll
+#+begin_src emacs-lisp
+  (save-place-mode 1)
+  (setq mouse-wheel-progressive-speed nil)
+#+end_src
+
 #+begin_src emacs-lisp
   (use-package flash)
   (bind-key "M-j" #'flash-jump)
 #+end_src
-Keybindings for navigating functions
-#+begin_src emacs-lisp
-  (bind-key "C-M-p" #'beginning-of-defun)
-  (bind-key "C-M-n" #'end-of-defun)
-#+end_src
-Opens files at the last visited location
-#+begin_src emacs-lisp
-  (save-place-mode 1)
-#+end_src
-Key binding for returning to the beginning of the line ignores
-indentation
-#+begin_src emacs-lisp
-  (global-set-key (kbd "C-a") #'back-to-indentation)
-#+end_src
-Shows an indexed view of the current buffer and allows for
-straightforward navigation
-#+begin_src emacs-lisp
-  (use-package consult)
-  (defun consult-org-maybe ()
-    (interactive)
-    (if (eq major-mode 'org-mode)
-        (consult-org-heading)
-      (consult-imenu)))
 
-  (global-set-key (kbd "M-g i") #'consult-org-maybe)
-#+end_src
-Faster scroll
 #+begin_src emacs-lisp
-  (when (display-graphic-p)
-    (setq mouse-wheel-scroll-amount '(2 ((shift) . 1))
-          mouse-wheel-progressive-speed nil))
-#+end_src
+  (defun my-split-window-right (&optional arg)
+    "Split the current window 70/30 rather than 50/50.
+  A single-digit prefix argument gives the top window arg*10%.
+     We use window-total-width to account for writeroom-mode."
+    (interactive "P")
+    (let ((proportion (* (or arg 6) .1)))
+      (split-window-right (round (* proportion (window-total-width))))))
 
+  (global-set-key (kbd "C-x 3") 'my-split-window-right)
+#+end_src
 ** Editing Buffers
 Enable creation of pairs of brackets or quotes when one is inserted.
 #+begin_src emacs-lisp
@@ -244,8 +218,6 @@ Enable creation of pairs of brackets or quotes when one is inserted.
   (bind-key "{" 'skeleton-pair-insert-maybe)
   (bind-key "[" 'skeleton-pair-insert-maybe)
   (bind-key (char-to-string 34) 'skeleton-pair-insert-maybe)
-  ;char 34 is the single quote, putting the character itself
-  ;ruins prettify symbols mode
 #+end_src
 Enable Emacs to track changes made to files by different programs.
 #+begin_src emacs-lisp
@@ -280,6 +252,17 @@ Command to consult and insert from kill-ring
 #+begin_src emacs-lisp
   (global-set-key (kbd "C-c y") #'consult-yank-from-kill-ring)
   (global-set-key (kbd "C-x C-SPC") #'consult-mark)
+#+end_src
+Functions to shutdown and reboot the system.
+#+begin_src emacs-lisp
+  (defun shutdown ()
+    (interactive)
+    (async-shell-command "shutdown -h now"))
+
+  (defun reboot ()
+    (interactive)
+    (async-shell-command "shutdown -r now"))
+#+end_src
 #+end_src
 * Popup windows
 This makes it so every pop up window appears in the current window.
@@ -322,7 +305,6 @@ window when committing.
 #+end_src
 
 * Coding Packages
-
 ** Compilation
 Jump to first error after compiling.
 #+begin_src emacs-lisp
@@ -664,18 +646,11 @@ Start mu4e
 #+end_src
 
 * Org
-
-#+begin_src emacs-lisp
-  (use-package org)
-#+end_src
-
 ** Some Basic Bookkeeping
 
 Automatically commit changes to org files.
 #+begin_src emacs-lisp
-  (defun epic () (setq gac-automatically-push-p t))
-
-  (add-hook 'git-auto-commit-mode-hook #'epic)
+  (setq-default gac-automatically-push-p t)
 #+end_src
 
 Some helpful variables
@@ -1323,7 +1298,6 @@ Automatic insertion of right brace in Latex-mode
 #+begin_src emacs-lisp
   (use-package vertico)
   (vertico-mode 1)
-  (vertico-multiform-mode 1)
 #+end_src
 Allows using minibuffer commands within the minibuffer.
 #+begin_src emacs-lisp
@@ -1359,34 +1333,6 @@ Icons in minibuffer
 
   (all-the-icons-completion-mode)
   (marginalia-mode)
-#+end_src
-Vertico completion in a posframe
-#+begin_src emacs-lisp
-  (use-package vertico-posframe)
-  (vertico-posframe-mode 1)
-#+end_src
-Non-transparent popup
-#+begin_src emacs-lisp
-  (setq vertico-posframe-parameters '((alpha . 100)))
-#+end_src
-Fixed size Vertico posframe
-#+begin_src emacs-lisp
-  (defun my-vertico-posframe-get-size (buffer)
-    "Set the vert-posframe size according to the current frame."
-    (let ((height (or vertico-posframe-height 10))
-          (width (min (or vertico-posframe-width 200) (round (* .9 (frame-width))))))
-      (list :height height :width width :min-height height :min-width width)))
-
-  (setq vertico-posframe-size-function #'my-vertico-posframe-get-size)
-#+end_src
-Do not use posframe for consult line and consult mark
-#+begin_src emacs-lisp
-  (setq vertico-multiform-commands
-        '((consult-line (:not posframe))
-  	(consult-mark (:not posframe))
-  	(consult-mark (:not posframe))
-  	(consult-org-maybe (:not posframe))
-          (t posframe)))
 #+end_src
 Keybindings for switch to buffer.
 #+begin_src emacs-lisp
