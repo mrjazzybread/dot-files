@@ -1481,6 +1481,19 @@ We use eat to run any commands that require visuals
   (add-hook 'eshell-mode-hook #'eat-eshell-mode)
 #+end_src
 
+* Typst
+
+#+begin_src emacs-lisp
+  (use-package typst-ts-mode)
+#+end_src
+
+Command to compile a Typst project.
+#+begin_src emacs-lisp
+  (defun run-typst ()
+    (interactive)
+    (async-shell-command "typst watch main.typ"))
+#+end_src
+
 * Gospel Specific Things
 Some macros to help writing Rocq proofs of Gospel signatures.
 #+begin_src emacs-lisp
