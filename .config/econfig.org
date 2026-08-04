@@ -83,15 +83,7 @@ Cute icon for notifications
 
 * ~utf-8~
 #+begin_src emacs-lisp
-  (prefer-coding-system       'utf-8)
-  (set-default-coding-systems 'utf-8)
-  (set-terminal-coding-system 'utf-8)
-  (set-keyboard-coding-system 'utf-8)
-  (setq default-buffer-file-coding-system 'utf-8)
-  (set-language-environment 'utf-8)
-  (set-selection-coding-system 'utf-8)
-  (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
-  (setq alert-default-icon icon-path)
+  (set-locale-environment "UTF-8")
 #+end_src
 
 * Conveniences
@@ -266,8 +258,8 @@ Functions to shutdown and reboot the system.
 #+end_src
 * Popup windows
 This makes it so every pop up window appears in the current window.
-Special rule for "magit-diff" to prevent it from taking up the entire
-window when committing.
+We add special rules for the minor and major modes that are allowed to
+perform splits on the current window layout.
 #+begin_src emacs-lisp
   (add-to-list 'display-buffer-alist
                  '(""
@@ -434,48 +426,48 @@ Commit on every file save.  I use this to sync my agenda files automatically.
 #+end_src
 
 * ~Dired~
-Deleted files are moved to the trash folder
+By default, deleting a file removes it from your file system.  This
+makes it so that deleting files moves them to the trash folder.
 #+begin_src emacs-lisp
   (setq delete-by-moving-to-trash t)
 #+end_src
-Start ~Dired~ in omit mode
+~dired~ presents a bunch of details about each file that I don't file
+particularly useful.  This makes it so ~dired~ only presents the name of
+the file.
+#+begin_src emacs-lisp
+  (add-hook 'dired-mode-hook #'dired-hide-details-mode)
+#+end_src
+By default, ~dired~ shows hidden files.  By enabling ~dired-omit-mode~,
+~dired~ we can hide them.
 #+begin_src emacs-lisp
   (add-hook 'dired-mode-hook #'dired-omit-mode)
 #+end_src
-Bind the "o" key to show hidden files
+Sometimes we might want to see hidden files.  This makes it so that
+pressing ~o~ reveals them.
 #+begin_src emacs-lisp
-  (add-hook 'dired-mode-hook
-            (lambda () (local-set-key
-                        (kbd "o") #'dired-omit-mode)))
+  (keymap-set dired-mode-map "o" #'dired-omit-mode)
 #+end_src
-Bind the "b" key to move up in the directory
-#+begin_src emacs-lisp
-  (add-hook 'dired-mode-hook
-            (lambda () (local-set-key
-                        (kbd "b") #'dired-up-directory)))
-#+end_src
-Set files to omit
+The files that I want to omit with ~dired-omit-mode~.
 #+begin_src emacs-lisp
   (setq dired-omit-files
         (rx (or (seq bol (? ".") "#")     ;; emacs autosave files
                 (seq bol ".") ;; dot-files
                 (seq "~" eol)                 ;; backup-files
                 (seq bol "CVS" eol)           ;; CVS dirs
-  	      (seq bol "CVS" eol)           ;; CVS dirs
                 )))
 #+end_src
-Make it so ~Dired~ buffers are just a list of file names.
+Disable "Omit N files" message that appears in the minibuffer after
+enabling ~dired-omit-mode~.
 #+begin_src emacs-lisp
-  (add-hook 'dired-mode-hook
-            (lambda () (dired-hide-details-mode 1)))
+  (setq dired-omit-verbose nil)
 #+end_src
-Icons for ~Dired~ mode.
+Pressing the ~b~ key moves you up the directory hierarchy.
 #+begin_src emacs-lisp
-   ;This package requires additional fonts
-  (use-package all-the-icons-dired
-    :hook (dired-mode . all-the-icons-dired-mode))
+  (keymap-set dired-mode-map "b" #'dired-up-directory)
 #+end_src
-Kill ~Dired~ buffer when opening a new ~Dired~ buffer.
+Opening a lot of ~dired~ buffers can lead to extreme clutter your buffer
+list.  This option makes it so that whenever you go into a new
+directory from a ~dired~ buffer, Emacs kills the current ~dired~ buffer.
 #+begin_src emacs-lisp
   (setq dired-kill-when-opening-new-dired-buffer t)
 #+end_src
@@ -484,49 +476,14 @@ directory
 #+begin_src emacs-lisp
   (setq global-auto-revert-non-file-buffers t)
 #+end_src
-Keeps track of visited ~Dired~ buffers
+Adds icons to ~dired~ buffers for each file.  Note that you may need to
+install extra fonts for this to work correctly.  For instructions on
+how to do this, go to the GitHub for [[https://github.com/domtronn/all-the-icons.el][all-the-icons]].
 #+begin_src emacs-lisp
-  (use-package dired-hist)
-  (define-key dired-mode-map "l" #'dired-hist-go-back)
-  (define-key dired-mode-map "r" #'dired-hist-go-forward)
-  (dired-hist-mode 1)
-#+end_src
-More convenient way to search through sub-directories.
-#+begin_src emacs-lisp
-  (use-package dired-subtree)
-  (keymap-set dired-mode-map "i" #'dired-subtree-insert)
-  (keymap-set dired-mode-map "DEL" #'dired-subtree-remove)
-#+end_src
-Disable "Omit N files" message
-#+begin_src emacs-lisp
-  (setq dired-omit-verbose nil)
-#+end_src
-Quickly browse files in read only mode
-#+begin_src emacs-lisp
-  (defun view-browse (f)
-
-    (let ((b (current-buffer)))
-      (dired-jump)
-      (condition-case nil
-  	((lambda () (funcall f)
-  	   (dired-find-file)
-  	   (kill-buffer b)
-  	   (view-mode)))
-        (error
-         (progn (switch-to-buffer b)
-  	      (message "No more files in current directory"))))))
-
-  (defun view-next-file ()
-    (interactive)
-    (view-browse (lambda () (dired-next-line 1))))
-
-  (defun view-previous-file ()
-    (interactive)
-    (view-browse (lambda () (dired-previous-line 1)))
-    )
-
-  (define-key view-mode-map (kbd "n") 'view-next-file)
-  (define-key view-mode-map (kbd "p") 'view-previous-file)
+   ;This package requires additional fonts
+  (use-package all-the-icons)
+  (use-package all-the-icons-dired
+    :hook (dired-mode . all-the-icons-dired-mode))
 #+end_src
 Change ~ls~ switches to use human readable file sizes and to list
 directories first.
@@ -538,7 +495,6 @@ another window in the same frame, it selects that buffer by default
 #+begin_src emacs-lisp
   (setq dired-dwim-target t)
 #+end_src
-
 * Email
 
 Use mu4e to manage emails.  Naturally, requires mu4e to already be
@@ -943,124 +899,6 @@ Keybindings to navigate agenda view
   (keymap-set org-agenda-keymap "n" #'org-agenda-next-item)
   (keymap-set org-agenda-keymap "p" #'org-agenda-previous-item)
 #+end_src
-
-** French Notes
-
-Function for inserting a conjugation table for french verbs
-#+begin_src emacs-lisp
-  (setq conjugation-table
-  "|-----------+---|
-  | Je        |   |
-  |-----------+---|
-  | Tu        |   |
-  |-----------+---|
-  | Il/Elle   |   |
-  |-----------+---|
-  | Nous      |   |
-  |-----------+---|
-  | Vous      |   |
-  |-----------+---|
-  | Ils/Elles |   |
-  |-----------+---|")
-
-  (defun start-conjugation ()
-    (interactive)
-    (insert conjugation-table)
-    (org-backward-paragraph)
-    (org-cycle)
-    (org-cycle))
-#+end_src
-
-** LaTeX export
-Add common scientific paper classes.
-
-#+begin_src emacs-lisp
-  (with-eval-after-load 'ox-latex
-    (add-to-list 'org-latex-classes
-                 '("llncs"
-                   "\\documentclass{llncs}"
-                   ("\\section{%s}" . "\\section*{%s}")
-                   ("\\subsection{%s}" . "\\subsection*{%s}"))))
-
-  (with-eval-after-load 'ox-latex
-    (add-to-list 'org-latex-classes
-                 '("IEEEtran"
-                   "\\documentclass{IEEEtran}"
-                   ("\\section{%s}" . "\\section*{%s}")
-                   ("\\subsection{%s}" . "\\subsection*{%s}"))))
-#+end_src
-
-Disable exporting with table of contents.
-#+begin_src emacs-lisp
-  (setq org-export-with-toc nil)
-#+end_src
-Automatically export to latex on save when the ~export-org-buffer~
-variable is non-nil.  This should be buffer local.
-#+begin_src emacs-lisp
-  (setq org-export-buffer nil)
-  (defun org-export-auto ()
-    (when org-export-buffer
-     (if (equal org-export-buffer 'beamer)
-        (org-beamer-export-to-latex)
-      (org-latex-export-to-latex))
-    (org-babel-tangle)
-    (let ((gospel (car (directory-files "." t "\\.mli$" t 1)))
-  	(rocq (car (directory-files "." t "\\.v$" t 1))))
-      (shell-command (concat "gospel check " gospel) "Gospel Type Checking")
-      (shell-command (concat "rocq c " rocq ">> /dev/null") "Rocq Compilation"))))
-
-  (add-hook 'after-save-hook #'org-export-auto)
-#+end_src
-Use listings for source code blocks
-#+begin_src emacs-lisp
-  (setq org-latex-src-block-backend 'listings)
-#+end_src
-Command to display the compilation windows for LaTeX, Gospel and Rocq
-#+begin_src emacs-lisp
-  (defun latex-compilation-windows ()
-    (interactive)
-    (delete-other-windows)
-    (switch-to-buffer "LaTeX")
-    (my-split-window-right)
-    (windmove-right)
-    (switch-to-buffer "Gospel Type Checking")
-    (split-window-below)
-    (windmove-down)
-    (switch-to-buffer "Rocq Compilation"))
-#+end_src
-
-Use the \gosp macro for code snippets
-#+begin_src emacs-lisp
-  (setq org-export-filter-code-functions
-        '((lambda
-  	  (s b info)
-  	  (let ((s (replace-regexp-in-string "texttt" "gosp" s t t)))
-  	    (replace-regexp-in-string "\\\\_" "_" s t t)))))
-#+end_src
-
-Replaces certain strings with latex
-#+begin_src emacs-lisp
-  (setq org-export-filter-body-functions
-        '((lambda
-  	  (s b info)
-  	  (when (or (eq b 'latex) (eq b 'beamer))
-  	   (let ((case-fold-search nil)
-  		(macros '(("GospelSL" . "gospelsl")
-  			  ("Gospel" . "gospel")
-  			  ("Rocq" . "rocq")
-  			  ("OCaml" . "ocaml")
-  			  ("Peter" . "peter")
-  			  ("Ortac" . "ortac")
-  			  ("Why3" . "whythree")
-  			  ("Iris" . "iris")
-  			  ("CFML" . "cfml")
-  			  ("Viper" . "viper")
-  			  ("Cameleer" . "cameleer"))))
-  	    (dolist (v macros)
-  	      (setq s (replace-regexp-in-string
-  		       (car v) (concat "\\" (cdr v)) s t t)))))
-  	  s)))
-#+end_src
 ** Org Roam
 
 #+begin_src emacs-lisp
@@ -1292,6 +1130,10 @@ Automatic insertion of right brace in Latex-mode
 #+begin_src emacs-lisp
   (setq LaTeX-electric-left-right-brace t)
 #+end_src
+Hide Markdown markup
+#+begin_src emacs-lisp
+  (setq markdown-hide-markup t)
+#+end_src
 
 * Minibuffer completion w/Vertico
 
@@ -1344,7 +1186,7 @@ No live preview when switching buffers
   (setq consult-preview-excluded-buffers t)
 #+end_src
 Replace I-search with consult-line.  Vertico cycle is set to ~t~ so that
-we can go to candidates in previous lines.
+we can go to candidates in lines previous to the one we started in.
 #+begin_src emacs-lisp
   (setq vertico-cycle t)
   (global-set-key (kbd "C-s") #'consult-line)
@@ -1385,36 +1227,6 @@ Function for clearing the shell
       (end-of-buffer)
       ))
 #+end_src
-Function for getting to the base of any project. Useful for spawning
-shells since having it at the root of the project is generally more
-convenient.
-#+begin_src emacs-lisp
-  (defvar project-files
-    '("dune-project" "package.json"
-      "CoqProject" "Makefile"
-      )
-    )
-
-  (defun is-base ()
-    (or (equal default-directory "/")
-        (not (eq (seq-intersection
-           (directory-files ".")
-           project-files
-           'equal
-           ) nil)
-        ))
-    )
-
-  (defun get-to-base ()
-    (let ((c default-directory))
-    (progn
-      (while (not (is-base))
-        (find-file ".."))
-      (when (equal default-directory "/")
-          (find-file c)
-          )
-    )))
-#+end_src
 Always spawns eshell on a new terminal
 #+begin_src emacs-lisp
   (defun multi-eshell ()
@@ -1428,16 +1240,6 @@ Always spawns eshell on a new terminal
       (rename-uniquely))
     (switch-to-buffer b)
     (eshell)))
-#+end_src
-Key binding for spawning a new instance of ~eshell~ at the root of a
-project.
-
-#+begin_src emacs-lisp
-  (defun eshell-spawn ()
-    (interactive)
-    (get-to-base)
-    (multi-eshell))
-  (bind-key "C-c C-SPC" 'eshell-spawn)
 #+end_src
 Delete duplicates in the ~eshell~ history
 #+begin_src emacs-lisp
@@ -1457,7 +1259,6 @@ Add rust packages to path
 #+begin_src emacs-lisp
   (add-to-list 'exec-path "~/.cargo/bin")
 #+end_src
-
 Buffer name matches eshell directory
 #+begin_src emacs-lisp
   (defun sync-dir-in-buffer-name ()
@@ -1491,7 +1292,38 @@ Command to compile a Typst project.
 #+begin_src emacs-lisp
   (defun run-typst ()
     (interactive)
-    (async-shell-command "typst watch main.typ"))
+    (async-shell-command "typst watch main.typ" "Typst"))
+#+end_src
+
+* Elfeed
+Package to read RSS feeds.
+#+begin_src emacs-lisp
+  (use-package elfeed)
+#+end_src
+Update RSS on startup and every 2 hours.
+#+begin_src emacs-lisp
+  (elfeed-update)
+  (run-at-time nil (* 2 60 60) #'elfeed-update)
+#+end_src
+
+* Multimedia
+
+Loads my music library onto EMMS (Emacs Multimedia System)
+#+begin_src emacs-lisp
+  (use-package emms)
+  (emms-all)
+  (emms-add-file "~/music")
+  (emms-shuffle)
+#+end_src
+
+Set ~MPV~ as my default music player.
+#+begin_src emacs-lisp
+  (setq emms-player-list '(emms-player-mpv))
+#+end_src
+
+Makes it so ~playerctl~ works with EMMS.
+#+begin_src emacs-lisp
+  (emms-mpris-enable)
 #+end_src
 
 * Gospel Specific Things
