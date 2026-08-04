@@ -1,4 +1,4 @@
-personal_ws-1.1 en 140 
+personal_ws-1.1 en 143 
 ADT
 ADTs
 AST
@@ -75,6 +75,7 @@ beamer
 cardinality
 codebase
 codomain
+coercions
 combinator
 completly
 cryptographic
@@ -136,6 +137,8 @@ typechecker
 typeclass
 typeclasses
 unlistened
+unshelve
+unshelving
 verifier
 vibed
 wokeism
