@@ -1,6 +1,7 @@
 #+title: Emacs configuration
 #+PROPERTY: header-args :results none
 #+begin_src emacs-lisp
+  ;; -*- lexical-binding: t; -*-
   (load-file "~/.config/sensitive.el")
 #+end_src
 * Package Configuration
@@ -33,15 +34,11 @@ Define font style and height
   (modify-all-frames-parameters '((font . "Roboto Mono 22")))
   (modify-all-frames-parameters '((background-color . "#34293E")))
 #+end_src
-Set theme (currently Shades of Purple).  My setup is a little weird: I
-first set it to ~doom-shades-of-purple~ and then ~shades-of-purple~.  This
-ends up with a color scheme that is pleasant for most modes.
+Set theme (currently Shades of Purple).
 #+begin_src emacs-lisp
-  (use-package doom-themes)
-  (use-package shades-of-purple-theme)
   (setq custom-safe-themes t)
+  (use-package doom-themes)
   (load-theme 'doom-shades-of-purple)
-  (load-theme 'shades-of-purple)
 #+end_src
 Disables a bunch of needless UI noise.
 #+begin_src emacs-lisp
@@ -298,6 +295,9 @@ perform splits on the current window layout.
 
 * Coding Packages
 ** Compilation
+#+begin_src emacs-lisp
+  (use-package compile)
+#+end_src
 Jump to first error after compiling.
 #+begin_src emacs-lisp
   (setq compilation-auto-jump-to-first-error 'first-known)
