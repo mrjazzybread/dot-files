@@ -1252,7 +1252,14 @@ Update RSS on startup and every 2 hours.
   (elfeed-update)
   (run-at-time nil (* 2 60 60) #'elfeed-update)
 #+end_src
-
+RSS feed database
+#+begin_src emacs-lisp
+  (setq elfeed-feeds
+   '("https://rss.arxiv.org/atom/cs.PL"
+     "https://www.worldpoliticsreview.com/feed/"
+     "https://www.reddit.com/r/emacs.rss"
+     "https://www.patreon.com/rss/chapotraphouse?auth=2TG4bQg76BCEXmj_RpOzlvax9O8TUffh"))
+#+end_src
 * Multimedia
 
 Loads my music library onto EMMS (Emacs Multimedia System)
