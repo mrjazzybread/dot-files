@@ -388,6 +388,10 @@ pop ups appear.
   (setq eldoc-box-only-multi-line t)
   (bind-key "\C-hj" #'eldoc-box-help-at-point)
 #+end_src
+Prevent ~Eglot~ from displaying code actions.
+#+begin_src emacs-lisp
+  (setq eglot-code-action-indications nil)
+#+end_src
 
 ** Git packages
 
