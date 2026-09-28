@@ -779,6 +779,10 @@ TODO tag colors
             ("DONE" . (:foreground "LimeGreen" :weight bold))
   	  ("WONT-DO" . (:foreground "Firebrick" :weight bold))))
 #+end_src
+Default collumn
+#+begin_src emacs-lisp
+  (setq org-columns-default-format "%70ITEM")
+#+end_src
 *** Org Pretty Symbols
 
 Function for adding pretty symbols for Org mode. Most of these are
