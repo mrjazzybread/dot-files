@@ -812,20 +812,16 @@ just so that Org mode environments aren't awful to look at.
   (add-hook 'org-mode-hook #'add-symbols)
 #+end_src
 
-** Search for albums
-This function searches for albums in my personal list from a certain
-artist (this can probably be simplified with ~org-ql~).
+** Count number of albums
+
+Counts the number of listened albums headings
 #+begin_src emacs-lisp
-  (defun list-albums-by-artist ()
-    (interactive)
-    (with-current-buffer "art.org.gpg"
-      (let* ((value (completing-read
-        		   "Value: " (mapcar #'list (org-property-values "ARTIST")))))
-        (unless (string-match "\\`{.*}\\'" value)
-  	(setq value (concat "\"" value "\"")))
-        (switch-to-buffer "art.org.gpg")
-        (org-match-sparse-tree nil (concat "ARTIST=" value))
-        )))
+  (defun listened-albums ()
+  (interactive)
+  (message
+   (int-to-string
+    (length (org-map-entries t "/+DONE" `(,log-file))))))
+
 #+end_src
 
 ** Remove Spell Checking in Code Blocks
