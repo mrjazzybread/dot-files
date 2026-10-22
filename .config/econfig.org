@@ -787,6 +787,12 @@ Default collumn
 #+begin_src emacs-lisp
   (setq org-columns-default-format "%70ITEM")
 #+end_src
+
+Decrease the size of latex previews
+#+begin_src emacs-lisp
+  (plist-put org-format-latex-options :scale 2)
+#+end_src
+
 *** Org Pretty Symbols
 
 Function for adding pretty symbols for Org mode. Most of these are
