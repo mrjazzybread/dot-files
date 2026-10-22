@@ -1015,6 +1015,7 @@ Why3 configuration
    ("\\nin" ?∉)
    ("\\u" ?∪)
    ("\\points" ?↦)
+   ("\\zdot" ?٠)
 
    ;; accents (for iLöb)
    ("\\o" ?ö)
@@ -1284,25 +1285,33 @@ Makes it so ~playerctl~ works with EMMS.
 * Gospel Specific Things
 Some macros to help writing Rocq proofs of Gospel signatures.
 #+begin_src emacs-lisp
+  (setq gospel-prefix "")
+
+  (defun begin-module (s)
+    (interactive "sName: ")
+    (setq-local gospel-prefix (concat gospel-prefix s "٠")))
+
   (defun gospel-abstract (var)
-    (interactive "sName:")
-    (insert
-     (format
-      "Global Instance _%s_inst : _%s_sig :="
-      var var))
-    (newline 1 t)
-    (insert (format "{ %s :=  }." var))
-    (backward-char 3))
+    (interactive "sName: ")
+    (let ((var (concat gospel-prefix var)))
+      (insert
+       (format
+        "Global Instance %s٠٠inst : %s٠٠sig :="
+        var var))
+      (newline 1 t)
+      (insert (format "{ %s :=  }." var))
+      (backward-char 3)))
 
   (defun gospel-lemma (var)
-    (interactive "sName:")
-    (insert
-     (format
-      "#[refine] Global Instance _%s_inst : _%s_sig := { }."
-      var var var))
-    (newline 1 t)
-    (insert "Proof.")
-    (newline 1 t))
+    (interactive "sName: ")
+    (let ((var (concat gospel-prefix "_" var)))
+      (insert
+       (format
+        "#[refine] Global Instance %s٠٠inst : %s٠٠sig := { }."
+        var var var))
+      (newline 1 t)
+      (insert "Proof.")
+      (newline 1 t)))
 #+end_src
 Function to insert Gospel header
 #+begin_src emacs-lisp
