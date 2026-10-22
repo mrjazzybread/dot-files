@@ -658,20 +658,24 @@ Enable notifications for Org agenda items
 Add menu item to list only items with a ~TODO~ keyword.
 #+begin_src emacs-lisp
   (add-to-list 'org-agenda-custom-commands
-  	     '("t" "List all PhD tasks" ((todo "TODO"))
-  	       ((org-agenda-files (list todo-file)))))
+  	     '("t" "List all PhD tasks"
+  	       ((todo "TODO"))
+  	       ((org-agenda-files (list todo-file))
+  		(org-agenda-view-columns-initially t))))
 #+end_src
 Add menu item to list albums I haven't listened yet.
 #+begin_src emacs-lisp
   (add-to-list 'org-agenda-custom-commands
   	     '("l" "List all unlistened albums" ((todo "TODO"))
-  	       ((org-agenda-files (list log-file)))))
+  	       ((org-agenda-files (list log-file))
+  		(org-agenda-view-columns-initially t))))
 #+end_src
 Add menu item to list unread papers
 #+begin_src emacs-lisp
   (add-to-list 'org-agenda-custom-commands
   	     '("p" "List all unread papers" ((todo "TODO"))
-  	       ((org-agenda-files (list papers-file)))))
+  	       ((org-agenda-files (list papers-file))
+  		(org-agenda-view-columns-initially t))))
 #+end_src
 Add Markdown as a an export backend
 #+begin_src emacs-lisp
@@ -683,10 +687,6 @@ Update agenda on startup
 #+begin_src emacs-lisp
   (start-process-shell-command
    "update" nil "cd $HOME/roam/daily && git pull")
-#+end_src
-List ~TODO~ items in column-view-mode
-#+begin_src emacs-lisp
-  (setq org-agenda-view-columns-initially t)
 #+end_src
 Do not list sub tasks
 #+begin_src emacs-lisp
