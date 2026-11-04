@@ -61,9 +61,18 @@ Pretty mode line
   (use-package doom-modeline)
   (doom-modeline-mode 1)
 
+  (doom-modeline-def-segment emms-info
+    "Metadata regarding the current file, such as dimensions for images."
+    ;; TODO: Include other information
+      (format "%s %s %s"
+  	    (if emms-player-paused-p "" "")
+  	    (emms-track-get (emms-playlist-current-selected-track)
+  	     'info-title)
+  	    emms-playing-time-string))
+
   (doom-modeline-def-modeline 'main
-   '(bar matches buffer-info buffer-position)
-   '(time major-mode battery))
+    '(bar matches buffer-info buffer-position)
+    '(emms-info time major-mode battery))
 #+end_src
 Display time in mode line
 #+begin_src emacs-lisp
